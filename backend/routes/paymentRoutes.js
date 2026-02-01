@@ -7,6 +7,7 @@ import {
   validatePaymentVerification,
   paymentRateLimit
 } from "../middlewares/validation.js";
+import { PurchasedTest } from "../models/PurchasedTest.js";
 
 const router = express.Router();
 
