@@ -36,45 +36,82 @@ const testSeriesSchema = new mongoose.Schema({
 
 const TestSeries = mongoose.model('TestSeries', testSeriesSchema);
 
+// ✅ ALL THREE TEST SERIES WITH CORRECT IDs MATCHING FRONTEND
+const testSeriesData = [
+    {
+        testId: 'iat',  // ✅ Matches frontend request
+        name: 'IAT SERIES',
+        description: 'Speed Mastery - Comprehensive test series for IAT preparation',
+        price: 1,  // Update this to your actual price
+        isActive: true
+    },
+    {
+        testId: 'nest',  // ✅ Matches frontend request
+        name: 'NEST SERIES',
+        description: 'Deep Dive - Advanced test series for NEST examination',
+        price: 1,  // Update this to your actual price
+        isActive: true
+    },
+    {
+        testId: 'isi',  // ✅ Matches frontend request
+        name: 'ISI SERIES',
+        description: 'Proof Academy - Professional test series for ISI preparation',
+        price: 1,  // Update this to your actual price
+        isActive: true
+    }
+];
+
 async function seedData() {
     try {
         console.log('🔌 Connecting to MongoDB...');
         await mongoose.connect(MONGODB_URI);
-        console.log('✅ Connected.');
+        console.log('✅ Connected to MongoDB\n');
 
-        const testId = 'test-iat-2024';
+        for (const testData of testSeriesData) {
+            console.log(`🔍 Processing test '${testData.testId}'...`);
+            
+            const existing = await TestSeries.findOne({ testId: testData.testId });
 
-        console.log(`🔍 Checking if test '${testId}' exists...`);
-        const existing = await TestSeries.findOne({ testId });
-
-        if (existing) {
-            console.log(`⚠️ Test '${testId}' already exists. Updating...`);
-            existing.price = 199;
-            existing.isActive = true;
-            existing.name = 'IAT Mock Test Series 2024';
-            await existing.save();
-            console.log('✅ Test updated.');
-        } else {
-            console.log(`🌱 Creating new test '${testId}'...`);
-            await TestSeries.create({
-                testId: testId,
-                name: 'IAT Mock Test Series 2024',
-                description: 'Comprehensive mock test series for IAT 2024 preparation.',
-                price: 199,
-                isActive: true
-            });
-            console.log('✅ Test created successfully.');
+            if (existing) {
+                console.log(`⚠️  Test '${testData.testId}' already exists`);
+                console.log(`   Current: ${existing.name} - ₹${existing.price}`);
+                console.log(`   Updating to: ${testData.name} - ₹${testData.price}\n`);
+                
+                existing.price = testData.price;
+                existing.name = testData.name;
+                existing.description = testData.description;
+                existing.isActive = testData.isActive;
+                existing.updatedAt = new Date();
+                await existing.save();
+                
+                console.log(`✅ Test '${testData.testId}' updated successfully\n`);
+            } else {
+                console.log(`🌱 Creating new test '${testData.testId}'...`);
+                await TestSeries.create(testData);
+                console.log(`✅ Test '${testData.testId}' created successfully\n`);
+            }
         }
 
-        // Verify it exists
-        const verify = await TestSeries.findOne({ testId });
-        console.log('📋 Verified Test Data:', verify);
+        // Verify all tests exist
+        console.log('📋 VERIFICATION - All Test Series in Database:');
+        console.log('═══════════════════════════════════════════════\n');
+        
+        const allTests = await TestSeries.find({ isActive: true }).sort({ testId: 1 });
+        allTests.forEach(test => {
+            console.log(`✅ ${test.testId.toUpperCase().padEnd(10)} | ${test.name.padEnd(30)} | ₹${test.price}`);
+        });
+        
+        console.log('\n═══════════════════════════════════════════════');
+        console.log(`✅ Total Active Tests: ${allTests.length}`);
+        console.log('\n🎉 Database seeding completed successfully!');
+        console.log('🚀 You can now test the payment flow at testfirstpage.html\n');
 
     } catch (error) {
-        console.error('❌ Error seeding data:', error);
+        console.error('❌ Error seeding data:', error.message);
+        console.error(error.stack);
     } finally {
         await mongoose.disconnect();
-        console.log('👋 Disconnected.');
+        console.log('👋 Disconnected from MongoDB');
         process.exit(0);
     }
 }
