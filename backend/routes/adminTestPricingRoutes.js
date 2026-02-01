@@ -145,4 +145,39 @@ router.get("/:testId/price-history", verifyAdminAuth, async (req, res) => {
   }
 });
 
+
+// 🔧 POST /api/admin/tests/seed-fix - Fix missing test data (ADMIN ONLY)
+router.post("/seed-fix", verifyAdminAuth, async (req, res) => {
+  try {
+    const testId = "test-iat-2024";
+    console.log("🔧 Seeding test data for:", testId);
+
+    let test = await TestSeries.findOne({ testId });
+    let action = "none";
+
+    if (!test) {
+      test = await TestSeries.create({
+        testId,
+        name: "IAT Mock Test Series 2024",
+        description: "Comprehensive mock test series for IAT 2024 preparation.",
+        price: 199,
+        isActive: true
+      });
+      action = "created";
+      console.log("✅ Test created via seed-fix");
+    } else {
+      console.log("ℹ️ Test already exists");
+    }
+
+    res.json({
+      success: true,
+      message: `Seed operation complete. Action: ${action}`,
+      test
+    });
+  } catch (error) {
+    console.error("❌ Seed fix error:", error.message);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default router;

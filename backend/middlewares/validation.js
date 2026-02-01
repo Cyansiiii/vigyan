@@ -29,18 +29,7 @@ export const handleValidationErrors = (req, res, next) => {
  * PAYMENT VALIDATION RULES
  */
 export const validateCheckout = [
-  body('amount')
-    .notEmpty().withMessage('Amount is required')
-    .isNumeric().withMessage('Amount must be a number')
-    .custom(value => {
-      if (parseFloat(value) <= 0) {
-        throw new Error('Amount must be greater than 0');
-      }
-      if (parseFloat(value) > 100000) {
-        throw new Error('Amount exceeds maximum limit (100000)');
-      }
-      return true;
-    }),
+
   handleValidationErrors
 ];
 
