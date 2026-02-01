@@ -44,21 +44,25 @@ const AdminAPI = {
 
     // ✅ UPDATED: Helper method for API calls with JWT
     async request(endpoint, options = {}) {
-        const token = this.getAuthToken();
+        let token = this.getAuthToken();
+        if (token) token = token.trim();
+
+        const defaultHeaders = {
+            // Only set Content-Type if we have a body (JSON)
+            ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+            // ✅ ADD JWT Authorization header
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        };
 
         const defaultOptions = {
-            headers: {
-                'Content-Type': 'application/json',
-                // ✅ ADD JWT Authorization header
-                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-            }
+            headers: defaultHeaders
         };
 
         try {
             const fullURL = `${this.baseURL}${endpoint}`;
             console.log(`🔗 API Request: ${fullURL}`);
             if (token) {
-                console.log('🔑 Adding Authorization header with token');
+                console.log(`🔑 Adding Authorization header (Length: ${token.length})`);
             } else {
                 console.warn('⚠️ No token available for request');
             }
@@ -72,6 +76,14 @@ const AdminAPI = {
             console.log(`📊 Response Status: ${response.status} ${response.statusText}`);
 
             if (!response.ok) {
+                // ✅ GLOBAL 401 HANDLER: Redirect to login if unauthorized
+                if (response.status === 401) {
+                    console.warn('⚠️ Session expired or invalid token. Redirecting to login...');
+                    sessionStorage.removeItem('adminAuth');
+                    window.location.href = 'admin-login.html';
+                    throw new Error('Unauthorized - Redirecting to login');
+                }
+
                 const errorText = await response.text();
                 console.error('❌ Response Error:', errorText);
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);

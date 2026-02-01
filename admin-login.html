@@ -327,9 +327,10 @@
         </div>
     </div>
 
+    <script src="frontend/js/config.js"></script>
     <script>
-        // ✅ CORRECT Railway URL - Updated Jan 31, 2026
-        const API_URL = 'https://vigyan-production.up.railway.app';
+        // ✅ API URL managed by config.js
+        const API_URL = window.API_BASE_URL;
         console.log('🔐 Admin Login Page Loaded');
         console.log('🌐 API URL:', API_URL);
 
@@ -388,7 +389,7 @@
 
             try {
                 console.log('🔐 Attempting login to:', `${API_URL}/api/admin/auth/login`);
-                
+
                 // Call backend API for authentication
                 const response = await fetch(`${API_URL}/api/admin/auth/login`, {
                     method: 'POST',
@@ -399,7 +400,7 @@
                 });
 
                 console.log('📡 Response status:', response.status);
-                
+
                 const data = await response.json();
                 console.log('📦 Response data:', data);
 

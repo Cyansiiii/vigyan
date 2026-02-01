@@ -7,7 +7,7 @@
  */
 
 // ⚡ CRITICAL FIX: Force remove loading overlay IMMEDIATELY
-(function() {
+(function () {
     const overlay = document.getElementById('loadingOverlay');
     if (overlay) {
         overlay.style.display = 'none';
@@ -83,7 +83,7 @@ function getAuthHeaders() {
 async function checkAdminAuth() {
     try {
         console.log('🔐 Checking admin authentication...');
-        
+
         // Get stored auth data
         const authData = sessionStorage.getItem('adminAuth');
         if (!authData) {
@@ -114,10 +114,10 @@ async function checkAdminAuth() {
         console.error('❌ Authentication failed:', error.message);
         DashboardState.isAuthenticated = false;
         DashboardState.authToken = null;
-        
+
         // Clear invalid auth data
         sessionStorage.removeItem('adminAuth');
-        
+
         return false;
     }
 }
@@ -145,9 +145,9 @@ function showErrorNotification(message) {
         <i class="fas fa-exclamation-circle" style="font-size: 20px;"></i>
         <span>${message}</span>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.remove();
     }, 5000);
@@ -176,9 +176,9 @@ function showSuccessNotification(message) {
         <i class="fas fa-check-circle" style="font-size: 20px;"></i>
         <span>${message}</span>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.remove();
     }, 3000);
@@ -229,7 +229,7 @@ async function loadDashboardData() {
 
         // Load recent activity
         await loadRecentActivity();
-        
+
         console.log('✅ Dashboard data loaded successfully');
 
     } catch (error) {
@@ -309,10 +309,10 @@ async function fetchTransactions() {
 function updateStats(data) {
     const { tests, students, transactions } = data;
 
-    console.log('📊 Updating stats with:', { 
-        tests: tests.length, 
-        students: students.length, 
-        transactions: transactions.length 
+    console.log('📊 Updating stats with:', {
+        tests: tests.length,
+        students: students.length,
+        transactions: transactions.length
     });
 
     // Total Tests
@@ -335,7 +335,8 @@ function updateStats(data) {
 
     // Total Revenue
     const totalRevenue = transactions.reduce((sum, t) => {
-        if (t.status === 'completed' || t.status === 'success') {
+        const status = t.status?.toLowerCase() || '';
+        if (status === 'completed' || status === 'success') {
             return sum + (parseFloat(t.amount) || 0);
         }
         return sum;
@@ -345,7 +346,7 @@ function updateStats(data) {
 
     // Store in state
     DashboardState.stats = { totalTests, totalStudents, activeTests, totalRevenue };
-    
+
     console.log('✅ Stats updated:', DashboardState.stats);
 }
 
@@ -396,14 +397,16 @@ function calculateRevenueTrend(transactions) {
     const lastMonthRevenue = transactions
         .filter(t => {
             const date = new Date(t.createdAt);
-            return date >= lastMonth && date < thisMonth && (t.status === 'completed' || t.status === 'success');
+            const status = t.status?.toLowerCase() || '';
+            return date >= lastMonth && date < thisMonth && (status === 'completed' || status === 'success');
         })
         .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
 
     const thisMonthRevenue = transactions
         .filter(t => {
             const date = new Date(t.createdAt);
-            return date >= thisMonth && (t.status === 'completed' || t.status === 'success');
+            const status = t.status?.toLowerCase() || '';
+            return date >= thisMonth && (status === 'completed' || status === 'success');
         })
         .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
 
@@ -834,7 +837,7 @@ window.logout = async function () {
         } catch (error) {
             console.error('Logout error:', error);
         }
-        
+
         // Clear authentication data
         DashboardState.authToken = null;
         DashboardState.isAuthenticated = false;

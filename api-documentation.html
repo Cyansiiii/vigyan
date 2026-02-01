@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
@@ -58,8 +59,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
-            50% { box-shadow: 0 0 0 15px rgba(255, 107, 107, 0); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(255, 107, 107, 0);
+            }
         }
 
         .login-section.logged-in {
@@ -75,7 +83,7 @@
         }
 
         .login-section .instructions {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -161,11 +169,30 @@
             text-align: center;
         }
 
-        .method.get { background: #28a745; color: white; }
-        .method.post { background: #007bff; color: white; }
-        .method.patch { background: #ffc107; color: #000; }
-        .method.put { background: #ffc107; color: #000; }
-        .method.delete { background: #dc3545; color: white; }
+        .method.get {
+            background: #28a745;
+            color: white;
+        }
+
+        .method.post {
+            background: #007bff;
+            color: white;
+        }
+
+        .method.patch {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .method.put {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .method.delete {
+            background: #dc3545;
+            color: white;
+        }
 
         .endpoint {
             font-family: 'Courier New', monospace;
@@ -210,13 +237,13 @@
             text-transform: uppercase;
         }
 
-        .btn:hover { 
+        .btn:hover {
             background: #5568d3;
             transform: scale(1.05);
         }
-        
-        .btn:disabled { 
-            background: #ccc; 
+
+        .btn:disabled {
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
         }
@@ -256,9 +283,19 @@
             word-wrap: break-word;
         }
 
-        .response-box.show { display: block; }
-        .response-box.error { color: #fc8181; background: #742a2a; }
-        .response-box.success { color: #68d391; background: #2d3748; }
+        .response-box.show {
+            display: block;
+        }
+
+        .response-box.error {
+            color: #fc8181;
+            background: #742a2a;
+        }
+
+        .response-box.success {
+            color: #68d391;
+            background: #2d3748;
+        }
 
         .params {
             margin-top: 10px;
@@ -283,13 +320,20 @@
             margin-left: 10px;
         }
 
-        .status-badge.auth { background: #ff9800; color: white; }
-        .status-badge.public { background: #4caf50; color: white; }
+        .status-badge.auth {
+            background: #ff9800;
+            color: white;
+        }
+
+        .status-badge.public {
+            background: #4caf50;
+            color: white;
+        }
 
         .token-info {
             margin-top: 20px;
             padding: 15px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             font-family: 'Courier New', monospace;
             font-size: 0.9em;
@@ -308,17 +352,27 @@
             font-size: 0.9em;
         }
 
-        footer a { color: #68d391; text-decoration: none; }
+        footer a {
+            color: #68d391;
+            text-decoration: none;
+        }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 1.8em; }
-            .section-title { font-size: 1.4em; }
-            .login-form { 
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.4em;
+            }
+
+            .login-form {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -333,7 +387,7 @@
         <!-- ⚠️ ADMIN LOGIN SECTION - MUST USE THIS FIRST ⚠️ -->
         <div class="login-section" id="login-section">
             <h2>🔐 STEP 1: ADMIN LOGIN (DO THIS FIRST!)</h2>
-            
+
             <div class="instructions">
                 <strong>⚠️ IMPORTANT:</strong> Most APIs need authentication! Follow these steps:<br>
                 1️⃣ Enter your admin username<br>
@@ -354,10 +408,11 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success" onclick="adminLogin()" id="login-btn">🔓 LOGIN & GET TOKEN</button>
-                    <button class="btn btn-danger" onclick="adminLogout()" style="display: none;" id="logout-btn">🚪 LOGOUT</button>
+                    <button class="btn btn-danger" onclick="adminLogout()" style="display: none;" id="logout-btn">🚪
+                        LOGOUT</button>
                 </div>
             </div>
-            
+
             <div class="token-info" id="token-info" style="display: none;">
                 <strong>✅ LOGGED IN! Your Token:</strong><br>
                 <span id="token-display"></span><br><br>
@@ -370,7 +425,7 @@
             <!-- System Health -->
             <div class="section">
                 <h2 class="section-title">⚙️ System Health & Config</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -414,7 +469,7 @@
             <!-- Dashboard -->
             <div class="section">
                 <h2 class="section-title">📊 Admin Dashboard APIs</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -424,7 +479,9 @@
                     <div class="description">Get dashboard statistics (tests, students, revenue)</div>
                     <div class="backend-info">📂 adminDashboardRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/dashboard/stats', 'dashboard-stats', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/dashboard/stats', 'dashboard-stats', 'GET', true)">🚀 TEST
+                            NOW</button>
                         <div class="response-box" id="dashboard-stats-response"></div>
                     </div>
                 </div>
@@ -438,7 +495,9 @@
                     <div class="description">Get performance analytics data</div>
                     <div class="backend-info">📂 adminDashboardRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/dashboard/performance', 'dashboard-performance', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/dashboard/performance', 'dashboard-performance', 'GET', true)">🚀
+                            TEST NOW</button>
                         <div class="response-box" id="dashboard-performance-response"></div>
                     </div>
                 </div>
@@ -452,7 +511,9 @@
                     <div class="description">Get recent activity logs</div>
                     <div class="backend-info">📂 adminDashboardRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/dashboard/activity', 'dashboard-activity', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/dashboard/activity', 'dashboard-activity', 'GET', true)">🚀
+                            TEST NOW</button>
                         <div class="response-box" id="dashboard-activity-response"></div>
                     </div>
                 </div>
@@ -461,7 +522,7 @@
             <!-- Test Series Management -->
             <div class="section">
                 <h2 class="section-title">📝 Test Series Management</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -471,7 +532,8 @@
                     <div class="description">Get all test series with details</div>
                     <div class="backend-info">📂 testSeriesRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/tests', 'tests-list', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/tests', 'tests-list', 'GET', true)">🚀 TEST NOW</button>
                         <div class="response-box" id="tests-list-response"></div>
                     </div>
                 </div>
@@ -504,7 +566,9 @@
                     <div class="description">Get price change history for a test</div>
                     <div class="backend-info">📂 testSeriesRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/tests/1/price-history', 'price-history', 'GET', true)">🚀 TEST NOW (testId=1)</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/tests/1/price-history', 'price-history', 'GET', true)">🚀 TEST
+                            NOW (testId=1)</button>
                         <div class="response-box" id="price-history-response"></div>
                     </div>
                 </div>
@@ -513,7 +577,7 @@
             <!-- Questions -->
             <div class="section">
                 <h2 class="section-title">❓ Questions Management</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -523,7 +587,9 @@
                     <div class="description">Get all questions with filtering</div>
                     <div class="backend-info">📂 questionRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/questions', 'questions-list', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/questions', 'questions-list', 'GET', true)">🚀 TEST
+                            NOW</button>
                         <div class="response-box" id="questions-list-response"></div>
                     </div>
                 </div>
@@ -537,7 +603,9 @@
                     <div class="description">Get single question by ID</div>
                     <div class="backend-info">📂 questionRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/questions/65b9175a2d67066928ac0000', 'question-detail', 'GET', true)">🚀 TEST NOW (ID=Valid)</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/questions/65b9175a2d67066928ac0000', 'question-detail', 'GET', true)">🚀
+                            TEST NOW (ID=Valid)</button>
                         <div class="response-box" id="question-detail-response"></div>
                     </div>
                 </div>
@@ -546,7 +614,7 @@
             <!-- Students -->
             <div class="section">
                 <h2 class="section-title">👨‍🎓 Students Management</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -556,7 +624,8 @@
                     <div class="description">Get all students with search</div>
                     <div class="backend-info">📂 studentRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/students', 'students-list', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/students', 'students-list', 'GET', true)">🚀 TEST NOW</button>
                         <div class="response-box" id="students-list-response"></div>
                     </div>
                 </div>
@@ -570,7 +639,9 @@
                     <div class="description">Get single student</div>
                     <div class="backend-info">📂 studentRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/students/65b9175a2d67066928ac0000', 'student-detail', 'GET', true)">🚀 TEST NOW (ID=Valid)</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/students/65b9175a2d67066928ac0000', 'student-detail', 'GET', true)">🚀
+                            TEST NOW (ID=Valid)</button>
                         <div class="response-box" id="student-detail-response"></div>
                     </div>
                 </div>
@@ -579,7 +650,7 @@
             <!-- Results -->
             <div class="section">
                 <h2 class="section-title">🏆 Results Management</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -589,7 +660,8 @@
                     <div class="description">Get all test results</div>
                     <div class="backend-info">📂 resultRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/results', 'results-list', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/results', 'results-list', 'GET', true)">🚀 TEST NOW</button>
                         <div class="response-box" id="results-list-response"></div>
                     </div>
                 </div>
@@ -598,7 +670,7 @@
             <!-- Transactions -->
             <div class="section">
                 <h2 class="section-title">💳 Transactions</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -608,7 +680,9 @@
                     <div class="description">Get all payment transactions</div>
                     <div class="backend-info">📂 transactionRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/transactions', 'transactions-list', 'GET', true)">🚀 TEST NOW</button>
+                        <button class="btn btn-success"
+                            onclick="testAPI('/api/admin/transactions', 'transactions-list', 'GET', true)">🚀 TEST
+                            NOW</button>
                         <div class="response-box" id="transactions-list-response"></div>
                     </div>
                 </div>
@@ -617,7 +691,7 @@
             <!-- Payment -->
             <div class="section">
                 <h2 class="section-title">💰 Payment Gateway</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method post">POST</span>
@@ -656,17 +730,23 @@
             <!-- Exam -->
             <div class="section">
                 <h2 class="section-title">📝 Exam APIs</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
                         <span class="endpoint">/api/exam/questions</span>
-                        <span class="status-badge public">Public</span>
+                        <span class="status-badge auth">Student Auth</span>
                     </div>
-                    <div class="description">Get exam questions for students</div>
+                    <div class="description">Get exam questions for students (Requires Student Token & Test ID)</div>
                     <div class="backend-info">📂 examRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/exam/questions', 'exam-questions', 'GET', true)">🚀 TEST NOW</button>
+                        <div style="margin-bottom: 10px;">
+                            <label style="display:block; margin-bottom:5px; font-weight:bold;">🎓 Student Token (Run
+                                <code>node scripts/create_test_student_token.js</code> to get one):</label>
+                            <input type="text" id="student-token" placeholder="Paste Student JWT Token here..."
+                                style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-family: monospace;">
+                        </div>
+                        <button class="btn btn-success" onclick="testExamQuestions()">🚀 TEST NOW</button>
                         <div class="response-box" id="exam-questions-response"></div>
                     </div>
                 </div>
@@ -675,7 +755,7 @@
             <!-- News -->
             <div class="section">
                 <h2 class="section-title">📰 News API</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -694,7 +774,7 @@
             <!-- User & Profile -->
             <div class="section">
                 <h2 class="section-title">👤 User & Profile</h2>
-                
+
                 <div class="api-card">
                     <div class="api-header">
                         <span class="method get">GET</span>
@@ -704,7 +784,8 @@
                     <div class="description">Get user profile</div>
                     <div class="backend-info">📂 userRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/profile', 'profile')">🚀 TEST NOW</button>
+                        <button class="btn btn-success" onclick="testAPI('/api/profile', 'profile')">🚀 TEST
+                            NOW</button>
                         <div class="response-box" id="profile-response"></div>
                     </div>
                 </div>
@@ -714,7 +795,8 @@
 
         <footer>
             <p>📚 Vigyan Test Platform | Live API Tester</p>
-            <p style="margin-top: 10px;"><a href="https://github.com/harshbuddy01/vigyan" target="_blank">github.com/harshbuddy01/vigyan</a></p>
+            <p style="margin-top: 10px;"><a href="https://github.com/harshbuddy01/vigyan"
+                    target="_blank">github.com/harshbuddy01/vigyan</a></p>
         </footer>
     </div>
 
@@ -852,7 +934,6 @@
             }
         }
 
-        // Test Update Price
         async function testUpdatePrice() {
             if (!adminToken) {
                 alert('⚠️ Please login first!');
@@ -883,6 +964,47 @@
                 const data = await response.json();
                 const status = response.ok ? '✅ SUCCESS' : '❌ FAILED';
                 const statusClass = response.ok ? 'success' : 'error';
+                
+                responseBox.classList.add(statusClass);
+                responseBox.textContent = `${status} | Status: ${response.status} ${response.statusText}\n\n${JSON.stringify(data, null, 2)}`;
+                
+            } catch (error) {
+                responseBox.classList.add('error');
+                responseBox.textContent = `❌ ERROR\n\nEndpoint: ${url}\n\nError: ${error.message}`;
+            }
+        }
+
+        // Test Exam Questions with Student Token
+        async function testExamQuestions() {
+            const tokenInput = document.getElementById('student-token');
+            const token = tokenInput.value.trim();
+
+            if (!token) {
+                alert('⚠️ Please paste a Student Token first!\n\nRun "node scripts/create_test_student_token.js" in your terminal to generate one.');
+                tokenInput.focus();
+                return;
+            }
+
+            const responseBox = document.getElementById('exam-questions-response');
+            const url = BASE_URL + '/api/exam/questions?testId=test-iat-2024';
+            
+            responseBox.classList.remove('error', 'success');
+            responseBox.classList.add('show');
+            responseBox.textContent = `⏳ Testing GET ${url}\n\nPlease wait...`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+                const status = response.ok ? '✅ SUCCESS' : '❌ FAILED';
+                // 404 is technically success here (means auth worked, but no questions found)
+                const statusClass = (response.ok || response.status === 404) ? 'success' : 'error';
                 
                 responseBox.classList.add(statusClass);
                 responseBox.textContent = `${status} | Status: ${response.status} ${response.statusText}\n\n${JSON.stringify(data, null, 2)}`;
@@ -945,4 +1067,5 @@
         console.log('⚠️ SCROLL TO TOP to see LOGIN SECTION!');
     </script>
 </body>
+
 </html>
