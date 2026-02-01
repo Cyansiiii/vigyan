@@ -31,7 +31,13 @@ router.get("/", verifyAdminAuth, async (req, res) => {
 router.patch("/:testId/price", verifyAdminAuth, async (req, res) => {
   try {
     const { testId } = req.params;
-    const { price } = req.body;
+    // ✅ Accept both 'price' and 'newPrice' for API documentation compatibility
+    let price = req.body.price ?? req.body.newPrice;
+
+    // ✅ Convert string to number if needed
+    if (typeof price === 'string') {
+      price = parseInt(price, 10);
+    }
 
     // 🛡️ SECURITY: Validate price is a valid number
     if (typeof price !== "number" || !Number.isFinite(price) || !Number.isInteger(price)) {

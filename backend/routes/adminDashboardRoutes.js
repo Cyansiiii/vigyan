@@ -85,6 +85,30 @@ router.get('/upcoming-tests', async (req, res) => {
 });
 
 // ==================== RECENT ACTIVITY ====================
+// ✅ Added /activity alias for API documentation compatibility
+router.get('/activity', async (req, res) => {
+    try {
+        const recentAttempts = await StudentAttempt.find()
+            .sort({ submitted_at: -1 })
+            .limit(10)
+            .select('email test_name score submitted_at');
+
+        res.json({
+            success: true,
+            activities: recentAttempts.map(attempt => ({
+                id: attempt._id,
+                email: attempt.email,
+                testName: attempt.test_name,
+                score: attempt.score,
+                timestamp: attempt.submitted_at
+            }))
+        });
+    } catch (error) {
+        console.error('Dashboard activity error:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 router.get('/recent-activity', async (req, res) => {
     try {
         const recentAttempts = await StudentAttempt.find()

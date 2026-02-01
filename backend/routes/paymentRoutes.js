@@ -2,10 +2,10 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 // Ensure all three functions are imported correctly
 import { checkout, paymentVerification, getApiKey } from "../controllers/paymentController.js";
-import { 
-  validateCheckout, 
+import {
+  validateCheckout,
   validatePaymentVerification,
-  paymentRateLimit 
+  paymentRateLimit
 } from "../middlewares/validation.js";
 
 const router = express.Router();
@@ -20,5 +20,9 @@ router.route("/checkout")
   .post(limiter, validateCheckout, checkout);
 router.route("/paymentverification")
   .post(limiter, validatePaymentVerification, paymentVerification);
+
+// ✅ Added create-order alias for API documentation compatibility
+router.route("/create-order")
+  .post(limiter, validateCheckout, checkout);
 
 export default router;
