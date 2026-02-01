@@ -537,7 +537,7 @@
                     <div class="description">Get single question by ID</div>
                     <div class="backend-info">📂 questionRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/questions/1', 'question-detail', 'GET', true)">🚀 TEST NOW (ID=1)</button>
+                        <button class="btn btn-success" onclick="testAPI('/api/admin/questions/65b9175a2d67066928ac0000', 'question-detail', 'GET', true)">🚀 TEST NOW (ID=Valid)</button>
                         <div class="response-box" id="question-detail-response"></div>
                     </div>
                 </div>
@@ -570,7 +570,7 @@
                     <div class="description">Get single student</div>
                     <div class="backend-info">📂 studentRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/admin/students/1', 'student-detail', 'GET', true)">🚀 TEST NOW (ID=1)</button>
+                        <button class="btn btn-success" onclick="testAPI('/api/admin/students/65b9175a2d67066928ac0000', 'student-detail', 'GET', true)">🚀 TEST NOW (ID=Valid)</button>
                         <div class="response-box" id="student-detail-response"></div>
                     </div>
                 </div>
@@ -647,7 +647,7 @@
                     <div class="description">Create Razorpay payment order (generic)</div>
                     <div class="backend-info">📂 paymentRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/payment/create-order', 'payment-create', 'POST')">🚀 TEST NOW</button>
+                        <button class="btn btn-success" onclick="testCreateOrder()">🚀 TEST NOW</button>
                         <div class="response-box" id="payment-create-response"></div>
                     </div>
                 </div>
@@ -666,7 +666,7 @@
                     <div class="description">Get exam questions for students</div>
                     <div class="backend-info">📂 examRoutes.js</div>
                     <div class="test-section">
-                        <button class="btn btn-success" onclick="testAPI('/api/exam/questions', 'exam-questions')">🚀 TEST NOW</button>
+                        <button class="btn btn-success" onclick="testAPI('/api/exam/questions', 'exam-questions', 'GET', true)">🚀 TEST NOW</button>
                         <div class="response-box" id="exam-questions-response"></div>
                     </div>
                 </div>
@@ -801,6 +801,39 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         amount: 1,
+                        testId: 'test-iat-2024',
+                        email: 'test@example.com'
+                    })
+                });
+
+                const data = await response.json();
+                const status = response.ok ? '✅ SUCCESS' : '❌ FAILED';
+                const statusClass = response.ok ? 'success' : 'error';
+                
+                responseBox.classList.add(statusClass);
+                responseBox.textContent = `${status} | Status: ${response.status} ${response.statusText}\n\n${JSON.stringify(data, null, 2)}`;
+                
+            } catch (error) {
+                responseBox.classList.add('error');
+                responseBox.textContent = `❌ ERROR\n\nEndpoint: ${url}\n\nError: ${error.message}`;
+            }
+        }
+
+        // Test Create Generic Order
+        async function testCreateOrder() {
+            const responseBox = document.getElementById('payment-create-response');
+            const url = BASE_URL + '/api/payment/create-order';
+            
+            responseBox.classList.remove('error', 'success');
+            responseBox.classList.add('show');
+            responseBox.textContent = `⏳ Testing POST ${url}\n\nPlease wait...`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: 100,
                         testId: 'test-iat-2024',
                         email: 'test@example.com'
                     })
