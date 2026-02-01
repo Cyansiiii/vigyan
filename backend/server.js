@@ -226,7 +226,12 @@ app.get('/api/config', (req, res) => {
     });
 });
 
-// Admin API routes (OLD structure)
+// ✅ CRITICAL: Admin auth routes MUST be FIRST (before protected routes)
+console.log('🔵 Setting up Admin Auth routes (FIRST - no auth required)...');
+app.use('/api/admin/auth', adminAuthRoutes);
+console.log('✅ Admin auth routes mounted - /api/admin/auth/* (PUBLIC)');
+
+// Admin API routes (OLD structure) - These require authentication
 console.log('🔵 Setting up Admin API routes...');
 app.use('/api/admin', questionRoutes);
 console.log('✅ Question routes mounted (OLD + NEW OOP routes)');
@@ -251,8 +256,7 @@ console.log('✅ Admin Test Pricing routes mounted at /api/admin/tests/*');
 console.log('🔵 Mounting API routes...');
 app.use('/api', authRoutes);
 console.log('✅ Auth routes mounted - /api/verify-user-full');
-app.use('/api/admin/auth', adminAuthRoutes);
-console.log('✅ Admin auth routes mounted - /api/admin/auth/*');
+// NOTE: adminAuthRoutes already mounted above (before protected admin routes)
 app.use('/api/payment', paymentRoutes);
 console.log('✅ Payment routes mounted - /api/payment/*');
 app.use('/api/exam', examRoutes);
