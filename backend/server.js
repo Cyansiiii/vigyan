@@ -208,6 +208,7 @@ import migrationRoute from './routes/migrationRoute.js';
 import newsRoutes from './routes/newsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import adminAuthRoutes from './routes/adminAuthRoutes.js';
+import pdfRoutes from './routes/pdf.js';
 
 // ✅ NEW ADMIN ROUTES - Added Jan 25, 2026
 import adminDashboardRoutes from './routes/adminDashboardRoutes.js';
@@ -263,6 +264,8 @@ app.use('/api/exam', examRoutes);
 console.log('✅ Exam routes mounted - /api/exam/*');
 app.use('/api/news', newsRoutes);
 console.log('✅ News routes mounted - /api/news/*');
+app.use('/api/pdf', pdfRoutes);
+console.log('✅ PDF routes mounted - /api/pdf/*');
 
 // Health check
 app.get('/health', (req, res) => {

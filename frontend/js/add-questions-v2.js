@@ -332,17 +332,12 @@ function initAddQuestions() {
             ];
 
             // Validate
-            if (!examType || !examYear || !subject || !questionNumber || !questionText || !correctAnswer) {
-                throw new Error('Please fill all required fields');
-            }
-
-            if (options.some(opt => !opt)) {
-                throw new Error('Please fill all four options');
-            }
-
-            if (questionText.length < 5) {
-                throw new Error('Question text must be at least 5 characters long');
-            }
+            if (!examType) throw new Error('Please select an Exam Type');
+            if (!examYear) throw new Error('Please select an Exam Year');
+            if (!subject) throw new Error('Please select a Subject');
+            if (!questionNumber) throw new Error('Question ID not generated. Please try re-selecting the exam type');
+            if (!questionText || questionText.length < 5) throw new Error('Please enter a question (at least 5 characters)');
+            if (!correctAnswer) throw new Error('Please select the correct answer option');
 
             // Generate testId
             let testId = `${examType}_${examYear}`;

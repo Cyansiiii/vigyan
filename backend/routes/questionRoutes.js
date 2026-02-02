@@ -122,10 +122,16 @@ router.post('/questions', async (req, res) => {
         // ===== INSERT QUESTION INTO DATABASE =====
         const newQuestion = new QuestionModel({
             testId,
+            questionNumber: questionNumber || 0,
             questionText,
             options,
             correctAnswer,
-            section: section
+            section: section,
+            topic: topic || 'General',
+            difficulty: difficulty || 'Medium',
+            marksPositive: marks || 4,
+            marksNegative: req.body.marksNegative || -1,
+            type: req.body.type || 'MCQ'
         });
 
         const savedQuestion = await newQuestion.save();
