@@ -52,8 +52,17 @@ async function loadResults() {
     try {
         console.log('🔄 Fetching results from backend...');
         
-        // ✅ FIXED: Fetch from backend API instead of localStorage
-        const response = await fetch(`${window.API_BASE_URL}/api/admin/results`);
+        // Check if getAuthHeaders is available (it's in admin-dashboard-v3.js)
+        let headers = { 'Content-Type': 'application/json' };
+        if (typeof getAuthHeaders === 'function') {
+            headers = getAuthHeaders();
+        }
+        
+        // ✅ FIXED: Fetch from backend API with Auth Headers
+        const response = await fetch(`${window.API_BASE_URL}/api/admin/results`, {
+            method: 'GET',
+            headers: headers
+        });
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -210,9 +219,11 @@ function exportResults() {
     }
 }
 
-if (document.getElementById('view-results-page')) {
-    initResults();
-}
+// Check if we are on the results page (but only if explicitly called via navigateTo)
+// The dashboard already calls initResults via callPageInit
+// if (document.getElementById('view-results-page')) {
+//     initResults();
+// }
 
 window.initResults = initResults;
 window.viewResult = viewResult;
