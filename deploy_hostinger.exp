@@ -1,21 +1,18 @@
 #!/usr/bin/expect -f
-
-set timeout 30
 set port [lindex $argv 0]
 set user_host [lindex $argv 1]
 set password [lindex $argv 2]
 set command [lindex $argv 3]
 
+set timeout 60
 spawn ssh -p $port $user_host $command
-
 expect {
-    "password:" {
-        send "$password\r"
-        exp_continue
-    }
     "yes/no" {
         send "yes\r"
         exp_continue
     }
-    eof
+    "password:" {
+        send "$password\r"
+    }
 }
+expect eof

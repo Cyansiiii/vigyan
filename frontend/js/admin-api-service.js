@@ -188,6 +188,17 @@ const AdminAPI = {
         });
     },
 
+    async updateTestPrice(testId, price) {
+        return await this.request(`/api/admin/tests/${testId}/price`, {
+            method: 'PATCH',
+            body: JSON.stringify({ price })
+        });
+    },
+
+    async getPriceHistory(testId) {
+        return await this.request(`/api/admin/tests/${testId}/price-history`);
+    },
+
     // ==================== SCHEDULED TESTS ====================
     async getScheduledTests() {
         return await this.request('/api/admin/scheduled-tests');

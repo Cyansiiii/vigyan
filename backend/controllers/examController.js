@@ -5,6 +5,7 @@ import { ScheduledTest } from "../models/ScheduledTest.js";
 import QuestionModel from "../schemas/QuestionSchema.js";
 import { StudentAttempt } from "../models/StudentAttempt.js";
 import { generateAuthToken } from '../middlewares/auth.js';
+import { TestSeries } from "../models/TestSeries.js";
 
 // Helper function to safely parse JSON
 const safeJsonParse = (jsonString, fallback = null) => {
@@ -21,14 +22,14 @@ export const listScheduledTests = async (req, res) => {
   try {
     console.log('📋 Fetching scheduled tests...');
     const { status, type } = req.query;
-    
+
     // Build filter
     const filter = {};
     if (status) filter.status = status;
     if (type) filter.test_type = type;
-    
+
     const tests = await ScheduledTest.find(filter).sort({ exam_date: 1 });
-    
+
     console.log(`✅ Retrieved ${tests.length} scheduled tests`);
     res.status(200).json({
       success: true,
@@ -61,17 +62,17 @@ export const listScheduledTests = async (req, res) => {
 export const getUserInfo = async (req, res) => {
   try {
     const { email, rollNumber } = req.body;
-    
+
     if (!email && !rollNumber) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Email or Roll Number required" 
+      return res.status(400).json({
+        success: false,
+        message: "Email or Roll Number required"
       });
     }
 
     // Find student in MongoDB
     let student;
-    
+
     if (email) {
       student = await StudentPayment.findOne({ email: email.toLowerCase().trim() });
     } else {
@@ -79,12 +80,12 @@ export const getUserInfo = async (req, res) => {
     }
 
     if (!student) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "Student not found" 
+      return res.status(404).json({
+        success: false,
+        message: "Student not found"
       });
     }
-    
+
     // Get purchased tests
     const purchasedTestDocs = await PurchasedTest.find({
       email: student.email
@@ -96,7 +97,7 @@ export const getUserInfo = async (req, res) => {
       rollNumber: student.roll_number,
       purchasedTests: purchasedTestDocs.map(t => t.test_id)
     });
-    
+
   } catch (error) {
     console.error("getUserInfo Error:", error);
     res.status(500).json({ success: false, error: error.message });
@@ -107,16 +108,16 @@ export const getUserInfo = async (req, res) => {
 export const startTest = async (req, res) => {
   try {
     const { rollNumber, email } = req.body;
-    
+
     if (!email || !rollNumber) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Email and Roll Number required" 
+      return res.status(400).json({
+        success: false,
+        message: "Email and Roll Number required"
       });
     }
 
     const normalizedEmail = email.toLowerCase().trim();
-    
+
     // Find student in MongoDB
     const student = await StudentPayment.findOne({
       email: normalizedEmail,
@@ -124,9 +125,9 @@ export const startTest = async (req, res) => {
     });
 
     if (!student) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "Invalid Roll Number or Email" 
+      return res.status(404).json({
+        success: false,
+        message: "Invalid Roll Number or Email"
       });
     }
 
@@ -157,15 +158,15 @@ export const startTest = async (req, res) => {
     console.log('✅ JWT token generated and cookie set');
 
     // Return with token
-    res.status(200).json({ 
-      success: true, 
+    res.status(200).json({
+      success: true,
       purchasedTests: purchasedTests,
       rollNumber: student.roll_number,
       email: normalizedEmail,
       authToken: authToken, // Send token for sessionStorage fallback
       message: "Login successful"
     });
-    
+
   } catch (error) {
     console.error("startTest Error:", error);
     res.status(500).json({ success: false, error: error.message });
@@ -176,62 +177,62 @@ export const startTest = async (req, res) => {
 export const submitExam = async (req, res) => {
   try {
     const { email, rollNumber, testId, testName, userResponses, timeTaken, startedAt } = req.body;
-    
+
     // Validate required fields
     if (!email || !testId || !userResponses || !Array.isArray(userResponses)) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Email, testId, and userResponses (array) are required" 
+      return res.status(400).json({
+        success: false,
+        message: "Email, testId, and userResponses (array) are required"
       });
     }
-    
+
     const normalizedEmail = email.toLowerCase().trim();
-    
+
     // Get student roll number if not provided
     let finalRollNumber = rollNumber;
-    
+
     if (!finalRollNumber) {
       const student = await StudentPayment.findOne({
         email: normalizedEmail
       });
-      
+
       if (student) {
         finalRollNumber = student.roll_number;
       } else {
         finalRollNumber = "N/A";
       }
     }
-    
+
     // Calculate results
     const totalQuestions = userResponses.length;
     let correctAnswers = 0;
     let wrongAnswers = 0;
     let unanswered = 0;
-    
+
     // Get correct answers from questions collection
     const questions = await QuestionModel.find({
       testId: testId
     }).sort({ questionNumber: 1 });
-    
+
     if (questions.length === 0) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "No questions found for this test" 
+      return res.status(404).json({
+        success: false,
+        message: "No questions found for this test"
       });
     }
-    
+
     // Create a map for easier lookup by question number
     const correctAnswersMap = {};
     questions.forEach((q, index) => {
       correctAnswersMap[index + 1] = q.correctAnswer;
     });
-    
+
     const questionWiseResults = [];
-    
+
     userResponses.forEach((userAnswer, index) => {
       const questionNumber = index + 1;
       const correctAnswer = correctAnswersMap[questionNumber];
-      
+
       if (userAnswer === null || userAnswer === undefined) {
         unanswered++;
         questionWiseResults.push({
@@ -261,10 +262,10 @@ export const submitExam = async (req, res) => {
         });
       }
     });
-    
+
     const score = correctAnswers;
     const percentage = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
-    
+
     // Save to student_attempts collection
     const attempt = await StudentAttempt.create({
       email: normalizedEmail,
@@ -285,8 +286,8 @@ export const submitExam = async (req, res) => {
       submitted_at: new Date()
     });
 
-    res.status(200).json({ 
-      success: true, 
+    res.status(200).json({
+      success: true,
       message: "Exam Saved Successfully",
       results: {
         totalQuestions,
@@ -297,7 +298,7 @@ export const submitExam = async (req, res) => {
         percentage: percentage.toFixed(2)
       }
     });
-    
+
   } catch (error) {
     console.error("submitExam Error:", error);
     res.status(500).json({ success: false, error: error.message });
@@ -309,28 +310,28 @@ export const getQuestions = async (req, res) => {
   try {
     // testId already validated by verifyTestAccess middleware
     const testId = req.testId || req.query.testId;
-    
+
     if (!testId) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Test ID required" 
+      return res.status(400).json({
+        success: false,
+        message: "Test ID required"
       });
     }
-    
+
     console.log(`📚 Loading questions for ${testId} - User: ${req.user?.email || 'Unknown'}`);
-    
+
     // Get questions from MongoDB
     const questions = await QuestionModel.find({
       testId: testId
     }).sort({ questionNumber: 1 });
-    
+
     if (questions.length === 0) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "No questions found for this test" 
+      return res.status(404).json({
+        success: false,
+        message: "No questions found for this test"
       });
     }
-    
+
     // Format response (remove correct answers for security)
     const formattedQuestions = questions.map(q => ({
       _id: q._id,
@@ -340,13 +341,13 @@ export const getQuestions = async (req, res) => {
       options: Array.isArray(q.options) ? q.options : safeJsonParse(q.options, [])
       // ⚠️ correctAnswer NOT sent to client for security
     }));
-    
-    res.status(200).json({ 
-      success: true, 
+
+    res.status(200).json({
+      success: true,
       questions: formattedQuestions,
       totalQuestions: formattedQuestions.length
     });
-    
+
   } catch (error) {
     console.error("getQuestions Error:", error);
     res.status(500).json({ success: false, error: error.message });
@@ -357,38 +358,52 @@ export const getQuestions = async (req, res) => {
 export const getStudentResults = async (req, res) => {
   try {
     const { email, rollNumber } = req.query;
-    
+
     if (!email && !rollNumber) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Email or Roll Number required" 
+      return res.status(400).json({
+        success: false,
+        message: "Email or Roll Number required"
       });
     }
-    
+
     let query = {};
-    
+
     if (email) {
       query = { email: email.toLowerCase().trim() };
     } else {
       query = { roll_number: rollNumber };
     }
-    
+
     const attempts = await StudentAttempt.find(query).sort({ submitted_at: -1 });
-    
+
     // Format response
     const formattedAttempts = attempts.map(attempt => ({
       ...attempt.toObject(),
       answers: Array.isArray(attempt.answers) ? attempt.answers : safeJsonParse(attempt.answers, []),
       question_wise_results: Array.isArray(attempt.question_wise_results) ? attempt.question_wise_results : safeJsonParse(attempt.question_wise_results, [])
     }));
-    
-    res.status(200).json({ 
-      success: true, 
-      attempts: formattedAttempts 
+
+    res.status(200).json({
+      success: true,
+      attempts: formattedAttempts
     });
-    
+
   } catch (error) {
     console.error("getStudentResults Error:", error);
     res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// 🆕 Get all active test series for public display
+export const getPublicTestSeries = async (req, res) => {
+  try {
+    const tests = await TestSeries.find({ isActive: true }, 'testId name price description').sort({ name: 1 });
+    res.status(200).json({
+      success: true,
+      tests
+    });
+  } catch (error) {
+    console.error('getPublicTestSeries Error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch test series' });
   }
 };

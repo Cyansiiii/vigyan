@@ -53,37 +53,28 @@
         let secondsRemaining = 6;
         let paymentInProgress = false;
 
-        const cardsContainer = document.getElementById('cardsContainer');
-        testSeries.forEach(test => {
-            const card = document.createElement('div');
-            card.className = 'glass-panel flex flex-col justify-between';
-            card.innerHTML = `
-                <div>
-                    <div class="series-icon-header">
-                        <div class="card-icon icon-${test.iconColor}">${test.iconEmoji}</div>
-                    </div>
-                    <div class="flex justify-between items-start mb-8">
-                        <span class="font-bold text-blue-500 uppercase tracking-widest text-[10px] border border-blue-500/30 px-3 py-1 rounded-full bg-blue-500/5">${test.id.toUpperCase()}</span>
-                        <div class="text-right leading-none">
-                            <span class="block text-5xl font-black text-white tracking-tight">₹${test.price}</span>
-                            <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">One-time Access</span>
-                        </div>
-                    </div>
-                    <h3 class="text-3xl font-black text-white mb-2 uppercase leading-none tracking-tight">${test.name}</h3>
-                    <p class="text-gray-400 text-sm mb-6 font-medium">${test.subtitle}</p>
-                    <div class="w-full h-px bg-white/10 mb-6"></div>
-                    <ul class="text-gray-400 text-sm space-y-3 mb-8 font-medium">
-                        <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Real exam patterns</li>
-                        <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Instant access granted</li>
-                    </ul>
-                </div>
-                <button id="btn-${test.id}" onclick="executePurchase('${test.id}', ${test.price})" class="buy-btn shadow-lg shadow-blue-900/30">Initialize Protocol</button>
-            `;
-            cardsContainer.appendChild(card);
-        });
-
         window.onload = async function () {
             try {
+                // ✅ DYNAMIC PRICING: Fetch real prices from backend
+                try {
+                    console.log('🔄 Fetching live prices...');
+                    const priceRes = await axios.get(`${API_BASE_URL}/api/exam/test-series`);
+                    if (priceRes.data.success) {
+                        const liveTests = priceRes.data.tests;
+                        liveTests.forEach(liveTest => {
+                            const localTest = testSeries.find(t => t.id === liveTest.testId);
+                            if (localTest) {
+                                console.log(`💰 Updating ${liveTest.testId} price to ₹${liveTest.price}`);
+                                localTest.price = liveTest.price;
+                            }
+                        });
+                        // Re-render cards with live prices
+                        renderTestCards();
+                    }
+                } catch (priceError) {
+                    console.error("Failed to fetch live prices:", priceError);
+                }
+
                 if (window.refreshUserDashboard) window.refreshUserDashboard();
 
                 let purchased = [];
@@ -113,6 +104,43 @@
                 console.error("Critical error during page load:", error);
             }
         };
+
+        function renderTestCards() {
+            const cardsContainer = document.getElementById('cardsContainer');
+            cardsContainer.innerHTML = ''; // Clear existing
+
+            testSeries.forEach(test => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="series-icon-header">
+                            <div class="card-icon icon-${test.iconColor}">${test.iconEmoji}</div>
+                        </div>
+                        <div class="flex justify-between items-start mb-8">
+                            <span class="font-bold text-blue-500 uppercase tracking-widest text-[10px] border border-blue-500/30 px-3 py-1 rounded-full bg-blue-500/5">${test.id.toUpperCase()}</span>
+                            <div class="text-right leading-none">
+                                <span class="block text-5xl font-black text-white tracking-tight">₹${test.price}</span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">One-time Access</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-black text-white mb-2 uppercase leading-none tracking-tight">${test.name}</h3>
+                        <p class="text-gray-400 text-sm mb-6 font-medium">${test.subtitle}</p>
+                        <div class="w-full h-px bg-white/10 mb-6"></div>
+                        <ul class="text-gray-400 text-sm space-y-3 mb-8 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Real exam patterns</li>
+                            <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Instant access granted</li>
+                        </ul>
+                    </div>
+                    <button id="btn-${test.id}" onclick="executePurchase('${test.id}', ${test.price})" class="buy-btn shadow-lg shadow-blue-900/30">Initialize Protocol</button>
+                `;
+                cardsContainer.appendChild(card);
+
+                // Keep purchase state if already loaded
+                const purchased = JSON.parse(localStorage.getItem("purchasedTests") || "[]");
+                if (purchased.includes(test.id)) markAsPurchased(test.id);
+            });
+        }
 
         function markAsPurchased(testId) {
             const btn = document.getElementById(`btn-${testId}`);
@@ -288,7 +316,7 @@
                         try {
                             console.log('✅ Payment completed, verifying...');
                             btn.innerHTML = '<span class="loading-spinner"></span> Verifying Payment...';
-                            
+
                             const verifyRes = await axios.post(`${PAYMENT_API_URL}/api/payment/paymentverification`, {
                                 razorpay_order_id: response.razorpay_order_id,
                                 razorpay_payment_id: response.razorpay_payment_id,
@@ -304,7 +332,7 @@
                             if (verifyRes.data && verifyRes.data.success) {
                                 const rollNumber = verifyRes.data.rollNumber;
                                 console.log('✅ Roll number received:', rollNumber);
-                                
+
                                 localStorage.setItem("userEmail", userEmail);
                                 localStorage.setItem("userName", fullName);
                                 localStorage.setItem("userRollNumber", rollNumber);

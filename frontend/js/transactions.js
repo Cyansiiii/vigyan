@@ -16,7 +16,7 @@ function initTransactions() {
 function renderTransactionsPage() {
     const container = document.getElementById('transactions-page');
     if (!container) return;
-    
+
     container.innerHTML = `
         <!-- 🔒 PRICE MANAGEMENT SECTION -->
         <div class="page-header">
@@ -120,7 +120,7 @@ function renderTransactionsPage() {
             </table>
         </div>
     `;
-    
+
     document.getElementById('statusFilter').addEventListener('change', applyFilters);
     document.getElementById('transactionSearch').addEventListener('input', applyFilters);
     document.getElementById('testSelector').addEventListener('change', onTestSelected);
@@ -130,20 +130,10 @@ function renderTransactionsPage() {
 async function loadTests() {
     try {
         console.log('🔍 Fetching tests from admin API...');
-        const response = await fetch(`${window.API_BASE_URL}/api/admin/tests`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
+        // ✅ FIXED: Using AdminAPI
+        const data = await window.AdminAPI.getTests();
         allTests = data.tests || [];
-        
+
         console.log(`✅ Loaded ${allTests.length} tests`);
         populateTestSelector();
     } catch (error) {
@@ -155,9 +145,9 @@ async function loadTests() {
 function populateTestSelector() {
     const selector = document.getElementById('testSelector');
     if (!selector) return;
-    
+
     selector.innerHTML = '<option value="">-- Select a test --</option>';
-    
+
     allTests.forEach(test => {
         const option = document.createElement('option');
         option.value = test.testId;
@@ -172,7 +162,7 @@ function onTestSelected() {
     const selectedOption = selector.options[selector.selectedIndex];
     const currentPriceDiv = document.getElementById('currentPrice');
     const historyBtn = document.getElementById('historyBtn');
-    
+
     if (selectedOption.value) {
         const price = selectedOption.dataset.price;
         currentPriceDiv.textContent = `₹${parseInt(price).toLocaleString()}`;
@@ -183,7 +173,7 @@ function onTestSelected() {
         currentPriceDiv.style.color = 'var(--text-muted)';
         historyBtn.disabled = true;
     }
-    
+
     // Clear new price input and status
     document.getElementById('newPrice').value = '';
     document.getElementById('priceUpdateStatus').style.display = 'none';
@@ -193,69 +183,57 @@ function onTestSelected() {
 async function updateTestPrice() {
     const testSelector = document.getElementById('testSelector');
     const newPriceInput = document.getElementById('newPrice');
-    
+
     const testId = testSelector.value;
     const newPrice = parseInt(newPriceInput.value);
-    
+
     // Validation
     if (!testId) {
         showPriceStatus('error', '⚠️ Please select a test first');
         return;
     }
-    
+
     if (!newPrice || newPrice < 1 || newPrice > 99999) {
         showPriceStatus('error', '⚠️ Price must be between ₹1 and ₹99,999');
         return;
     }
-    
+
     const currentPrice = parseInt(testSelector.options[testSelector.selectedIndex].dataset.price);
-    
+
     if (newPrice === currentPrice) {
         showPriceStatus('error', '⚠️ New price is same as current price');
         return;
     }
-    
+
     // Confirm with admin
     const testName = testSelector.options[testSelector.selectedIndex].textContent;
     if (!confirm(`🔒 Confirm Price Change\n\nTest: ${testName}\nCurrent: ₹${currentPrice}\nNew: ₹${newPrice}\n\nThis change will be logged and applied immediately.`)) {
         return;
     }
-    
+
     showPriceStatus('info', '🔄 Updating price...');
-    
+
     try {
-        const response = await fetch(`${window.API_BASE_URL}/api/admin/tests/${testId}/price`, {
-            method: 'PATCH',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ price: newPrice })
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Failed to update price');
-        }
-        
+        // ✅ FIXED: Using AdminAPI
+        const data = await window.AdminAPI.updateTestPrice(testId, newPrice);
+
         console.log('✅ Price updated:', data);
         showPriceStatus('success', `✅ ${data.message}`);
-        
+
         // Update local cache
         const testIndex = allTests.findIndex(t => t.testId === testId);
         if (testIndex !== -1) {
             allTests[testIndex].price = newPrice;
         }
-        
+
         // Refresh selector
         populateTestSelector();
         testSelector.value = testId;
         onTestSelected();
-        
+
         // Clear input
         newPriceInput.value = '';
-        
+
     } catch (error) {
         console.error('❌ Price update failed:', error);
         showPriceStatus('error', `❌ ${error.message}`);
@@ -265,15 +243,15 @@ async function updateTestPrice() {
 function showPriceStatus(type, message) {
     const statusDiv = document.getElementById('priceUpdateStatus');
     statusDiv.style.display = 'block';
-    
+
     const colors = {
         success: { bg: 'rgba(16, 185, 129, 0.15)', text: 'var(--success)', icon: 'check-circle' },
         error: { bg: 'rgba(239, 68, 68, 0.15)', text: 'var(--danger)', icon: 'exclamation-circle' },
         info: { bg: 'rgba(37, 99, 235, 0.15)', text: 'var(--primary)', icon: 'info-circle' }
     };
-    
+
     const style = colors[type] || colors.info;
-    
+
     statusDiv.innerHTML = `
         <div style="padding: 16px; background: ${style.bg}; border-radius: 10px; color: ${style.text}; font-weight: 600; font-size: 14px;">
             <i class="fas fa-${style.icon}"></i> ${message}
@@ -285,34 +263,24 @@ function showPriceStatus(type, message) {
 async function showPriceHistory() {
     const testSelector = document.getElementById('testSelector');
     const testId = testSelector.value;
-    
+
     if (!testId) return;
-    
+
     const modal = document.getElementById('priceHistoryModal');
     const content = document.getElementById('priceHistoryContent');
-    
+
     modal.style.display = 'block';
     content.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px;"><i class="fas fa-spinner fa-spin"></i> Loading history...</p>';
-    
+
     try {
-        const response = await fetch(`${window.API_BASE_URL}/api/admin/tests/${testId}/price-history`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Failed to load history');
-        }
-        
+        // ✅ FIXED: Using AdminAPI
+        const data = await window.AdminAPI.getPriceHistory(testId);
+
         if (data.history.length === 0) {
             content.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px;">No price changes recorded yet.</p>';
             return;
         }
-        
+
         content.innerHTML = `
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
@@ -335,7 +303,7 @@ async function showPriceHistory() {
                 </tbody>
             </table>
         `;
-        
+
     } catch (error) {
         console.error('❌ Failed to load price history:', error);
         content.innerHTML = `<p style="text-align: center; color: var(--danger); padding: 40px;">❌ ${error.message}</p>`;
@@ -350,9 +318,9 @@ function closePriceHistory() {
 async function loadTransactions() {
     try {
         console.log('🔄 Fetching transactions from backend...');
-        const response = await fetch(`${window.API_BASE_URL}/api/admin/transactions`);
-        const data = await response.json();
-        
+        // ✅ FIXED: Using AdminAPI
+        const data = await window.AdminAPI.getTransactions();
+
         allTransactions = data.transactions || [];
         console.log(`✅ Loaded ${allTransactions.length} real transactions from database`);
         displayTransactions(allTransactions);
@@ -370,28 +338,28 @@ async function loadTransactions() {
 function applyFilters() {
     const status = document.getElementById('statusFilter').value;
     const search = document.getElementById('transactionSearch').value.toLowerCase();
-    
+
     let filtered = allTransactions;
-    
+
     if (status !== 'all') {
         filtered = filtered.filter(t => t.status === status);
     }
-    
+
     if (search) {
-        filtered = filtered.filter(t => 
+        filtered = filtered.filter(t =>
             t.id.toLowerCase().includes(search) ||
             t.student.toLowerCase().includes(search) ||
             t.email.toLowerCase().includes(search)
         );
     }
-    
+
     displayTransactions(filtered);
 }
 
 function displayTransactions(transactions) {
     const tbody = document.getElementById('transactionsTableBody');
     if (!tbody) return;
-    
+
     if (transactions.length === 0) {
         tbody.innerHTML = `
             <tr><td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
@@ -401,7 +369,7 @@ function displayTransactions(transactions) {
         `;
         return;
     }
-    
+
     tbody.innerHTML = transactions.map(txn => `
         <tr>
             <td><strong>${txn.id}</strong></td>
@@ -427,7 +395,7 @@ function displayTransactions(transactions) {
 function viewTransaction(id) {
     const txn = allTransactions.find(t => t.id === id);
     if (!txn) return;
-    
+
     alert(`Transaction Details:\n\nID: ${txn.id}\nStudent: ${txn.student}\nEmail: ${txn.email}\nAmount: ₹${txn.amount}\nMethod: ${txn.method}\nDate: ${txn.date}\nStatus: ${txn.status}`);
 }
 

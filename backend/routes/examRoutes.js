@@ -8,7 +8,8 @@ import {
   getQuestions,
   getStudentResults,
   getUserInfo,
-  listScheduledTests
+  listScheduledTests,
+  getPublicTestSeries
 } from '../controllers/examController.js';
 
 import {
@@ -23,6 +24,9 @@ const router = express.Router();
 
 // ✅ PUBLIC: List all scheduled tests (for calendar display)
 router.get('/list', listScheduledTests);
+
+// ✅ PUBLIC: Get test series with pricing
+router.get('/test-series', getPublicTestSeries);
 
 // ✅ PROTECTED: Get user info (requires authentication)
 // Used by frontend to fetch user's purchased tests
