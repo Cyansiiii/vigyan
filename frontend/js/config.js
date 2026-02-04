@@ -8,8 +8,7 @@ window.APP_CONFIG = {
     // Environment detection
     ENVIRONMENT: window.location.hostname.includes('localhost') ? 'development' : 'production',
 
-    // API Base URL - UPDATED: Hostinger Migration (2026-02-05)
-    // Production backend moved from Railway to Hostinger VPS
+    // API Base URL - UPDATED: Railway Deployment (2026-01-28)
     API_BASE_URL: (() => {
         const hostname = window.location.hostname;
 
@@ -23,8 +22,8 @@ window.APP_CONFIG = {
             return 'http://localhost:3000';
         }
 
-        // 3. PRODUCTION: Hostinger VPS backend
-        return 'https://backend-vigyanpreap.vigyanprep.com';
+        // 3. PRODUCTION: Railway backend
+        return 'https://vigyan-production.up.railway.app';
     })(),
 
     // Feature flags
@@ -50,9 +49,9 @@ window.APP_CONFIG = {
 
     // App metadata
     APP_NAME: 'Vigyan.prep Admin Portal',
-    VERSION: '1.2.0',
+    VERSION: '1.2.1',
     BUILD_DATE: '2026-02-05',
-    DEPLOYMENT: 'Hostinger VPS',
+    DEPLOYMENT: 'Railway',
 
     // Logging
     log: function (message, type = 'info') {
@@ -75,7 +74,7 @@ window.API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
 console.log('🚀 App Configuration Loaded');
 console.log('📍 Environment:', window.APP_CONFIG.ENVIRONMENT);
 console.log('🌐 API URL:', window.APP_CONFIG.API_BASE_URL);
-console.log('🚂 Deployment: Hostinger VPS');
+console.log('🚂 Deployment: Railway');
 console.log('🔧 Debug Mode:', window.APP_CONFIG.FEATURES.DEBUG_MODE);
 if (typeof window.__ENV__ !== 'undefined') {
     console.log('🔌 Server-injected environment:', window.__ENV__);
