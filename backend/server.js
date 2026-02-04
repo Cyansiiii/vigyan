@@ -216,6 +216,7 @@ import studentRoutes from './routes/studentRoutes.js';
 import transactionRoutes from './routes/transactionRoutes.js';
 import resultRoutes from './routes/resultRoutes.js';
 import adminTestPricingRoutes from './routes/adminTestPricingRoutes.js';
+import doubtRoutes from './routes/doubtRoutes.js';
 
 // 🔧 CONFIG ENDPOINT - CRITICAL FOR PAYMENT GATEWAY
 app.get('/api/config', (req, res) => {
@@ -259,6 +260,7 @@ console.log('✅ Exam routes mounted - /api/exam/*');
 app.use('/api/news', newsRoutes);
 console.log('✅ News routes mounted - /api/news/*');
 app.use('/api/pdf', pdfRoutes);
+app.use('/api/doubt', doubtRoutes);
 console.log('✅ PDF routes mounted - /api/pdf/*');
 
 // Health check

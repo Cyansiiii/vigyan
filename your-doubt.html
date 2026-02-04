@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUR DOUBT | Vigyan.prep AI Tutor</title>
+    <!-- Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Handwriting Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Indie+Flower&family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="frontend/css/global.css">
+    <link rel="stylesheet" href="frontend/css/navbar.css">
+    <link rel="stylesheet" href="frontend/css/handwriting.css">
+
+    <script>
+        // Use global config if available
+        const API_URL = "https://vigyan-production.up.railway.app";
+    </script>
+</head>
+
+<body class="bg-[#020617] text-white font-['Plus_Jakarta_Sans'] overflow-x-hidden">
+    <div class="grid-bg"></div>
+
+    <!-- Navigation -->
+    <nav
+        class="navbar fixed top-0 w-full z-50 px-12 py-5 flex justify-between items-center bg-[#020617]/90 backdrop-blur-md border-b border-white/5">
+        <div class="logo text-2xl font-black text-white cursor-pointer" onclick="window.location.href='index.html'">
+            <span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span class="logo-prep">prep</span>
+        </div>
+        <div class="nav-links flex items-center space-x-8 text-sm font-bold text-gray-400">
+            <a href="index.html" class="hover:text-white transition">Home</a>
+            <a href="testfirstpage.html" class="hover:text-white transition">Tests</a>
+            <div id="navLoginPlaceholder"></div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Sidebar: History -->
+        <aside class="lg:col-span-3 space-y-6">
+            <div
+                class="glass-sidebar p-6 rounded-3xl border border-white/10 h-[calc(100vh-160px)] sticky top-32 overflow-y-auto">
+                <h3 class="text-xs uppercase font-black tracking-widest text-blue-400 mb-6">Recent Doubts</h3>
+                <div id="historyList" class="space-y-4">
+                    <p class="text-xs text-gray-500 italic">No questions yet...</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <section class="lg:col-span-9 space-y-8">
+            <!-- Input Card -->
+            <div class="glass-card p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-brain text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-black">AI Tutor Workspace</h1>
+                        <p class="text-sm text-gray-400 font-medium">Ask any JEE Advanced, IISER, or NISER related
+                            question.</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <textarea id="questionInput"
+                        class="w-full bg-black/40 border border-white/10 rounded-2xl p-6 text-lg focus:outline-none focus:border-blue-500/50 transition resize-none h-40 placeholder:text-gray-600"
+                        placeholder="Type your question here... (e.g., Explain the mechanism of SN1 reaction)"></textarea>
+
+                    <button id="askBtn" onclick="askAI()"
+                        class="absolute bottom-4 right-4 bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-bold transition flex items-center gap-2 shadow-lg shadow-blue-500/20">
+                        <span>Ask Zen AI</span>
+                        <i class="fas fa-paper-plane text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-6 mt-6 pt-6 border-t border-white/5">
+                    <div class="flex items-center gap-3">
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Writing Style:</label>
+                        <select id="writingStyle"
+                            class="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs font-bold focus:outline-none focus:border-blue-500">
+                            <option value="neat">Neat (Patrick)</option>
+                            <option value="cursive">Cursive (Caveat)</option>
+                            <option value="casual">Casual (Indie)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result: Notebook Area -->
+            <div id="notebookArea" class="hidden">
+                <div
+                    class="notebook-page bg-[#f8f9fa] text-[#2d3436] rounded-[2rem] p-12 shadow-2xl relative border-l-[40px] border-red-200/50 min-h-[600px]">
+                    <div class="absolute inset-0 pointer-events-none rounded-[2rem] opacity-[0.03]"
+                        style="background-image: linear-gradient(#2d3436 1px, transparent 1px); background-size: 100% 32px;">
+                    </div>
+
+                    <div id="handwritingOutput" class="handwriting-text text-3xl leading-[32px] min-h-[400px]">
+                        <!-- Response will type out here -->
+                    </div>
+
+                    <div id="imageGallery" class="mt-12 grid grid-cols-2 gap-4 border-t border-gray-200 pt-8 hidden">
+                        <!-- Reference images -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingOverlay" class="hidden flex flex-col items-center justify-center py-20">
+                <div
+                    class="loader-circle w-20 h-20 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin">
+                </div>
+                <p class="mt-6 text-blue-400 font-bold tracking-widest animate-pulse">ZEN AI IS THINKING...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Scripts -->
+    <script src="frontend/js/enrollment-lock.js"></script>
+    <script src="frontend/js/user-panel.js"></script>
+    <script>
+        const md = window.markdownit();
+        let isTyping = false;
+
+        async function askAI() {
+            if (isTyping) return;
+            const question = document.getElementById('questionInput').value.trim();
+            const email = localStorage.getItem('userEmail');
+            const style = document.getElementById('writingStyle').value;
+
+            if (!question) return alert('Please enter a question!');
+
+            toggleLoading(true);
+            document.getElementById('notebookArea').classList.add('hidden');
+
+            try {
+                const res = await axios.post(`${API_URL}/api/doubt/ask`, {
+                    questionText: question,
+                    handwritingStyle: style,
+                    email: email
+                });
+
+                if (res.data.success) {
+                    typeOutResponse(res.data.answer, style);
+                    fetchHistory();
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error. Please try again later.');
+            } finally {
+                toggleLoading(false);
+            }
+        }
+
+        function typeOutResponse(text, style) {
+            const container = document.getElementById('handwritingOutput');
+            const notebook = document.getElementById('notebookArea');
+            container.innerHTML = '';
+            container.className = `handwriting-text text-3xl leading-[32px] min-h-[400px] style-${style}`;
+            notebook.classList.remove('hidden');
+
+            isTyping = true;
+            let i = 0;
+            const speed = 30; // ms per char
+
+            function type() {
+                if (i < text.length) {
+                    container.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    isTyping = false;
+                }
+            }
+            type();
+        }
+
+        async function fetchHistory() {
+            const email = localStorage.getItem('userEmail');
+            if (!email) return;
+
+            try {
+                const res = await axios.get(`${API_URL}/api/doubt/history/${email}`);
+                if (res.data.success) {
+                    const list = document.getElementById('historyList');
+                    list.innerHTML = res.data.history.map(item => `
+                        <div class="p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-blue-500/30 transition cursor-pointer group"
+                            onclick="loadQuestion('${item._id}')">
+                            <p class="text-xs text-gray-300 font-medium line-clamp-2">${item.questionText}</p>
+                            <span class="text-[10px] text-gray-500 mt-2 block">${new Date(item.createdAt).toLocaleDateString()}</span>
+                        </div>
+                    `).join('') || '<p class="text-xs text-gray-500 italic">No questions yet...</p>';
+                }
+            } catch (err) {
+                console.error('History fetch failed:', err);
+            }
+        }
+
+        function toggleLoading(show) {
+            document.getElementById('loadingOverlay').classList.toggle('hidden', !show);
+            document.getElementById('askBtn').disabled = show;
+        }
+
+        // Initialize
+        fetchHistory();
+    </script>
+
+    <style>
+        .glass-sidebar {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+        }
+
+        .style-neat {
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .style-cursive {
+            font-family: 'Caveat', cursive;
+        }
+
+        .style-casual {
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .notebook-page::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(90deg, #ffeaa7 0%, rgba(255, 234, 167, 0) 100%);
+            border-radius: 2rem 0 0 2rem;
+        }
+    </style>
+</body>
+
+</html>
