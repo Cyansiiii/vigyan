@@ -181,9 +181,9 @@ function onTestSelected() {
         historyBtn.disabled = true;
     }
 
-    // Clear new price input and status
+    // Clear new price input but keep status visible if it exists
     document.getElementById('newPrice').value = '';
-    document.getElementById('priceUpdateStatus').style.display = 'none';
+    // document.getElementById('priceUpdateStatus').style.display = 'none'; // REMOVED to prevent auto-hiding
 }
 
 // 🔒 SECURE: Update test price (admin only)
