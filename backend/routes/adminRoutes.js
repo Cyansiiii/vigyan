@@ -35,7 +35,7 @@ router.get('/notifications-count', getNotificationsCount);
 // ========== SCHEDULED TESTS ENDPOINTS ==========
 router.post('/tests', createScheduledTest);        // ✅ FIXED: POST /api/admin/tests
 router.get('/scheduled-tests', getScheduledTests);  // ✅ Get all scheduled tests
-router.get('/tests', getScheduledTests);            // ✅ GET /api/admin/tests
+// router.get('/tests', getScheduledTests);            // ❌ REMOVED: Conflicts with adminTestPricingRoutes
 router.get('/past-tests', getPastTests);            // ✅ Get past tests (Fixes 404)
 router.get('/tests/:testId', getTestDetails);      // ✅ Get specific test
 router.put('/tests/:testId', updateTestStatus);    // ✅ FIXED: PUT /api/admin/tests/:id
