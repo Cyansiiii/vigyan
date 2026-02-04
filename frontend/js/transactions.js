@@ -149,9 +149,11 @@ function populateTestSelector() {
     selector.innerHTML = '<option value="">-- Select a test --</option>';
 
     allTests.forEach(test => {
+        const testId = test.testId || test.test_type || test._id;
+        const testName = test.name || test.test_name || testId;
         const option = document.createElement('option');
-        option.value = test.testId;
-        option.textContent = `${test.name} (${test.testId.toUpperCase()})`;
+        option.value = testId;
+        option.textContent = `${testName} (${testId.toUpperCase()})`;
         option.dataset.price = test.price;
         selector.appendChild(option);
     });
@@ -221,7 +223,7 @@ async function updateTestPrice() {
         showPriceStatus('success', `✅ ${data.message}`);
 
         // Update local cache
-        const testIndex = allTests.findIndex(t => t.testId === testId);
+        const testIndex = allTests.findIndex(t => (t.testId || t.test_type || t._id) === testId);
         if (testIndex !== -1) {
             allTests[testIndex].price = newPrice;
         }

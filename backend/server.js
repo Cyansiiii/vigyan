@@ -242,16 +242,11 @@ app.use('/api/admin', migrationRoute);
 console.log('✅ Migration endpoint mounted');
 
 // ✅ NEW ADMIN ROUTES - Full Admin Panel Support (FIXED PATHS)
-app.use('/api/admin/dashboard', adminDashboardRoutes); // ✅ FIXED: Added /dashboard prefix
-console.log('✅ Admin Dashboard routes mounted at /api/admin/dashboard/*');
-app.use('/api/admin/students', studentRoutes); // ✅ FIXED: Added /students prefix
-console.log('✅ Student routes mounted at /api/admin/students/*');
-app.use('/api/admin/transactions', transactionRoutes); // ✅ FIXED: Added /transactions prefix
-console.log('✅ Transaction routes mounted at /api/admin/transactions/*');
-app.use('/api/admin/results', resultRoutes); // ✅ FIXED: Added /results prefix
-console.log('✅ Result routes mounted at /api/admin/results/*');
-app.use('/api/admin/tests', adminTestPricingRoutes); // ✅ Test pricing routes
-console.log('✅ Admin Test Pricing routes mounted at /api/admin/tests/*');
+app.use('/api/admin/tests', adminTestPricingRoutes); // ✅ FIXED: Move ABOVE adminRoutes to avoid collision
+app.use('/api/admin/dashboard', adminDashboardRoutes);
+app.use('/api/admin/students', studentRoutes);
+app.use('/api/admin/transactions', transactionRoutes);
+app.use('/api/admin/results', resultRoutes);
 
 // Mount other API routes
 console.log('🔵 Mounting API routes...');
