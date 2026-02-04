@@ -184,6 +184,10 @@ function showSuccessNotification(message) {
     }, 3000);
 }
 
+// Make notification functions globally available
+window.showSuccessNotification = showSuccessNotification;
+window.showErrorNotification = showErrorNotification;
+
 // Set Greeting Based on Time
 function setGreeting() {
     const hour = new Date().getHours();

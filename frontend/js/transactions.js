@@ -51,7 +51,7 @@ function renderTransactionsPage() {
                     <input type="number" id="newPrice" placeholder="e.g. 299" min="1" max="99999" step="1" class="form-control">
                 </div>
                 
-                <button class="btn-primary" onclick="updateTestPrice()" style="height: 46px;">
+                <button type="button" class="btn-primary" onclick="updateTestPrice()" style="height: 46px;">
                     <i class="fas fa-save"></i> Update Price
                 </button>
             </div>
@@ -138,7 +138,9 @@ async function loadTests() {
         populateTestSelector();
     } catch (error) {
         console.error('❌ Failed to load tests:', error);
-        showPriceStatus('error', '❌ Failed to load tests. Please check your admin authentication.');
+        if (window.showErrorNotification) {
+            window.showErrorNotification('Failed to load tests. Check auth.');
+        }
     }
 }
 
@@ -196,19 +198,19 @@ async function updateTestPrice() {
 
     // Validation
     if (!testId) {
-        showPriceStatus('error', '⚠️ Please select a test first');
+        if (window.showErrorNotification) window.showErrorNotification('Please select a test series');
         return;
     }
 
     if (!newPrice || newPrice < 1 || newPrice > 99999) {
-        showPriceStatus('error', '⚠️ Price must be between ₹1 and ₹99,999');
+        if (window.showErrorNotification) window.showErrorNotification('Price must be between ₹1 and ₹99,999');
         return;
     }
 
-    const currentPrice = parseInt(testSelector.options[testSelector.selectedIndex].dataset.price);
+    const currentPrice = parseInt(testSelector.options[testSelector.selectedIndex].dataset.price || 0);
 
     if (newPrice === currentPrice) {
-        showPriceStatus('error', '⚠️ New price is same as current price');
+        if (window.showErrorNotification) window.showErrorNotification('New price matches current price');
         return;
     }
 
@@ -225,7 +227,9 @@ async function updateTestPrice() {
         const data = await window.AdminAPI.updateTestPrice(testId, newPrice);
 
         console.log('✅ Price updated:', data);
-        showPriceStatus('success', `✅ ${data.message}`);
+        if (window.showSuccessNotification) {
+            window.showSuccessNotification(data.message || 'Price updated successfully');
+        }
 
         // Update local cache
         const testIndex = allTests.findIndex(t => (t.testId || t.test_type || t._id) === testId);
@@ -252,7 +256,9 @@ async function updateTestPrice() {
 
     } catch (error) {
         console.error('❌ Price update failed:', error);
-        showPriceStatus('error', `❌ ${error.message}`);
+        if (window.showErrorNotification) {
+            window.showErrorNotification(error.message || 'Update failed');
+        }
     }
 }
 
