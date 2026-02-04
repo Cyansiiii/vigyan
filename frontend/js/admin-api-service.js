@@ -48,8 +48,8 @@ const AdminAPI = {
         if (token) token = token.trim();
 
         const defaultHeaders = {
-            // Only set Content-Type if we have a body (JSON)
-            ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+            // Only set Content-Type if we have a body and it's NOT FormData
+            ...(options.body && !(options.body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}),
             // ✅ ADD JWT Authorization header
             ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         };
