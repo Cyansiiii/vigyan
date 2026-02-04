@@ -149,12 +149,17 @@ function populateTestSelector() {
     selector.innerHTML = '<option value="">-- Select a test --</option>';
 
     allTests.forEach(test => {
-        const testId = test.testId || test.test_type || test._id;
+        // Robust mapping for different API structures (ScheduledTest vs TestSeries)
+        const testId = test.testId || test.test_type || test.test_id || test._id;
         const testName = test.name || test.test_name || testId;
+        const price = test.price || 0;
+
+        if (!testId) return; // Skip invalid entries
+
         const option = document.createElement('option');
         option.value = testId;
         option.textContent = `${testName} (${testId.toUpperCase()})`;
-        option.dataset.price = test.price;
+        option.dataset.price = price;
         selector.appendChild(option);
     });
 }

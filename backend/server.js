@@ -232,21 +232,20 @@ console.log('🔵 Setting up Admin Auth routes (FIRST - no auth required)...');
 app.use('/api/admin/auth', adminAuthRoutes);
 console.log('✅ Admin auth routes mounted - /api/admin/auth/* (PUBLIC)');
 
-// Admin API routes (OLD structure) - These require authentication
-console.log('🔵 Setting up Admin API routes...');
-app.use('/api/admin', questionRoutes);
-console.log('✅ Question routes mounted (OLD + NEW OOP routes)');
-app.use('/api/admin', adminRoutes);
-console.log('✅ Admin API routes mounted');
 app.use('/api/admin', migrationRoute);
 console.log('✅ Migration endpoint mounted');
 
 // ✅ NEW ADMIN ROUTES - Full Admin Panel Support (FIXED PATHS)
-app.use('/api/admin/tests', adminTestPricingRoutes); // ✅ FIXED: Move ABOVE adminRoutes to avoid collision
+// IMPORTANT: Specific routes MUST come before the generic /api/admin route
+app.use('/api/admin/tests', adminTestPricingRoutes);
 app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/admin/students', studentRoutes);
 app.use('/api/admin/transactions', transactionRoutes);
 app.use('/api/admin/results', resultRoutes);
+
+// Generic Admin API routes (OLD structure) - Mount LAST to avoid collisions
+app.use('/api/admin', adminRoutes);
+console.log('✅ Admin API routes mounted');
 
 // Mount other API routes
 console.log('🔵 Mounting API routes...');
