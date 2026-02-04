@@ -233,12 +233,21 @@ async function updateTestPrice() {
             allTests[testIndex].price = newPrice;
         }
 
-        // Refresh selector
-        populateTestSelector();
-        testSelector.value = testId;
-        onTestSelected();
+        // ✅ FIX: Update UI manually to keep success message visible
+        // 1. Update selector dataset
+        const selectedOption = testSelector.options[testSelector.selectedIndex];
+        if (selectedOption) {
+            selectedOption.dataset.price = newPrice;
+        }
 
-        // Clear input
+        // 2. Update current price display
+        const currentPriceDiv = document.getElementById('currentPrice');
+        if (currentPriceDiv) {
+            currentPriceDiv.textContent = `₹${newPrice.toLocaleString()}`;
+            currentPriceDiv.style.color = 'var(--success)';
+        }
+
+        // 3. Clear input
         newPriceInput.value = '';
 
     } catch (error) {
