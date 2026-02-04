@@ -21,30 +21,31 @@
 
         console.log('✅ Enrollment check: Enrolled student (Doubt unlocked)');
 
-        // Find the "Tests" link in all navbars (Desktop and Mobile)
-        const navLinks = document.querySelectorAll('.nav-links');
-
-        navLinks.forEach(nav => {
-            // Find the <a> tag pointing to testfirstpage.html
-            const testLink = Array.from(nav.querySelectorAll('a')).find(a =>
-                a.getAttribute('href') === 'testfirstpage.html'
-            );
-
-            if (testLink && !nav.querySelector('.doubt-link-injected')) {
-                // If the link is a simple <a>, we can add the doubt link after it
-                // Or transform it into a dropdown if desired.
-                // User asked for "sub section YOUR DOUBT", so adding it next to it or as a dropdown.
-
-                const doubtLink = document.createElement('a');
-                doubtLink.href = 'your-doubt.html';
-                doubtLink.className = 'doubt-link-injected';
-                doubtLink.innerHTML = '<span class="text-blue-400 font-bold">✨ YOUR DOUBT</span>';
-                doubtLink.style.marginLeft = '15px'; // Adjust spacing
-
-                // For mobile or specific layouts, we might need different styling
-                testLink.parentNode.insertBefore(doubtLink, testLink.nextSibling);
+        // 1. Target the Tests page specifically
+        if (window.location.pathname.includes('testfirstpage.html')) {
+            const container = document.getElementById('doubt-section-container');
+            if (container && !container.querySelector('.doubt-card-injected')) {
+                const doubtCard = document.createElement('div');
+                doubtCard.className = 'doubt-card-injected w-full mt-12 fade-in';
+                doubtCard.innerHTML = `
+                    <div class="glass-panel" style="min-height: auto; border-color: #c5a059; background: rgba(197, 160, 89, 0.05);">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="w-24 h-24 bg-[#c5a059]/10 rounded-3xl flex items-center justify-center border border-[#c5a059]/20">
+                                <i class="fas fa-brain text-[#c5a059] text-4xl"></i>
+                            </div>
+                            <div class="flex-1 text-center md:text-left">
+                                <h2 class="text-3xl font-black mb-2" style="font-family: 'Playfair Display', serif; color: #c5a059;">Zen Dojo AI Tutor</h2>
+                                <p class="text-gray-400 max-w-xl">Get instant, step-by-step solutions for your doubts with our premium AI-powered research assistant.</p>
+                            </div>
+                            <a href="your-doubt.html" class="buy-btn" style="width: auto; padding: 1.25rem 3rem; margin-top: 0; background: linear-gradient(135deg, #c5a059 0%, #8b6b3f 100%);">
+                                Open Zen Dojo <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(doubtCard);
             }
-        });
+        }
     };
 
     // Protection for your-doubt.html
