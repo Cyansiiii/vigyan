@@ -23,9 +23,11 @@
 
     <style>
         :root {
-            --gold: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.4);
-            --dark-bg: #0a0a0a;
+            --gold: #c5a059;
+            /* More accurate deep/antique gold */
+            --gold-bright: #f3e5ab;
+            --gold-glow: rgba(197, 160, 89, 0.3);
+            --dark-bg: #050505;
         }
 
         body {
@@ -34,6 +36,15 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* Full Height Layout */
+        #landingStage {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         /* Premium Brand Identity */
@@ -47,143 +58,151 @@
             }
         }
 
-        .brand-logo,
-        .glow-title {
+        .brand-logo-container {
+            position: relative;
+            display: inline-flex;
+            align-items: baseline;
+        }
+
+        .brand-text {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             text-transform: uppercase;
             color: var(--gold);
             position: relative;
-            display: inline-block;
-
-            /* The Shine Effect */
             background: linear-gradient(to right,
-                    #d4af37 0%,
-                    #f8e08e 25%,
-                    #d4af37 50%,
-                    #f8e08e 75%,
-                    #d4af37 100%);
+                    var(--gold) 0%,
+                    var(--gold-bright) 25%,
+                    var(--gold) 50%,
+                    var(--gold-bright) 75%,
+                    var(--gold) 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 4s infinite linear;
-            /* Slow shimmer every 4s, shining for ~2s */
-            filter: drop-shadow(0 0 12px var(--gold-glow));
+            animation: shimmer 5s infinite linear;
+        }
+
+        .brand-logo-container::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+            opacity: 0.6;
         }
 
         .brand-logo {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             letter-spacing: 2px;
         }
 
         .glow-title {
-            font-size: 5.5rem;
+            font-size: 5rem;
             line-height: 1;
             letter-spacing: 4px;
         }
 
         .dot-prep {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 400;
-            font-size: 0.4em;
-            /* Relative to parent */
+            font-weight: 300;
             color: rgba(255, 255, 255, 0.4);
             text-transform: lowercase;
             letter-spacing: normal;
-            vertical-align: middle;
-            margin-left: 5px;
+            margin-left: 8px;
             -webkit-text-fill-color: rgba(255, 255, 255, 0.4);
-            /* Override shimmer */
         }
 
         /* Hero Layout Refinement */
         .hero-section {
-            min-height: 85vh;
+            flex: 1;
             display: flex;
             align-items: center;
-            padding: 0 10%;
-            gap: 8%;
-            background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+            padding: 0 8%;
+            gap: 4%;
+            max-height: 60vh;
+        }
+
+        .hero-content {
+            flex: 1.2;
+            z-index: 10;
         }
 
         .hero-image-container {
             flex: 1;
             display: flex;
-            justify-content: flex-end;
-            position: relative;
+            justify-content: center;
+            align-items: center;
         }
 
         .hero-image {
             width: 100%;
-            max-width: 600px;
-            border-radius: 2.5rem;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+            max-width: 500px;
+            border-radius: 2rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-image:hover {
-            transform: perspective(1000px) rotateY(0deg);
         }
 
         .tagline {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-style: normal;
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
         }
 
         .description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 450px;
-            line-height: 1.6;
-            margin-bottom: 3rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 400px;
+            line-height: 1.5;
+            margin-bottom: 2rem;
         }
 
         .btn-start {
-            background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
-            color: black;
-            padding: 18px 45px;
+            background: linear-gradient(135deg, #c5a059 0%, #8b6b3f 100%);
+            color: #000;
+            padding: 16px 40px;
             border-radius: 50px;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 10px 30px var(--gold-glow);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.2);
             border: none;
             cursor: pointer;
         }
 
         .btn-start:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px var(--gold-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.4);
         }
 
-        /* Feature Cards */
+        /* Feature Cards - Floating at bottom */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 5rem 10%;
-            background: linear-gradient(0deg, #050505 0%, transparent 100%);
+            gap: 1.5rem;
+            padding: 2rem 8% 4rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 1.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            text-align: center;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 1.5rem;
+            border-radius: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            text-align: left;
         }
 
         .feature-card:hover {
@@ -263,9 +282,9 @@
     <!-- Landing Stage -->
     <div id="landingStage">
         <!-- Minimal Navbar -->
-        <header class="flex justify-between items-center py-8 px-[10%]">
-            <div class="brand-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-                VIGYAN<span class="dot-prep">.prep</span>
+        <header class="flex justify-between items-center py-6 px-[8%]">
+            <div class="brand-logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <span class="brand-text brand-logo">VIGYAN</span><span class="dot-prep">.prep</span>
             </div>
             <div class="flex items-center gap-6">
                 <button
@@ -279,7 +298,10 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content fade-in">
-                <h1 class="glow-title">VIGYAN<span class="text-white/40">.prep</span></h1>
+                <div class="brand-logo-container mb-4">
+                    <span class="brand-text glow-title">VIGYAN</span><span class="dot-prep"
+                        style="font-size: 1.5rem;">.prep</span>
+                </div>
                 <p class="tagline">"Your Doubt, Your Solution"</p>
                 <p class="description">Ask any question and get detailed, step-by-step solutions powered by advanced AI
                     expert tutors.</p>
@@ -296,18 +318,24 @@
         <section class="feature-grid fade-in" style="animation-delay: 0.4s">
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-question-circle"></i></div>
-                <h3 class="text-lg font-bold mb-2">Ask Anything</h3>
-                <p class="text-gray-500 text-xs">Any subject, any doubt, academic or complex research questions.</p>
+                <div class="text-left">
+                    <h3 class="text-white font-bold text-sm">Ask Anything</h3>
+                    <p class="text-gray-500 text-[10px]">Any subject, any doubt</p>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
-                <h3 class="text-lg font-bold mb-2">Clear Solutions</h3>
-                <p class="text-gray-500 text-xs">Step-by-step explanations written in a clean, guided manner.</p>
+                <div class="text-left">
+                    <h3 class="text-white font-bold text-sm">Clear Solutions</h3>
+                    <p class="text-gray-500 text-[10px]">Step-by-step explanations</p>
+                </div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                <h3 class="text-lg font-bold mb-2">AI Powered</h3>
-                <p class="text-gray-500 text-xs">Powered by Gemini 1.5 Flash for smart and accurate results.</p>
+                <div class="text-left">
+                    <h3 class="text-white font-bold text-sm">AI Powered</h3>
+                    <p class="text-gray-500 text-[10px]">Smart & accurate answers</p>
+                </div>
             </div>
         </section>
 
