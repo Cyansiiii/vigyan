@@ -150,13 +150,12 @@ const AdminUtils = {
         this.showToast('Data exported successfully!', 'success');
     },
 
-    // Show edit modal
-    showEditModal(title, fields, currentData, onSave) {
+    showEditModal(title, fields, onSave) {
         const modal = document.createElement('div');
         modal.className = 'confirm-modal-overlay';
 
         const fieldsHTML = fields.map(field => {
-            const value = currentData[field.key] || '';
+            const value = field.value !== undefined ? field.value : '';
             if (field.type === 'select') {
                 return `
                     <div style="margin-bottom: 16px;">
@@ -232,3 +231,5 @@ const AdminUtils = {
         return re.test(phone);
     }
 };
+
+window.AdminUtils = AdminUtils;

@@ -339,23 +339,30 @@ function editQuestionModal(id) {
 }
 
 async function deleteQuestionConfirm(id) {
-    if (!confirm('Are you sure you want to delete this question? This action cannot be undone.')) return;
+    if (!window.AdminUtils) {
+        if (!confirm('Are you sure you want to delete this question? This action cannot be undone.')) return;
+        executeDelete(id);
+    } else {
+        window.AdminUtils.showConfirmModal(
+            'Are you sure you want to delete this question? This action cannot be undone.',
+            () => executeDelete(id)
+        );
+    }
 
-    try {
-        console.log(`🗑️ Deleting question #${id}...`);
-
-        await window.AdminAPI.deleteQuestion(id);
-
-        console.log('✅ Question deleted successfully');
-        if (window.AdminUtils) window.AdminUtils.showToast('Question deleted successfully', 'success');
-        loadQuestionsFromBackend();
-
-    } catch (error) {
-        console.error('❌ Delete error:', error);
-        if (window.AdminUtils) {
-            window.AdminUtils.showToast('Failed to delete question', 'error');
-        } else {
-            alert('Failed to delete question. Please try again.');
+    async function executeDelete(questionId) {
+        try {
+            console.log(`🗑️ Deleting question #${questionId}...`);
+            await window.AdminAPI.deleteQuestion(questionId);
+            console.log('✅ Question deleted successfully');
+            if (window.AdminUtils) window.AdminUtils.showToast('Question deleted successfully', 'success');
+            loadQuestionsFromBackend();
+        } catch (error) {
+            console.error('❌ Delete error:', error);
+            if (window.AdminUtils) {
+                window.AdminUtils.showToast('Failed to delete question', 'error');
+            } else {
+                alert('Failed to delete question. Please try again.');
+            }
         }
     }
 }
