@@ -254,52 +254,96 @@
             }
         }
 
-        /* METRIC NEBULA STYLES */
-        .nebula-container {
-            position: relative;
-            height: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: visible;
+        /* VIGYAN BENTO GRID STYLES */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 1.5rem;
+            margin-bottom: 120px;
         }
 
-        .nebula-point {
-            position: absolute;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
+        .bento-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            z-index: 2;
+            justify-content: flex-end;
         }
 
-        .nebula-point:hover {
-            transform: scale(1.2);
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+        .bento-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .nebula-value {
-            font-size: 5rem;
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .bento-item:hover::before {
+            opacity: 1;
+        }
+
+        .bento-1 {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .bento-2 {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .bento-3 {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .bento-4 {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .bento-value {
+            font-size: 4.5rem;
             font-weight: 900;
-            color: white;
             line-height: 1;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            margin-bottom: 0.5rem;
+            color: white;
+            letter-spacing: -3px;
         }
 
-        .nebula-label {
-            font-size: 0.7rem;
+        .bento-label {
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.3em;
-            color: var(--blue);
-            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        /* QUANTUM PORTAL CTA STYLES */
-        .portal-cta {
+        .bento-icon {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            opacity: 0.2;
+            color: var(--blue);
+        }
+
+        /* QUANTUM PULSE CTA STYLES */
+        .pulse-cta {
             position: relative;
             height: 100vh;
             display: flex;
@@ -307,60 +351,98 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            margin-top: 100px;
+            border-radius: 4rem;
+            margin: 0 -2rem;
         }
 
-        .portal-bg {
+        .pulse-bg {
             position: absolute;
             inset: 0;
             z-index: 0;
         }
 
-        .portal-bg img {
+        .pulse-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.4) saturate(1.2);
+            filter: brightness(0.5);
             transition: transform 2s ease-out;
         }
 
-        .portal-cta:hover .portal-bg img {
-            transform: scale(1.1);
+        .pulse-cta:hover .pulse-bg img {
+            transform: scale(1.05);
         }
 
-        .portal-content {
+        .pulse-content {
             position: relative;
             z-index: 10;
             text-align: center;
+            max-width: 800px;
         }
 
-        .portal-title {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 900;
+        .pulse-title {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 950;
             color: white;
             text-transform: uppercase;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            letter-spacing: -0.05em;
+            line-height: 0.85;
+            margin-bottom: 2.5rem;
+            letter-spacing: -6px;
+            font-style: italic;
         }
 
-        .portal-btn {
-            background: white;
-            color: black;
-            padding: 1.5rem 4rem;
+        .pulse-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 1.8rem 5rem;
             border-radius: 99px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+            letter-spacing: 0.3em;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        .portal-btn:hover {
-            background: var(--blue);
-            color: white;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 80px rgba(59, 130, 246, 0.6);
+        .pulse-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            background: #2563eb;
+            box-shadow: 0 0 80px rgba(59, 130, 246, 0.7);
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+
+            .bento-item {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+                height: 300px;
+            }
+
+            .bento-1,
+            .bento-4 {
+                grid-column: span 2 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-item {
+                grid-column: span 1 !important;
+            }
+
+            .pulse-cta {
+                border-radius: 2rem;
+                margin: 0;
+            }
         }
     </style>
 </head>
@@ -440,144 +522,154 @@
                 </div>
             </div>
         </section>
-        < !-- The Vision Statement (Equation Integrated) -->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-60 items-center">
-                <div data-aos="fade-right"><span
-                        class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4 block">The Mission</span>
-                    <h2 class="text-5xl font-black mb-8 text-white leading-tight">DECODING THE <br>ARCHITECTS OF <span
-                            class="gradient-text-animated">CLARITY.</span></h2>
-                    <p class="text-slate-400 leading-relaxed text-lg mb-8">We believe research isn't built on
-                        memorization, but on the depth of one' s reasoning. Like the great students of physics before
-                        us,
-                        we measure clarity by the rate of discovery. </p>
-                    <div
-                        class="glass-panel p-8 rounded-2xl border-white/5 inline-flex items-center gap-4 text-white/60">
-                        <i class="fas fa-microscope text-blue-500"></i><span
-                            class="text-sm uppercase tracking-widest">Scientific Integrity Verified</span></div>
+        <!-- The Vision Statement (Equation Integrated) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-60 items-center">
+            <div data-aos="fade-right"><span
+                    class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4 block">The Mission</span>
+                <h2 class="text-5xl font-black mb-8 text-white leading-tight">DECODING THE <br>ARCHITECTS OF <span
+                        class="gradient-text-animated">CLARITY.</span></h2>
+                <p class="text-slate-400 leading-relaxed text-lg mb-8">We believe research isn't built on
+                    memorization, but on the depth of one' s reasoning. Like the great students of physics before
+                    us,
+                    we measure clarity by the rate of discovery. </p>
+                <div class="glass-panel p-8 rounded-2xl border-white/5 inline-flex items-center gap-4 text-white/60">
+                    <i class="fas fa-microscope text-blue-500"></i><span
+                        class="text-sm uppercase tracking-widest">Scientific Integrity Verified</span>
                 </div>
-                <div class="glass-panel p-16 rounded-[3rem] relative overflow-hidden group hover:border-blue-500/30 transition-all duration-700"
-                    data-aos="zoom-in">
-                    <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-10">The Success Matrix</h3>
-                    <div class="text-4xl font-mono text-white" data-aos="flip-up" data-aos-delay="200">$$ Success=\int
-                        \frac {
-                        d(Clarity)
-                        }
-
-                        {
-                        d(Time)
-                        }
-
-                        $$ </div>
-                    <div class="mt-10 text-slate-500 text-xs uppercase tracking-widest">Proprietary Evaluation Model
-                    </div>
+            </div>
+            <div class="glass-panel p-16 rounded-[3rem] relative overflow-hidden group hover:border-blue-500/30 transition-all duration-700"
+                data-aos="zoom-in">
+                <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity">
                 </div>
-            </section>
-            < !--================================================PREMIUM REDESIGN: THE VIGYAN
+                <h3 class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-10">The Success Matrix</h3>
+                <div class="text-4xl font-mono text-white" data-aos="flip-up" data-aos-delay="200">$$ Success=\int
+                    \frac {
+                    d(Clarity)
+                    }
+
+                    {
+                    d(Time)
+                    }
+
+                    $$ </div>
+                <div class="mt-10 text-slate-500 text-xs uppercase tracking-widest">Proprietary Evaluation Model
+                </div>
+            </div>
+        </section>
+        <!--================================================PREMIUM REDESIGN: THE VIGYAN
                 SYNTHESIS================================================-->
-                <section class="mb-60 relative" id="synthesis">
-                    < !-- Advanced 3D Wisdom Network Backdrop -->
-                        <div id="wisdomCanvasContainer" class="absolute inset-0 z-0 pointer-events-none opacity-50">
-                            <canvas id="wisdomCanvas"></canvas></div>
-                        <div class="hud-text mb-4 relative z-10">Historical Blueprint // Synthesis.exe</div>
-                        <h2 class="text-6xl lg:text-8xl font-black mb-24 tracking-tighter uppercase italic text-white relative z-10"
-                            data-aos="fade-up">The VIGYAN <span class="text-blue-500">Synthesis</span></h2>
-                        <div class="synthesis-section relative z-10">
-                            < !-- Sticky Visual Frame -->
-                                <div class="synthesis-image-container glass-panel" data-aos="zoom-in"><img
-                                        id="synthesisImage" src="frontend/images/inspirations/ancient-premium.png"
-                                        alt="Intellectual Foundations"
-                                        class="w-full h-full object-cover transition-all duration-1000">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-[#020617] to-transparent opacity-60">
-                                    </div>
-                                </div>
-                                < !-- Scrolling Narrative -->
-                                    <div class="synthesis-content">
-                                        < !-- Block 1: The Logic -->
-                                            <div class="synthesis-block" data-aos="fade-up"
-                                                data-block-image="frontend/images/inspirations/ancient-premium.png">
-                                                <span class="synthesis-label">2,
-                                                    500 BCE - Present</span>
-                                                <h3 class="text-4xl font-bold text-white mb-6">The DNA of Logic</h3>
-                                                <p class="text-slate-400 leading-relaxed mb-6">VIGYAN.prep isn't just a
-                                                    test platform; it' s the modern heir to <strong>Pramana</strong>—the
-                                                    ancient Buddhist science of knowledge. Before modern Europe,
-                                                    scholars like <i>Maitreyanātha</i>were defining the laws of
-                                                    deduction and observation. </p>
-                                                <blockquote
-                                                    class="border-l-2 border-blue-500 pl-6 italic text-slate-300 text-sm">
-                                                    "Everything in our test series follows this lineage: Rigorous
-                                                    observation over blind
-                                                    memorization."
-                                                </blockquote>
-                                            </div>
-                                            < !-- Block 2: The Vision -->
-                                                <div class="synthesis-block" data-aos="fade-up"
-                                                    data-block-image="frontend/images/inspirations/modern-premium.png">
-                                                    <span class="synthesis-label">The Visionary Blueprint</span>
-                                                    <h3 class="text-4xl font-bold text-white mb-6">Atomic Ambition</h3>
-                                                    <p class="text-slate-400 leading-relaxed mb-6">We take our
-                                                        institutional cues from <strong>Homi J. Bhabha</strong>. He
-                                                        didn't just build
-                                                        labs;
-                                                        he built a culture of excellence in Bharat. Like him,
-                                                        we believe that providing students with world-class challenges
-                                                        is the only way to build a scientific superpower. </p>
-                                                    <p class="text-slate-400 leading-relaxed">Combining
-                                                        <strong>Bhabha's</strong> strategic rigor with <strong>Kalam'
-                                                            s</strong>relentless dreaming,
-                                                        VIGYAN.prep serves as the bridge for the next generation of
-                                                        researchers entering <i>IISc,
-                                                            TIFR,
-                                                            and IISER</i>. </p>
-                                                </div>
-                                    </div>
-                        </div>
-                </section>
-                < !-- Stats Cards -->
-                    < !-- METRIC NEBULA SECTION -->
-                        <section class="mb-60">
-                            <div class="hud-text mb-12 text-center">Data Constellation // vMetric.Grid</div>
-                            <div class="nebula-container">
-                                < !-- Points will be animated via AOS or custom float JS -->
-                                    <div class="nebula-point" style="top: 10%; left: 20%; width: 300px; height: 300px;"
-                                        data-aos="zoom-in">
-                                        <div class="nebula-value">1000+</div>
-                                        <div class="nebula-label">Curated Questions</div>
-                                    </div>
-                                    <div class="nebula-point" style="top: 40%; left: 50%; width: 350px; height: 350px;"
-                                        data-aos="zoom-in" data-aos-delay="200">
-                                        <div class="nebula-value" style="color: #a855f7;">95%</div>
-                                        <div class="nebula-label">Conceptual Depth</div>
-                                    </div>
-                                    <div class="nebula-point"
-                                        style="bottom: 10%; right: 15%; width: 280px; height: 280px;" data-aos="zoom-in"
-                                        data-aos-delay="400">
-                                        <div class="nebula-value" style="color: #ec4899;">24/7</div>
-                                        <div class="nebula-label">Elite Access</div>
-                                    </div>
-                            </div>
-                        </section>
-                        < !-- QUANTUM PORTAL CTA -->
-                            <section
-                                class="portal-cta glass-panel rounded-[4rem] border-white/5 mx-[-2rem] lg:mx-0 overflow-hidden"
-                                data-aos="zoom-in-up">
-                                <div class="portal-bg"><img src="frontend/images/quantum-portal.png"
-                                        alt="Quantum Entry">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]">
-                                    </div>
-                                </div>
-                                <div class="portal-content" data-aos="fade-up" data-aos-delay="300">
-                                    <h2 class="portal-title">Enter the <br><span
-                                            class="text-blue-500">Experiment.</span></h2>
-                                    <div class="hud-text mb-12 opacity-60 italic">Initiating Zero-Gravity Protocol...
-                                    </div><a href="testfirstpage.html" class="inline-block"><button
-                                            class="portal-btn">Access Universe</button></a>
-                                </div>
-                            </section>
+        <section class="mb-60 relative" id="synthesis">
+            <!-- Advanced 3D Wisdom Network Backdrop -->
+            <div id="wisdomCanvasContainer" class="absolute inset-0 z-0 pointer-events-none opacity-50">
+                <canvas id="wisdomCanvas"></canvas>
+            </div>
+            <div class="hud-text mb-4 relative z-10">Historical Blueprint // Synthesis.exe</div>
+            <h2 class="text-6xl lg:text-8xl font-black mb-24 tracking-tighter uppercase italic text-white relative z-10"
+                data-aos="fade-up">The VIGYAN <span class="text-blue-500">Synthesis</span></h2>
+            <div class="synthesis-section relative z-10">
+                <!-- Sticky Visual Frame -->
+                <div class="synthesis-image-container glass-panel" data-aos="zoom-in"><img id="synthesisImage"
+                        src="frontend/images/inspirations/ancient-premium.png" alt="Intellectual Foundations"
+                        class="w-full h-full object-cover transition-all duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] to-transparent opacity-60">
+                    </div>
+                </div>
+                <!-- Scrolling Narrative -->
+                <div class="synthesis-content">
+                    <!-- Block 1: The Logic -->
+                    <div class="synthesis-block" data-aos="fade-up"
+                        data-block-image="frontend/images/inspirations/ancient-premium.png">
+                        <span class="synthesis-label">2,
+                            500 BCE - Present</span>
+                        <h3 class="text-4xl font-bold text-white mb-6">The DNA of Logic</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">VIGYAN.prep isn't just a
+                            test platform; it' s the modern heir to <strong>Pramana</strong>—the
+                            ancient Buddhist science of knowledge. Before modern Europe,
+                            scholars like <i>Maitreyanātha</i>were defining the laws of
+                            deduction and observation. </p>
+                        <blockquote class="border-l-2 border-blue-500 pl-6 italic text-slate-300 text-sm">
+                            "Everything in our test series follows this lineage: Rigorous
+                            observation over blind
+                            memorization."
+                        </blockquote>
+                    </div>
+                    <!-- Block 2: The Vision -->
+                    <div class="synthesis-block" data-aos="fade-up"
+                        data-block-image="frontend/images/inspirations/modern-premium.png">
+                        <span class="synthesis-label">The Visionary Blueprint</span>
+                        <h3 class="text-4xl font-bold text-white mb-6">Atomic Ambition</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">We take our
+                            institutional cues from <strong>Homi J. Bhabha</strong>. He
+                            didn't just build
+                            labs;
+                            he built a culture of excellence in Bharat. Like him,
+                            we believe that providing students with world-class challenges
+                            is the only way to build a scientific superpower. </p>
+                        <p class="text-slate-400 leading-relaxed">Combining
+                            <strong>Bhabha's</strong> strategic rigor with <strong>Kalam'
+                                s</strong>relentless dreaming,
+                            VIGYAN.prep serves as the bridge for the next generation of
+                            researchers entering <i>IISc,
+                                TIFR,
+                                and IISER</i>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- VIGYAN BENTO SECTION -->
+        <section class="mb-60">
+            <div class="hud-text mb-12 text-center text-blue-500/50">Performance.Metrics // vCore.Output</div>
+
+            <div class="bento-grid">
+                <div class="bento-item bento-1" data-aos="fade-up">
+                    <i class="fas fa-microscope bento-icon"></i>
+                    <div class="bento-value">1000+</div>
+                    <div class="bento-label">Questions Curated for Excellence</div>
+                </div>
+
+                <div class="bento-item bento-2" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-brain bento-icon"></i>
+                    <div class="bento-value">95%</div>
+                    <div class="bento-label">Conceptual Depth Ratio</div>
+                </div>
+
+                <div class="bento-item bento-3" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-atom bento-icon"></i>
+                    <div class="bento-value">24/7</div>
+                    <div class="bento-label">Elite Scientific Access</div>
+                    <p class="text-xs text-slate-500 mt-4 leading-relaxed">Continuous delivery of research-level
+                        problems and expert synthesis.</p>
+                </div>
+
+                <div class="bento-item bento-4" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-network-wired bento-icon"></i>
+                    <div class="bento-value">∞</div>
+                    <div class="bento-label">Research Connection Synergy</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUANTUM PULSE CTA -->
+        <section class="pulse-cta" data-aos="zoom-in" data-aos-duration="1200">
+            <div class="pulse-bg">
+                <img src="frontend/images/archway-portal.png" alt="Quantum Monolith">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-80">
+                </div>
+            </div>
+
+            <div class="pulse-content">
+                <div class="hud-text mb-6 text-blue-400">Initiating Pulse Sequence // 100% Logic</div>
+                <h2 class="pulse-title">ENTER THE <br><span class="text-blue-500">EXPERIMENT.</span></h2>
+                <a href="testfirstpage.html" class="inline-block mt-8">
+                    <button class="pulse-btn">Launch Journey</button>
+                </a>
+                <div class="mt-12 flex justify-center gap-8 opacity-30">
+                    <div class="text-[10px] uppercase tracking-[0.5em] text-white">Stability: 99.9%</div>
+                    <div class="text-[10px] uppercase tracking-[0.5em] text-white">Logic: Verified</div>
+                </div>
+            </div>
+        </section>
     </main>
     <script src="frontend/js/config.js"></script>
     <script src="frontend/js/auth.js"></script>
@@ -604,6 +696,17 @@
             if (progress) progress.style.width = scrolled + '%';
         });
 
+        // Bento Grid Mouse Follow Effect
+        document.querySelectorAll('.bento-item').forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const rect = item.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                item.style.setProperty('--mouse-x', `${x}%`);
+                item.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
+
         // Trigger MathJax typesetting after load
         window.addEventListener('load', () => {
             if (window.MathJax && window.MathJax.typesetPromise) {
@@ -612,152 +715,152 @@
         });
 
     </script>
-    < !-- Three.js for immersive science visualization -->
-        <script type="importmap"> {
+    <!-- Three.js for immersive science visualization -->
+    <script type="importmap"> {
             "imports": {
                 "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
             }
         }
 
         </script>
-        <script type="module">import * as THREE from 'three';
+    <script type="module">import * as THREE from 'three';
 
-            function initWisdomCanvas() {
-                const container = document.getElementById('wisdomCanvasContainer');
-                const canvas = document.getElementById('wisdomCanvas');
-                if (!container || !canvas) return;
+        function initWisdomCanvas() {
+            const container = document.getElementById('wisdomCanvasContainer');
+            const canvas = document.getElementById('wisdomCanvas');
+            if (!container || !canvas) return;
 
-                const renderer = new THREE.WebGLRenderer({
-                    canvas, alpha: true, antialias: true
-                });
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-                camera.position.z = 8; // Further back for network perspective
+            const renderer = new THREE.WebGLRenderer({
+                canvas, alpha: true, antialias: true
+            });
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 8; // Further back for network perspective
 
-                // Neural Network Style: Nodes and Connections
-                const nodeCount = 60;
-                const nodes = [];
-                const nodeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            // Neural Network Style: Nodes and Connections
+            const nodeCount = 60;
+            const nodes = [];
+            const nodeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
 
-                const nodeMaterial = new THREE.MeshBasicMaterial({
-                    color: '#3b82f6'
-                });
+            const nodeMaterial = new THREE.MeshBasicMaterial({
+                color: '#3b82f6'
+            });
+
+            for (let i = 0; i < nodeCount; i++) {
+                const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+                node.position.set((Math.random() - 0.5) * 15,
+                    (Math.random() - 0.5) * 15,
+                    (Math.random() - 0.5) * 10);
+                node.velocity = new THREE.Vector3((Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.01);
+                scene.add(node);
+                nodes.push(node);
+            }
+
+            // Connection Lines
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: '#3b82f6',
+                transparent: true,
+                opacity: 0.1
+            });
+            const lineGeometry = new THREE.BufferGeometry();
+            const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lineMesh);
+
+            function updateLines() {
+                const positions = [];
 
                 for (let i = 0; i < nodeCount; i++) {
-                    const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-                    node.position.set((Math.random() - 0.5) * 15,
-                        (Math.random() - 0.5) * 15,
-                        (Math.random() - 0.5) * 10);
-                    node.velocity = new THREE.Vector3((Math.random() - 0.5) * 0.01,
-                        (Math.random() - 0.5) * 0.01,
-                        (Math.random() - 0.5) * 0.01);
-                    scene.add(node);
-                    nodes.push(node);
-                }
+                    for (let j = i + 1; j < nodeCount; j++) {
+                        const dist = nodes[i].position.distanceTo(nodes[j].position);
 
-                // Connection Lines
-                const lineMaterial = new THREE.LineBasicMaterial({
-                    color: '#3b82f6',
-                    transparent: true,
-                    opacity: 0.1
-                });
-                const lineGeometry = new THREE.BufferGeometry();
-                const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-                scene.add(lineMesh);
-
-                function updateLines() {
-                    const positions = [];
-
-                    for (let i = 0; i < nodeCount; i++) {
-                        for (let j = i + 1; j < nodeCount; j++) {
-                            const dist = nodes[i].position.distanceTo(nodes[j].position);
-
-                            if (dist < 3) {
-                                // Connect close nodes
-                                positions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
-                                positions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
-                            }
+                        if (dist < 3) {
+                            // Connect close nodes
+                            positions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
+                            positions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
                         }
                     }
-
-                    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
                 }
 
-                function resize() {
-                    const width = container.clientWidth;
-                    const height = container.clientHeight;
-                    renderer.setSize(width, height);
-                    camera.aspect = width / height;
-                    camera.updateProjectionMatrix();
-                }
+                lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            }
 
-                window.addEventListener('resize', resize);
-                resize();
+            function resize() {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
 
-                let targetScroll = 0;
+            window.addEventListener('resize', resize);
+            resize();
 
-                window.addEventListener('scroll', () => {
-                    targetScroll = window.scrollY * 0.001;
+            let targetScroll = 0;
+
+            window.addEventListener('scroll', () => {
+                targetScroll = window.scrollY * 0.001;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                nodes.forEach(node => {
+                    node.position.add(node.velocity);
+                    // Boundary check
+                    if (Math.abs(node.position.x) > 8) node.velocity.x *= -1;
+                    if (Math.abs(node.position.y) > 8) node.velocity.y *= -1;
                 });
 
-                function animate() {
-                    requestAnimationFrame(animate);
-
-                    nodes.forEach(node => {
-                        node.position.add(node.velocity);
-                        // Boundary check
-                        if (Math.abs(node.position.x) > 8) node.velocity.x *= -1;
-                        if (Math.abs(node.position.y) > 8) node.velocity.y *= -1;
-                    });
-
-                    scene.rotation.y += (targetScroll - scene.rotation.y) * 0.05;
-                    updateLines();
-                    renderer.render(scene, camera);
-                }
-
-                animate();
+                scene.rotation.y += (targetScroll - scene.rotation.y) * 0.05;
+                updateLines();
+                renderer.render(scene, camera);
             }
 
-            // Handle Dynamic Image Swapping on Scroll
-            function initImageSwapper() {
-                const blocks = document.querySelectorAll('.synthesis-block');
-                const mainImage = document.getElementById('synthesisImage');
+            animate();
+        }
 
-                const observerOptions = {
-                    threshold: 0.5
-                }
+        // Handle Dynamic Image Swapping on Scroll
+        function initImageSwapper() {
+            const blocks = document.querySelectorAll('.synthesis-block');
+            const mainImage = document.getElementById('synthesisImage');
 
-                    ;
+            const observerOptions = {
+                threshold: 0.5
+            }
 
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const newSrc = entry.target.getAttribute('data-block-image');
+                ;
 
-                            if (mainImage.src !== newSrc) {
-                                mainImage.style.opacity = '0';
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const newSrc = entry.target.getAttribute('data-block-image');
 
-                                setTimeout(() => {
-                                    mainImage.src = newSrc;
-                                    mainImage.style.opacity = '1';
-                                }
+                        if (mainImage.src !== newSrc) {
+                            mainImage.style.opacity = '0';
 
-                                    , 300);
+                            setTimeout(() => {
+                                mainImage.src = newSrc;
+                                mainImage.style.opacity = '1';
                             }
+
+                                , 300);
                         }
-                    });
-                }
-
-                    , observerOptions);
-
-                blocks.forEach(block => observer.observe(block));
+                    }
+                });
             }
 
-            window.addEventListener('load', () => {
-                initWisdomCanvas();
-                initImageSwapper();
-            });
-        </script>
+                , observerOptions);
+
+            blocks.forEach(block => observer.observe(block));
+        }
+
+        window.addEventListener('load', () => {
+            initWisdomCanvas();
+            initImageSwapper();
+        });
+    </script>
 </body>
 
 </html>
