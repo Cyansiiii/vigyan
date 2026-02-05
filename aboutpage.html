@@ -188,61 +188,69 @@
             color: rgba(148, 163, 184, 0.4);
         }
 
-        /* PREMIUM ASYMMETRIC LAYOUT STYLES */
-        .synthesis-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .synthesis-image-container {
-            position: sticky;
-            top: 150px;
-            height: 500px;
-            border-radius: 2rem;
+        /* AVANT-GARDE HERO STYLES */
+        .about-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
             overflow: hidden;
-            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 5%;
         }
 
-        .synthesis-content {
-            padding-bottom: 100px;
+        .hero-visual-frame {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 60%;
+            height: 100%;
+            opacity: 0.6;
+            mask-image: linear-gradient(to left, black 40%, transparent);
+            -webkit-mask-image: linear-gradient(to left, black 40%, transparent);
         }
 
-        .synthesis-block {
-            margin-bottom: 8rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .hero-visual-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.5) brightness(0.8);
         }
 
-        .synthesis-block.aos-animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .synthesis-label {
-            font-family: monospace;
-            font-size: 0.7rem;
-            color: var(--blue);
-            letter-spacing: 4px;
+        .big-type {
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            font-weight: 900;
             text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: block;
         }
 
-        @media (max-width: 1024px) {
-            .synthesis-section {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+        .scroll-reveal-text {
+            background: linear-gradient(to right, white 50%, rgba(255, 255, 255, 0.1) 50%);
+            background-size: 200% 100%;
+            background-position-x: 100%;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            transition: background-position 1s ease-out;
+        }
+
+        .scroll-reveal-text.aos-animate {
+            background-position-x: 0%;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                min-height: 80vh;
+                padding-top: 120px;
             }
 
-            .synthesis-image-container {
-                position: relative;
-                top: 0;
-                height: 300px;
-                margin-bottom: 2rem;
+            .hero-visual-frame {
+                width: 100%;
+                opacity: 0.3;
+            }
+
+            .big-type {
+                font-size: 4rem;
             }
         }
     </style>
@@ -304,75 +312,57 @@
 
     <main class="max-w-7xl mx-auto px-6 pt-48 pb-20">
 
-        <!-- Hero Header -->
-        <header class="mb-32" data-aos="fade-up" data-aos-duration="800" data-aos-once="false">
-            <div class="hud-text mb-4" data-aos="fade-down" data-aos-delay="50">Core Objective // v2025.04</div>
 
-            <h1 class="text-7xl lg:text-9xl font-black tracking-tighter mb-8 leading-[0.85] uppercase text-white"
-                data-aos="fade-right" data-aos-delay="100" data-aos-duration="800">
-                PIONEERING THE <br>
-                <span class="text-blue-500" data-aos="fade-left" data-aos-delay="200" data-aos-duration="800">TEST
-                    REVOLUTION.</span>
-            </h1>
-
-            <p class="text-slate-400 text-lg max-w-2xl leading-relaxed border-l-2 border-blue-500 pl-8"
-                data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
-                Vigyan.prep is a response to the dilution of scientific assessment. We provide the most rigorous,
-                conceptual-first test series for India's premier research institutes.
-            </p>
-        </header>
-
-        <!-- Quote & Equation Section -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-40 items-center">
-            <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="50">
-                <h2 class="text-4xl font-bold mb-8 italic tracking-tight text-white">
-                    "A test series should be an <span class="text-blue-500">experiment</span>."
-                </h2>
-
-                <div class="space-y-6 text-slate-400 leading-relaxed text-sm" data-aos="fade-up" data-aos-delay="150">
-                    <p>Like you, I am a student of physics. I realized that the path to institutes like **IISc, TIFR,
-                        and IISER** was being gatekept by memorization.</p>
-                    <p>I built Vigyan.prep to restore **Conceptual Integrity**. Our test series are experiments designed
-                        to measure your depth of reasoning.</p>
-                </div>
+        <!-- AVANT-GARDE HERO SECTION -->
+        <section class="about-hero mb-32">
+            <div class="hero-visual-frame" data-aos="fade-left" data-aos-duration="1500">
+                <img src="frontend/images/about-hero.png" alt="Science Abstract">
             </div>
 
-            <div class="glass-panel p-12 rounded-3xl relative overflow-hidden" data-aos="zoom-in"
-                data-aos-duration="600" data-aos-delay="100">
-                <h3 class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-6" data-aos="fade-down"
-                    data-aos-delay="200">The Success Matrix</h3>
+            <div class="relative z-10 max-w-4xl">
+                <div class="hud-text mb-8" data-aos="fade-down">Research Identity // vCore.Synthesis</div>
 
-                <div class="text-2xl font-mono text-white bg-slate-900/40 p-8 rounded-2xl border border-white/5 shadow-2xl"
-                    data-aos="flip-up" data-aos-delay="250" data-aos-duration="600">
-                    $$ Success = \int_{Theory}^{Discovery} \frac{d(Clarity)}{d(Time)} $$
+                <h1 class="big-type mb-12 text-white">
+                    <span class="scroll-reveal-text block" data-aos="fade-up">Beyond</span>
+                    <span class="text-blue-500 scroll-reveal-text block" data-aos="fade-up"
+                        data-aos-delay="200">Boundaries.</span>
+                </h1>
+
+                <div class="mt-12 glass-panel p-8 rounded-2xl border-l-4 border-blue-500 inline-block bg-white/5 backdrop-blur-xl"
+                    data-aos="fade-right" data-aos-delay="400">
+                    <p class="text-xl text-slate-300 font-medium max-w-xl">
+                        VIGYAN.prep is a radical response to the dilution of scientific assessment. We exist to restore
+                        rigour to the pursuit of discovery.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Kalam Quote Section -->
-        <section class="mb-40">
-            <h2 class="text-5xl font-black mb-20 tracking-tighter uppercase italic text-white" data-aos="fade-up"
-                data-aos-duration="800">The Vanguard Legacy</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <div class="kalam-quote" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
-                    <p class="text-2xl text-slate-200 mb-8 leading-relaxed font-semibold italic">
-                        "Dream is not that which you see while sleeping, it is something that does not let you sleep."
-                    </p>
-                    <span class="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px]">— Dr. APJ Abdul
-                        Kalam</span>
+        <!-- The Vision Statement (Equation Integrated) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-60 items-center">
+            <div data-aos="fade-right">
+                <span class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4 block">The Mission</span>
+                <h2 class="text-5xl font-black mb-8 text-white leading-tight">
+                    DECODING THE <br>ARCHITECTS OF <span class="gradient-text-animated">CLARITY.</span>
+                </h2>
+                <p class="text-slate-400 leading-relaxed text-lg mb-8">
+                    We believe research isn't built on memorization, but on the depth of one's reasoning. Like the great
+                    students of physics before us, we measure clarity by the rate of discovery.
+                </p>
+                <div class="glass-panel p-8 rounded-2xl border-white/5 inline-flex items-center gap-4 text-white/60">
+                    <i class="fas fa-microscope text-blue-500"></i>
+                    <span class="text-sm uppercase tracking-widest">Scientific Integrity Verified</span>
                 </div>
+            </div>
 
-                <div class="space-y-8 text-slate-400 text-sm leading-relaxed" data-aos="fade-left"
-                    data-aos-duration="800" data-aos-delay="200">
-                    <p data-aos="fade-up" data-aos-delay="300">
-                        Vigyan.prep is founded on the principles of India's scientific pioneers. Like **Sarabhai** and
-                        **Bhabha**, we believe research is built on its students.
-                    </p>
-                    <p data-aos="fade-up" data-aos-delay="400">
-                        Every question we create is designed to challenge conventional thinking and push boundaries.
-                    </p>
+            <div class="glass-panel p-16 rounded-[3rem] relative overflow-hidden group hover:border-blue-500/30 transition-all duration-700"
+                data-aos="zoom-in">
+                <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h3 class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-10">The Success Matrix</h3>
+                <div class="text-4xl font-mono text-white" data-aos="flip-up" data-aos-delay="200">
+                    $$ Success = \int \frac{d(Clarity)}{d(Time)} $$
                 </div>
+                <div class="mt-10 text-slate-500 text-xs uppercase tracking-widest">Proprietary Evaluation Model</div>
             </div>
         </section>
 
