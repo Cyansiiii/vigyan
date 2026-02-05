@@ -238,7 +238,10 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero {
-        padding: 0 1rem;
+        padding: 120px 1rem 40px;
+        /* Increase top padding to clear fixed navbar */
+        height: auto;
+        min-height: 100vh;
     }
 
     .hero-headline {
