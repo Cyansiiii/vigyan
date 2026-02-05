@@ -318,6 +318,76 @@
             </div>
         </section>
 
+        <!-- ================================================
+             NEW: THE CONTINUUM OF GENIUS (Ancient & Modern)
+             ================================================ -->
+        <section class="mb-40 relative">
+            <!-- 3D Wisdom Canvas (Immersive Background) -->
+            <div id="wisdomCanvasContainer" class="absolute inset-0 z-0 pointer-events-none opacity-40">
+                <canvas id="wisdomCanvas"></canvas>
+            </div>
+
+            <h2 class="text-5xl font-black mb-20 tracking-tighter uppercase italic text-white relative z-10"
+                data-aos="fade-up">
+                The Continuum of <span class="text-blue-500">Genius</span>
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+                <!-- Ancient Foundations Block -->
+                <div class="glass-panel p-10 rounded-[2rem] border-white/10 hover:border-blue-500/50 transition-all duration-500 group"
+                    data-aos="fade-right">
+                    <div class="mb-8 overflow-hidden rounded-xl h-48">
+                        <img src="frontend/images/inspirations/ancient-wisdom.png" alt="Ancient Indian Wisdom"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-wider">Ancient Foundations</h3>
+                    <div class="space-y-4 text-slate-400 text-sm">
+                        <p>
+                            <span class="text-blue-400 font-bold">Buddhist Epistemology:</span> Long before modern
+                            logic,
+                            Buddhist philosophers like <i>Dignāga</i> explored the nature of knowledge (Pramana).
+                            Buddhism
+                            teaches that pure observation and reason are the twin pillars of truth—matching the very
+                            core of
+                            the scientific method.
+                        </p>
+                        <p>
+                            <span class="text-blue-400 font-bold">Chanakya Niti:</span> The ultimate legacy of strategic
+                            intelligence. Chanakya's emphasis on observation, deduction, and foresight provides the
+                            tactical
+                            framework for modern problem-solving.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Modern Architects Block -->
+                <div class="glass-panel p-10 rounded-[2rem] border-white/10 hover:border-purple-500/50 transition-all duration-500 group"
+                    data-aos="fade-left">
+                    <div class="mb-8 overflow-hidden rounded-xl h-48">
+                        <img src="frontend/images/inspirations/modern-science.png" alt="Modern Indian Science"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-wider">Modern Architects</h3>
+                    <div class="space-y-4 text-slate-400 text-sm">
+                        <p>
+                            <span class="text-purple-400 font-bold">Homi J. Bhabha:</span> The visionary who saw the
+                            atomic
+                            nucleus as India's key to energy independence. His legacy built the foundation of our
+                            nuclear
+                            research and high-energy physics.
+                        </p>
+                        <p>
+                            <span class="text-purple-400 font-bold">Dr. APJ Abdul Kalam:</span> The Missile Man who
+                            taught a
+                            billion people to dream. His life bridging aerospace engineering and deep spirituality
+                            proves
+                            that science is a pursuit of both the mind and the heart.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Stats Cards -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
             <div class="glass-panel p-8 rounded-2xl text-center" data-aos="fade-up" data-aos-delay="50"
@@ -364,7 +434,7 @@
     <script src="frontend/js/mobile-nav.js"></script>
 
     <script>
-        // Initialize AOS with reduced delays
+        // Initialize AOS
         AOS.init({
             duration: 800,
             easing: 'ease-out-cubic',
@@ -380,7 +450,8 @@
             const winScroll = document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + '%';
+            const progress = document.getElementById('scrollProgress');
+            if (progress) progress.style.width = scrolled + '%';
         });
 
         // Trigger MathJax typesetting after load
@@ -389,6 +460,85 @@
                 MathJax.typesetPromise();
             }
         });
+    </script>
+
+    <!-- Three.js for immersive science visualization -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        function initWisdomCanvas() {
+            const container = document.getElementById('wisdomCanvasContainer');
+            const canvas = document.getElementById('wisdomCanvas');
+            if (!container || !canvas) return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 400; // Increased count
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 12;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.03,
+                color: '#3b82f6',
+                transparent: true,
+                opacity: 0.6
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            function resize() {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+
+            let mouseX = 0;
+            let mouseY = 0;
+
+            window.addEventListener('mousemove', (event) => {
+                mouseX = event.clientX / window.innerWidth - 0.5;
+                mouseY = event.clientY / window.innerHeight - 0.5;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.y += 0.0008;
+                particlesMesh.rotation.x += 0.0004;
+
+                particlesMesh.position.x += (mouseX * 0.4 - particlesMesh.position.x) * 0.05;
+                particlesMesh.position.y += (-mouseY * 0.4 - particlesMesh.position.y) * 0.05;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }
+
+        window.addEventListener('load', initWisdomCanvas);
     </script>
 </body>
 
