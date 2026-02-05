@@ -47,195 +47,151 @@
         :root {
             --blue: #3b82f6;
             --navy-dark: #020617;
+            --aurora-1: rgba(59, 130, 246, 0.15);
+            --aurora-2: rgba(139, 92, 246, 0.1);
+            --aurora-3: rgba(30, 41, 59, 0.8);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #020617;
             color: white;
             overflow-x: hidden;
         }
 
+        /* VENGENCE TYPOGRAPHY */
+        .v-header {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        /* SCIENTIFIC AURORA BACKGROUND */
+        .aurora-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: #020617;
+        }
+
+        .aurora-layer {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: auroraRotation 20s linear infinite;
+        }
+
+        .aurora-layer-1 {
+            background: radial-gradient(circle at 30% 30%, var(--aurora-1), transparent 50%);
+        }
+
+        .aurora-layer-2 {
+            background: radial-gradient(circle at 70% 70%, var(--aurora-2), transparent 50%);
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        @keyframes auroraRotation {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
-            background-size: 30px 30px;
-            z-index: -1;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+            z-index: 0;
             pointer-events: none;
+            opacity: 0.3;
         }
 
         .hud-text {
-            font-family: monospace;
-            font-size: 10px;
-            color: #475569;
-            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--blue);
+            letter-spacing: 3px;
             text-transform: uppercase;
+            font-weight: 700;
         }
 
         .scroll-progress {
             position: fixed;
             top: 0;
             left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            height: 2px;
+            background: var(--blue);
             z-index: 9999;
             width: 0;
-            transition: width 0.1s ease;
         }
 
-        .gradient-text-animated {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #8b5cf6, #3b82f6);
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientFlow 4s linear infinite;
-        }
-
-        @keyframes gradientFlow {
-            to {
-                background-position: 200% center;
-            }
-        }
-
-        .kalam-quote {
-            border-left: 3px solid var(--blue);
-            padding-left: 2rem;
-        }
-
+        /* ULTRA-FINE GLASSMORPHISM */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(40px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        /* Logo link styling */
-        .logo a {
-            text-decoration: none;
-            color: inherit;
-            transition: opacity 0.3s ease;
-        }
-
-        .logo a:hover {
-            opacity: 0.8;
-        }
-
-        /* Custom AOS animations */
-        [data-aos="fade-up-scale"] {
-            transform: translateY(50px) scale(0.9);
-            opacity: 0;
-        }
-
-        [data-aos="fade-up-scale"].aos-animate {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-
-        [data-aos="glow-in"] {
-            opacity: 0;
-            box-shadow: 0 0 0 rgba(59, 130, 246, 0);
-        }
-
-        [data-aos="glow-in"].aos-animate {
-            opacity: 1;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        /* VIGYAN.PREP Premium Logo */
-        .logo .logo-vigyan {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 700;
-            font-style: italic;
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 15%, #f59e0b 30%, #ffffff 50%, #fcd34d 70%, #f59e0b 85%, #fef3c7 100%);
-            background-size: 300% 300%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.4));
-            animation: vigyanShimmer 4s ease-in-out infinite;
-        }
-
-        @keyframes vigyanShimmer {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .logo .logo-dot {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 1rem;
-            color: rgba(148, 163, 184, 0.5);
-            margin-left: 1px;
-        }
-
-        .logo .logo-prep {
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            font-size: 0.7rem;
-            letter-spacing: 1.5px;
-            text-transform: lowercase;
-            color: rgba(148, 163, 184, 0.4);
-        }
-
-        /* AVANT-GARDE HERO STYLES */
-        .about-hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            padding: 0 5%;
-        }
-
-        .hero-visual-frame {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 60%;
-            height: 100%;
-            opacity: 0.6;
-            mask-image: linear-gradient(to left, black 40%, transparent);
-            -webkit-mask-image: linear-gradient(to left, black 40%, transparent);
-        }
-
-        .hero-visual-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: saturate(0.5) brightness(0.8);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .big-type {
-            font-size: clamp(4rem, 15vw, 12rem);
-            line-height: 0.8;
-            letter-spacing: -0.05em;
+            font-size: clamp(5rem, 15vw, 15rem);
+            line-height: 0.85;
+            font-weight: 950;
+        }
+
+        /* SPRING REVEAL ANIMATIONS */
+        .spring-reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .spring-reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* LIQUID GLOW BUTTON */
+        .v-button {
+            position: relative;
+            background: white;
+            color: black;
+            padding: 1.5rem 4rem;
+            border-radius: 100px;
             font-weight: 900;
             text-transform: uppercase;
+            letter-spacing: 0.2em;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
 
-        .scroll-reveal-text {
-            background: linear-gradient(to right, white 50%, rgba(255, 255, 255, 0.1) 50%);
-            background-size: 200% 100%;
-            background-position-x: 100%;
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            transition: background-position 1s ease-out;
+        .v-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
         }
 
-        .scroll-reveal-text.aos-animate {
-            background-position-x: 0%;
+        .v-button::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(59, 130, 246, 0.4), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .v-button:hover::after {
+            opacity: 1;
         }
 
         @media (max-width: 768px) {
@@ -278,8 +234,8 @@
 
         .hub-cell {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 2.5rem;
             padding: 2.5rem;
             position: relative;
@@ -288,8 +244,8 @@
             flex-direction: column;
             justify-content: center;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .hub-cell.active {
@@ -327,23 +283,30 @@
             height: 100%;
             object-fit: cover;
             border-radius: 2rem;
-            filter: brightness(0.8);
+            filter: grayscale(1) brightness(0.6);
+            transition: all 1s ease;
+        }
+
+        .hub-cell:hover .hub-image {
+            filter: grayscale(0) brightness(0.9);
+            transform: scale(1.05);
         }
 
         .hub-value {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 950;
             color: white;
-            letter-spacing: -3px;
+            letter-spacing: -4px;
             line-height: 1;
         }
 
         .hub-label {
             font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.5em;
             color: var(--blue);
             margin-top: 1rem;
+            font-weight: 700;
         }
 
         /* COMPACT MONOLITH CTA */
@@ -359,7 +322,7 @@
         }
 
         .compact-cta img {
-            filter: brightness(0.4);
+            filter: brightness(0.4) saturate(0.5);
         }
 
         @media (max-width: 1024px) {
@@ -395,6 +358,12 @@
 
 <body>
     <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- SCIENTIFIC AURORA -->
+    <div class="aurora-bg">
+        <div class="aurora-layer aurora-layer-1"></div>
+        <div class="aurora-layer aurora-layer-2"></div>
+    </div>
     <div class="grid-bg"></div>
 
     <nav class="navbar fixed top-0 w-full z-50 px-12 py-5 flex justify-between items-center bg-[#020617]/90 backdrop-blur-md border-b border-white/5"
@@ -450,7 +419,7 @@
     <main class="max-w-7xl mx-auto px-6 pt-48 pb-20">
 
         <!-- AVANT-GARDE HERO SECTION -->
-        <section class="about-hero mb-32">
+        <section class="about-hero mb-32 relative">
             <div class="hero-visual-frame" data-aos="fade-left" data-aos-duration="1500">
                 <img src="frontend/images/about-hero.png" alt="Science Abstract">
             </div>
@@ -458,12 +427,15 @@
             <div class="relative z-10 max-w-4xl">
                 <div class="hud-text mb-8" data-aos="fade-down">Research Identity // vCore.Synthesis</div>
 
-                <h1 class="big-type mb-12 text-white"><span class="scroll-reveal-text block"
-                        data-aos="fade-up">Beyond</span><span class="text-blue-500 scroll-reveal-text block"
-                        data-aos="fade-up" data-aos-delay="200">Boundaries.</span></h1>
-                <div class="mt-12 glass-panel p-8 rounded-2xl border-l-4 border-blue-500 inline-block bg-white/5 backdrop-blur-xl"
+                <h1 class="v-header big-type mb-12 text-white">
+                    <span class="block" data-aos="fade-up">Beyond</span>
+                    <span class="text-blue-500 block" data-aos="fade-up" data-aos-delay="200">Boundaries.</span>
+                </h1>
+
+                <div class="mt-12 glass-panel p-10 rounded-3xl border-l-8 border-blue-500 inline-block"
                     data-aos="fade-right" data-aos-delay="400">
-                    <p class="text-xl text-slate-300 font-medium max-w-xl">VIGYAN.prep is a radical response to the
+                    <p class="text-2xl text-slate-300 font-medium max-w-xl leading-relaxed">VIGYAN.prep is a radical
+                        response to the
                         dilution of scientific assessment. We exist to restore rigour to the pursuit of discovery. </p>
                 </div>
             </div>
@@ -502,118 +474,57 @@
                 </div>
             </div>
         </section>
-        <!--================================================PREMIUM REDESIGN: THE VIGYAN
-                SYNTHESIS================================================-->
-        <section class="mb-60 relative" id="synthesis">
-            <!-- Advanced 3D Wisdom Network Backdrop -->
-            <div id="wisdomCanvasContainer" class="absolute inset-0 z-0 pointer-events-none opacity-50">
-                <canvas id="wisdomCanvas"></canvas>
-            </div>
-            <div class="hud-text mb-4 relative z-10">Historical Blueprint // Synthesis.exe</div>
-            <h2 class="text-6xl lg:text-8xl font-black mb-24 tracking-tighter uppercase italic text-white relative z-10"
-                data-aos="fade-up">The VIGYAN <span class="text-blue-500">Synthesis</span></h2>
-            <div class="synthesis-section relative z-10">
-                <!-- Sticky Visual Frame -->
-                <div class="synthesis-image-container glass-panel" data-aos="zoom-in"><img id="synthesisImage"
-                        src="frontend/images/inspirations/ancient-premium.png" alt="Intellectual Foundations"
-                        class="w-full h-full object-cover transition-all duration-1000">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] to-transparent opacity-60">
+        <!-- DEEP ANALYTICS HUB -->
+        <section class="analytics-hub" id="analyticsHub">
+            <div class="sticky-wrapper max-w-7xl mx-auto px-6">
+                <div class="hud-text mb-8">System.Precision // vCore.Output</div>
+                <h2 class="v-header text-6xl mb-12 text-white">The Architecture <br><span class="text-blue-500">of
+                        Clarity.</span></h2>
+
+                <div class="scrolly-bento h-[60vh]">
+                    <div class="hub-cell cell-main active">
+                        <div class="absolute inset-0 opacity-20">
+                            <img src="frontend/images/logic-diagram.png" alt="Logic Tree" class="hub-image">
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="v-header text-3xl mb-4">Pramana Logic</h3>
+                            <p class="text-slate-400 max-w-md">Built on the Buddhist laws of deduction. Every question
+                                is a node in a causal chain of understanding.</p>
+                        </div>
                     </div>
-                </div>
-                <!-- Scrolling Narrative -->
-                <div class="synthesis-content">
-                    <!-- Block 1: The Logic -->
-                    <div class="synthesis-block" data-aos="fade-up"
-                        data-block-image="frontend/images/inspirations/ancient-premium.png">
-                        <span class="synthesis-label">2,
-                            500 BCE - Present</span>
-                        <h3 class="text-4xl font-bold text-white mb-6">The DNA of Logic</h3>
-                        <p class="text-slate-400 leading-relaxed mb-6">VIGYAN.prep isn't just a
-                            test platform; it' s the modern heir to <strong>Pramana</strong>—the
-                            ancient Buddhist science of knowledge. Before modern Europe,
-                            scholars like <i>Maitreyanātha</i>were defining the laws of
-                            deduction and observation. </p>
-                        <blockquote class="border-l-2 border-blue-500 pl-6 italic text-slate-300 text-sm">
-                            "Everything in our test series follows this lineage: Rigorous
-                            observation over blind
-                            memorization."
-                        </blockquote>
+
+                    <div class="hub-cell cell-stat-1">
+                        <div class="hub-value">1k+</div>
+                        <div class="hub-label">Curated Enigma</div>
                     </div>
-                    <!-- Block 2: The Vision -->
-                    <div class="synthesis-block" data-aos="fade-up"
-                        data-block-image="frontend/images/inspirations/modern-premium.png">
-                        <span class="synthesis-label">The Visionary Blueprint</span>
-                        <h3 class="text-4xl font-bold text-white mb-6">Atomic Ambition</h3>
-                        <p class="text-slate-400 leading-relaxed mb-6">We take our
-                            institutional cues from <strong>Homi J. Bhabha</strong>. He
-                            didn't just build
-                            labs;
-                            he built a culture of excellence in Bharat. Like him,
-                            we believe that providing students with world-class challenges
-                            is the only way to build a scientific superpower. </p>
-                        <p class="text-slate-400 leading-relaxed">Combining
-                            <strong>Bhabha's</strong> strategic rigor with <strong>Kalam'
-                                s</strong>relentless dreaming,
-                            VIGYAN.prep serves as the bridge for the next generation of
-                            researchers entering <i>IISc,
-                                TIFR,
-                                and IISER</i>.
-                        </p>
+
+                    <div class="hub-cell cell-stat-2">
+                        <div class="hub-value">95%</div>
+                        <div class="hub-label">Depth</div>
+                    </div>
+
+                    <div class="hub-cell cell-stat-3">
+                        <div class="hub-value">∞</div>
+                        <div class="hub-label">Sync</div>
+                    </div>
+
+                    <div class="hub-cell cell-stat-4">
+                        <div class="relative z-10">
+                            <h3 class="v-header text-xl mb-2">Vanguard Access</h3>
+                            <p class="text-xs text-slate-500">24/7 Elite support from researchers at IISER & NISER.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- VIGYAN BENTO SECTION -->
-        <section class="mb-60">
-            <div class="hud-text mb-12 text-center text-blue-500/50">Performance.Metrics // vCore.Output</div>
 
-            <div class="bento-grid">
-                <div class="bento-item bento-1" data-aos="fade-up">
-                    <i class="fas fa-microscope bento-icon"></i>
-                    <div class="bento-value">1000+</div>
-                    <div class="bento-label">Questions Curated for Excellence</div>
-                </div>
-
-                <div class="bento-item bento-2" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-brain bento-icon"></i>
-                    <div class="bento-value">95%</div>
-                    <div class="bento-label">Conceptual Depth Ratio</div>
-                </div>
-
-                <div class="bento-item bento-3" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-atom bento-icon"></i>
-                    <div class="bento-value">24/7</div>
-                    <div class="bento-label">Elite Scientific Access</div>
-                    <p class="text-xs text-slate-500 mt-4 leading-relaxed">Continuous delivery of research-level
-                        problems and expert synthesis.</p>
-                </div>
-
-                <div class="bento-item bento-4" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-network-wired bento-icon"></i>
-                    <div class="bento-value">∞</div>
-                    <div class="bento-label">Research Connection Synergy</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- QUANTUM PULSE CTA -->
-        <section class="pulse-cta" data-aos="zoom-in" data-aos-duration="1200">
-            <div class="pulse-bg">
-                <img src="frontend/images/archway-portal.png" alt="Quantum Monolith">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-80">
-                </div>
-            </div>
-
-            <div class="pulse-content">
-                <div class="hud-text mb-6 text-blue-400">Initiating Pulse Sequence // 100% Logic</div>
-                <h2 class="pulse-title">ENTER THE <br><span class="text-blue-500">EXPERIMENT.</span></h2>
-                <a href="testfirstpage.html" class="inline-block mt-8">
-                    <button class="pulse-btn">Launch Journey</button>
-                </a>
-                <div class="mt-12 flex justify-center gap-8 opacity-30">
-                    <div class="text-[10px] uppercase tracking-[0.5em] text-white">Stability: 99.9%</div>
-                    <div class="text-[10px] uppercase tracking-[0.5em] text-white">Logic: Verified</div>
-                </div>
+        <!-- COMPACT MONOLITH CTA -->
+        <section class="compact-cta spring-reveal">
+            <img src="frontend/images/about-hero.png" alt="Archway" class="absolute inset-0 w-full h-full object-cover">
+            <div class="relative z-10 text-center px-6">
+                <h2 class="v-header big-type mb-12 text-white">Join the<br><span class="text-blue-500">Vanguard.</span>
+                </h2>
+                <a href="testfirstpage.html" class="v-button inline-block">Begin Assessment</a>
             </div>
         </section>
     </main>
