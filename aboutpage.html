@@ -249,201 +249,156 @@
                 opacity: 0.3;
             }
 
-            .big-type {
-                font-size: 4rem;
-            }
-        }
+            @media (max-width: 768px) {
+                .bento-grid {
+                    grid-template-columns: 1fr;
+                }
 
-        /* VIGYAN BENTO GRID STYLES */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 300px);
-            gap: 1.5rem;
-            margin-bottom: 120px;
-        }
+                .bento-item {
+                    grid-column: span 1 !important;
+                }
 
-        .bento-item {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 2rem;
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-        .bento-item:hover {
-            transform: translateY(-10px);
-            border-color: rgba(59, 130, 246, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .bento-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.15) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .bento-item:hover::before {
-            opacity: 1;
-        }
-
-        .bento-1 {
-            grid-column: span 2;
-            grid-row: span 1;
-        }
-
-        .bento-2 {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-
-        .bento-3 {
-            grid-column: span 1;
-            grid-row: span 2;
-        }
-
-        .bento-4 {
-            grid-column: span 2;
-            grid-row: span 1;
-        }
-
-        .bento-value {
-            font-size: 4.5rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            color: white;
-            letter-spacing: -3px;
-        }
-
-        .bento-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .bento-icon {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2rem;
-            opacity: 0.2;
-            color: var(--blue);
-        }
-
-        /* QUANTUM PULSE CTA STYLES */
-        .pulse-cta {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border-radius: 4rem;
-            margin: 0 -2rem;
-        }
-
-        .pulse-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-        }
-
-        .pulse-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.5);
-            transition: transform 2s ease-out;
-        }
-
-        .pulse-cta:hover .pulse-bg img {
-            transform: scale(1.05);
-        }
-
-        .pulse-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 800px;
-        }
-
-        .pulse-title {
-            font-size: clamp(4rem, 12vw, 10rem);
-            font-weight: 950;
-            color: white;
-            text-transform: uppercase;
-            line-height: 0.85;
-            margin-bottom: 2.5rem;
-            letter-spacing: -6px;
-            font-style: italic;
-        }
-
-        .pulse-btn {
-            background: #3b82f6;
-            color: white;
-            padding: 1.8rem 5rem;
-            border-radius: 99px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 50px rgba(59, 130, 246, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pulse-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            background: #2563eb;
-            box-shadow: 0 0 80px rgba(59, 130, 246, 0.7);
-        }
-
-        @media (max-width: 1024px) {
-            .bento-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: auto;
+                .pulse-cta {
+                    border-radius: 2rem;
+                    margin: 0;
+                }
             }
 
-            .bento-item {
-                grid-column: span 1 !important;
-                grid-row: span 1 !important;
-                height: 300px;
+            /* DEEP ANALYTICS HUB STYLES */
+            .analytics-hub {
+                position: relative;
+                min-height: 250vh;
+                /* Controlled height for scrollytelling */
+                background: #020617;
+                padding: 8rem 0;
             }
 
-            .bento-1,
-            .bento-4 {
-                grid-column: span 2 !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
+            .sticky-wrapper {
+                position: sticky;
+                top: 15vh;
+                height: 70vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
 
-            .bento-item {
-                grid-column: span 1 !important;
+            .scrolly-bento {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                grid-template-rows: repeat(6, 1fr);
+                gap: 1.5rem;
+                height: 100%;
+                position: relative;
             }
 
-            .pulse-cta {
+            .hub-cell {
+                background: rgba(255, 255, 255, 0.02);
+                backdrop-filter: blur(30px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 2.5rem;
+                padding: 2.5rem;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+
+            .hub-cell.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .cell-main {
+                grid-column: 1 / 8;
+                grid-row: 1 / 7;
+            }
+
+            .cell-stat-1 {
+                grid-column: 8 / 13;
+                grid-row: 1 / 3;
+            }
+
+            .cell-stat-2 {
+                grid-column: 8 / 11;
+                grid-row: 3 / 5;
+            }
+
+            .cell-stat-3 {
+                grid-column: 11 / 13;
+                grid-row: 3 / 5;
+            }
+
+            .cell-stat-4 {
+                grid-column: 8 / 13;
+                grid-row: 5 / 7;
+            }
+
+            .hub-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
                 border-radius: 2rem;
-                margin: 0;
+                filter: brightness(0.8);
             }
-        }
+
+            .hub-value {
+                font-size: 4rem;
+                font-weight: 950;
+                color: white;
+                letter-spacing: -3px;
+                line-height: 1;
+            }
+
+            .hub-label {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.4em;
+                color: var(--blue);
+                margin-top: 1rem;
+            }
+
+            /* COMPACT MONOLITH CTA */
+            .compact-cta {
+                height: 70vh;
+                margin-top: 5rem;
+                border-radius: 3rem;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .compact-cta img {
+                filter: brightness(0.4);
+            }
+
+            @media (max-width: 1024px) {
+                .analytics-hub {
+                    min-height: auto;
+                }
+
+                .sticky-wrapper {
+                    position: relative;
+                    height: auto;
+                    top: 0;
+                }
+
+                .scrolly-bento {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .hub-cell {
+                    min-height: 300px;
+                    opacity: 1;
+                    transform: none;
+                }
+            }
     </style>
 </head>
 
@@ -696,14 +651,34 @@
             if (progress) progress.style.width = scrolled + '%';
         });
 
-        // Bento Grid Mouse Follow Effect
-        document.querySelectorAll('.bento-item').forEach(item => {
-            item.addEventListener('mousemove', (e) => {
-                const rect = item.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                item.style.setProperty('--mouse-x', `${x}%`);
-                item.style.setProperty('--mouse-y', `${y}%`);
+        // DEEP ANALYTICS: Scrolly-Bento Logic
+        const hubObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const scrollProgress = entry.intersectionRatio;
+                    // Logic to activate cells based on scroll depth within the section
+                }
+            });
+        }, { threshold: Array.from({ length: 100 }, (_, i) => i / 100) });
+
+        window.addEventListener('scroll', () => {
+            const hub = document.getElementById('analyticsHub');
+            const wrapper = hub?.querySelector('.sticky-wrapper');
+            const cells = hub?.querySelectorAll('.hub-cell');
+            if (!hub || !cells) return;
+
+            const hubRect = hub.getBoundingClientRect();
+            const totalHubHeight = hubRect.height;
+            const scrollDistance = -hubRect.top;
+            const progress = Math.max(0, Math.min(1, scrollDistance / (totalHubHeight - window.innerHeight)));
+
+            const step = 1 / cells.length;
+            cells.forEach((cell, index) => {
+                if (progress > (index * step) - 0.1) {
+                    cell.classList.add('active');
+                } else if (index > 0) {
+                    cell.classList.remove('active');
+                }
             });
         });
 
@@ -714,6 +689,49 @@
             }
         });
 
+        function initWisdomCanvas() {
+            // Wisdom canvas removed to reduce page bloat and focus on deep analytics
+        }
+
+        // Handle Dynamic Image Swapping on Scroll
+        function initImageSwapper() {
+            const blocks = document.querySelectorAll('.synthesis-block');
+            const mainImage = document.getElementById('synthesisImage');
+
+            const observerOptions = {
+                threshold: 0.5
+            }
+
+                ;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const newSrc = entry.target.getAttribute('data-block-image');
+
+                        if (mainImage.src !== newSrc) {
+                            mainImage.style.opacity = '0';
+
+                            setTimeout(() => {
+                                mainImage.src = newSrc;
+                                mainImage.style.opacity = '1';
+                            }
+
+                                , 300);
+                        }
+                    }
+                });
+            }
+
+                , observerOptions);
+
+            blocks.forEach(block => observer.observe(block));
+        }
+
+        window.addEventListener('load', () => {
+            // initWisdomCanvas(); // Removed as per instruction
+            initImageSwapper();
+        });
     </script>
     <!-- Three.js for immersive science visualization -->
     <script type="importmap"> {
@@ -726,105 +744,6 @@
     <script type="module">import * as THREE from 'three';
 
         function initWisdomCanvas() {
-            const container = document.getElementById('wisdomCanvasContainer');
-            const canvas = document.getElementById('wisdomCanvas');
-            if (!container || !canvas) return;
-
-            const renderer = new THREE.WebGLRenderer({
-                canvas, alpha: true, antialias: true
-            });
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.z = 8; // Further back for network perspective
-
-            // Neural Network Style: Nodes and Connections
-            const nodeCount = 60;
-            const nodes = [];
-            const nodeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
-
-            const nodeMaterial = new THREE.MeshBasicMaterial({
-                color: '#3b82f6'
-            });
-
-            for (let i = 0; i < nodeCount; i++) {
-                const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-                node.position.set((Math.random() - 0.5) * 15,
-                    (Math.random() - 0.5) * 15,
-                    (Math.random() - 0.5) * 10);
-                node.velocity = new THREE.Vector3((Math.random() - 0.5) * 0.01,
-                    (Math.random() - 0.5) * 0.01,
-                    (Math.random() - 0.5) * 0.01);
-                scene.add(node);
-                nodes.push(node);
-            }
-
-            // Connection Lines
-            const lineMaterial = new THREE.LineBasicMaterial({
-                color: '#3b82f6',
-                transparent: true,
-                opacity: 0.1
-            });
-            const lineGeometry = new THREE.BufferGeometry();
-            const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-            scene.add(lineMesh);
-
-            function updateLines() {
-                const positions = [];
-
-                for (let i = 0; i < nodeCount; i++) {
-                    for (let j = i + 1; j < nodeCount; j++) {
-                        const dist = nodes[i].position.distanceTo(nodes[j].position);
-
-                        if (dist < 3) {
-                            // Connect close nodes
-                            positions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
-                            positions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
-                        }
-                    }
-                }
-
-                lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            }
-
-            function resize() {
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                renderer.setSize(width, height);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-
-            let targetScroll = 0;
-
-            window.addEventListener('scroll', () => {
-                targetScroll = window.scrollY * 0.001;
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-
-                nodes.forEach(node => {
-                    node.position.add(node.velocity);
-                    // Boundary check
-                    if (Math.abs(node.position.x) > 8) node.velocity.x *= -1;
-                    if (Math.abs(node.position.y) > 8) node.velocity.y *= -1;
-                });
-
-                scene.rotation.y += (targetScroll - scene.rotation.y) * 0.05;
-                updateLines();
-                renderer.render(scene, camera);
-            }
-
-            animate();
-        }
-
-        // Handle Dynamic Image Swapping on Scroll
-        function initImageSwapper() {
-            const blocks = document.querySelectorAll('.synthesis-block');
-            const mainImage = document.getElementById('synthesisImage');
 
             const observerOptions = {
                 threshold: 0.5
