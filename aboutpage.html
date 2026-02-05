@@ -187,6 +187,64 @@
             text-transform: lowercase;
             color: rgba(148, 163, 184, 0.4);
         }
+
+        /* PREMIUM ASYMMETRIC LAYOUT STYLES */
+        .synthesis-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .synthesis-image-container {
+            position: sticky;
+            top: 150px;
+            height: 500px;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .synthesis-content {
+            padding-bottom: 100px;
+        }
+
+        .synthesis-block {
+            margin-bottom: 8rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .synthesis-block.aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .synthesis-label {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--blue);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .synthesis-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .synthesis-image-container {
+                position: relative;
+                top: 0;
+                height: 300px;
+                margin-bottom: 2rem;
+            }
+        }
     </style>
 </head>
 
@@ -319,69 +377,60 @@
         </section>
 
         <!-- ================================================
-             NEW: THE CONTINUUM OF GENIUS (Ancient & Modern)
+             PREMIUM REDESIGN: THE VIGYAN SYNTHESIS
              ================================================ -->
-        <section class="mb-40 relative">
-            <!-- 3D Wisdom Canvas (Immersive Background) -->
-            <div id="wisdomCanvasContainer" class="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <section class="mb-60 relative" id="synthesis">
+            <!-- Advanced 3D Wisdom Network Backdrop -->
+            <div id="wisdomCanvasContainer" class="absolute inset-0 z-0 pointer-events-none opacity-50">
                 <canvas id="wisdomCanvas"></canvas>
             </div>
 
-            <h2 class="text-5xl font-black mb-20 tracking-tighter uppercase italic text-white relative z-10"
+            <div class="hud-text mb-4 relative z-10">Historical Blueprint // Synthesis.exe</div>
+            <h2 class="text-6xl lg:text-8xl font-black mb-24 tracking-tighter uppercase italic text-white relative z-10"
                 data-aos="fade-up">
-                The Continuum of <span class="text-blue-500">Genius</span>
+                The VIGYAN <span class="text-blue-500">Synthesis</span>
             </h2>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
-                <!-- Ancient Foundations Block -->
-                <div class="glass-panel p-10 rounded-[2rem] border-white/10 hover:border-blue-500/50 transition-all duration-500 group"
-                    data-aos="fade-right">
-                    <div class="mb-8 overflow-hidden rounded-xl h-48">
-                        <img src="frontend/images/inspirations/ancient-wisdom.png" alt="Ancient Indian Wisdom"
-                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110">
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-wider">Ancient Foundations</h3>
-                    <div class="space-y-4 text-slate-400 text-sm">
-                        <p>
-                            <span class="text-blue-400 font-bold">Buddhist Epistemology:</span> Long before modern
-                            logic,
-                            Buddhist philosophers like <i>Dignāga</i> explored the nature of knowledge (Pramana).
-                            Buddhism
-                            teaches that pure observation and reason are the twin pillars of truth—matching the very
-                            core of
-                            the scientific method.
-                        </p>
-                        <p>
-                            <span class="text-blue-400 font-bold">Chanakya Niti:</span> The ultimate legacy of strategic
-                            intelligence. Chanakya's emphasis on observation, deduction, and foresight provides the
-                            tactical
-                            framework for modern problem-solving.
-                        </p>
-                    </div>
+            <div class="synthesis-section relative z-10">
+                <!-- Sticky Visual Frame -->
+                <div class="synthesis-image-container glass-panel" data-aos="zoom-in">
+                    <img id="synthesisImage" src="frontend/images/inspirations/ancient-premium.png"
+                        alt="Intellectual Foundations" class="w-full h-full object-cover transition-all duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] to-transparent opacity-60"></div>
                 </div>
 
-                <!-- Modern Architects Block -->
-                <div class="glass-panel p-10 rounded-[2rem] border-white/10 hover:border-purple-500/50 transition-all duration-500 group"
-                    data-aos="fade-left">
-                    <div class="mb-8 overflow-hidden rounded-xl h-48">
-                        <img src="frontend/images/inspirations/modern-science.png" alt="Modern Indian Science"
-                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110">
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-6 uppercase tracking-wider">Modern Architects</h3>
-                    <div class="space-y-4 text-slate-400 text-sm">
-                        <p>
-                            <span class="text-purple-400 font-bold">Homi J. Bhabha:</span> The visionary who saw the
-                            atomic
-                            nucleus as India's key to energy independence. His legacy built the foundation of our
-                            nuclear
-                            research and high-energy physics.
+                <!-- Scrolling Narrative -->
+                <div class="synthesis-content">
+                    <!-- Block 1: The Logic -->
+                    <div class="synthesis-block" data-aos="fade-up"
+                        data-block-image="frontend/images/inspirations/ancient-premium.png">
+                        <span class="synthesis-label">2,500 BCE - Present</span>
+                        <h3 class="text-4xl font-bold text-white mb-6">The DNA of Logic</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">
+                            VIGYAN.prep isn't just a test platform; it's the modern heir to <strong>Pramana</strong>—the
+                            ancient Buddhist science of knowledge. Before modern Europe, scholars like
+                            <i>Maitreyanātha</i> were defining the laws of deduction and observation.
                         </p>
-                        <p>
-                            <span class="text-purple-400 font-bold">Dr. APJ Abdul Kalam:</span> The Missile Man who
-                            taught a
-                            billion people to dream. His life bridging aerospace engineering and deep spirituality
-                            proves
-                            that science is a pursuit of both the mind and the heart.
+                        <blockquote class="border-l-2 border-blue-500 pl-6 italic text-slate-300 text-sm">
+                            "Everything in our test series follows this lineage: Rigorous observation over blind
+                            memorization."
+                        </blockquote>
+                    </div>
+
+                    <!-- Block 2: The Vision -->
+                    <div class="synthesis-block" data-aos="fade-up"
+                        data-block-image="frontend/images/inspirations/modern-premium.png">
+                        <span class="synthesis-label">The Visionary Blueprint</span>
+                        <h3 class="text-4xl font-bold text-white mb-6">Atomic Ambition</h3>
+                        <p class="text-slate-400 leading-relaxed mb-6">
+                            We take our institutional cues from <strong>Homi J. Bhabha</strong>. He didn't just build
+                            labs; he built a culture of excellence in Bharat. Like him, we believe that providing
+                            students with world-class challenges is the only way to build a scientific superpower.
+                        </p>
+                        <p class="text-slate-400 leading-relaxed">
+                            Combining <strong>Bhabha's</strong> strategic rigor with <strong>Kalam's</strong> relentless
+                            dreaming, VIGYAN.prep serves as the bridge for the next generation of researchers entering
+                            <i>IISc, TIFR, and IISER</i>.
                         </p>
                     </div>
                 </div>
@@ -480,30 +529,55 @@
             if (!container || !canvas) return;
 
             const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.z = 5;
+            camera.position.z = 8; // Further back for network perspective
 
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 400; // Increased count
-            const posArray = new Float32Array(particlesCount * 3);
+            // Neural Network Style: Nodes and Connections
+            const nodeCount = 60;
+            const nodes = [];
+            const nodeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const nodeMaterial = new THREE.MeshBasicMaterial({ color: '#3b82f6' });
 
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 12;
+            for (let i = 0; i < nodeCount; i++) {
+                const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+                node.position.set(
+                    (Math.random() - 0.5) * 15,
+                    (Math.random() - 0.5) * 15,
+                    (Math.random() - 0.5) * 10
+                );
+                node.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.01
+                );
+                scene.add(node);
+                nodes.push(node);
             }
 
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.03,
+            // Connection Lines
+            const lineMaterial = new THREE.LineBasicMaterial({
                 color: '#3b82f6',
                 transparent: true,
-                opacity: 0.6
+                opacity: 0.1
             });
+            const lineGeometry = new THREE.BufferGeometry();
+            const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lineMesh);
 
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
+            function updateLines() {
+                const positions = [];
+                for (let i = 0; i < nodeCount; i++) {
+                    for (let j = i + 1; j < nodeCount; j++) {
+                        const dist = nodes[i].position.distanceTo(nodes[j].position);
+                        if (dist < 3) { // Connect close nodes
+                            positions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
+                            positions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
+                        }
+                    }
+                }
+                lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            }
 
             function resize() {
                 const width = container.clientWidth;
@@ -516,29 +590,60 @@
             window.addEventListener('resize', resize);
             resize();
 
-            let mouseX = 0;
-            let mouseY = 0;
-
-            window.addEventListener('mousemove', (event) => {
-                mouseX = event.clientX / window.innerWidth - 0.5;
-                mouseY = event.clientY / window.innerHeight - 0.5;
+            let targetScroll = 0;
+            window.addEventListener('scroll', () => {
+                targetScroll = window.scrollY * 0.001;
             });
 
             function animate() {
                 requestAnimationFrame(animate);
-                particlesMesh.rotation.y += 0.0008;
-                particlesMesh.rotation.x += 0.0004;
 
-                particlesMesh.position.x += (mouseX * 0.4 - particlesMesh.position.x) * 0.05;
-                particlesMesh.position.y += (-mouseY * 0.4 - particlesMesh.position.y) * 0.05;
+                nodes.forEach(node => {
+                    node.position.add(node.velocity);
+                    // Boundary check
+                    if (Math.abs(node.position.x) > 8) node.velocity.x *= -1;
+                    if (Math.abs(node.position.y) > 8) node.velocity.y *= -1;
+                });
 
+                scene.rotation.y += (targetScroll - scene.rotation.y) * 0.05;
+                updateLines();
                 renderer.render(scene, camera);
             }
 
             animate();
         }
 
-        window.addEventListener('load', initWisdomCanvas);
+        // Handle Dynamic Image Swapping on Scroll
+        function initImageSwapper() {
+            const blocks = document.querySelectorAll('.synthesis-block');
+            const mainImage = document.getElementById('synthesisImage');
+
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const newSrc = entry.target.getAttribute('data-block-image');
+                        if (mainImage.src !== newSrc) {
+                            mainImage.style.opacity = '0';
+                            setTimeout(() => {
+                                mainImage.src = newSrc;
+                                mainImage.style.opacity = '1';
+                            }, 300);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            blocks.forEach(block => observer.observe(block));
+        }
+
+        window.addEventListener('load', () => {
+            initWisdomCanvas();
+            initImageSwapper();
+        });
     </script>
 </body>
 
