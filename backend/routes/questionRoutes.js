@@ -327,6 +327,58 @@ router.get('/questions', async (req, res) => {
     }
 });
 
+// GET single question by ID
+router.get('/questions/:id', async (req, res) => {
+    try {
+        console.log(`🔍 [QUESTIONS] Fetching single question ${req.params.id}`);
+
+        const question = await QuestionModel.findById(req.params.id);
+
+        if (!question) {
+            return res.status(404).json({
+                success: false,
+                error: 'Question not found'
+            });
+        }
+
+        let options = [];
+        try {
+            if (question.options) {
+                if (typeof question.options === 'string') {
+                    options = JSON.parse(question.options);
+                } else if (Array.isArray(question.options)) {
+                    options = question.options;
+                }
+            }
+        } catch (parseError) {
+            console.error(`❌ Question ${question._id}: Failed to parse options:`, parseError.message);
+        }
+
+        res.json({
+            success: true,
+            question: {
+                id: question._id,
+                section: question.section || 'Physics',
+                topic: question.topic || 'General',
+                difficulty: question.difficulty || 'Medium',
+                marks: question.marks || 4,
+                question: question.questionText || '',
+                type: 'MCQ',
+                options: options,
+                answer: question.correctAnswer || '',
+                testId: question.testId || 'UNKNOWN'
+            }
+        });
+
+    } catch (error) {
+        console.error(`❌ [QUESTIONS] Error fetching question ${req.params.id}:`, error);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
 // PUT update question
 router.put('/questions/:id', async (req, res) => {
     try {
