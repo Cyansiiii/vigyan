@@ -196,13 +196,13 @@ function displayQuestions(questions) {
             </td>
             <td><span class="badge">${q.type}</span></td>
             <td>
-                <button class="action-btn" onclick="viewQuestionDetails(${q.id})" title="View Full Question">
+                <button class="action-btn" onclick="viewQuestionDetails('${q.id}')" title="View Full Question">
                     <i class="fas fa-eye"></i>
                 </button>
-                <button class="action-btn" onclick="editQuestionModal(${q.id})" title="Edit Question">
+                <button class="action-btn" onclick="editQuestionModal('${q.id}')" title="Edit Question">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="action-btn danger" onclick="deleteQuestionConfirm(${q.id})" title="Delete Question">
+                <button class="action-btn danger" onclick="deleteQuestionConfirm('${q.id}')" title="Delete Question">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -277,15 +277,65 @@ function viewQuestionDetails(id) {
 }
 
 function editQuestionModal(id) {
-    const question = allQuestions.find(q => q.id === id);
+    const question = allQuestions.find(q => String(q.id) === String(id));
     if (!question) return;
 
-    if (window.AdminUtils) {
-        window.AdminUtils.showToast('Edit functionality coming soon!', 'info');
-    } else {
-        alert('Edit functionality: This will update the question in the backend database.');
+    if (!window.AdminUtils) {
+        alert('AdminUtils not loaded. Cannot show edit modal.');
+        return;
     }
-    // TODO: Implement edit modal with form
+
+    const fields = [
+        { key: 'section', label: 'Subject', type: 'select', options: ['Physics', 'Chemistry', 'Mathematics', 'Biology'], value: question.section },
+        { key: 'topic', label: 'Topic', type: 'text', value: question.topic || '' },
+        { key: 'difficulty', label: 'Difficulty', type: 'select', options: ['Easy', 'Medium', 'Hard'], value: question.difficulty },
+        { key: 'marks', label: 'Marks', type: 'number', value: question.marks },
+        { key: 'questionText', label: 'Question Text', type: 'textarea', value: question.question || question.questionText },
+        { key: 'correctAnswer', label: 'Correct Answer', type: 'select', options: ['A', 'B', 'C', 'D'], value: question.answer || question.correctAnswer }
+    ];
+
+    // Handle options specifically if they exist
+    const options = Array.isArray(question.options) ? question.options : [];
+    const optionLabels = ['A', 'B', 'C', 'D'];
+    optionLabels.forEach((label, idx) => {
+        fields.push({
+            key: `option${label}`,
+            label: `Option ${label}`,
+            type: 'text',
+            value: options[idx] || ''
+        });
+    });
+
+    window.AdminUtils.showEditModal(`Edit Question #${question.id}`, fields, async (updatedData) => {
+        try {
+            console.log('🔄 Updating question...', updatedData);
+
+            // Format data for backend
+            const payload = {
+                section: updatedData.section,
+                topic: updatedData.topic,
+                difficulty: updatedData.difficulty,
+                marks: parseInt(updatedData.marks),
+                questionText: updatedData.questionText,
+                correctAnswer: updatedData.correctAnswer,
+                options: [
+                    updatedData.optionA,
+                    updatedData.optionB,
+                    updatedData.optionC,
+                    updatedData.optionD
+                ]
+            };
+
+            await window.AdminAPI.updateQuestion(id, payload);
+
+            window.AdminUtils.showToast('Question updated successfully', 'success');
+            loadQuestionsFromBackend(); // Refresh list
+
+        } catch (error) {
+            console.error('❌ Update error:', error);
+            window.AdminUtils.showToast('Failed to update question', 'error');
+        }
+    });
 }
 
 async function deleteQuestionConfirm(id) {
