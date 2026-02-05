@@ -12,12 +12,7 @@ import {
   getTestDetails,
   updateTestStatus,
   deleteTest,
-  // Questions
-  addQuestion,
-  getTestQuestions,
-  updateQuestion,
-  deleteQuestion,
-  getAvailableTests
+  getAvailableTests // keep if needed by other things, but let's check
 } from '../controllers/adminController.js';
 import { verifyAdminAuth } from '../middlewares/adminAuth.js';
 
@@ -40,12 +35,5 @@ router.get('/past-tests', getPastTests);            // ✅ Get past tests (Fixes
 router.get('/tests/:testId', getTestDetails);      // ✅ Get specific test
 router.put('/tests/:testId', updateTestStatus);    // ✅ FIXED: PUT /api/admin/tests/:id
 router.delete('/tests/:testId', deleteTest);       // ✅ FIXED: DELETE /api/admin/tests/:id
-
-// ========== QUESTIONS ENDPOINTS ==========
-router.post('/questions/add', addQuestion);
-router.get('/questions/:testId', getTestQuestions);
-router.put('/questions/:questionId', updateQuestion);
-router.delete('/questions/:questionId', deleteQuestion);
-router.get('/available-tests', getAvailableTests);
 
 export default router;

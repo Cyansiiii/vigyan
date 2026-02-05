@@ -517,8 +517,4 @@ const notImplemented = (req, res) => {
   });
 };
 
-export const addQuestion = notImplemented;
-export const getTestQuestions = notImplemented;
-export const updateQuestion = notImplemented;
-export const deleteQuestion = notImplemented;
 export const getAvailableTests = notImplemented;

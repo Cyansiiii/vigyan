@@ -218,61 +218,61 @@ async function updateTestPrice() {
     const testName = testSelector.options[testSelector.selectedIndex].textContent;
     const confirmMessage = `Update price for ${testName} from ₹${currentPrice} to ₹${newPrice}?`;
 
-    if (window.AdminUtils && window.AdminUtils.showConfirmModal) {
-        window.AdminUtils.showConfirmModal(confirmMessage, async () => {
-            try {
-                if (window.showPriceStatus) showPriceStatus('info', '🔄 Updating price...');
+    const performUpdate = async () => {
+        try {
+            if (window.showPriceStatus) showPriceStatus('info', '🔄 Updating price...');
 
-                // ✅ FIXED: Using AdminAPI
-                const data = await window.AdminAPI.updateTestPrice(testId, newPrice);
+            // ✅ FIXED: Using AdminAPI
+            const data = await window.AdminAPI.updateTestPrice(testId, newPrice);
 
-                console.log('✅ Price updated:', data);
-                if (window.showSuccessNotification) {
-                    window.showSuccessNotification(data.message || 'Price updated successfully');
-                }
+            console.log('✅ Price updated:', data);
 
-                // Update local cache
-                const testIndex = allTests.findIndex(t => (t.testId || t.test_type || t._id) === testId);
-                if (testIndex !== -1) {
-                    allTests[testIndex].price = newPrice;
-                }
-
-                // ✅ FIX: Update UI manually to keep success message visible
-                // 1. Update selector dataset
-                const selectedOption = testSelector.options[testSelector.selectedIndex];
-                if (selectedOption) {
-                    selectedOption.dataset.price = newPrice;
-                }
-
-                // 2. Update current price display
-                const currentPriceDiv = document.getElementById('currentPrice');
-                if (currentPriceDiv) {
-                    currentPriceDiv.textContent = `₹${newPrice.toLocaleString()}`;
-                    currentPriceDiv.style.color = 'var(--success)';
-                }
-
-                // 3. Clear input
-                newPriceInput.value = '';
-
-            } catch (error) {
-                console.error('❌ Price update failed:', error);
-                if (window.showErrorNotification) {
-                    window.showErrorNotification(error.message || 'Update failed');
-                }
+            // Use specialized toast if available
+            if (window.AdminUtils && window.AdminUtils.showToast) {
+                window.AdminUtils.showToast(data.message || 'Price updated successfully', 'success');
+            } else if (window.showSuccessNotification) {
+                window.showSuccessNotification(data.message || 'Price updated successfully');
             }
-        });
+
+            // Update local cache
+            const testIndex = allTests.findIndex(t => (t.testId || t.test_type || t._id) === testId);
+            if (testIndex !== -1) {
+                allTests[testIndex].price = newPrice;
+            }
+
+            // ✅ FIX: Update UI manually to keep success message visible
+            // 1. Update selector dataset
+            const selectedOption = testSelector.options[testSelector.selectedIndex];
+            if (selectedOption) {
+                selectedOption.dataset.price = newPrice;
+            }
+
+            // 2. Update current price display
+            const currentPriceDiv = document.getElementById('currentPrice');
+            if (currentPriceDiv) {
+                currentPriceDiv.textContent = `₹${newPrice.toLocaleString()}`;
+                currentPriceDiv.style.color = 'var(--success)';
+            }
+
+            // 3. Clear input
+            newPriceInput.value = '';
+
+        } catch (error) {
+            console.error('❌ Price update failed:', error);
+            if (window.AdminUtils && window.AdminUtils.showToast) {
+                window.AdminUtils.showToast(error.message || 'Update failed', 'error');
+            } else if (window.showErrorNotification) {
+                window.showErrorNotification(error.message || 'Update failed');
+            }
+        }
+    };
+
+    if (window.AdminUtils && window.AdminUtils.showConfirmModal) {
+        window.AdminUtils.showConfirmModal(confirmMessage, performUpdate);
     } else {
         // Fallback to native confirm if utils not loaded
         if (confirm(`🔒 Confirm Price Change\n\nTest: ${testName}\nCurrent: ₹${currentPrice}\nNew: ₹${newPrice}`)) {
-            // Re-use logic for fallback
-            try {
-                const data = await window.AdminAPI.updateTestPrice(testId, newPrice);
-                if (window.showSuccessNotification) window.showSuccessNotification(data.message);
-                // (Other UI updates omitted for brevity in fallback)
-                location.reload(); // Hard refresh on fallback to be safe
-            } catch (error) {
-                if (window.showErrorNotification) window.showErrorNotification(error.message);
-            }
+            performUpdate();
         }
     }
 }

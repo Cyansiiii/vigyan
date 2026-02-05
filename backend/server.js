@@ -243,6 +243,7 @@ app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/admin/students', studentRoutes);
 app.use('/api/admin/transactions', transactionRoutes);
 app.use('/api/admin/results', resultRoutes);
+app.use('/api/admin', questionRoutes); // ✅ ADDED: Unified question management
 
 // Generic Admin API routes (OLD structure) - Mount LAST to avoid collisions
 app.use('/api/admin', adminRoutes);

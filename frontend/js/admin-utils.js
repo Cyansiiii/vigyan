@@ -11,18 +11,18 @@ const AdminUtils = {
         }
         return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
     },
-    
+
     // Format currency
     formatCurrency(amount) {
         return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
     },
-    
+
     // Show toast notification
     showToast(message, type = 'success') {
         // Remove existing toast
         const existingToast = document.querySelector('.toast-notification');
         if (existingToast) existingToast.remove();
-        
+
         // Create new toast
         const toast = document.createElement('div');
         toast.className = `toast-notification toast-${type}`;
@@ -32,7 +32,7 @@ const AdminUtils = {
                 <span>${message}</span>
             </div>
         `;
-        
+
         // Add styles
         Object.assign(toast.style, {
             position: 'fixed',
@@ -49,16 +49,16 @@ const AdminUtils = {
             animation: 'slideInRight 0.3s ease-out',
             minWidth: '300px'
         });
-        
+
         document.body.appendChild(toast);
-        
+
         // Remove after 3 seconds
         setTimeout(() => {
             toast.style.animation = 'slideOutRight 0.3s ease-out';
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     },
-    
+
     // Show confirmation modal
     showConfirmModal(message, onConfirm, onCancel = null) {
         // Create modal
@@ -79,7 +79,7 @@ const AdminUtils = {
                 </div>
             </div>
         `;
-        
+
         // Add styles
         const style = document.createElement('style');
         style.textContent = `
@@ -97,18 +97,18 @@ const AdminUtils = {
         `;
         document.head.appendChild(style);
         document.body.appendChild(modal);
-        
+
         // Event listeners
         document.getElementById('confirmOk').addEventListener('click', () => {
             modal.remove();
             if (onConfirm) onConfirm();
         });
-        
+
         document.getElementById('confirmCancel').addEventListener('click', () => {
             modal.remove();
             if (onCancel) onCancel();
         });
-        
+
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.remove();
@@ -116,45 +116,45 @@ const AdminUtils = {
             }
         });
     },
-    
+
     // Export to CSV
     exportToCSV(data, filename) {
         if (!data || data.length === 0) {
             this.showToast('No data to export', 'error');
             return;
         }
-        
+
         // Get headers
         const headers = Object.keys(data[0]);
-        
+
         // Create CSV content
         let csv = headers.join(',') + '\n';
         data.forEach(row => {
             const values = headers.map(header => {
                 const value = row[header];
                 // Escape commas and quotes
-                return typeof value === 'string' && (value.includes(',') || value.includes('"')) 
-                    ? `"${value.replace(/"/g, '""')}"` 
+                return typeof value === 'string' && (value.includes(',') || value.includes('"'))
+                    ? `"${value.replace(/"/g, '""')}"`
                     : value;
             });
             csv += values.join(',') + '\n';
         });
-        
+
         // Create download link
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = filename;
         link.click();
-        
+
         this.showToast('Data exported successfully!', 'success');
     },
-    
+
     // Show edit modal
     showEditModal(title, fields, currentData, onSave) {
         const modal = document.createElement('div');
         modal.className = 'confirm-modal-overlay';
-        
+
         const fieldsHTML = fields.map(field => {
             const value = currentData[field.key] || '';
             if (field.type === 'select') {
@@ -182,7 +182,7 @@ const AdminUtils = {
                 `;
             }
         }).join('');
-        
+
         modal.innerHTML = `
             <div class="confirm-modal" style="max-width: 500px;">
                 <div class="confirm-modal-header">
@@ -197,9 +197,9 @@ const AdminUtils = {
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(modal);
-        
+
         document.getElementById('editSave').addEventListener('click', () => {
             const updatedData = {};
             fields.forEach(field => {
@@ -208,24 +208,24 @@ const AdminUtils = {
             modal.remove();
             if (onSave) onSave(updatedData);
         });
-        
+
         document.getElementById('editCancel').addEventListener('click', () => modal.remove());
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.remove();
         });
     },
-    
+
     // Generate random ID
     generateId() {
         return Math.random().toString(36).substr(2, 9).toUpperCase();
     },
-    
+
     // Validate email
     validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     },
-    
+
     // Validate phone
     validatePhone(phone) {
         const re = /^[6-9]\d{9}$/;
