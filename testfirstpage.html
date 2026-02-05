@@ -567,7 +567,7 @@
     <script src="frontend/js/mobile-nav.js"></script>
 
     <script>
-        const testSeries = [
+        let testSeries = [
             { id: 'iat', iconColor: 'iat', iconEmoji: '⚡', name: 'IAT SERIES', subtitle: 'Speed Mastery', price: 1 },
             { id: 'nest', iconColor: 'nest', iconEmoji: '🔬', name: 'NEST SERIES', subtitle: 'Deep Dive', price: 1 },
             { id: 'isi', iconColor: 'isi', iconEmoji: '🏆', name: 'ISI SERIES', subtitle: 'Proof Academy', price: 1 }
@@ -575,40 +575,83 @@
 
         let countdownInterval = null;
         let secondsRemaining = 6;
-        let paymentInProgress = false; // ✅ FIX #15: Prevent double payment
+        let paymentInProgress = false;
 
-        const cardsContainer = document.getElementById('cardsContainer');
-        testSeries.forEach(test => {
-            const card = document.createElement('div');
-            card.className = 'glass-panel flex flex-col justify-between';
-            card.innerHTML = `
-                <div>
-                    <div class="series-icon-header">
-                        <div class="card-icon icon-${test.iconColor}">${test.iconEmoji}</div>
-                    </div>
-                    <div class="flex justify-between items-start mb-8">
-                        <span class="font-bold text-blue-500 uppercase tracking-widest text-[10px] border border-blue-500/30 px-3 py-1 rounded-full bg-blue-500/5">${test.id.toUpperCase()}</span>
-                        <div class="text-right leading-none">
-                            <span class="block text-5xl font-black text-white tracking-tight">₹${test.price}</span>
-                            <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">One-time Access</span>
+        function renderCards() {
+            const cardsContainer = document.getElementById('cardsContainer');
+            cardsContainer.innerHTML = ''; // Clear existing cards
+
+            testSeries.forEach(test => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="series-icon-header">
+                            <div class="card-icon icon-${test.iconColor}">${test.iconEmoji}</div>
                         </div>
+                        <div class="flex justify-between items-start mb-8">
+                            <span class="font-bold text-blue-500 uppercase tracking-widest text-[10px] border border-blue-500/30 px-3 py-1 rounded-full bg-blue-500/5">${test.id.toUpperCase()}</span>
+                            <div class="text-right leading-none">
+                                <span class="block text-5xl font-black text-white tracking-tight dynamic-price-${test.id}">₹${test.price}</span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">One-time Access</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-black text-white mb-2 uppercase leading-none tracking-tight">${test.name}</h3>
+                        <p class="text-gray-400 text-sm mb-6 font-medium">${test.subtitle}</p>
+                        <div class="w-full h-px bg-white/10 mb-6"></div>
+                        <ul class="text-gray-400 text-sm space-y-3 mb-8 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Real exam patterns</li>
+                            <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Instant access granted</li>
+                        </ul>
                     </div>
-                    <h3 class="text-3xl font-black text-white mb-2 uppercase leading-none tracking-tight">${test.name}</h3>
-                    <p class="text-gray-400 text-sm mb-6 font-medium">${test.subtitle}</p>
-                    <div class="w-full h-px bg-white/10 mb-6"></div>
-                    <ul class="text-gray-400 text-sm space-y-3 mb-8 font-medium">
-                        <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Real exam patterns</li>
-                        <li class="flex items-center gap-2"><span class="text-blue-500">✦</span> Instant access granted</li>
-                    </ul>
-                </div>
-                <button id="btn-${test.id}" onclick="executePurchase('${test.id}', ${test.price})" class="buy-btn shadow-lg shadow-blue-900/30">Activate Protocol (₹${test.price})</button>
-            `;
-            cardsContainer.appendChild(card);
-        });
+                    <button id="btn-${test.id}" onclick="executePurchase('${test.id}', ${test.price})" class="buy-btn shadow-lg shadow-blue-900/30">Activate Protocol (₹${test.price})</button>
+                `;
+                cardsContainer.appendChild(card);
+            });
+
+            // Re-apply purchase status if any
+            const purchased = JSON.parse(localStorage.getItem("purchasedTests") || "[]");
+            testSeries.forEach(test => {
+                if (purchased.includes(test.id)) markAsPurchased(test.id);
+            });
+        }
+
+        async function fetchPrices() {
+            try {
+                console.log("💰 Fetching latest test prices...");
+                const response = await axios.get(`${API_BASE_URL}/api/exam/test-series`);
+
+                if (response.data && response.data.success) {
+                    const latestTests = response.data.tests;
+                    console.log("✅ Prices fetched:", latestTests);
+
+                    // Update local testSeries with API prices
+                    testSeries = testSeries.map(test => {
+                        const apiData = latestTests.find(t => t.testId === test.id);
+                        if (apiData) {
+                            return { ...test, price: apiData.price };
+                        }
+                        return test;
+                    });
+
+                    // Re-render cards with new prices
+                    renderCards();
+                }
+            } catch (error) {
+                console.error("❌ Error fetching prices:", error);
+                // Fallback to defaults already rendered
+            }
+        }
 
         // ✅ FIX #12: Error boundary on page load
         window.onload = async function () {
             try {
+                // Initial render with defaults
+                renderCards();
+
+                // Fetch real prices and update
+                await fetchPrices();
+
                 if (window.refreshUserDashboard) window.refreshUserDashboard();
 
                 let purchased = [];
@@ -622,23 +665,19 @@
 
                 if (purchased.length > 0) {
                     const banner = document.getElementById('calendarBanner');
-                    banner.style.display = 'flex';
-                    // ✅ FIX #19: Smooth animation
-                    banner.style.opacity = '0';
-                    banner.style.transform = 'translateY(-20px)';
-                    setTimeout(() => {
-                        banner.style.transition = 'all 0.5s ease-out';
-                        banner.style.opacity = '1';
-                        banner.style.transform = 'translateY(0)';
-                    }, 100);
+                    if (banner) {
+                        banner.style.display = 'flex';
+                        banner.style.opacity = '0';
+                        banner.style.transform = 'translateY(-20px)';
+                        setTimeout(() => {
+                            banner.style.transition = 'all 0.5s ease-out';
+                            banner.style.opacity = '1';
+                            banner.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
                 }
-
-                testSeries.forEach(test => {
-                    if (purchased.includes(test.id)) markAsPurchased(test.id);
-                });
             } catch (error) {
                 console.error("Critical error during page load:", error);
-                alert("⚠️ An error occurred loading the page. Please refresh.");
             }
         };
 
