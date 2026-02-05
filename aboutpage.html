@@ -7,8 +7,6 @@
     <title>About Vigyan.prep | Our Mission & Success Matrix | Preparation for IISER & NISER</title>
     <meta name="description"
         content="Learn about Vigyan.prep, founded by physics students to restore conceptual integrity in science entrance exams like IISER IAT and NEST. Discover our vanguard legacy and success matrix.">
-    <meta name="keywords"
-        content="Vigyan prep mission, science entrance exams India, conceptual learning, IAT test series foundation, research institute entrance prep history">
     <link rel="canonical" href="https://vigyanprep.com/aboutpage.html">
 
     <!-- Open Graph / Facebook -->
@@ -47,9 +45,8 @@
         :root {
             --blue: #3b82f6;
             --navy-dark: #020617;
-            --aurora-1: rgba(59, 130, 246, 0.15);
-            --aurora-2: rgba(139, 92, 246, 0.1);
-            --aurora-3: rgba(30, 41, slate-blue, 0.8);
+            --aurora-1: rgba(59, 130, 246, 0.1);
+            --aurora-2: rgba(139, 92, 246, 0.05);
         }
 
         body {
@@ -67,63 +64,63 @@
             text-transform: uppercase;
         }
 
-        /* SCIENTIFIC AURORA BACKGROUND */
-        .aurora-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            overflow: hidden;
-            background: #020617;
-        }
-
-        .aurora-layer {
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            top: -25%;
-            left: -25%;
-            filter: blur(100px);
-            opacity: 0.5;
-            animation: auroraRotation 20s linear infinite;
-        }
-
-        .aurora-layer-1 {
-            background: radial-gradient(circle at 30% 30%, var(--aurora-1), transparent 50%);
-        }
-
-        .aurora-layer-2 {
-            background: radial-gradient(circle at 70% 70%, var(--aurora-2), transparent 50%);
-            animation-duration: 30s;
-            animation-direction: reverse;
-        }
-
-        @keyframes auroraRotation {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
+        /* BLUEPRINT GRID BACKGROUND */
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
-            background-size: 40px 40px;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
+        .grid-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, #020617 80%);
+        }
+
+        /* TERMINAL HUD */
         .hud-text {
             font-family: 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--blue);
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hud-text::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--blue);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .scroll-progress {
@@ -138,23 +135,51 @@
 
         /* ULTRA-FINE GLASSMORPHISM */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(40px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .big-type {
-            font-size: clamp(5rem, 15vw, 15rem);
+            font-size: clamp(5rem, 12vw, 12rem);
             line-height: 0.85;
             font-weight: 950;
         }
 
-        /* SPRING REVEAL ANIMATIONS */
+        /* FOLDER PREVIEW STYLE */
+        .folder-card {
+            position: relative;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0 1rem 1rem 1rem;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
+        .folder-tab {
+            position: absolute;
+            top: -2rem;
+            left: -1px;
+            height: 2rem;
+            width: 120px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--blue);
+            font-family: monospace;
+        }
+
+        /* SPRING REVEAL */
         .spring-reveal {
             opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: translateY(40px) scale(0.98);
+            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .spring-reveal.active {
@@ -167,13 +192,14 @@
             position: relative;
             background: white;
             color: black;
-            padding: 1.5rem 4rem;
-            border-radius: 100px;
+            padding: 1.5rem 3.5rem;
+            border-radius: 4px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             overflow: hidden;
             transition: all 0.4s ease;
+            font-size: 0.85rem;
         }
 
         .v-button::after {
@@ -189,24 +215,23 @@
             opacity: 1;
         }
 
-        /* DEEP ANALYTICS HUB STYLES */
+        /* ANALYTICS HUB 8-CELL */
         .analytics-hub {
             position: relative;
-            min-height: 200vh;
-            background: #020617;
-            padding: 8rem 0;
+            min-height: 250vh;
+            padding: 10rem 0;
         }
 
         .sticky-wrapper {
             position: sticky;
             top: 15vh;
-            height: 70vh;
+            height: 75vh;
         }
 
         .scrolly-bento {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(6, 1fr);
+            grid-template-rows: repeat(10, 1fr);
             gap: 1.5rem;
             height: 100%;
         }
@@ -215,16 +240,14 @@
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(40px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2.5rem;
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .hub-cell.active {
@@ -232,81 +255,74 @@
             transform: translateY(0);
         }
 
-        .cell-main {
-            grid-column: 1 / 8;
+        .cell-1 {
+            grid-column: 1 / 9;
             grid-row: 1 / 7;
         }
 
-        .cell-stat-1 {
-            grid-column: 8 / 13;
-            grid-row: 1 / 3;
+        /* Main Synthesis */
+        .cell-2 {
+            grid-column: 9 / 13;
+            grid-row: 1 / 4;
         }
 
-        .cell-stat-2 {
-            grid-column: 8 / 11;
-            grid-row: 3 / 5;
+        /* Stat 1 */
+        .cell-3 {
+            grid-column: 9 / 13;
+            grid-row: 4 / 7;
         }
 
-        .cell-stat-3 {
-            grid-column: 11 / 13;
-            grid-row: 3 / 5;
+        /* Stat 2 */
+        .cell-4 {
+            grid-column: 1 / 4;
+            grid-row: 7 / 11;
         }
 
-        .cell-stat-4 {
-            grid-column: 8 / 13;
-            grid-row: 5 / 7;
+        /* Stat 3 */
+        .cell-5 {
+            grid-column: 4 / 7;
+            grid-row: 7 / 11;
         }
 
-        .hub-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 2rem;
-            filter: grayscale(1) brightness(0.6);
-            transition: all 1s ease;
+        /* Stat 4 */
+        .cell-6 {
+            grid-column: 7 / 13;
+            grid-row: 7 / 11;
         }
 
-        .hub-cell:hover .hub-image {
-            filter: grayscale(0) brightness(0.9);
-            transform: scale(1.05);
-        }
+        /* Stat 5 / Identity */
 
         .hub-value {
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 950;
             color: white;
-            letter-spacing: -4px;
-            line-height: 1;
+            letter-spacing: -2px;
         }
 
         .hub-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.4em;
             color: var(--blue);
-            margin-top: 1rem;
-            font-weight: 700;
+            margin-top: 0.5rem;
         }
 
-        /* COMPACT MONOLITH CTA */
-        .compact-cta {
-            height: 70vh;
-            border-radius: 3rem;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 5rem;
-        }
-
-        .compact-cta img {
-            filter: brightness(0.4) saturate(0.5);
+        /* LOGIC TREE SVG */
+        .logic-connector {
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+            stroke: var(--blue);
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.3;
         }
 
         @media (max-width: 1024px) {
-            .analytics-hub {
-                min-height: auto;
+            .scrolly-bento {
+                display: flex;
+                flex-direction: column;
+                height: auto;
             }
 
             .sticky-wrapper {
@@ -315,13 +331,8 @@
                 top: 0;
             }
 
-            .scrolly-bento {
-                display: flex;
-                flex-direction: column;
-            }
-
             .hub-cell {
-                min-height: 300px;
+                min-height: 250px;
                 opacity: 1;
                 transform: none;
             }
@@ -331,20 +342,15 @@
 
 <body>
     <div class="scroll-progress" id="scrollProgress"></div>
-
-    <!-- SCIENTIFIC AURORA -->
-    <div class="aurora-bg">
-        <div class="aurora-layer aurora-layer-1"></div>
-        <div class="aurora-layer aurora-layer-2"></div>
-    </div>
     <div class="grid-bg"></div>
 
-    <nav class="navbar fixed top-0 w-full z-50 px-12 py-5 flex justify-between items-center bg-[#020617]/90 backdrop-blur-md border-b border-white/5"
-        id="navbar">
+    <nav
+        class="navbar fixed top-0 w-full z-50 px-12 py-5 flex justify-between items-center bg-[#020617]/90 backdrop-blur-md border-b border-white/5">
         <div class="logo text-2xl font-black text-white">
-            <a href="index.html" style="display:inline-flex;align-items:baseline;text-decoration:none;"><span
-                    class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
-                    class="logo-prep">prep</span></a>
+            <a href="index.html" style="display:inline-flex;align-items:baseline;text-decoration:none;">
+                <span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
+                    class="logo-prep">prep</span>
+            </a>
         </div>
         <div class="nav-links hidden lg:flex items-center space-x-8 text-sm font-bold text-gray-400">
             <a href="index.html" class="hover:text-white transition">Home</a>
@@ -359,14 +365,6 @@
             </div>
             <a href="subtittlepyq.html" class="hover:text-white transition">PYQ</a>
             <a href="testfirstpage.html" class="hover:text-white transition">Tests</a>
-            <div class="nav-dropdown">
-                <a href="#" class="dropdown-trigger hover:text-white transition">Future Career <i
-                        class="fas fa-chevron-down"></i></a>
-                <div class="dropdown-menu">
-                    <a href="future.html">Future Career</a>
-                    <a href="sciencenews.html">Science News</a>
-                </div>
-            </div>
             <div id="navLoginPlaceholder">
                 <a href="signinpage.html"
                     class="btn-login bg-blue-600 px-6 py-2 rounded-full text-white hover:bg-blue-700 transition">Login</a>
@@ -380,105 +378,158 @@
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 pt-48">
-        <!-- AVANT-GARDE HERO -->
-        <section class="about-hero mb-32 relative">
-            <div class="hero-visual-frame" data-aos="fade-left" data-aos-duration="1500">
-                <img src="frontend/images/about-hero.png" alt="Science Abstract">
-            </div>
-            <div class="relative z-10 max-w-4xl">
-                <div class="hud-text mb-8" data-aos="fade-down">Research Identity // vCore.Synthesis</div>
+
+        <!-- HERO: THE EXPERIMENT -->
+        <section class="about-hero mb-60 relative spring-reveal">
+            <div class="relative z-10">
+                <div class="hud-text mb-8">System.Identity // v2026.Synthesis</div>
                 <h1 class="v-header big-type mb-12 text-white">
-                    <span class="block" data-aos="fade-up">Beyond</span>
-                    <span class="text-blue-500 block" data-aos="fade-up" data-aos-delay="200">Boundaries.</span>
+                    <span class="block">Pioneering The</span>
+                    <span class="text-blue-500 block">Test Revolution.</span>
                 </h1>
-                <div class="mt-12 glass-panel p-10 rounded-3xl border-l-8 border-blue-500 inline-block"
-                    data-aos="fade-right" data-aos-delay="400">
-                    <p class="text-2xl text-slate-300 font-medium max-w-xl leading-relaxed">VIGYAN.prep is a radical
-                        response to the dilution of scientific assessment. We exist to restore rigour to the pursuit of
-                        discovery. </p>
+                <div class="glass-panel p-10 rounded-2xl border-l-[12px] border-blue-500 max-w-2xl">
+                    <p class="text-2xl text-slate-300 font-medium leading-relaxed italic">
+                        "A test series should not be an examination. It should be an experiment."
+                    </p>
+                    <div class="mt-6 text-xs uppercase tracking-widest text-[#475569]">Project Genesis // Conceptual
+                        Integrity</div>
                 </div>
             </div>
-        </section>
+            </header>
 
-        <!-- MISSION & SUCCESS MATRIX -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-60 items-center">
-            <div class="spring-reveal">
-                <span class="hud-text mb-4 block">The Mission // Strategic.Rigor</span>
-                <h2 class="v-header text-5xl mb-8 text-white leading-tight">DECODING THE ARCHITECTS <br>OF <span
-                        class="text-blue-500">CLARITY.</span></h2>
-                <p class="text-slate-400 leading-relaxed text-lg mb-8">We believe research isn't built on memorization,
-                    but on the depth of one's reasoning. Like the great students of physics before us, we measure
-                    clarity by the rate of discovery.</p>
-                <div class="glass-panel p-8 rounded-2xl border-white/5 inline-flex items-center gap-4 text-white/60">
-                    <i class="fas fa-microscope text-blue-500"></i><span
-                        class="text-sm uppercase tracking-widest">Scientific Integrity Verified</span>
-                </div>
-            </div>
-            <div class="glass-panel p-16 rounded-[3rem] relative overflow-hidden group hover:border-blue-500/30 transition-all duration-700 spring-reveal"
-                data-aos="zoom-in">
-                <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="hud-text mb-10">Neural.Network // Evaluation.Model</div>
-                <div class="text-5xl font-mono text-white text-center">
-                    $$ Success=\int \frac {d(Clarity)}{d(Time)} $$
-                </div>
-                <div class="mt-10 text-slate-500 text-[10px] uppercase tracking-[0.5em] text-center">Proprietary V-Core
-                    Engine Assessment</div>
-            </div>
-        </section>
+            <!-- RESTORATION: THE DNA OF LOGIC (PRAMANA) -->
+            <section class="mb-60 spring-reveal">
+                <div class="hud-text mb-4">Neural.Architecture // Pramana.Logic</div>
+                <h2 class="v-header text-5xl mb-12 text-white">The DNA <br>of <span class="text-blue-500">Logic.</span>
+                </h2>
 
-        <!-- DEEP ANALYTICS HUB -->
-        <section class="analytics-hub" id="analyticsHub">
-            <div class="sticky-wrapper max-w-7xl mx-auto px-6">
-                <div class="hud-text mb-8">System.Precision // vCore.Output</div>
-                <h2 class="v-header text-6xl mb-12 text-white">The Architecture <br><span class="text-blue-500">of
-                        Clarity.</span></h2>
-
-                <div class="scrolly-bento h-[60vh]">
-                    <div class="hub-cell cell-main">
-                        <div class="absolute inset-0 opacity-20">
-                            <img src="frontend/images/logic-diagram.png" alt="Logic Tree" class="hub-image">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                    <div class="space-y-8">
+                        <div class="folder-card">
+                            <div class="folder-tab">Dossier: 01A</div>
+                            <h3 class="v-header text-2xl mb-4 text-white">Pramana Methodology</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                Built on the Buddhist laws of deduction, our assessment engine maps your conceptual
+                                clarity.
+                                We don't measure what you remember; we measure the strength of your causal chain.
+                                Every question is a node in a neural network of understanding.
+                            </p>
                         </div>
-                        <div class="relative z-10">
-                            <h3 class="v-header text-3xl mb-4">Pramana Logic</h3>
-                            <p class="text-slate-400 max-w-md">Built on the Buddhist laws of deduction. Every question
-                                is a node in a causal chain of understanding.</p>
+                        <div class="folder-card">
+                            <div class="folder-tab">Dossier: 01B</div>
+                            <h3 class="v-header text-2xl mb-4 text-white">Conceptual Integrity</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                The entrance exams for IISER, IISc, and NISER aren't just tests; they are filters for
+                                the scientists of tomorrow.
+                                We restore the rigour required to pass these filters through discovery-led assessment.
+                            </p>
                         </div>
                     </div>
-
-                    <div class="hub-cell cell-stat-1">
-                        <div class="hub-value">1k+</div>
-                        <div class="hub-label">Curated Enigma</div>
-                    </div>
-
-                    <div class="hub-cell cell-stat-2">
-                        <div class="hub-value">95%</div>
-                        <div class="hub-label">Depth</div>
-                    </div>
-
-                    <div class="hub-cell cell-stat-3">
-                        <div class="hub-value">∞</div>
-                        <div class="hub-label">Sync</div>
-                    </div>
-
-                    <div class="hub-cell cell-stat-4">
-                        <div class="relative z-10">
-                            <h3 class="v-header text-xl mb-2">Vanguard Access</h3>
-                            <p class="text-xs text-slate-500">24/7 Elite support from researchers at IISER & NISER.</p>
+                    <!-- Logic Visualization placeholder -->
+                    <div
+                        class="relative p-12 glass-panel rounded-[3rem] overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10">
+                            <svg width="100%" height="100%" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" stroke="white" stroke-width="0.5" fill="none" />
+                                <circle cx="50" cy="50" r="30" stroke="white" stroke-width="0.5" fill="none" />
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="white" stroke-width="0.5" />
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="white" stroke-width="0.5" />
+                            </svg>
+                        </div>
+                        <div class="text-4xl font-mono text-center text-white" data-aos="flip-up">
+                            $$ \text{Clarity} = \lim_{\Delta t \to 0} \frac{\Delta \text{Discovery}}{\Delta t} $$
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- COMPACT MONOLITH CTA -->
-        <section class="compact-cta spring-reveal">
-            <img src="frontend/images/about-hero.png" alt="Archway" class="absolute inset-0 w-full h-full object-cover">
-            <div class="relative z-10 text-center px-6">
-                <h2 class="v-header big-type mb-12 text-white">Join the<br><span class="text-blue-500">Vanguard.</span>
+            <!-- RESTORATION: THE VANGUARD LEGACY (BHABHA/KALAM) -->
+            <section class="mb-60 spring-reveal">
+                <div class="hud-text mb-4">Heritage.Protocol // Vanguard.Legacy</div>
+                <h2 class="v-header text-5xl mb-12 text-white italic">Foundations of <br><span
+                        class="text-blue-500">Ambition.</span></h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="glass-panel p-10 rounded-2xl hover:border-blue-500/50 transition-all">
+                        <span class="text-[10px] text-blue-500 uppercase tracking-widest font-mono mb-4 block">Archive:
+                            Homi Bhabha</span>
+                        <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"For the scientific development of
+                            India... research must be built on its students."</p>
+                        <div class="h-1 w-12 bg-blue-500"></div>
+                    </div>
+                    <div class="glass-panel p-10 rounded-2xl border-blue-500/30">
+                        <span class="text-[10px] text-blue-500 uppercase tracking-widest font-mono mb-4 block">Archive:
+                            Vikram Sarabhai</span>
+                        <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"We must be second to none in the
+                            application of advanced technologies to the real problems."</p>
+                        <div class="h-1 w-12 bg-blue-500"></div>
+                    </div>
+                    <div class="glass-panel p-10 rounded-2xl hover:border-blue-500/50 transition-all">
+                        <span class="text-[10px] text-blue-500 uppercase tracking-widest font-mono mb-4 block">Archive:
+                            APJ Abdul Kalam</span>
+                        <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"Dream is not that which you see
+                            while sleeping, it is something that does not let you sleep."</p>
+                        <div class="h-1 w-12 bg-blue-500"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DEEP ANALYTICS HUB: 8-CELL BLUEPRINT -->
+            <section class="analytics-hub" id="analyticsHub">
+                <div class="sticky-wrapper max-w-7xl mx-auto px-6">
+                    <div class="hud-text mb-8">System.Output // Strategic.Metrics</div>
+                    <h2 class="v-header text-6xl mb-12 text-white">Blueprint for <br><span
+                            class="text-blue-500">Mastery.</span></h2>
+
+                    <div class="scrolly-bento">
+                        <div class="hub-cell cell-1">
+                            <div class="hud-text mb-4">Core.Equation</div>
+                            <div class="text-4xl font-mono text-white mb-6">
+                                $$ Success=\int \frac {d(Clarity)}{d(Time)} $$
+                            </div>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest">Our Proprietary evaluation of
+                                scientific growth rate.</p>
+                        </div>
+
+                        <div class="hub-cell cell-2">
+                            <div class="hub-value">95.4%</div>
+                            <div class="hub-label">Depth Variance</div>
+                        </div>
+
+                        <div class="hub-cell cell-3">
+                            <div class="hub-value">1k+</div>
+                            <div class="hub-label">Logic Nodes</div>
+                        </div>
+
+                        <div class="hub-cell cell-4">
+                            <div class="hub-value">∞</div>
+                            <div class="hub-label">Research Sync</div>
+                        </div>
+
+                        <div class="hub-cell cell-5">
+                            <div class="hub-value">v2.0</div>
+                            <div class="hub-label">Engine Beta</div>
+                        </div>
+
+                        <div class="hub-cell cell-6">
+                            <h3 class="v-header text-xl mb-4">Identity.Verified</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Elite mentorship from scholars at IISER & NISER. Restoration of scientific integrity
+                                across the national assessment pipeline.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TERMINUS CTA -->
+            <section class="mb-60 text-center spring-reveal">
+                <div class="hud-text mb-8 justify-center">Initiate.Experiment // Access.Granted</div>
+                <h2 class="v-header big-type mb-12 text-white">Join the <br><span class="text-blue-500">Vanguard.</span>
                 </h2>
                 <a href="testfirstpage.html" class="v-button inline-block">Begin Assessment</a>
-            </div>
-        </section>
+            </section>
+
     </main>
 
     <script src="frontend/js/config.js"></script>
@@ -487,7 +538,7 @@
     <script src="frontend/js/mobile-nav.js"></script>
 
     <script>
-        // LIQUID GLOW BUTTON TRACKING
+        // LIQUID GLOW
         document.addEventListener('mousemove', e => {
             document.querySelectorAll('.v-button').forEach(button => {
                 const rect = button.getBoundingClientRect();
@@ -498,7 +549,7 @@
             });
         });
 
-        // SCROLL PROGRESS & SPRING REVEALS & BENTO
+        // SCROLL INTERACTIONS
         window.addEventListener('scroll', () => {
             const winScroll = document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -506,7 +557,7 @@
             const progress = document.getElementById('scrollProgress');
             if (progress) progress.style.width = scrolled + '%';
 
-            // Spring Reveal Trigger
+            // Spring Reveal
             document.querySelectorAll('.spring-reveal').forEach(el => {
                 const rect = el.getBoundingClientRect();
                 if (rect.top < window.innerHeight * 0.9) {
@@ -514,7 +565,7 @@
                 }
             });
 
-            // DEEP ANALYTICS: Scrolly-Bento
+            // Bento Hub
             const hub = document.getElementById('analyticsHub');
             const cells = hub?.querySelectorAll('.hub-cell');
             if (hub && cells) {
@@ -523,29 +574,17 @@
                 const scrollDistance = -hubRect.top;
                 const hProgress = Math.max(0, Math.min(1, scrollDistance / (totalHubHeight - window.innerHeight)));
 
-                const step = 1 / cells.length;
                 cells.forEach((cell, index) => {
-                    if (hProgress > (index * step) - 0.05) {
+                    if (hProgress > (index * (1 / cells.length)) - 0.05) {
                         cell.classList.add('active');
-                    } else if (index > 0) {
-                        cell.classList.remove('active');
                     }
                 });
             }
         });
 
-        // MathJax & UI Init
         window.addEventListener('load', () => {
-            AOS.init({
-                duration: 1000,
-                once: true,
-                offset: 100,
-                easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
-            });
-
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                MathJax.typesetPromise();
-            }
+            AOS.init({ duration: 1000, once: true });
+            if (window.MathJax && window.MathJax.typesetPromise) { MathJax.typesetPromise(); }
         });
     </script>
 </body>
