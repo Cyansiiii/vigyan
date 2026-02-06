@@ -230,10 +230,12 @@
 
         .hero-layout {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-columns: 1fr 1fr;
             align-items: center;
-            gap: 4rem;
-            min-height: 80vh;
+            gap: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
         }
 
         /* ANTIMATTER TYPOGRAPHY */
@@ -264,11 +266,15 @@
         }
 
         .hero-cinematic-img {
-            width: 100%;
-            max-width: 600px;
-            filter: drop-shadow(0 0 50px rgba(59, 130, 246, 0.2));
-            animation: float 6s ease-in-out infinite;
+            width: 140%;
+            max-width: none;
+            position: absolute;
+            right: -20%;
+            top: 50%;
+            transform: translateY(-50%);
+            filter: drop-shadow(0 0 80px rgba(59, 130, 246, 0.3)) drop-shadow(0 0 120px rgba(139, 92, 246, 0.2));
             z-index: 2;
+            will-change: transform;
         }
 
         @keyframes float {
@@ -486,6 +492,205 @@
                 transform: none;
             }
         }
+
+        /* ═══════════════════════════════════════════════════════════════
+           PREMIUM ANIMATIONS - Recreated from React Components
+           ═══════════════════════════════════════════════════════════════ */
+
+        /* FLIP TEXT - Character by character reveal */
+        .flip-text {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .flip-text .char {
+            display: inline-block;
+            transform: translateY(100%) rotateX(-90deg);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
+        }
+
+        .flip-text.active .char {
+            transform: translateY(0) rotateX(0);
+            opacity: 1;
+        }
+
+        /* LIQUID METAL BUTTON - Premium shimmer effect */
+        .liquid-metal-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+            background-size: 200% 200%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+
+        .liquid-metal-btn::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+        }
+
+        .liquid-metal-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .liquid-metal-btn:hover {
+            background-position: 100% 100%;
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .liquid-metal-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ANIMATED BUTTON - Scale on hover/tap (from AnimatedButton) */
+        .animated-btn {
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .animated-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 3D FOLDER TILT - Interactive folder cards */
+        .folder-card {
+            position: relative;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0 1rem 1rem 1rem;
+            padding: 3rem;
+            margin-top: 2rem;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+        }
+
+        .folder-card:hover {
+            transform: rotateX(2deg) rotateY(-3deg) translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .folder-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .folder-card:hover::after {
+            opacity: 1;
+        }
+
+        /* PARALLAX ASTRONAUT */
+        .hero-visual-wrapper {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        /* COUNTER ANIMATION */
+        .counter-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* LOGO SLIDER (Marquee) */
+        .logo-slider {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .logo-slider-track {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* MASKED AVATARS */
+        .masked-avatars {
+            display: flex;
+        }
+
+        .masked-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid #020617;
+            margin-left: -12px;
+            transition: transform 0.3s ease, z-index 0s;
+        }
+
+        .masked-avatar:first-child {
+            margin-left: 0;
+        }
+
+        .masked-avatar:hover {
+            transform: scale(1.2) translateY(-4px);
+            z-index: 10;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 1024px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                padding-top: 100px;
+            }
+
+            .hero-visual-wrapper {
+                position: relative;
+                width: 100%;
+                height: 50vh;
+            }
+
+            .hero-cinematic-img {
+                width: 100%;
+                right: 0;
+                position: relative;
+                transform: none;
+            }
+        }
     </style>
 </head>
 
@@ -523,10 +728,10 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 pt-48">
+    <main class="max-w-7xl mx-auto px-6 pt-0">
 
         <!-- HERO -->
-        <section class="about-hero mb-60 relative">
+        <section class="about-hero mb-60 relative min-h-screen flex items-center">
             <div class="hero-layout">
                 <div class="hero-content-side spring-reveal">
                     <div class="hud-text mb-8">Science.Identity // v2027.Antimatter</div>
@@ -547,22 +752,26 @@
                                 class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold px-3 py-1 bg-white/5 rounded">
                                 Logic-Driven</div>
                         </div>
+                        <!-- Liquid Metal Buttons -->
+                        <div class="mt-10 flex flex-wrap gap-4">
+                            <a href="testfirstpage.html" class="liquid-metal-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                Explore Tests
+                            </a>
+                            <a href="index.html"
+                                class="animated-btn text-slate-400 hover:text-white transition flex items-center gap-2">
+                                Learn More <span>→</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="hero-visual-wrapper">
-                    <svg class="tether-svg" viewBox="0 0 800 600">
-                        <defs>
-                            <linearGradient id="tetherGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0" />
-                                <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.5" />
-                                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.8" />
-                            </linearGradient>
-                        </defs>
-                        <path class="tether-path" d="M 0,300 C 200,300 400,100 800,200" id="tetherPath" />
-                    </svg>
-                    <img src="frontend/images/about-hero-cinematic.png?v=2" alt="Astronaut in Space"
-                        class="hero-cinematic-img">
+                    <img src="frontend/images/astronaut-hero-full.png?v=3" alt="Astronaut in Space"
+                        class="hero-cinematic-img" id="parallaxAstronaut">
                 </div>
             </div>
         </section>
@@ -777,12 +986,51 @@
                 scrambleElement.dataset.value = scrambleElement.innerText;
             }
 
-            // Sync Tether path to visual position
-            const tether = document.getElementById('tetherPath');
-            const visual = document.querySelector('.hero-cinematic-img');
-            if (tether && visual) {
-                // Dynamic path update logic could go here
+            // PARALLAX ASTRONAUT on scroll
+            const astronaut = document.getElementById('parallaxAstronaut');
+            if (astronaut) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * 0.3;
+                    astronaut.style.transform = `translateY(calc(-50% + ${rate}px))`;
+                });
             }
+
+            // 3D TILT on folder cards
+            document.querySelectorAll('.folder-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+
+            // COUNTER ANIMATION for hub values
+            document.querySelectorAll('.hub-value').forEach(el => {
+                const target = parseInt(el.textContent.replace(/[^\d]/g, ''), 10);
+                if (!isNaN(target)) {
+                    const suffix = el.textContent.replace(/[\d]/g, '');
+                    let current = 0;
+                    const increment = target / 60;
+                    const counter = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            el.textContent = target + suffix;
+                            clearInterval(counter);
+                        } else {
+                            el.textContent = Math.floor(current) + suffix;
+                        }
+                    }, 16);
+                }
+            });
         });
     </script>
 </body>
