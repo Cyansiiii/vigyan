@@ -48,13 +48,15 @@ export default function AboutPage() {
                         <div className="mb-10">
                             <LiquidText
                                 text="PIONEERING THE"
-                                className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-white block"
+                                className="h-24 md:h-32 font-black tracking-tighter leading-none text-white block"
+                                fontSize={150}
                             />
                             <div className="flex items-baseline gap-4 mt-2">
                                 <span className="font-serif italic text-blue-500 text-6xl md:text-8xl">Test</span>
                                 <LiquidText
                                     text="REVOLUTION."
-                                    className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-white"
+                                    className="h-24 md:h-32 font-black tracking-tighter leading-none text-white flex-1"
+                                    fontSize={150}
                                 />
                             </div>
                         </div>

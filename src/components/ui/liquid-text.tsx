@@ -203,7 +203,7 @@ export function LiquidText({
         };
     }, [text, fontSize, font, color, lightColor, darkColor]);
 
-    return <div ref={containerRef} className={cn("relative w-full h-[600px]", className)} />;
+    return <div ref={containerRef} className={cn("relative w-full h-full", className)} />;
 }
 
 export default LiquidText;
