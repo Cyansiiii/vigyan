@@ -1,18 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --background: #020617;
+    --foreground: #f8fafc;
+    --primary: #3b82f6;
 }
 
 body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: 'Inter', sans-serif;
 }
 
 .hero-italic {
-    @apply font-serif italic text-blue-500;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #3b82f6;
 }
