@@ -18,6 +18,11 @@
     <meta property="og:image" content="https://vigyanprep.com/frontend/images/og-about.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- GSAP for Scramble Effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/EasePack.min.js"></script>
+
     <!-- AOS Library for Scroll Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -218,9 +223,88 @@
         }
 
         .big-type {
-            font-size: clamp(5rem, 12vw, 12rem);
-            line-height: 0.85;
+            font-size: clamp(4rem, 10vw, 10rem);
+            line-height: 0.9;
             font-weight: 950;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 4rem;
+            min-height: 80vh;
+        }
+
+        /* ANTIMATTER TYPOGRAPHY */
+        .scramble-main {
+            font-family: 'Inter', sans-serif;
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-italic {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--blue);
+        }
+
+        /* VISUAL & TETHER */
+        .hero-visual-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-cinematic-img {
+            width: 100%;
+            max-width: 600px;
+            filter: drop-shadow(0 0 50px rgba(59, 130, 246, 0.2));
+            animation: float 6s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .tether-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tether-path {
+            fill: none;
+            stroke: url(#tetherGradient);
+            stroke-width: 2;
+            stroke-dasharray: 10;
+            animation: dash 30s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
         }
 
         /* FOLDER PREVIEW STYLE */
@@ -442,19 +526,43 @@
     <main class="max-w-7xl mx-auto px-6 pt-48">
 
         <!-- HERO -->
-        <section class="about-hero mb-60 relative spring-reveal">
-            <div class="relative z-10">
-                <div class="hud-text mb-8">System.Identity // v2026.Synthesis</div>
-                <h1 class="v-header big-type mb-12 text-white">
-                    <span class="block">Pioneering The</span>
-                    <span class="text-blue-500 block">Test Revolution.</span>
-                </h1>
-                <div class="glass-panel p-10 rounded-2xl border-l-[12px] border-blue-500 max-w-2xl">
-                    <p class="text-2xl text-slate-300 font-medium leading-relaxed italic">
-                        "A test series should not be an examination. It should be an experiment."
-                    </p>
-                    <div class="mt-6 text-xs uppercase tracking-widest text-[#475569]">Project Genesis // Conceptual
-                        Integrity</div>
+        <section class="about-hero mb-60 relative">
+            <div class="hero-layout">
+                <div class="hero-content-side spring-reveal">
+                    <div class="hud-text mb-8">Science.Identity // v2027.Antimatter</div>
+                    <h1 class="scramble-main big-type mb-12 text-white" id="mainHeroTitle">
+                        Pioneering The <br>
+                        <span class="hero-italic">Test</span> Revolution.
+                    </h1>
+                    <div class="glass-panel p-10 rounded-2xl border-l-[1px] border-blue-500/50 max-w-2xl">
+                        <p class="text-xl text-slate-300 font-light leading-relaxed">
+                            We don't just build <span class="hero-italic">test series</span>. We build <span
+                                class="hero-italic">intellectual impact</span>.
+                        </p>
+                        <div class="mt-8 flex gap-4">
+                            <div
+                                class="text-[10px] uppercase tracking-[0.3em] text-blue-500 font-bold px-3 py-1 bg-blue-500/10 rounded">
+                                Design-First</div>
+                            <div
+                                class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold px-3 py-1 bg-white/5 rounded">
+                                Logic-Driven</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual-wrapper">
+                    <svg class="tether-svg" viewBox="0 0 800 600">
+                        <defs>
+                            <linearGradient id="tetherGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0" />
+                                <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.5" />
+                                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.8" />
+                            </linearGradient>
+                        </defs>
+                        <path class="tether-path" d="M 0,300 C 200,300 400,100 800,200" id="tetherPath" />
+                    </svg>
+                    <img src="frontend/images/about-hero-cinematic.png" alt="Scientist Silhouette"
+                        class="hero-cinematic-img">
                 </div>
             </div>
         </section>
@@ -630,6 +738,51 @@
         window.addEventListener('load', () => {
             AOS.init({ duration: 1000, once: true });
             if (window.MathJax && window.MathJax.typesetPromise) MathJax.typesetPromise();
+
+            // GSAP SCRAMBLE LOGIC
+            const scrambleElement = document.getElementById('mainHeroTitle');
+            if (scrambleElement) {
+                const originalText = scrambleElement.innerHTML;
+                // Simple scramble implementation since TextPlugin might not be loaded properly in some envs
+                // or we use a custom implementation for better "Antimatter" feel
+                const chars = "!<>-_\\/[]{}—=+*^?#________";
+                let iteration = 0;
+
+                const interval = setInterval(() => {
+                    scrambleElement.innerText = scrambleElement.innerText
+                        .split("")
+                        .map((letter, index) => {
+                            if (index < iteration) {
+                                return scrambleElement.dataset.value?.[index] || letter;
+                            }
+                            return chars[Math.floor(Math.random() * chars.length)];
+                        })
+                        .join("");
+
+                    if (iteration >= scrambleElement.innerText.length) {
+                        clearInterval(interval);
+                        scrambleElement.innerHTML = originalText;
+                        gsap.from(scrambleElement.querySelectorAll('.hero-italic'), {
+                            opacity: 0,
+                            x: -20,
+                            duration: 1,
+                            stagger: 0.2,
+                            ease: "power2.out"
+                        });
+                    }
+
+                    iteration += 1 / 3;
+                }, 30);
+
+                scrambleElement.dataset.value = scrambleElement.innerText;
+            }
+
+            // Sync Tether path to visual position
+            const tether = document.getElementById('tetherPath');
+            const visual = document.querySelector('.hero-cinematic-img');
+            if (tether && visual) {
+                // Dynamic path update logic could go here
+            }
         });
     </script>
 </body>
