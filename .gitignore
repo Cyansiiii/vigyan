@@ -1,3 +1,5 @@
 node_modules/
 .env
-.DS_Storepackage-lock.json
+.DS_Store
+package-lock.json
+
