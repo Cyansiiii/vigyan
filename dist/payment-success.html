@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Vigyan.prep</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gray: #8B93A7;
+            --dark-bg: #0a0e1a;
+            --dark-card: #1a1f2e;
+            --green: #10b981;
+            --text-white: #ffffff;
+            --text-gray: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(50px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Small Logo - Correct Style */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 40px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .logo .vigyan {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .logo .prep {
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        /* Main Container - Minimal */
+        .container {
+            background: rgba(26, 31, 46, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Success Badge */
+        .success-badge {
+            width: 70px;
+            height: 70px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 25px;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+            animation: pop 0.5s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        /* Heading - White, Not Gold */
+        h1 {
+            font-size: 28px;
+            color: var(--text-white);
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+        }
+
+        /* Roll Number - Minimal Gold */
+        .roll-section {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .roll-label {
+            font-size: 11px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .roll-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+        }
+
+        /* Info Grid - White Text */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--green);
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        /* Tests Section - White Text */
+        .tests-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tests-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--text-white);
+            font-weight: 400;
+        }
+
+        .test-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Confirmation Box */
+        .confirmation-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .confirmation-box strong {
+            color: var(--text-white);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* Buttons - Simple */
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--dark-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 32px;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .roll-value {
+                font-size: 28px;
+            }
+
+            .info-grid,
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+    <div class="stars" id="stars"></div>
+
+    <div class="content">
+        <!-- Small Logo -->
+        <div class="header">
+            <div class="logo">
+                <span class="vigyan">VIGYAN</span><span class="prep">.prep</span>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="container">
+            <!-- Success Badge -->
+            <div class="success-badge">✓</div>
+
+            <!-- Heading -->
+            <h1>Payment Successful</h1>
+            <p class="subtitle">Thank you for your purchase!</p>
+
+            <div class="divider"></div>
+
+            <!-- Roll Number -->
+            <div class="roll-section">
+                <span class="roll-label">Your Roll Number</span>
+                <div class="roll-value" id="rollNumber">12345678</div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="info-label">Test Series</span>
+                    <div class="info-value" id="testSeriesPurchased">NEST</div>
+                </div>
+                <div class="info-card">
+                    <span class="info-label">Payment Status</span>
+                    <div class="status-badge">✓ Confirmed</div>
+                </div>
+            </div>
+
+            <!-- Tests -->
+            <div class="tests-section">
+                <span class="tests-title">Your Purchased Tests</span>
+                <div id="purchasedTestsList">
+                    <div class="test-item">
+                        <div class="test-icon">✓</div>
+                        <span>IAT (Indian Institute of Science)</span>
+                    </div>
+                    <div class="test-item">
+                        <div class="test-icon">✓</div>
+                        <span>NEST (National Entrance Screening Test)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirmation -->
+            <div class="confirmation-box">
+                <strong>📧 Confirmation Email Sent</strong>
+                A detailed confirmation email with your roll number and test access details has been sent to your registered email address.
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button class="btn-primary" onclick="goToDashboard()">Dashboard</button>
+                <button class="btn-secondary" onclick="buyAnotherTest()">Buy Another</button>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                Need help? <a href="mailto:support@vigyanprep.com">Contact Support</a> | 
+                <a href="/index.html">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 8 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        function populatePageData() {
+            const rollNumber = getUrlParameter('roll');
+            const testSeries = getUrlParameter('test');
+            const purchasedTests = getUrlParameter('tests');
+
+            if (rollNumber) {
+                document.getElementById('rollNumber').textContent = rollNumber;
+            }
+            if (testSeries) {
+                document.getElementById('testSeriesPurchased').textContent = testSeries;
+            }
+            if (purchasedTests) {
+                const testsArray = purchasedTests.split(',').map(t => t.trim());
+                const testsList = document.getElementById('purchasedTestsList');
+                testsList.innerHTML = '';
+                testsArray.forEach(test => {
+                    const testItem = document.createElement('div');
+                    testItem.className = 'test-item';
+                    testItem.innerHTML = `<div class="test-icon">✓</div><span>${test}</span>`;
+                    testsList.appendChild(testItem);
+                });
+            }
+        }
+
+        function goToDashboard() {
+            window.location.href = '/index.html';
+        }
+
+        function buyAnotherTest() {
+            window.location.href = '/index.html';
+        }
+
+        window.addEventListener('load', function() {
+            createParticles();
+            createStars();
+            populatePageData();
+        });
+    </script>
+</body>
+</html>
