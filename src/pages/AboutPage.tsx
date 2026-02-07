@@ -14,11 +14,22 @@ import { ArrowRight, Binary, Microscope, Zap, Compass, Atom, ShieldCheck, Target
 import "./AboutPage.css";
 
 export default function AboutPage() {
+    // Navigation handlers
+    const handleInitiateTrajectory = () => {
+        window.location.href = '/testfirstpage.html';
+    };
+
+    const handleSystemOverview = () => {
+        const section = document.getElementById('philosophy-section');
+        section?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Subject discipline icons (using high-quality science imagery)
     const avatars = [
-        { avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop", name: "Physics" },
-        { avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop", name: "Biology" },
-        { avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop", name: "Math" },
-        { avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop", name: "Chemistry" },
+        { avatar: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=100&auto=format&fit=crop", name: "Physics" },
+        { avatar: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=100&auto=format&fit=crop", name: "Biology" },
+        { avatar: "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=100&auto=format&fit=crop", name: "Math" },
+        { avatar: "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?q=80&w=100&auto=format&fit=crop", name: "Chemistry" },
     ];
 
     useEffect(() => {
@@ -74,14 +85,20 @@ export default function AboutPage() {
                         </p>
 
                         <div className="flex flex-wrap items-center gap-10">
-                            <LiquidMetalButton size="lg">
-                                Initiate Trajectory
+                            <LiquidMetalButton size="lg" onClick={handleInitiateTrajectory}>
+                                <span className="flex items-center gap-3">
+                                    Initiate Trajectory
+                                    <ArrowRight className="w-5 h-5" />
+                                </span>
                             </LiquidMetalButton>
 
-                            <CreepyButton className="text-slate-500 hover:text-white transition-all uppercase tracking-[0.4em] text-[9px] font-black flex items-center gap-6 group">
+                            <button
+                                onClick={handleSystemOverview}
+                                className="text-slate-500 hover:text-white transition-all uppercase tracking-[0.4em] text-[9px] font-black flex items-center gap-6 group cursor-pointer bg-transparent border-none"
+                            >
                                 <span className="w-12 h-px bg-white/10 group-hover:w-20 group-hover:bg-blue-500 transition-all duration-500"></span>
                                 <span className="reveal-underline">System Overview</span>
-                            </CreepyButton>
+                            </button>
                         </div>
 
                         <div className="mt-28 flex items-center gap-10">
@@ -101,7 +118,7 @@ export default function AboutPage() {
             </section>
 
             {/* Core Philosophy Section */}
-            <section className="relative py-48 px-6 lg:px-24 z-10 bg-gradient-to-b from-transparent via-blue-500/[0.01] to-transparent">
+            <section id="philosophy-section" className="relative py-48 px-6 lg:px-24 z-10 bg-gradient-to-b from-transparent via-blue-500/[0.01] to-transparent">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 items-start">
                         <motion.div
