@@ -293,6 +293,8 @@ body {
     display: flex;
     flex-direction: column;
     border-left: 1px solid #ccc;
+    max-height: calc(100vh - 100px);
+    overflow: hidden;
 }
 
 .sidebar-top {
@@ -390,10 +392,12 @@ body {
 }
 
 .palette-header {
-    background: var(--header-blue);
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
     color: white;
-    padding: 5px 10px;
-    font-weight: bold;
+    padding: 8px 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
 }
 
 .question-palette {
@@ -403,9 +407,9 @@ body {
 }
 
 .sidebar-bottom {
-    padding: 10px;
-    background: #eef3f7;
-    border-top: 1px solid #ccc;
+    padding: 15px;
+    background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
+    border-top: 2px solid #d4af37;
 }
 
 .btn-submit {
