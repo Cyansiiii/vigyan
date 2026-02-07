@@ -78,43 +78,55 @@ body {
     display: flex;
     height: 100%;
     align-items: flex-end;
+    gap: 3px;
 }
 
 .section-tab {
-    background: var(--tab-bg);
-    border: 1px solid #ccc;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
     border-bottom: none;
-    padding: 8px 15px;
+    padding: 10px 20px;
     cursor: pointer;
-    font-weight: bold;
-    color: #333;
-    border-radius: 4px 4px 0 0;
-    margin-right: 2px;
+    font-weight: 600;
+    color: #475569;
+    border-radius: 8px 8px 0 0;
     font-size: 0.9rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.section-tab:hover {
+    background: linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 100%);
+    color: #1e3a5f;
+    transform: translateY(-2px);
 }
 
 .section-tab.active {
-    background: var(--header-blue);
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
     color: white;
-    border-color: var(--header-blue);
+    border-color: #1e3a5f;
+    box-shadow: 0 -3px 10px rgba(30, 58, 95, 0.3);
 }
 
 .badge-count {
-    background: #fff;
-    color: #000;
-    padding: 0 4px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    margin-left: 5px;
+    background: #d4af37;
+    color: #1e3a5f;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-left: 8px;
 }
 
 .timer-box {
-    background: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+    color: #d4af37;
+    padding: 8px 15px;
+    border-radius: 6px;
     font-weight: bold;
     font-family: monospace;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* MAIN CONTENT */
@@ -358,13 +370,22 @@ body {
 
 .btn-submit {
     width: 100%;
-    background: #007bff;
-    color: white;
-    padding: 10px;
+    background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%);
+    color: #1e3a5f;
+    padding: 12px;
     border: none;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 /* INSTRUCTION PAGE - REVERTED TO SPLIT LAYOUT */
