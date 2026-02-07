@@ -109,8 +109,8 @@
         </div>
     </div>
     <script>
-        // Hide loader once main content is ready
-        window.addEventListener('load', function () {
+        // Hide loader once DOM is ready (don't wait for all resources)
+        document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('pageLoader').classList.add('hidden');
             setTimeout(() => document.getElementById('pageLoader').style.display = 'none', 300);
         });
@@ -244,7 +244,13 @@
             </div>
             <div class="header-right">
                 <div class="profile-box">
-                    <img src="https://via.placeholder.com/30" alt="Img" class="profile-img">
+                    <!-- Inline SVG avatar - no external request -->
+                    <svg class="profile-img" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="15" cy="15" r="15" fill="#d4af37" />
+                        <circle cx="15" cy="11" r="5" fill="#1e3a5f" />
+                        <ellipse cx="15" cy="24" rx="8" ry="6" fill="#1e3a5f" />
+                    </svg>
                     <span id="userNameDisplay">Candidate</span>
                 </div>
             </div>
