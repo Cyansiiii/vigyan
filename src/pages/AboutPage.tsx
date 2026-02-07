@@ -9,8 +9,9 @@ import { PerspectiveGrid } from "@/components/ui/perspective-grid";
 import { FlipFadeText } from "@/components/ui/flip-fade-text";
 import { CreepyButton } from "@/components/ui/creepy-button";
 import { AstronautCanvas } from "@/components/AstronautCanvas";
+import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
-import { ArrowRight, Terminal, Binary, Microscope } from "lucide-react";
+import { ArrowRight, Terminal, Binary, Microscope, Globe, Zap, Compass, Cpu } from "lucide-react";
 
 export default function AboutPage() {
     const avatars = [
@@ -22,6 +23,9 @@ export default function AboutPage() {
 
     return (
         <div className="relative min-h-screen bg-[#020617] text-white selection:bg-blue-500/30 overflow-hidden">
+            {/* Navbar Restoration */}
+            <Navbar />
+
             {/* Premium Background */}
             <div className="fixed inset-0 z-0">
                 <PerspectiveGrid
@@ -47,18 +51,18 @@ export default function AboutPage() {
 
                         <div className="mb-10">
                             <LiquidText
-                                text="PIONEERING THE"
+                                text="ARCHITECTURE OF"
                                 className="font-black tracking-tighter leading-none text-white block"
                                 fontSize={300}
-                                style={{ height: "200px" }}
+                                style={{ height: "180px" }}
                             />
                             <div className="flex items-baseline gap-4 mt-2">
-                                <span className="font-serif italic text-blue-500 text-6xl md:text-8xl">Test</span>
+                                <span className="logo-vigyan text-6xl md:text-8xl" style={{ textShadow: "0 0 40px rgba(251, 191, 36, 0.4)" }}>Vigyan</span>
                                 <LiquidText
-                                    text="REVOLUTION."
+                                    text="VANGUARD."
                                     className="font-black tracking-tighter leading-none text-white flex-1"
                                     fontSize={300}
-                                    style={{ height: "200px" }}
+                                    style={{ height: "180px" }}
                                 />
                             </div>
                         </div>
@@ -103,21 +107,21 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Logic Dossiers Section */}
+            {/* Heritage Section: Ancient Logic & Strategy */}
             <section className="relative py-40 px-6 lg:px-24 bg-black/50 backdrop-blur-3xl border-y border-white/5 z-10">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-24 text-center lg:text-left">
                         <FlipFadeText
-                            words={["Neural.ARCHITECTURE", "Pramana.LOGIC", "Vigyan.SYSTEM"]}
+                            words={["Ancient.WISDOM", "Strategic.BRILLIANCE", "Pramana.LOGIC"]}
                             className="text-blue-500 text-sm font-mono uppercase tracking-[0.4em] mb-4 h-12"
                             textClassName="text-sm tracking-[0.4em]"
                         />
                         <h2 className="text-5xl md:text-7xl font-bold tracking-tight">
-                            The DNA <br /> of <span className="text-blue-500">Logic.</span>
+                            The Heritage <br /> of <span className="text-blue-500">Genius.</span>
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 mb-32">
                         <motion.div
                             whileInView={{ opacity: 1, y: 0 }}
                             initial={{ opacity: 0, y: 50 }}
@@ -126,18 +130,22 @@ export default function AboutPage() {
                             <div className="group relative">
                                 <FolderPreview
                                     variant="devi"
-                                    label="Pramana Methodology"
+                                    label="Pramana Protocol"
                                     size="lg"
                                     className="bg-slate-900/50"
                                     images={[
-                                        "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=200&auto=format&fit=crop",
-                                        "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=200&auto=format&fit=crop"
+                                        "file:///Users/harshanand/.gemini/antigravity/brain/80c3d338-128b-4c95-98cb-c8199d497e34/buddhist_logic_pramana_heritage_1770422630234.png"
                                     ]}
                                 />
                                 <div className="mt-6 p-4">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 text-blue-500 font-mono text-xs">01A</div>
-                                    <p className="text-slate-400 leading-relaxed">
-                                        Built on the laws of deduction, our assessment engine maps your conceptual clarity.
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
+                                            <Binary className="w-5 h-5" />
+                                        </div>
+                                        <h3 className="text-xl font-bold">Buddhist Logic</h3>
+                                    </div>
+                                    <p className="text-slate-400 leading-relaxed italic">
+                                        "Valid means of knowledge — perception and inference. Our engine restores the rigorous rational inquiry of the ancient Pramana masters."
                                     </p>
                                 </div>
                             </div>
@@ -151,22 +159,65 @@ export default function AboutPage() {
                             <div className="group relative">
                                 <FolderPreview
                                     variant="devi"
-                                    label="Conceptual Integrity"
+                                    label="Aanvikshiki Insight"
                                     size="lg"
                                     className="bg-slate-900/50"
                                     images={[
-                                        "https://images.unsplash.com/photo-1544383335-c58bc96b5dae?q=80&w=200&auto=format&fit=crop",
-                                        "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=200&auto=format&fit=crop"
+                                        "file:///Users/harshanand/.gemini/antigravity/brain/80c3d338-128b-4c95-98cb-c8199d497e34/chanakya_strategic_brilliance_1770422646971.png"
                                     ]}
                                 />
                                 <div className="mt-6 p-4">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 text-blue-500 font-mono text-xs">01B</div>
-                                    <p className="text-slate-400 leading-relaxed">
-                                        Filters for the scientists of tomorrow. We restore the rigour required to pass.
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
+                                            <Compass className="w-5 h-5" />
+                                        </div>
+                                        <h3 className="text-xl font-bold">Chanakya Strategy</h3>
+                                    </div>
+                                    <p className="text-slate-400 leading-relaxed italic">
+                                        "Strategy blended with analytical discipline. We cultivate the strategic smartness of the Arthashastra into every researcher we mentor."
                                     </p>
                                 </div>
                             </div>
                         </motion.div>
+                    </div>
+
+                    {/* Modern Era Section */}
+                    <div className="mt-40 border-t border-white/5 pt-40">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                            <div>
+                                <h2 className="text-5xl md:text-6xl font-bold mb-8 italic font-serif text-blue-500">The Modern Era Pioneers</h2>
+                                <p className="text-xl text-slate-400 leading-relaxed mb-8">
+                                    From the missile vision of <span className="text-white font-bold">Dr. APJ Abdul Kalam</span> to the space foundations of <span className="text-white font-bold">Vikram Sarabhai</span> and the nuclear pioneering of <span className="text-white font-bold">Homi J. Bhabha</span>.
+                                </p>
+                                <div className="space-y-6">
+                                    {[
+                                        { title: "National Vanguard", desc: "Building a knowledge superpower via innovation." },
+                                        { title: "Institution Builder", desc: "Strategic application of science for societal benefit." },
+                                        { title: "Atomic Architect", desc: "Mastering the fundamental forces of our reality." }
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex gap-4">
+                                            <div className="mt-1"><Zap className="w-5 h-5 text-blue-500" /></div>
+                                            <div>
+                                                <h4 className="font-bold text-white mb-1 uppercase tracking-wider text-sm">{item.title}</h4>
+                                                <p className="text-slate-500 text-sm">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="relative group">
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="rounded-3xl overflow-hidden border border-white/10"
+                                >
+                                    <img
+                                        src="file:///Users/harshanand/.gemini/antigravity/brain/80c3d338-128b-4c95-98cb-c8199d497e34/modern_science_pioneers_india_1770422667638.png"
+                                        alt="Modern Science Frontiers"
+                                        className="w-full h-auto"
+                                    />
+                                </motion.div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
