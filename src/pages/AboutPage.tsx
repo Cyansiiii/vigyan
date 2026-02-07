@@ -49,7 +49,7 @@ export default function AboutPage() {
     }, []);
 
     return (
-        <div className="relative min-h-screen bg-[#020617] text-white selection:bg-blue-500/30 overflow-hidden">
+        <div className="relative min-h-screen bg-black text-white selection:bg-blue-500/30 overflow-hidden">
             <Navbar />
 
             {/* Background Architecture */}
