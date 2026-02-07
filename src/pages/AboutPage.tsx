@@ -134,7 +134,7 @@ export default function AboutPage() {
                                     size="lg"
                                     className="bg-slate-900/50"
                                     images={[
-                                        "file:///Users/harshanand/.gemini/antigravity/brain/80c3d338-128b-4c95-98cb-c8199d497e34/buddhist_logic_pramana_heritage_1770422630234.png"
+                                        "/assets/heritage/buddhist_logic_pramana_heritage_1770422630234.png"
                                     ]}
                                 />
                                 <div className="mt-6 p-4">
@@ -163,7 +163,7 @@ export default function AboutPage() {
                                     size="lg"
                                     className="bg-slate-900/50"
                                     images={[
-                                        "file:///Users/harshanand/.gemini/antigravity/brain/80c3d338-128b-4c95-98cb-c8199d497e34/chanakya_strategic_brilliance_1770422646971.png"
+                                        "/assets/heritage/chanakya_strategic_brilliance_1770422646971.png"
                                     ]}
                                 />
                                 <div className="mt-6 p-4">
