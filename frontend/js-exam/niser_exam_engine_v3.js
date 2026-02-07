@@ -350,8 +350,8 @@
     // Send score report to backend for email
     async function sendScoreReport(data) {
         try {
-            const API_URL = window.APP_CONFIG?.API_BASE_URL || 'https://vigyan-production.up.railway.app';
-            const response = await fetch(`${API_URL}/api/exam/send-report`, {
+            // Use Hostinger PHP endpoint directly (Railway can't connect to Hostinger SMTP)
+            const response = await fetch('https://vigyanprep.com/api/send-score-report.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
