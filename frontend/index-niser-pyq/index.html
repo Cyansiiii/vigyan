@@ -11,9 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    <!-- Local CSS - load immediately -->
-    <link rel="stylesheet" href="styles_v2.css">
-    <link rel="stylesheet" href="calculator.css">
+    <!-- Local CSS - load immediately (v2.2 = cache bust) -->
+    <link rel="stylesheet" href="styles_v2.css?v=2.2">
+    <link rel="stylesheet" href="calculator.css?v=2.2">
 
     <!-- Google Fonts - non-blocking load (swap to loaded font when ready) -->
     <link rel="preload" as="style"
@@ -243,7 +243,7 @@
                     </label>
                     <button class="begin-btn" id="beginTestBtn" disabled
                         style="width: 100%; padding: 14px; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; transition: all 0.3s; opacity: 0.6;">
-                        🚀 I am ready to begin
+                        I am ready to begin
                     </button>
                     <div style="margin-top: 12px; font-size: 0.75rem; color: #94a3b8; text-align: center;">System ID:
                         C101 | Ver: 18.02.00</div>
@@ -308,6 +308,25 @@
                 <div class="question-scroll-box">
                     <div class="question-text" id="questionContent">Loading...</div>
                     <div class="options-container" id="optionsContainer"></div>
+
+                    <!-- Quick Tips to fill empty space -->
+                    <div class="exam-tips-box"
+                        style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; border-left: 4px solid #0ea5e9;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                            <span style="font-size: 1.3rem;">💡</span>
+                            <span style="font-weight: 600; color: #0369a1; font-size: 0.95rem;">Quick Exam Tips</span>
+                        </div>
+                        <ul
+                            style="margin: 0; padding-left: 20px; color: #475569; font-size: 0.85rem; line-height: 1.7;">
+                            <li>Read each question carefully before selecting an answer</li>
+                            <li><strong>+3 marks</strong> for correct, <strong>-1 mark</strong> for wrong answer</li>
+                            <li>Merit score = Best 3 subjects out of 4 (max 180)</li>
+                            <li>Use <span
+                                    style="background: #6610f2; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">Mark
+                                    for Review</span> for questions you want to revisit</li>
+                            <li>You can change your answer until you submit the exam</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="footer-actions">
