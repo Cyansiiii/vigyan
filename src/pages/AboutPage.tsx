@@ -211,7 +211,7 @@ export default function AboutPage() {
                                     className="rounded-3xl overflow-hidden border border-white/10"
                                 >
                                     <img
-                                        src="file:///Users/harshanand/.gemini/antigravity/brain/80c3d338-128b-4c95-98cb-c8199d497e34/modern_science_pioneers_india_1770422667638.png"
+                                        src="/assets/heritage/modern_science_pioneers_india_1770422667638.png"
                                         alt="Modern Science Frontiers"
                                         className="w-full h-auto"
                                     />
