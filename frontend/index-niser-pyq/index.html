@@ -5,15 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vigyan.prep NISER PYQ - Assessment Center</title>
+
+    <!-- Preconnect for faster DNS resolution -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- Local CSS - load immediately -->
     <link rel="stylesheet" href="styles_v2.css">
     <link rel="stylesheet" href="calculator.css">
-    <!-- MathJax for math rendering - polyfill removed as it's not needed for modern browsers -->
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts - non-blocking load (swap to loaded font when ready) -->
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
+
+    <!-- MathJax config (runs before script loads) -->
     <script>
         window.MathJax = {
             tex: {
@@ -23,12 +33,89 @@
             },
             options: {
                 skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            },
+            startup: {
+                ready: () => {
+                    console.log('MathJax ready');
+                    MathJax.startup.defaultReady();
+                }
             }
         };
     </script>
+
+    <!-- MathJax - defer load until page is interactive -->
+    <script>
+        // Load MathJax after page is ready (non-blocking)
+        window.addEventListener('DOMContentLoaded', function () {
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
+
+    <style>
+        /* Critical CSS - inline for instant render */
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #1e3a5f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Loading overlay - shows instantly, hides when ready -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading NISER Exam...</p>
+        </div>
+    </div>
+    <script>
+        // Hide loader once main content is ready
+        window.addEventListener('load', function () {
+            document.getElementById('pageLoader').classList.add('hidden');
+            setTimeout(() => document.getElementById('pageLoader').style.display = 'none', 300);
+        });
+    </script>
+
     <div id="instructionPage" class="instruction-container">
         <div class="inst-header">
             <span id="examTitle">Vigyan.prep NISER PYQ 2025</span>
