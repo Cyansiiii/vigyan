@@ -12,6 +12,8 @@ import {
   getPublicTestSeries
 } from '../controllers/examController.js';
 
+import { sendScoreReport } from '../controllers/examReportController.js';
+
 import {
   verifyAuth,
   verifyTestAccess,
@@ -27,6 +29,9 @@ router.get('/list', listScheduledTests);
 
 // ✅ PUBLIC: Get test series with pricing
 router.get('/test-series', getPublicTestSeries);
+
+// ✅ PUBLIC: Send score report email (NISER PYQ)
+router.post('/send-report', sendScoreReport);
 
 // ✅ PROTECTED: Get user info (requires authentication)
 // Used by frontend to fetch user's purchased tests
