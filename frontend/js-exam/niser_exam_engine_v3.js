@@ -61,7 +61,7 @@
             document.getElementById('instructionPage').style.display = 'none';
             document.getElementById('examInterface').style.display = 'block';
 
-            updateSectionCounts();
+            // updateSectionCounts(); // Badges removed
             loadQuestion(0);
             startTimer();
             renderPalette();
@@ -441,14 +441,7 @@
         document.getElementById('submissionSummary').innerHTML = summaryHTML;
     }
 
-    function updateSectionCounts() {
-        ['Biology', 'Chemistry', 'Physics', 'Mathematics'].forEach(s => {
-            const countEl = document.getElementById(`${s.toLowerCase()}Count`);
-            if (countEl && loadedQuestions[s]) {
-                countEl.textContent = `(${loadedQuestions[s].length})`;
-            }
-        });
-    }
+    // function updateSectionCounts() { ... } - Removed as badges are gone
 
     // BOOTSTRAP
     if (document.readyState === 'loading') {

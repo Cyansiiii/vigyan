@@ -11,9 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    <!-- Local CSS - load immediately (v2.4 = cache bust) -->
-    <link rel="stylesheet" href="styles_v2.css?v=2.4">
-    <link rel="stylesheet" href="calculator.css?v=2.4">
+    <!-- Local CSS - load immediately (v2.5 = cache bust) -->
+    <link rel="stylesheet" href="styles_v2.css?v=2.5">
+    <link rel="stylesheet" href="calculator.css?v=2.5">
 
     <!-- Google Fonts - non-blocking load (swap to loaded font when ready) -->
     <link rel="preload" as="style"
@@ -275,14 +275,10 @@
             <div class="sub-header-left">
                 <span class="sect-label">Sections:</span>
                 <div class="sections-tabs">
-                    <button class="section-tab active" data-section="Biology">Biology <span class="badge-count"
-                            id="biologyCount"></span></button>
-                    <button class="section-tab" data-section="Chemistry">Chemistry <span class="badge-count"
-                            id="chemistryCount"></span></button>
-                    <button class="section-tab" data-section="Mathematics">Mathematics <span class="badge-count"
-                            id="mathematicsCount"></span></button>
-                    <button class="section-tab" data-section="Physics">Physics <span class="badge-count"
-                            id="physicsCount"></span></button>
+                    <button class="section-tab active" data-section="Biology">Biology</button>
+                    <button class="section-tab" data-section="Chemistry">Chemistry</button>
+                    <button class="section-tab" data-section="Mathematics">Mathematics</button>
+                    <button class="section-tab" data-section="Physics">Physics</button>
                 </div>
             </div>
             <div class="sub-header-right">
@@ -401,7 +397,7 @@
 
     <script type="module" src="calculator.js"></script>
     <!-- Universal NISER Engine (handles all years 2018-2025 via JSON Vault) -->
-    <script type="module" src="../js-exam/niser_exam_engine_v3.js"></script>
+    <script type="module" src="../js-exam/niser_exam_engine_v3.js?v=3.1"></script>
 </body>
 
 </html>
