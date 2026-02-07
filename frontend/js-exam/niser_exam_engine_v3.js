@@ -15,6 +15,8 @@
     let loadedKeys = {};
     let timeLeft = 180 * 60;
     let timerInterval;
+    let userName = '';
+    let userEmail = '';
 
     // Detect Year from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -32,7 +34,19 @@
 
     // AUTH & NAVIGATION
     async function initExam() {
-        const userName = document.getElementById('candidateName').value || 'Candidate';
+        userName = document.getElementById('candidateName').value.trim() || 'Candidate';
+        userEmail = document.getElementById('candidateEmail').value.trim() || '';
+
+        // Validate inputs
+        if (!userName || userName.length < 2) {
+            alert('Please enter your full name (at least 2 characters)');
+            return;
+        }
+        if (!userEmail || !userEmail.includes('@')) {
+            alert('Please enter a valid email address to receive your score report');
+            return;
+        }
+
         document.getElementById('userNameDisplay').textContent = userName;
 
         // Initialize status objects
@@ -110,40 +124,7 @@
             optionsContainer.appendChild(item);
         });
 
-        const answerBtn = document.createElement('button');
-        answerBtn.className = 'show-answer-btn';
-        answerBtn.innerHTML = '🎯 Show Correct Answer';
-        answerBtn.onclick = () => handleRevealAnswer();
-        optionsContainer.appendChild(answerBtn);
-
-        const answerReveal = document.createElement('div');
-        answerReveal.id = 'answerReveal';
-        answerReveal.className = 'answer-reveal hidden';
-        optionsContainer.appendChild(answerReveal);
-
         updatePalette();
-    }
-
-    async function handleRevealAnswer() {
-        const revealDiv = document.getElementById('answerReveal');
-        if (!revealDiv) return;
-
-        try {
-            await ensureKeysLoaded(currentSection);
-            const keyBase64 = loadedKeys[currentSection][currentQuestionIndex];
-            const correctLetter = decodeKey(keyBase64);
-
-            revealDiv.classList.remove('hidden');
-            revealDiv.innerHTML = `<span class="correct-badge">✓ Correct Answer: <strong>Option ${correctLetter}</strong></span>`;
-
-            const optItems = document.querySelectorAll('.option-item');
-            const correctIndex = correctLetter.charCodeAt(0) - 65;
-            if (optItems[correctIndex]) {
-                optItems[correctIndex].classList.add('correct-highlight');
-            }
-        } catch (err) {
-            console.error('Key fetch failed', err);
-        }
     }
 
     function selectOption(index) {
@@ -276,43 +257,98 @@
                 await ensureSectionLoaded(s);
             }
 
-            let totalScore = 0;
-            let correctCount = 0;
-            let wrongCount = 0;
+            let sectionScores = {};
+            let totalCorrect = 0;
+            let totalWrong = 0;
             let totalQuestions = 0;
 
+            // Calculate score for each section
             sections.forEach(s => {
                 const questions = loadedQuestions[s];
                 const keys = loadedKeys[s];
+                let sectionScore = 0;
+                let sectionCorrect = 0;
+                let sectionWrong = 0;
+
                 questions.forEach((q, i) => {
                     totalQuestions++;
                     if (userAnswers[s] && userAnswers[s][i] !== undefined) {
                         const correctLetter = decodeKey(keys[i]);
                         const correctIdx = correctLetter.charCodeAt(0) - 65;
                         if (userAnswers[s][i] === correctIdx) {
-                            totalScore += 4;
-                            correctCount++;
+                            sectionScore += 3; // +3 for correct
+                            sectionCorrect++;
+                            totalCorrect++;
                         } else {
-                            totalScore -= 1;
-                            wrongCount++;
+                            sectionScore -= 1; // -1 for incorrect
+                            sectionWrong++;
+                            totalWrong++;
                         }
                     }
                 });
+
+                sectionScores[s] = { score: sectionScore, correct: sectionCorrect, wrong: sectionWrong };
             });
+
+            // Calculate best 3 subjects for merit list
+            const sortedScores = Object.values(sectionScores).map(s => s.score).sort((a, b) => b - a);
+            const meritScore = sortedScores.slice(0, 3).reduce((sum, s) => sum + s, 0);
+            const totalScore = Object.values(sectionScores).reduce((sum, s) => sum + s.score, 0);
 
             document.getElementById('scoreModal').style.display = 'flex';
             document.getElementById('scoreContent').innerHTML = `
                 <div style="text-align:center;">
-                    <p style="font-size: 2.5rem; font-weight: bold; color: var(--header-blue);">${totalScore}</p>
-                    <p style="color: #666;">Total Score</p>
+                    <p style="font-size: 2.5rem; font-weight: bold; color: var(--header-blue);">${meritScore}</p>
+                    <p style="color: #666;">Merit Score (Best 3 Subjects)</p>
+                    <p style="font-size: 1rem; color: #888;">Total (All 4): ${totalScore}</p>
                     <hr style="border-color: #eee; margin: 20px 0;">
-                    <p>✅ Correct: <strong>${correctCount}</strong></p>
-                    <p>❌ Incorrect: <strong>${wrongCount}</strong></p>
-                    <p>⏭️ Unanswered: <strong>${totalQuestions - (correctCount + wrongCount)}</strong></p>
+                    <div style="text-align:left; margin: 10px 20px;">
+                        <p><strong>Subject-wise Breakdown:</strong></p>
+                        ${sections.map(s => `<p style="font-size: 0.9rem;">${s}: <strong>${sectionScores[s].score}</strong> (✓${sectionScores[s].correct} ✗${sectionScores[s].wrong})</p>`).join('')}
+                    </div>
+                    <hr style="border-color: #eee; margin: 20px 0;">
+                    <p>✅ Total Correct: <strong>${totalCorrect}</strong></p>
+                    <p>❌ Total Incorrect: <strong>${totalWrong}</strong></p>
+                    <p>⏭️ Unanswered: <strong>${totalQuestions - (totalCorrect + totalWrong)}</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.85rem; color: #10b981;">📧 Score report sent to ${userEmail}</p>
                 </div>
             `;
+
+            // Send score report to backend
+            sendScoreReport({
+                name: userName,
+                email: userEmail,
+                examYear: TEST_YEAR,
+                sectionScores: sectionScores,
+                meritScore: meritScore,
+                totalScore: totalScore,
+                totalCorrect: totalCorrect,
+                totalWrong: totalWrong,
+                totalQuestions: totalQuestions
+            });
+
         } catch (err) {
             alert('Error calculating results. Please refresh.');
+        }
+    }
+
+    // Send score report to backend for email
+    async function sendScoreReport(data) {
+        try {
+            const API_URL = window.APP_CONFIG?.API_BASE_URL || 'https://vigyan-production.up.railway.app';
+            const response = await fetch(`${API_URL}/api/exam/send-report`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.success) {
+                console.log('✅ Score report sent successfully');
+            } else {
+                console.error('❌ Failed to send score report:', result.message);
+            }
+        } catch (err) {
+            console.error('❌ Error sending score report:', err);
         }
     }
 
@@ -323,7 +359,19 @@
         const markReviewBtn = document.getElementById('markReviewBtn');
 
         if (agreeTerms && beginTestBtn) {
-            agreeTerms.onchange = (e) => beginTestBtn.disabled = !e.target.checked;
+            // Validate name and email before enabling button
+            const validateInputs = () => {
+                const nameInput = document.getElementById('candidateName');
+                const emailInput = document.getElementById('candidateEmail');
+                const nameValid = nameInput && nameInput.value.trim().length >= 2;
+                const emailValid = emailInput && emailInput.value.trim().includes('@');
+                const termsChecked = agreeTerms.checked;
+                beginTestBtn.disabled = !(nameValid && emailValid && termsChecked);
+            };
+
+            agreeTerms.onchange = validateInputs;
+            document.getElementById('candidateName').oninput = validateInputs;
+            document.getElementById('candidateEmail').oninput = validateInputs;
         }
 
         if (beginTestBtn) beginTestBtn.onclick = initExam;
