@@ -65,57 +65,88 @@ body {
 
 /* SUB HEADER */
 .sub-header {
-    background: #fff;
-    height: 45px;
-    border-bottom: 1px solid #ccc;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 55px;
+    border-bottom: 2px solid #cbd5e1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .sections-tabs {
     display: flex;
     height: 100%;
     align-items: flex-end;
-    gap: 3px;
+    gap: 8px;
+    padding-bottom: 0;
 }
 
 .section-tab {
-    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
-    border: 1px solid #cbd5e1;
-    border-bottom: none;
-    padding: 10px 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+    border: 2px solid #e2e8f0;
+    border-bottom: 3px solid transparent;
+    padding: 12px 24px;
     cursor: pointer;
-    font-weight: 600;
-    color: #475569;
-    border-radius: 8px 8px 0 0;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    font-weight: 700;
+    color: #64748b;
+    border-radius: 12px 12px 0 0;
+    font-size: 0.95rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.3px;
+}
+
+.section-tab::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+    transition: all 0.25s ease;
 }
 
 .section-tab:hover {
-    background: linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 100%);
-    color: #1e3a5f;
-    transform: translateY(-2px);
+    background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #0369a1;
+    transform: translateY(-3px);
+    border-color: #7dd3fc;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+}
+
+.section-tab:hover::before {
+    background: #0ea5e9;
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
 }
 
 .section-tab.active {
     background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
     color: white;
     border-color: #1e3a5f;
-    box-shadow: 0 -3px 10px rgba(30, 58, 95, 0.3);
+    border-bottom: 3px solid #d4af37;
+    box-shadow: 0 -4px 20px rgba(30, 58, 95, 0.4);
+    transform: translateY(-2px);
+}
+
+.section-tab.active::before {
+    background: #d4af37;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
 }
 
 .badge-count {
-    background: #d4af37;
+    background: linear-gradient(135deg, #d4af37 0%, #f59e0b 100%);
     color: #1e3a5f;
-    padding: 2px 8px;
-    border-radius: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
     font-size: 0.75rem;
-    font-weight: 700;
-    margin-left: 8px;
+    font-weight: 800;
+    min-width: 28px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.4);
 }
 
 .timer-box {
