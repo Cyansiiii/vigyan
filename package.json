@@ -41,7 +41,7 @@
     "validator": "^13.15.26"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
     "@types/node": "^25.2.1",
