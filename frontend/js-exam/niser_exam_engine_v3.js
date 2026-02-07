@@ -66,9 +66,8 @@
             startTimer();
             renderPalette();
 
-            setInterval(() => {
-                if (window.MathJax) MathJax.typeset();
-            }, 1000);
+            // MathJax typeset once after initial load
+            if (window.MathJax) MathJax.typeset();
         } catch (err) {
             console.error(err);
             alert('Error loading exam data. Please check your connection or try another year.');
@@ -125,6 +124,11 @@
         });
 
         updatePalette();
+
+        // MathJax typeset after question content is loaded
+        if (window.MathJax) {
+            setTimeout(() => MathJax.typeset(), 50);
+        }
     }
 
     function selectOption(index) {
@@ -250,12 +254,23 @@
         clearInterval(timerInterval);
         document.getElementById('submitModal').style.display = 'none';
 
+        // Show loading indicator
+        document.getElementById('scoreModal').style.display = 'flex';
+        document.getElementById('scoreContent').innerHTML = `
+            <div style="text-align:center; padding: 40px;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">⏳</div>
+                <p>Calculating your score...</p>
+            </div>
+        `;
+
         try {
             const sections = ['Biology', 'Chemistry', 'Physics', 'Mathematics'];
-            for (const s of sections) {
-                await ensureKeysLoaded(s);
-                await ensureSectionLoaded(s);
-            }
+
+            // Load all sections and keys in PARALLEL (much faster!)
+            await Promise.all([
+                ...sections.map(s => ensureSectionLoaded(s)),
+                ...sections.map(s => ensureKeysLoaded(s))
+            ]);
 
             let sectionScores = {};
             let totalCorrect = 0;
