@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigyan.prep Admin Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css?v=586">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <div>
+                <div class="logo-text">VIGYAN.PREP</div>
+                <div class="logo-subtext">PORTAL</div>
+            </div>
+        </div>
+
+        <nav class="nav-menu" id="navMenu">
+            <!-- Navigation items will be inserted here -->
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="notification-bell" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">0</span>
+                </div>
+                <div class="settings-icon" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="admin-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="Admin">
+                    <div>
+                        <div class="admin-name">Admin User</div>
+                        <div class="admin-role">Super Admin</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Container - Different pages will be loaded here -->
+        <div class="page-container">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page-content" style="display: none;"></div>
+
+            <!-- Test Calendar -->
+            <div id="test-calendar-page" class="page-content" style="display: none;"></div>
+
+            <!-- Create Test -->
+            <div id="create-test-page" class="page-content" style="display: none;"></div>
+
+            <!-- Scheduled Tests -->
+            <div id="scheduled-tests-page" class="page-content" style="display: none;"></div>
+
+            <!-- Past Tests -->
+            <div id="past-tests-page" class="page-content" style="display: none;"></div>
+
+            <!-- Add Questions -->
+            <div id="add-questions-page" class="page-content" style="display: none;"></div>
+
+            <!-- View Questions -->
+            <div id="view-questions-page" class="page-content" style="display: none;"></div>
+
+            <!-- Upload PDF -->
+            <div id="upload-pdf-page" class="page-content" style="display: none;"></div>
+
+            <!-- Image Upload -->
+            <div id="image-upload-page" class="page-content" style="display: none;"></div>
+
+            <!-- Students -->
+            <div id="students-page" class="page-content" style="display: none;"></div>
+
+            <!-- Add Student -->
+            <div id="add-student-page" class="page-content" style="display: none;"></div>
+
+            <!-- Performance -->
+            <div id="performance-page" class="page-content" style="display: none;"></div>
+
+            <!-- Results -->
+            <div id="results-page" class="page-content" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- ✅ CACHE BUST: Updated all script versions to v=601 -->
+    <script>
+        // Backend API Configuration
+        window.API_BASE_URL = 'https://vigyan-production.up.railway.app';
+        console.log('🔵 Backend URL configured:', window.API_BASE_URL);
+    </script>
+
+    <!-- Core Services (Load First) -->
+    <script src="js/admin-api-service.js?v=700"></script>
+    <script src="js/admin-utils.js?v=700"></script>
+
+    <!-- Page Scripts -->
+    <script src="js/create-test.js?v=700"></script>
+    <script src="js/scheduled-tests.js?v=700"></script>
+    <script src="js/past-tests.js?v=700"></script>
+    <script src="js/add-questions-v2.js?v=700"></script>
+    <script src="js/view-questions.js?v=700"></script>
+    <script src="js/students.js?v=700"></script>
+    <script src="js/results.js?v=700"></script>
+    <script src="js/test-calendar.js?v=700"></script>
+
+    <!-- Main Dashboard (Load Last) -->
+    <script src="js/admin-dashboard-v2.js?v=700"></script>
+
+    <script>
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Page loaded - initializing dashboard');
+            if (typeof initDashboard === 'function') {
+                initDashboard();
+            } else {
+                console.error('❌ initDashboard function not found');
+            }
+        });
+    </script>
+</body>
+
+</html>

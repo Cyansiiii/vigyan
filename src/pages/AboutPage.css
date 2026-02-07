@@ -161,3 +161,35 @@
 .reveal-underline:hover::after {
     width: 100%;
 }
+
+/* FlipText Animation Styles */
+.flip-char {
+    display: inline-block;
+    animation: flipChar var(--flip-duration, 2.2s) cubic-bezier(0.25, 1, 0.5, 1) var(--flip-delay, 0s) var(--flip-iteration, infinite);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+@keyframes flipChar {
+
+    0%,
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+
+    25% {
+        transform: rotateX(90deg);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: rotateX(180deg);
+        opacity: 1;
+    }
+
+    75% {
+        transform: rotateX(270deg);
+        opacity: 0.5;
+    }
+}

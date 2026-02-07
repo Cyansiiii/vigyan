@@ -1,0 +1,51 @@
+/* Handwriting & Notebook Styles */
+
+.notebook-page {
+    box-shadow: 
+        0 20px 50px rgba(0,0,0,0.3),
+        0 0 0 10px rgba(255,255,255,0.05);
+}
+
+.handwriting-text {
+    color: #2d3436;
+    word-spacing: 4px;
+    letter-spacing: 0.5px;
+    text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.1);
+}
+
+.style-neat {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.8rem;
+    line-height: 1.4;
+}
+
+.style-cursive {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    line-height: 1.2;
+}
+
+.style-casual {
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+/* Notebook lines simulation */
+.notebook-page {
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 100% 32px;
+    background-attachment: local;
+}
+
+/* Glass card effects */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.loader-circle {
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}

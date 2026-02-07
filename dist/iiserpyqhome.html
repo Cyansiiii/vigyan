@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IISER Previous Year Questions - Vigyan.prep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 4rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .logo-iin {
+            color: white;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .logo-edu {
+            color: rgba(148, 163, 184, 0.6);
+            font-size: 0.8em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #818cf8;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Card Styling */
+        .pyq-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border-radius: 20px;
+            padding: 3px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: block;
+            overflow: hidden;
+        }
+
+        .pyq-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg,
+                    #667eea 0%,
+                    #764ba2 25%,
+                    #f093fb 50%,
+                    #667eea 75%,
+                    #764ba2 100%);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: gradient-rotate 3s linear infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes gradient-rotate {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .pyq-card:hover::before {
+            opacity: 1;
+        }
+
+        .pyq-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .card-inner {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border-radius: 18px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-year {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 0.95rem;
+        }
+
+        .detail-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .detail-value {
+            color: #818cf8;
+            font-weight: 600;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .start-btn {
+            margin-top: 1rem;
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .pyq-card {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pyq-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .pyq-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .pyq-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .pyq-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .pyq-card:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        .pyq-card:nth-child(6) {
+            animation-delay: 1s;
+        }
+
+        .pyq-card:nth-child(7) {
+            animation-delay: 1.2s;
+        }
+
+        .pyq-card:nth-child(8) {
+            animation-delay: 1.4s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .cards-container {
+                padding: 2rem;
+                gap: 1.5rem;
+                grid-template-columns: 1fr;
+            }
+
+            .card-year {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll Down Indicator */
+        .scroll-indicator {
+            text-align: center;
+            padding: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .scroll-arrow {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-iin">Vigyan</span><span class="logo-edu">.prep</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="subtittlepyq.html">Back</a></li>
+
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">IISER Previous Year Questions</h1>
+        <p class="hero-subtitle">Master Your Preparation</p>
+        <p class="hero-description">
+            Unlocking the premier research institutes of India. Practice with authentic previous year questions from
+            2018 to 2025.
+        </p>
+    </section>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-arrow">⌄</div>
+    </div>
+
+    <!-- PYQ Cards Container -->
+    <div class="cards-container">
+        <!-- 2025 -->
+        <div class="pyq-card" onclick="startExam(2025)">
+            <div class="card-inner">
+                <span class="card-badge">Latest</span>
+                <div class="card-year">2025</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="pyq-card" onclick="startExam(2024)">
+            <div class="card-inner">
+                <div class="card-year">2024</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="pyq-card" onclick="startExam(2023)">
+            <div class="card-inner">
+                <div class="card-year">2023</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="pyq-card" onclick="startExam(2022)">
+            <div class="card-inner">
+                <div class="card-year">2022</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2021 -->
+        <div class="pyq-card" onclick="startExam(2021)">
+            <div class="card-inner">
+                <div class="card-year">2021</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="pyq-card" onclick="startExam(2020)">
+            <div class="card-inner">
+                <div class="card-year">2020</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2019 -->
+        <div class="pyq-card" onclick="startExam(2019)">
+            <div class="card-inner">
+                <div class="card-year">2019</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+
+        <!-- 2018 -->
+        <div class="pyq-card" onclick="startExam(2018)">
+            <div class="card-inner">
+                <div class="card-year">2018</div>
+                <div class="card-title">IISER PYQ</div>
+                <div class="card-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Questions</span>
+                        <span class="detail-value">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration</span>
+                        <span class="detail-value">180 min</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Max Marks</span>
+                        <span class="detail-value">240</span>
+                    </div>
+                </div>
+                <button class="start-btn">Start Practice →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startExam(year) {
+            // Navigate to the unified exam interface with year pre-selected
+            window.location.href = `frontend/index-iiser-pyq/index_2025.html?year=${year}`;
+        }
+    </script>
+</body>
+
+</html>

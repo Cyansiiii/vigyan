@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vigyan.prep Test V5 - EMBEDDED</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="calculator.css">
+<style>
+body::before {
+    content: '🔥 V5 EMBEDDED - ALL JS INLINE';
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #00ff00;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    z-index: 9999;
+    font-weight: bold;
+    font-size: 18px;
+}
+body { padding-top: 40px; }
+.mark-review-btn { background: #ff9800 !important; }
+.clear-btn { background: #f44336 !important; }
+.save-next-btn { background: #4caf50 !important; }
+</style>
+</head>
+<body>
+
+<div id="instructionPage" class="instruction-container">
+    <div class="instruction-card">
+        <h1>Vigyan.prep Test V5 - EMBEDDED VERSION</h1>
+        <input type="text" id="candidateName" value="Test Student">
+        <select id="examYear"><option value="2024" selected>2024</option></select>
+        <input type="checkbox" id="agreeTerms" checked>
+        <button id="beginTestBtn">START</button>
+    </div>
+</div>
+
+<div id="examInterface" style="display: none;">
+    <header class="exam-header">
+        <span id="examTitleHeader">V5 TEST</span>
+        <button id="calculatorBtn">🔢 Calc</button>
+    </header>
+    
+    <div class="sub-header">
+        <button class="section-tab active" data-section="Biology">Biology <span id="biologyCount"></span></button>
+        <button class="section-tab" data-section="Chemistry">Chemistry <span id="chemistryCount"></span></button>
+        <button class="section-tab" data-section="Mathematics">Math <span id="mathematicsCount"></span></button>
+        <button class="section-tab" data-section="Physics">Physics <span id="physicsCount"></span></button>
+        <span id="userName">User</span>
+        <span id="timerDisplay">03:00:00</span>
+    </div>
+    
+    <div class="main-content">
+        <div class="question-area">
+            <div id="questionNumberDisplay">Question 1</div>
+            <div id="questionContent">Loading...</div>
+            <div id="optionsContainer"></div>
+            
+            <div class="question-actions">
+                <button class="action-btn mark-review-btn" id="markReviewBtn">🔖 Mark & Next</button>
+                <button class="action-btn clear-btn" id="clearBtn">❌ Clear</button>
+                <button class="action-btn save-next-btn" id="saveNextBtn">✅ Save & Next</button>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="legend-item"><span class="legend-circle answered-circle">0</span>Answered</div>
+                <div class="legend-item"><span class="legend-circle not-answered-circle">0</span>Not Ans</div>
+                <div class="legend-item"><span class="legend-circle not-visited-circle">60</span>Not Visit</div>
+                <div class="legend-item"><span class="legend-circle marked-circle">0</span>Marked</div>
+            </div>
+            <div id="sectionTitle">Biology</div>
+            <div id="questionPalette"></div>
+            <button id="submitExamBtn">SUBMIT</button>
+        </div>
+    </div>
+</div>
+
+<div id="calculatorModal" class="calculator-modal">
+    <div class="calculator-container">
+        <button id="closeCalculator">×</button>
+        <input type="text" id="calc-display" value="0" readonly>
+    </div>
+</div>
+
+<div id="submitModal" class="modal">
+    <div class="modal-content">
+        <h2>Submit Exam?</h2>
+        <div id="submissionSummary"></div>
+        <button id="cancelSubmitBtn">Cancel</button>
+        <button id="confirmSubmitBtn">Submit</button>
+    </div>
+</div>
+
+<!-- FULLY EMBEDDED JAVASCRIPT -->
+<script>
+console.log('%c🔥 V5 EMBEDDED SCRIPT STARTED', 'background: #00ff00; color: #000; font-size: 24px; font-weight: bold');
+
+window.ExamApp = {
+    currentSection: 'Biology',
+    currentQuestionIndex: 0,
+    answers: {},
+    markedForReview: {},
+    visited: {},
+    timeLeft: 10800,
+    questionBank: null
+};
+
+function loadExamData(year) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = `../js-exam/exam_${year}.js?t=` + Date.now();
+        script.onload = () => {
+            if (typeof questionBank !== 'undefined') {
+                window.ExamApp.questionBank = questionBank;
+                console.log('✅ Question bank loaded');
+                resolve(questionBank);
+            } else {
+                reject(new Error('Question bank not found'));
+            }
+        };
+        script.onerror = () => reject(new Error('Failed to load exam'));
+        document.body.appendChild(script);
+    });
+}
+
+async function startExam() {
+    console.log('🚀 START EXAM CLICKED');
+    try {
+        await loadExamData('2024');
+        document.getElementById('instructionPage').style.display = 'none';
+        document.getElementById('examInterface').style.display = 'block';
+        initExam();
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+function initExam() {
+    console.log('🎯 INIT EXAM');
+    
+    // Section tabs
+    document.querySelectorAll('.section-tab').forEach(tab => {
+        tab.onclick = () => {
+            const section = tab.getAttribute('data-section');
+            console.log('📂 Section clicked:', section);
+            switchSection(section);
+        };
+    });
+    
+    // BUTTON EVENT LISTENERS - CRITICAL!
+    const markBtn = document.getElementById('markReviewBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const saveBtn = document.getElementById('saveNextBtn');
+    const submitBtn = document.getElementById('submitExamBtn');
+    
+    console.log('🔍 Checking buttons:', {markBtn, clearBtn, saveBtn, submitBtn});
+    
+    if (markBtn) {
+        markBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🔖 MARK FOR REVIEW CLICKED!');
+            alert('Mark button works!');
+            markForReviewAndNext();
+        };
+        console.log('✅ Mark button listener attached');
+    } else {
+        console.error('❌ Mark button NOT FOUND!');
+    }
+    
+    if (clearBtn) {
+        clearBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('❌ CLEAR CLICKED!');
+            alert('Clear button works!');
+            clearResponse();
+        };
+        console.log('✅ Clear button listener attached');
+    } else {
+        console.error('❌ Clear button NOT FOUND!');
+    }
+    
+    if (saveBtn) {
+        saveBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('✅ SAVE & NEXT CLICKED!');
+            alert('Save button works!');
+            saveAndNext();
+        };
+        console.log('✅ Save button listener attached');
+    } else {
+        console.error('❌ Save button NOT FOUND!');
+    }
+    
+    if (submitBtn) {
+        submitBtn.onclick = function(e) {
+            e.preventDefault();
+            console.log('📤 SUBMIT CLICKED!');
+            showSubmitModal();
+        };
+        console.log('✅ Submit button listener attached');
+    }
+    
+    loadQuestion();
+    updateQuestionPalette();
+    
+    const qKey = `${window.ExamApp.currentSection}-0`;
+    window.ExamApp.visited[qKey] = true;
+    
+    console.log('✅ Exam initialized successfully');
+}
+
+function loadQuestion() {
+    console.log('📖 Loading question', window.ExamApp.currentQuestionIndex);
+    if (!window.ExamApp.questionBank) return;
+    
+    const questions = window.ExamApp.questionBank[window.ExamApp.currentSection];
+    const question = questions[window.ExamApp.currentQuestionIndex];
+    const qKey = `${window.ExamApp.currentSection}-${window.ExamApp.currentQuestionIndex}`;
+    
+    window.ExamApp.visited[qKey] = true;
+    
+    document.getElementById('questionNumberDisplay').textContent = `Question No. ${window.ExamApp.currentQuestionIndex + 1}`;
+    document.getElementById('questionContent').innerHTML = `<p>${question.text}</p>`;
+    
+    const container = document.getElementById('optionsContainer');
+    container.innerHTML = '';
+    
+    question.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<strong>${String.fromCharCode(65 + idx)}.</strong> ${opt}`;
+        
+        if (window.ExamApp.answers[qKey] === idx) {
+            btn.classList.add('selected');
+        }
+        
+        btn.onclick = () => {
+            console.log('✔️ Option selected:', idx);
+            selectAnswer(idx);
+        };
+        
+        container.appendChild(btn);
+    });
+    
+    document.getElementById('sectionTitle').textContent = window.ExamApp.currentSection;
+    updateQuestionPalette();
+}
+
+function selectAnswer(optIdx) {
+    const qKey = `${window.ExamApp.currentSection}-${window.ExamApp.currentQuestionIndex}`;
+    window.ExamApp.answers[qKey] = optIdx;
+    console.log('💾 Answer saved:', qKey, '=', optIdx);
+    console.log('📊 All answers:', window.ExamApp.answers);
+    
+    document.querySelectorAll('.option-btn').forEach((btn, i) => {
+        if (i === optIdx) {
+            btn.classList.add('selected');
+        } else {
+            btn.classList.remove('selected');
+        }
+    });
+    
+    updateQuestionPalette();
+}
+
+function switchSection(section) {
+    console.log('🔄 Switching to:', section);
+    window.ExamApp.currentSection = section;
+    window.ExamApp.currentQuestionIndex = 0;
+    
+    document.querySelectorAll('.section-tab').forEach(tab => {
+        if (tab.getAttribute('data-section') === section) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+    
+    loadQuestion();
+}
+
+function markForReviewAndNext() {
+    console.log('🔖 Marking for review');
+    const qKey = `${window.ExamApp.currentSection}-${window.ExamApp.currentQuestionIndex}`;
+    window.ExamApp.markedForReview[qKey] = true;
+    console.log('✅ Marked:', qKey);
+    saveAndNext();
+}
+
+function clearResponse() {
+    console.log('🗑️ Clearing response');
+    const qKey = `${window.ExamApp.currentSection}-${window.ExamApp.currentQuestionIndex}`;
+    delete window.ExamApp.answers[qKey];
+    delete window.ExamApp.markedForReview[qKey];
+    
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    updateQuestionPalette();
+}
+
+function saveAndNext() {
+    console.log('⏭️ Save and next');
+    const questions = window.ExamApp.questionBank[window.ExamApp.currentSection];
+    
+    if (window.ExamApp.currentQuestionIndex < questions.length - 1) {
+        window.ExamApp.currentQuestionIndex++;
+    } else {
+        const sections = ['Biology', 'Chemistry', 'Mathematics', 'Physics'];
+        const idx = sections.indexOf(window.ExamApp.currentSection);
+        if (idx < sections.length - 1) {
+            switchSection(sections[idx + 1]);
+            return;
+        }
+    }
+    
+    loadQuestion();
+}
+
+function updateQuestionPalette() {
+    const palette = document.getElementById('questionPalette');
+    if (!palette || !window.ExamApp.questionBank) return;
+    
+    palette.innerHTML = '';
+    const questions = window.ExamApp.questionBank[window.ExamApp.currentSection];
+    
+    questions.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'palette-btn';
+        btn.textContent = idx + 1;
+        
+        const qKey = `${window.ExamApp.currentSection}-${idx}`;
+        
+        if (idx === window.ExamApp.currentQuestionIndex) {
+            btn.classList.add('current');
+        }
+        
+        const isAnswered = window.ExamApp.answers[qKey] !== undefined;
+        const isMarked = window.ExamApp.markedForReview[qKey];
+        const isVisited = window.ExamApp.visited[qKey];
+        
+        if (isAnswered && isMarked) {
+            btn.classList.add('answered-marked');
+        } else if (isMarked) {
+            btn.classList.add('marked');
+        } else if (isAnswered) {
+            btn.classList.add('answered');
+        } else if (isVisited) {
+            btn.classList.add('not-answered');
+        } else {
+            btn.classList.add('not-visited');
+        }
+        
+        btn.onclick = () => {
+            window.ExamApp.currentQuestionIndex = idx;
+            loadQuestion();
+        };
+        
+        palette.appendChild(btn);
+    });
+}
+
+function showSubmitModal() {
+    console.log('📤 Showing submit modal');
+    const modal = document.getElementById('submitModal');
+    modal.classList.add('show');
+    
+    document.getElementById('cancelSubmitBtn').onclick = () => {
+        modal.classList.remove('show');
+    };
+    
+    document.getElementById('confirmSubmitBtn').onclick = () => {
+        modal.classList.remove('show');
+        submitExam();
+    };
+}
+
+function submitExam() {
+    console.log('✅ SUBMITTING EXAM');
+    console.log('📊 Final answers:', window.ExamApp.answers);
+    alert('Exam submitted! Answers: ' + JSON.stringify(window.ExamApp.answers));
+}
+
+// Start button
+document.getElementById('beginTestBtn').onclick = startExam;
+
+console.log('✅ V5 SCRIPT LOADED COMPLETELY');
+</script>
+
+</body>
+</html>

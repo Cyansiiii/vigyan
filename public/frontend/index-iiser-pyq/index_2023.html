@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigyan.prep Aptitude Test 2023 - Assessment Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <div id="instructionPage" class="instruction-container">
+        <div class="instruction-card">
+            <div class="inst-header">
+                <h1 class="instruction-title">Vigyan.prep Aptitude Test 2023</h1>
+            </div>
+            <div class="instruction-body">
+                <h3>General Instructions:</h3>
+                <ol>
+                    <li>Total duration of examination is <strong>180 minutes</strong>.</li>
+                    <li>The clock will be set at the server. The countdown timer in the top right corner of screen will display the remaining time available for you to complete the examination.</li>
+                    <li>The Question Palette displayed on the right side of screen will show the status of each question using one of the following symbols:
+                        <ul class="inst-legend">
+                            <li><span class="leg-icon not-visited"></span> You have not visited the question yet.</li>
+                            <li><span class="leg-icon not-answered"></span> You have not answered the question.</li>
+                            <li><span class="leg-icon answered"></span> You have answered the question.</li>
+                            <li><span class="leg-icon marked"></span> You have NOT answered the question, but have marked the question for review.</li>
+                            <li><span class="leg-icon ans-marked"></span> The question(s) "Answered and Marked for Review" will be considered for evaluation.</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <div class="login-form">
+                    <input type="text" id="candidateName" placeholder="Enter Candidate Name" value="Student">
+                    <label class="agree-box">
+                        <input type="checkbox" id="agreeTerms">
+                        <span>I have read and understood the instructions.</span>
+                    </label>
+                    <button class="begin-btn" id="beginTestBtn" disabled>I am ready to begin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="examInterface" class="exam-interface" style="display: none;">
+        <header class="exam-header">
+            <div class="header-left">
+                <span class="exam-title-text">Vigyan.prep Aptitude Test 2023</span>
+            </div>
+            <div class="header-right">
+                <div class="profile-box">
+                    <img src="https://via.placeholder.com/30" alt="Img" class="profile-img">
+                    <span id="userNameDisplay">Candidate</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="sub-header">
+            <div class="sub-header-left">
+                <span class="sect-label">Sections:</span>
+                <div class="sections-tabs">
+                    <button class="section-tab active" data-section="Biology">Biology <span class="badge-count" id="biologyCount"></span></button>
+                    <button class="section-tab" data-section="Chemistry">Chemistry <span class="badge-count" id="chemistryCount"></span></button>
+                    <button class="section-tab" data-section="Mathematics">Mathematics <span class="badge-count" id="mathematicsCount"></span></button>
+                    <button class="section-tab" data-section="Physics">Physics <span class="badge-count" id="physicsCount"></span></button>
+                </div>
+            </div>
+            <div class="sub-header-right">
+                <div class="timer-box">
+                    <span>Time Left:</span>
+                    <span id="timerDisplay">03:00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="question-area">
+                <div class="q-header-bar">
+                    <div class="q-info">
+                        <span class="q-num">Question No. <span id="questionNumberDisplay">1</span></span>
+                    </div>
+                    <div class="q-marks">
+                        Marks for correct answer: <span class="green-text">4</span> | Negative Marks: <span class="red-text">1</span>
+                    </div>
+                </div>
+
+                <div class="question-scroll-box">
+                    <div class="question-text" id="questionContent">Loading...</div>
+                    <div class="options-container" id="optionsContainer"></div>
+                </div>
+
+                <div class="footer-actions">
+                    <button class="btn-action btn-mark" id="markReviewBtn">Mark for Review & Next</button>
+                    <button class="btn-action btn-clear" id="clearBtn">Clear Response</button>
+                    <button class="btn-action btn-save" id="saveNextBtn">Save & Next</button>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-top">
+                    <div class="legend-grid">
+                        <div class="leg-item"><span class="leg-circle answered">0</span> Answered</div>
+                        <div class="leg-item"><span class="leg-circle not-answered">0</span> Not Answered</div>
+                        <div class="leg-item"><span class="leg-circle not-visited">0</span> Not Visited</div>
+                        <div class="leg-item"><span class="leg-circle marked">0</span> Marked for Review</div>
+                        <div class="leg-item full-width"><span class="leg-circle ans-marked">0</span> Answered & Marked for Review (will be considered for evaluation)</div>
+                    </div>
+                </div>
+
+                <div class="palette-area">
+                    <div class="palette-header" id="sectionTitle">Biology</div>
+                    <div class="palette-header-sub">Choose a Question</div>
+                    <div class="question-palette" id="questionPalette"></div>
+                </div>
+
+                <div class="sidebar-bottom">
+                    <button class="btn-submit" id="submitExamBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="submitModal" class="modal">
+        <div class="modal-content result-card">
+            <div class="result-header">
+                <h2>Exam Summary</h2>
+            </div>
+            <div id="submissionSummary" class="summary-body"></div>
+            <div class="result-footer">
+                <button class="modal-btn cancel" id="cancelSubmitBtn">Return to Exam</button>
+                <button class="modal-btn confirm" id="confirmSubmitBtn">Submit Final</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="scoreModal" class="modal">
+        <div class="modal-content score-card">
+            <div class="score-header">
+                <h2>Test Result</h2>
+            </div>
+            <div id="scoreContent" class="score-body"></div>
+            <div class="score-footer">
+                <button class="modal-btn confirm" onclick="location.reload()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="calculator.js"></script>
+    <script src="../js-exam/exam_2023.js"></script>
+</body>
+</html>

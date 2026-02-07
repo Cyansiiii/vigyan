@@ -19,8 +19,6 @@ interface LiquidTextProps {
     darkColor?: string;
     /** Additional CSS classes */
     className?: string;
-    /** Inline styles */
-    style?: React.CSSProperties;
 }
 
 const createTextTexture = (text: string, size: number, font: string, color: string): THREE.Texture => {
@@ -87,7 +85,6 @@ export function LiquidText({
     lightColor = "#000000",
     darkColor = "#ffffff",
     className,
-    style,
 }: LiquidTextProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -206,7 +203,7 @@ export function LiquidText({
         };
     }, [text, fontSize, font, color, lightColor, darkColor]);
 
-    return <div ref={containerRef} className={cn("relative w-full h-full", className)} style={style} />;
+    return <div ref={containerRef} className={cn("relative w-full h-[600px]", className)} />;
 }
 
 export default LiquidText;

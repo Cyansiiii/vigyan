@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="dSB2IXFoFX9QoMM-cG4EfJ2YNhclk1NxacdI9agw1D4" />
+    <title>Vigyan.prep - Gateway to Future Science | IISER & NISER Preparation</title>
+    <meta name="description"
+        content="India's premier platform for IISER IAT, NISER NEST, and research institute entrance preparation. Join thousands of students on their journey to scientific excellence with Vigyan.prep.">
+    <meta name="keywords"
+        content="IISER preparation, NISER test series, IAT exam prep, IISc admission, NEST exam practice, research institutes India, Vigyan prep, science entrance exams">
+    <link rel="canonical" href="https://vigyanprep.com/index.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vigyanprep.com/">
+    <meta property="og:title" content="Vigyan.prep - Gateway to Future Science">
+    <meta property="og:description"
+        content="Premier platform for IISER, NISER, and research institute preparation. Start your journey to scientific excellence today.">
+    <meta property="og:image" content="https://vigyanprep.com/frontend/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vigyanprep.com/">
+    <meta property="twitter:title" content="Vigyan.prep - Gateway to Future Science">
+    <meta property="twitter:description"
+        content="Premier platform for IISER, NISER, and research institute preparation. Join 10K+ students.">
+    <meta property="twitter:image" content="https://vigyanprep.com/frontend/images/og-image.jpg">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Vigyan.prep",
+      "url": "https://vigyanprep.com",
+      "logo": "https://vigyanprep.com/frontend/images/logo.png",
+      "description": "Gateway to Future Science - Preparation for IISER, NISER and other research institutes.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "India"
+      },
+      "knowsAbout": ["IISER IAT", "NISER NEST", "IISc Admission", "BS-MS research"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Vigyan.prep",
+      "url": "https://vigyanprep.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://vigyanprep.com/testfirstpage.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        /* DROPDOWN MENU STYLES */
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .dropdown-trigger i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-dropdown:hover .dropdown-trigger i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 15px;
+            background: rgba(20, 20, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            margin-top: 10px;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 16px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            transform: translateX(5px);
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: rgba(20, 20, 30, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        /* Active nav link styling */
+        .nav-links a.active-link {
+            color: #fff !important;
+            text-decoration: underline;
+            text-decoration-color: #3b82f6;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 8px;
+        }
+
+        /* ===============================================
+           MINIMAL ELEGANT FOOTER - CLEAN & COMPACT
+           =============================================== */
+
+        .minimal-footer {
+            position: relative;
+            background: linear-gradient(180deg, #000000 0%, #0a0a15 100%);
+            overflow: hidden;
+            margin-top: 0;
+            /* Fixed glitch: removed gap */
+            z-index: 10;
+        }
+
+        /* Subtle Wave Separator */
+        .wave-divider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+
+        .wave-divider .wave-shape {
+            fill: #000000;
+            opacity: 0.5;
+        }
+
+        /* Gentle Grid Background */
+        .subtle-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+
+        /* Main Container */
+        .footer-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 40px 30px;
+        }
+
+        /* Top Section: Logo + Social + Contact */
+        .footer-main {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 25px;
+        }
+
+        /* Logo Section */
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: baseline;
+            width: fit-content;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .footer-logo .logo-vigyan {
+            font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 25%, #ffffff 50%, #fcd34d 75%, #fef3c7 100%);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
+            animation: footerShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes footerShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .footer-logo .logo-dot {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: rgba(148, 163, 184, 0.5);
+            margin-left: 2px;
+        }
+
+        .footer-logo .logo-prep {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: lowercase;
+            color: rgba(148, 163, 184, 0.4);
+        }
+
+        .footer-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.6), transparent);
+        }
+
+        .footer-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer-logo:hover .logo-vigyan {
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.7));
+        }
+
+        .footer-tagline {
+            color: #64748b;
+            font-size: 0.8rem;
+            max-width: 280px;
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            border-color: currentColor;
+            box-shadow: 0 8px 20px currentColor;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link.instagram {
+            color: #e1306c;
+        }
+
+        .social-link.twitter {
+            color: #1da1f2;
+        }
+
+        .social-link.facebook {
+            color: #1877f2;
+        }
+
+        .social-link.whatsapp {
+            color: #25d366;
+        }
+
+        .social-link.linkedin {
+            color: #0a66c2;
+        }
+
+        /* Contact Section */
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: #3b82f6;
+            transform: translateX(-5px);
+        }
+
+        .contact-item i {
+            width: 18px;
+            text-align: center;
+            color: #3b82f6;
+        }
+
+        .contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Bottom Section: Copyright + Legal Links */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .copyright {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .heart-icon {
+            color: #ec4899;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            10%,
+            30% {
+                transform: scale(1.15);
+            }
+
+            20%,
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .legal-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .legal-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .legal-link:hover {
+            color: #3b82f6;
+        }
+
+        .legal-link:hover::after {
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-main {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .footer-brand {
+                align-items: center;
+            }
+
+            .footer-contact {
+                align-items: center;
+            }
+
+            .footer-tagline {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                padding: 40px 20px 25px;
+            }
+
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+
+            .wave-divider svg {
+                height: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .legal-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .social-icons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+  <script type="module" crossorigin src="/assets/main-DWVjLVls.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-DhLNDqSK.css">
+  <link rel="stylesheet" crossorigin href="/assets/user-panel-BgNCBU2W.css">
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- CRITICAL: Load config.js FIRST to set API_BASE_URL -->
+    <script src="frontend/js/config.js"></script>
+    <script src="frontend/js/enrollment-lock.js?v=20260205_v4"></script>
+
+    <div class="bg-animation"></div>
+
+    <!-- IMMERSIVE SCIENCE VISUALIZATION -->
+    <canvas id="homepage-canvas"></canvas>
+    <div class="canvas-overlay"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo"><span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
+                class="logo-prep">prep</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="active-link">Home</a>
+
+            <!-- About Dropdown -->
+            <div class="nav-dropdown">
+                <a href="#" class="dropdown-trigger">About <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-menu">
+                    <a href="aboutpage.html">About Us</a>
+                    <a href="shoutouts.html">Shoutouts</a>
+                </div>
+            </div>
+
+            <a href="subtittlepyq.html">PYQ</a>
+            <a href="testfirstpage.html">Tests</a>
+
+            <!-- Future Career Dropdown -->
+            <div class="nav-dropdown">
+                <a href="#" class="dropdown-trigger">Future Career <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-menu">
+                    <a href="future.html">Future Career</a>
+                    <a href="sciencenews.html">Science News</a>
+                </div>
+            </div>
+
+            <div id="navLoginPlaceholder">
+                <a href="signinpage.html" class="btn-login">Login</a>
+            </div>
+        </div>
+
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+
+    <section class="hero hero-with-canvas" id="hero">
+        <!-- Immersive 3D Science Background -->
+        <div class="hero-content">
+            <h1 class="hero-headline">
+                Gateway to <br><span class="highlight">Future Science</span>
+            </h1>
+            <p class="hero-subheadline">
+                India's premier platform for IISER, NISER, and research institute preparation.
+                Join thousands of students on their journey to scientific excellence.
+            </p>
+            <div class="hero-buttons">
+                <a href="testfirstpage.html" class="btn-primary-hero">
+                    Start Learning
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="#iiser" class="btn-secondary-hero">
+                    Explore Institutes
+                </a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <div class="trust-number">10K+</div>
+                    <div class="trust-label">Students</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">500+</div>
+                    <div class="trust-label">Questions</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">7</div>
+                    <div class="trust-label">IISERs</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <section class="institute-section" id="iiser">
+        <div class="category-header">
+            <h2>IISER</h2>
+            <p>Indian Institutes of Science Education and Research</p>
+        </div>
+
+        <div class="pendulum-container" data-section="iiser">
+            <div class="anchor-bar"></div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/IISER__PUNE_Logo-j0QtgjSi.svg"
+                            alt="IISER Pune Logo - Indian Institute of Science Education and Research">
+                    </div>
+                    <h4>Pune</h4>
+                    <p>Maharashtra</p>
+                </div>
+            </div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/IISER-K_Logo-DiQXsFpP.svg"
+                            alt="IISER Kolkata Logo - Indian Institute of Science Education and Research">
+                    </div>
+                    <h4>Kolkata</h4>
+                    <p>West Bengal</p>
+                </div>
+            </div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/IISER-Mohali_Logo-6-Gy2t-I.svg"
+                            alt="IISER Mohali Logo - Indian Institute of Science Education and Research">
+                    </div>
+                    <h4>Mohali</h4>
+                    <p>Punjab</p>
+                </div>
+            </div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/Indian_Institute_of_Science_Education_and_Research_Berhampur_Logo-B3KNS0tO.svg"
+                            alt="IISER Bhopal Logo - Indian Institute of Science Education and Research">
+                    </div>
+                    <h4>Bhopal</h4>
+                    <p>Madhya Pradesh</p>
+                </div>
+            </div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/IISER_Thiruvananthapuram_Logo-BIWHwTEI.svg"
+                            alt="IISER TVM Logo - Thiruvananthapuram">
+                    </div>
+                    <h4>TVM</h4>
+                    <p>Kerala</p>
+                </div>
+            </div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/IISER_Tirupati_logo-_D3v-JxD.png" alt="IISER Tirupati Logo - Andhra Pradesh">
+                    </div>
+                    <h4>Tirupati</h4>
+                    <p>Andhra Pradesh</p>
+                </div>
+            </div>
+
+            <div class="pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/IISERB_logo-GQTkw71M.png" alt="IISER Berhampur Logo - Odisha">
+                    </div>
+                    <h4>Berhampur</h4>
+                    <p>Odisha</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="institute-section" id="prestige">
+        <div class="category-header">
+            <h2>Prestige</h2>
+            <p>Institutes of National Importance</p>
+        </div>
+
+        <div class="pendulum-container" data-section="prestige">
+            <div class="anchor-bar"></div>
+
+            <div class="pendulum prestige-pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/Indian_Institute_of_Science_2019_logo-BMz0_JOC.svg" alt="IISc">
+                    </div>
+                    <h4>IISc</h4>
+                    <p>Karnataka</p>
+                </div>
+            </div>
+
+            <div class="pendulum prestige-pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/Indianstatisticalinstitutelogo-BID9kOBA.svg" alt="ISI">
+                    </div>
+                    <h4>ISI</h4>
+                    <p>West Bengal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="institute-section" id="niser">
+        <div class="category-header">
+            <h2>NISER</h2>
+            <p>National Institute of Science Education and Research</p>
+        </div>
+
+        <div class="pendulum-container" data-section="niser">
+            <div class="anchor-bar"></div>
+
+            <div class="pendulum niser-pendulum">
+                <div class="pendulum-string"></div>
+                <div class="pendulum-card">
+                    <div class="pendulum-logo">
+                        <img src="/assets/National_Institute_of_Science_Education_and_Research-C3P1Jbpv.svg" alt="NISER">
+                    </div>
+                    <h4>NISER</h4>
+                    <p>Bhubaneswar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================
+         MINIMAL ELEGANT FOOTER - CLEAN & ESSENTIAL ONLY
+         ================================================ -->
+    <footer class="minimal-footer">
+        <!-- Subtle Wave Divider -->
+        <div class="wave-divider">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path
+                    d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                    class="wave-shape"></path>
+            </svg>
+        </div>
+
+        <!-- Subtle Grid Background -->
+        <div class="subtle-grid"></div>
+
+        <div class="footer-content">
+            <!-- Main Section: Logo + Social + Contact -->
+            <div class="footer-main">
+                <!-- Logo -->
+                <div class="footer-brand">
+                    <div class="footer-logo"><span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
+                            class="logo-prep">prep</span></div>
+                    <p class="footer-tagline">Empowering future researchers</p>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="https://instagram.com/vigyan.prep" target="_blank" class="social-link instagram"
+                        title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://twitter.com/vigyanprep" target="_blank" class="social-link twitter"
+                        title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://facebook.com/vigyanprep" target="_blank" class="social-link facebook"
+                        title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/919876543210" target="_blank" class="social-link whatsapp" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/vigyanprep" target="_blank" class="social-link linkedin"
+                        title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+919876543210">+91 98765 43210</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:contact@vigyanprep.com">contact@vigyanprep.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Copyright + Legal -->
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2025 Vigyan.prep • Made with <span class="heart-icon">♥</span> for future researchers
+                </div>
+                <div class="legal-links">
+                    <a href="frontend/footer/privacy.html" class="legal-link">Privacy</a>
+                    <a href="frontend/footer/terms.html" class="legal-link">Terms</a>
+                    <a href="frontend/footer/refund.html" class="legal-link">Refund</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="frontend/js/user-panel.js"></script>
+    <script src="frontend/js/auth.js"></script>
+    <script src="frontend/js/index.js"></script>
+
+    <!-- Three.js for immersive science visualization -->
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</body>
+
+</html>

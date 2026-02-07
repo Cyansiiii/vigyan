@@ -50,21 +50,19 @@ export function AstronautCanvas() {
             >
                 <motion.div
                     style={{
-                        rotateX,
-                        rotateY,
-                        translateX,
+                        rotateX, // Keep only vertical tilt
                         transformStyle: "preserve-3d",
                     }}
                     className="relative w-full h-full flex items-center justify-center"
                 >
-                    {/* Main Astronaut Image - High Visibility
-                        Brightness 1.1 and Contrast 1.1 to make it pop against black background
-                        Drop shadow added for depth
+                    {/* Main Astronaut Image - Natural Visibility
+                        Brightness 1.05 and Contrast 1.1 to be visible but maintain drama.
+                        Subtle drop shadow for depth.
                     */}
                     <motion.img
-                        src="/images/astronaut.png"
+                        src="/images/hero-astronaut.png"
                         alt="Astronaut floating in space"
-                        className="w-auto h-auto max-w-[95%] max-h-[95%] object-contain select-none pointer-events-none brightness-110 contrast-110 drop-shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+                        className="w-auto h-auto max-w-[95%] max-h-[95%] object-contain select-none pointer-events-none brightness-[1.05] contrast-110 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                         initial={{ opacity: 0, scale: 0.85 }}
                         animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.85 }}
                         transition={{ duration: 1 }}
@@ -84,13 +82,6 @@ export function AstronautCanvas() {
                     />
                 </motion.div>
             </motion.div>
-
-            {/* Secondary slow rotation for depth */}
-            <motion.div
-                className="absolute inset-0 pointer-events-none"
-                animate={{ rotateZ: [0, 1, 0, -1, 0] }}
-                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            />
 
             {/* Subtle ambient particles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">

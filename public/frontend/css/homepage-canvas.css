@@ -1,0 +1,65 @@
+/* =========================================
+   HOMEPAGE CANVAS - Original Style Preserved
+   ========================================= */
+
+/* Full-screen canvas container */
+#homepage-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Subtle overlay for text readability */
+.canvas-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center,
+            transparent 0%,
+            transparent 50%,
+            rgba(10, 10, 26, 0.4) 100%);
+}
+
+/* Hero section with canvas - transparent background */
+.hero.hero-with-canvas {
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+}
+
+.hero.hero-with-canvas::before {
+    display: none !important;
+}
+
+/* Content sections need solid background */
+.institute-section,
+.minimal-footer,
+section:not(.hero) {
+    position: relative;
+    z-index: 5;
+    background: #0a0a1a;
+}
+
+/* Smooth transition from hero to content */
+.institute-section:first-of-type {
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(10, 10, 26, 0.9) 5%,
+            #0a0a1a 12%);
+    padding-top: 80px;
+}
+
+/* Mobile responsiveness - no font changes, just layout */
+@media (max-width: 768px) {
+    #homepage-canvas {
+        /* Canvas still works on mobile */
+    }
+}

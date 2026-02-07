@@ -1,0 +1,434 @@
+/* Animation Styles - Pendulum, Particles, Transitions */
+
+/* Hero Section Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroGlow {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-15px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  cursor: pointer;
+}
+
+.scroll-indicator i {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Pendulum Animations */
+.pendulum-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 500px;
+  margin-top: 60px;
+}
+
+.anchor-bar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+  border-radius: 2px;
+}
+
+.pendulum {
+  position: absolute;
+  top: 0;
+  transform-origin: top center;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.pendulum-string {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.6), rgba(99, 102, 241, 0.2));
+}
+
+.pendulum-card {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 160px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.pendulum-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px 20px 0 0;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.pendulum-card:hover::before {
+  transform: scaleX(1);
+}
+
+.pendulum-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+  transform: translateX(-50%) scale(1.05);
+}
+
+.pendulum-logo {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.pendulum-card:hover .pendulum-logo {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.pendulum-logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* Pendulum Swing Animations */
+@keyframes swing-short {
+  0% { transform: rotate(-12deg); }
+  100% { transform: rotate(12deg); }
+}
+
+@keyframes swing-medium {
+  0% { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes swing-long {
+  0% { transform: rotate(-8deg); }
+  100% { transform: rotate(8deg); }
+}
+
+/* IISER Pendulums - 7 institutes */
+.pendulum:nth-child(2) {
+  left: 7%;
+  animation: swing-long 3.5s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(2) .pendulum-string {
+  height: 280px;
+}
+.pendulum:nth-child(2) .pendulum-card {
+  top: calc(4px + 280px);
+}
+
+.pendulum:nth-child(3) {
+  left: 20%;
+  animation: swing-short 2.2s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(3) .pendulum-string {
+  height: 150px;
+}
+.pendulum:nth-child(3) .pendulum-card {
+  top: calc(4px + 150px);
+}
+
+.pendulum:nth-child(4) {
+  left: 33%;
+  animation: swing-long 3.3s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(4) .pendulum-string {
+  height: 260px;
+}
+.pendulum:nth-child(4) .pendulum-card {
+  top: calc(4px + 260px);
+}
+
+.pendulum:nth-child(5) {
+  left: 46%;
+  animation: swing-medium 2.8s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(5) .pendulum-string {
+  height: 200px;
+}
+.pendulum:nth-child(5) .pendulum-card {
+  top: calc(4px + 200px);
+}
+
+.pendulum:nth-child(6) {
+  left: 59%;
+  animation: swing-short 2.3s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(6) .pendulum-string {
+  height: 160px;
+}
+.pendulum:nth-child(6) .pendulum-card {
+  top: calc(4px + 160px);
+}
+
+.pendulum:nth-child(7) {
+  left: 72%;
+  animation: swing-long 3.4s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(7) .pendulum-string {
+  height: 270px;
+}
+.pendulum:nth-child(7) .pendulum-card {
+  top: calc(4px + 270px);
+}
+
+.pendulum:nth-child(8) {
+  left: 85%;
+  animation: swing-medium 2.7s infinite alternate ease-in-out;
+}
+.pendulum:nth-child(8) .pendulum-string {
+  height: 190px;
+}
+.pendulum:nth-child(8) .pendulum-card {
+  top: calc(4px + 190px);
+}
+
+/* Prestige Pendulums - 2 institutes */
+.prestige-pendulum:nth-child(2) {
+  left: 35%;
+  animation: swing-long 3.2s infinite alternate ease-in-out;
+}
+.prestige-pendulum:nth-child(2) .pendulum-string {
+  height: 240px;
+}
+.prestige-pendulum:nth-child(2) .pendulum-card {
+  top: calc(4px + 240px);
+}
+
+.prestige-pendulum:nth-child(3) {
+  left: 65%;
+  animation: swing-short 2.4s infinite alternate ease-in-out;
+}
+.prestige-pendulum:nth-child(3) .pendulum-string {
+  height: 170px;
+}
+.prestige-pendulum:nth-child(3) .pendulum-card {
+  top: calc(4px + 170px);
+}
+
+/* NISER Pendulum - 1 institute */
+.niser-pendulum:nth-child(2) {
+  left: 50%;
+  animation: swing-medium 2.9s infinite alternate ease-in-out;
+}
+.niser-pendulum:nth-child(2) .pendulum-string {
+  height: 220px;
+}
+.niser-pendulum:nth-child(2) .pendulum-card {
+  top: calc(4px + 220px);
+}
+
+/* Modal Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-overlay {
+  animation: modalFadeIn 0.3s ease;
+}
+
+/* Particle Canvas Animation */
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Loading Spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Shake Animation for Errors */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .pendulum-container {
+    height: 450px;
+  }
+  
+  .pendulum-card {
+    width: 140px;
+    padding: 15px;
+  }
+  
+  .pendulum-logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .pendulum-logo img {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pendulum-container {
+    height: 400px;
+  }
+  
+  .pendulum-card {
+    width: 120px;
+    padding: 12px;
+  }
+  
+  .pendulum-card h4 {
+    font-size: 0.9rem;
+  }
+  
+  .pendulum-card p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pendulum-container {
+    height: 350px;
+  }
+  
+  .pendulum-card {
+    width: 100px;
+    padding: 10px;
+  }
+  
+  .pendulum-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .pendulum-logo img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .pendulum-card h4 {
+    font-size: 0.8rem;
+  }
+  
+  /* Adjust string lengths for mobile */
+  .pendulum:nth-child(2) .pendulum-string { height: 200px; }
+  .pendulum:nth-child(2) .pendulum-card { top: calc(4px + 200px); }
+  
+  .pendulum:nth-child(3) .pendulum-string { height: 120px; }
+  .pendulum:nth-child(3) .pendulum-card { top: calc(4px + 120px); }
+  
+  .pendulum:nth-child(4) .pendulum-string { height: 200px; }
+  .pendulum:nth-child(4) .pendulum-card { top: calc(4px + 200px); }
+  
+  .pendulum:nth-child(5) .pendulum-string { height: 160px; }
+  .pendulum:nth-child(5) .pendulum-card { top: calc(4px + 160px); }
+  
+  .pendulum:nth-child(6) .pendulum-string { height: 120px; }
+  .pendulum:nth-child(6) .pendulum-card { top: calc(4px + 120px); }
+  
+  .pendulum:nth-child(7) .pendulum-string { height: 200px; }
+  .pendulum:nth-child(7) .pendulum-card { top: calc(4px + 200px); }
+  
+  .pendulum:nth-child(8) .pendulum-string { height: 160px; }
+  .pendulum:nth-child(8) .pendulum-card { top: calc(4px + 160px); }
+  
+  .prestige-pendulum:nth-child(2) .pendulum-string { height: 200px; }
+  .prestige-pendulum:nth-child(2) .pendulum-card { top: calc(4px + 200px); }
+  
+  .prestige-pendulum:nth-child(3) .pendulum-string { height: 120px; }
+  .prestige-pendulum:nth-child(3) .pendulum-card { top: calc(4px + 120px); }
+  
+  .niser-pendulum:nth-child(2) .pendulum-string { height: 160px; }
+  .niser-pendulum:nth-child(2) .pendulum-card { top: calc(4px + 160px); }
+}
