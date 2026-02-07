@@ -86,11 +86,19 @@ $emailHtml = <<<HTML
             <td align="center">
                 <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
                     
-                    <!-- Header -->
+                    <!-- Header - matches website brand -->
                     <tr>
-                        <td style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); padding: 35px 40px; text-align: center; border-bottom: 4px solid #d4af37;">
-                            <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 700;">VIGYAN<span style="color: #d4af37; font-weight: 300; font-size: 20px;">.prep</span></h1>
-                            <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;">National Examination Authority</p>
+                        <td style="background: #0d0d0d; padding: 25px 40px; border-bottom: 3px solid #d4af37;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <span style="font-family: 'Georgia', serif; font-size: 28px; font-weight: 400; letter-spacing: 2px; color: #d4af37;">VIGYAN</span><span style="font-family: 'Georgia', serif; font-size: 20px; font-weight: 300; color: #9ca3af;">.prep</span>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <span style="font-size: 11px; color: #6b7280; letter-spacing: 1px;">SCORE REPORT</span>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
 

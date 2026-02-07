@@ -211,27 +211,42 @@
             </div>
 
             <div class="inst-right-panel">
-                <div class="candidate-card">
-                    <div class="candidate-img">
-                        <i class="fas fa-user" style="font-size: 2rem;"></i>
+                <div class="candidate-card"
+                    style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); border: 2px solid #d4af37; text-align: center; padding: 25px 20px;">
+                    <div
+                        style="width: 70px; height: 70px; background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" fill="#1e3a5f" />
+                            <ellipse cx="12" cy="18" rx="7" ry="5" fill="#1e3a5f" />
+                        </svg>
                     </div>
-                    <h3 style="margin: 0;">Candidate Name</h3>
-                    <p style="color: #666; margin: 5px 0;">John Doe</p>
+                    <h3 style="margin: 0; color: #d4af37; font-size: 1.1rem; font-weight: 600;">Welcome, Candidate</h3>
+                    <p style="color: #94a3b8; margin: 8px 0 0 0; font-size: 0.85rem;">Please enter your details below
+                    </p>
                 </div>
 
-                <div class="login-form">
-                    <div style="text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">Login
-                        details:</div>
+                <div class="login-form"
+                    style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                    <div
+                        style="text-align: left; margin-bottom: 12px; font-weight: 600; font-size: 0.95rem; color: #1e3a5f;">
+                        📝 Login Details
+                    </div>
                     <input type="text" id="candidateName" placeholder="Enter your full name" required
-                        style="margin-bottom: 8px;">
-                    <input type="email" id="candidateEmail" placeholder="Enter your email (for score report)" required>
-                    <label class="agree-box">
-                        <input type="checkbox" id="agreeTerms">
+                        style="margin-bottom: 10px; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s;">
+                    <input type="email" id="candidateEmail" placeholder="Enter your email (for score report)" required
+                        style="padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s;">
+                    <label class="agree-box"
+                        style="margin-top: 15px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem; color: #64748b;">
+                        <input type="checkbox" id="agreeTerms" style="margin-top: 3px; accent-color: #d4af37;">
                         <span>I have read and understood the instructions. I agree that in case of not adhering to the
                             instructions, my candidature may be cancelled.</span>
                     </label>
-                    <button class="begin-btn" id="beginTestBtn" disabled>I am ready to begin</button>
-                    <div style="margin-top: 10px; font-size: 0.8rem; color: #888;">System ID: C101 | Ver: 18.02.00</div>
+                    <button class="begin-btn" id="beginTestBtn" disabled
+                        style="width: 100%; padding: 14px; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; transition: all 0.3s; opacity: 0.6;">
+                        🚀 I am ready to begin
+                    </button>
+                    <div style="margin-top: 12px; font-size: 0.75rem; color: #94a3b8; text-align: center;">System ID:
+                        C101 | Ver: 18.02.00</div>
                 </div>
             </div>
         </div>
