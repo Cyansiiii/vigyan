@@ -119,7 +119,8 @@
         document.getElementById('sectionTitle').textContent = currentSection;
 
         const content = document.getElementById('questionContent');
-        content.innerHTML = question.text;
+        // Support both 'text' (2025 format) and 'question' (2024 format)
+        content.innerHTML = question.text || question.question;
 
         const optionsContainer = document.getElementById('optionsContainer');
         optionsContainer.innerHTML = '';
