@@ -191,7 +191,7 @@
     },
     {
         "id": 19,
-        "question": "The graph depicts an energy diagram (potential energy \\( vs \\) progress of reaction) of an uncatalyzed and enzyme-catalysed reaction.<br>[IMAGE_REQUIRED_BIO_Q20]<br>Which of the following statement/s about enzyme catalysis is/are CORRECT:",
+        "question": "The graph depicts an energy diagram (potential energy \\( vs \\) progress of reaction) of an uncatalyzed and enzyme-catalysed reaction.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q20.png' alt='Energy Diagram' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Which of the following statement/s about enzyme catalysis is/are CORRECT:",
         "options": [
             "(A) Statements i and ii are correct",
             "(B) i and iii",
