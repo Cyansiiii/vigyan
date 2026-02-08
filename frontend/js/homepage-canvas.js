@@ -343,8 +343,20 @@ class StunningCanvas {
 }
 
 // Initialize
+console.log('✨ StunningCanvas Script Loaded');
 document.addEventListener('DOMContentLoaded', () => {
-    new StunningCanvas('homepage-canvas');
+    console.log('🚀 Initializing StunningCanvas');
+    try {
+        const canvas = document.getElementById('homepage-canvas');
+        if (canvas) {
+            new StunningCanvas('homepage-canvas');
+            console.log('✅ StunningCanvas Initialized Successfully');
+        } else {
+            console.error('❌ Canvas element #homepage-canvas not found!');
+        }
+    } catch (err) {
+        console.error('❌ Error initializing StunningCanvas:', err);
+    }
 });
 
 export default StunningCanvas;
