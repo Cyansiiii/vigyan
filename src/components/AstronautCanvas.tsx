@@ -7,7 +7,7 @@ export function AstronautCanvas() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    // Mouse position for subtle parallax effect (centered)
+    // Mouse position for subtle parallax effect
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
@@ -16,7 +16,7 @@ export function AstronautCanvas() {
     const x = useSpring(mouseX, springConfig);
     const y = useSpring(mouseY, springConfig);
 
-    // Subtle mouse tracking for parallax
+    // Subtle mouse tracking
     const rotateX = useTransform(y, [-300, 300], [3, -3]);
     const rotateY = useTransform(x, [-300, 300], [-3, 3]);
     const translateX = useTransform(x, [-300, 300], [-8, 8]);
@@ -42,48 +42,60 @@ export function AstronautCanvas() {
             className="w-full h-full relative"
             style={{ minHeight: '700px' }}
         >
-            {/* Main floating astronaut container */}
+            {/* Main floating astronaut with prominent up/down animation */}
             <motion.div
                 className="absolute inset-0 flex items-center justify-center"
-                animate={{ y: [0, -25, 0, 15, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                // Primary floating animation - visible up and down movement
+                animate={{
+                    y: [0, -25, 0, 15, 0],
+                }}
+                transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
             >
                 <motion.div
                     style={{
-                        rotateX, // Keep only vertical tilt
+                        rotateX,
+                        rotateY,
+                        translateX,
                         transformStyle: "preserve-3d",
                     }}
-                    className="relative w-full h-full flex items-center justify-center"
                 >
-                    {/* Main Astronaut Image - Natural Visibility
-                        Brightness 1.05 and Contrast 1.1 to be visible but maintain drama.
-                        Subtle drop shadow for depth.
-                    */}
                     <motion.img
-                        src="/images/hero-astronaut.png"
+                        src="/images/astronaut.png"
                         alt="Astronaut floating in space"
-                        className="w-auto h-auto max-w-[95%] max-h-[95%] object-contain select-none pointer-events-none brightness-[1.05] contrast-110 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                        initial={{ opacity: 0, scale: 0.85 }}
-                        animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.85 }}
-                        transition={{ duration: 1 }}
-                        onLoad={() => setIsLoaded(true)}
-                    />
-
-                    {/* Glowing Core Effect (Pulsing) - Kept as requested */}
-                    <motion.div
-                        className="absolute w-4 h-4 bg-blue-500 rounded-full blur-md"
-                        style={{
-                            top: '45%',
-                            left: '52%',
-                            filter: 'drop-shadow(0 0 10px #3b82f6)'
+                        className="w-auto h-auto max-w-[95%] max-h-[95%] object-contain select-none pointer-events-none"
+                        initial={{ opacity: 0, scale: 0.85, y: 50 }}
+                        animate={{
+                            opacity: isLoaded ? 1 : 0,
+                            scale: isLoaded ? 1 : 0.85,
+                            y: isLoaded ? 0 : 50
                         }}
-                        animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.2, 1] }}
-                        transition={{ duration: 3, repeat: Infinity }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        onLoad={() => setIsLoaded(true)}
+                        style={{
+                            filter: "drop-shadow(0 0 80px rgba(59, 130, 246, 0.2)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4))",
+                        }}
                     />
                 </motion.div>
             </motion.div>
 
-            {/* Subtle ambient particles */}
+            {/* Secondary slow rotation for depth */}
+            <motion.div
+                className="absolute inset-0 pointer-events-none"
+                animate={{
+                    rotateZ: [0, 1, 0, -1, 0],
+                }}
+                transition={{
+                    duration: 12,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
+
+            {/* Subtle ambient particles for space atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {[...Array(15)].map((_, i) => (
                     <motion.div
@@ -93,7 +105,10 @@ export function AstronautCanvas() {
                             left: `${20 + Math.random() * 60}%`,
                             top: `${Math.random() * 100}%`,
                         }}
-                        animate={{ opacity: [0, 0.6, 0], y: [0, -80] }}
+                        animate={{
+                            opacity: [0, 0.6, 0],
+                            y: [0, -80],
+                        }}
                         transition={{
                             duration: 4 + Math.random() * 3,
                             repeat: Infinity,

@@ -1,32 +1,36 @@
 "use client";
 
 import React, { useEffect } from "react";
-
-
+import { LiquidMetalButton } from "@/components/ui/liquid-metal";
+import { MaskedAvatars } from "@/components/ui/masked-avatars";
+import { PerspectiveGrid } from "@/components/ui/perspective-grid";
 import { CreepyButton } from "@/components/ui/creepy-button";
 import { AstronautCanvas } from "@/components/AstronautCanvas";
 import { ZenRain } from "@/components/ui/zen-rain";
 import { FolderPreview } from "@/components/ui/folder-preview";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
-import { FlipText } from "@/components/ui/flip-text";
-import { FlipFadeText } from "@/components/ui/flip-fade-text";
-import AnimatedButton from "@/components/ui/animated-button";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { PerspectiveGrid } from "@/components/ui/perspective-grid";
-import InteractiveBook from "@/components/ui/interactive-book";
-import { TestimonialsCard } from "@/components/ui/testimonials-card";
 import { ArrowRight, Binary, Microscope, Zap, Compass, Atom, ShieldCheck, Target, Trophy, Terminal } from "lucide-react";
 import "./AboutPage.css";
 
 export default function AboutPage() {
     // Navigation handlers
-
+    const handleInitiateTrajectory = () => {
+        window.location.href = '/testfirstpage.html';
+    };
 
     const handleSystemOverview = () => {
         const section = document.getElementById('philosophy-section');
         section?.scrollIntoView({ behavior: 'smooth' });
     };
+
+    // Subject discipline icons (using high-quality science imagery)
+    const avatars = [
+        { avatar: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=100&auto=format&fit=crop", name: "Physics" },
+        { avatar: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=100&auto=format&fit=crop", name: "Biology" },
+        { avatar: "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=100&auto=format&fit=crop", name: "Math" },
+        { avatar: "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?q=80&w=100&auto=format&fit=crop", name: "Chemistry" },
+    ];
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -57,281 +61,237 @@ export default function AboutPage() {
 
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center px-6 lg:px-24 z-10 pt-20">
-                <div className="max-w-5xl w-full relative z-20">
+                <div className="max-w-5xl w-full">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     >
+                        <span className="section-label group cursor-default">
+                            Institutional Directives <span className="text-white/20 px-2">//</span> <span className="text-white group-hover:text-blue-500 transition-colors duration-500">v2.0 ZEN SCIENCE</span>
+                        </span>
+
                         <div className="mb-14">
                             <h1 className="systematic-heading text-6xl md:text-9xl tracking-tighter">
                                 <span className="block opacity-30">SYMMETRY OF</span>
-                                <span className="block text-blue-500">
-                                    <FlipText duration={3} delay={0.5}>ZEN SCIENCE.</FlipText>
-                                </span>
+                                <span className="block gradient-text">ZEN SCIENCE.</span>
                             </h1>
                         </div>
 
-                        <div className="mt-16 mb-20">
-                            <AnimatedButton
-                                onClick={handleSystemOverview}
-                                className="px-10 py-5 text-lg font-bold tracking-widest uppercase rounded-full border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
-                            >
+                        <p className="hero-subtitle text-xl md:text-3xl max-w-3xl mb-14 font-light leading-relaxed">
+                            A confluence of <span className="text-blue-500 italic font-medium">Rational Inquiry</span> and
+                            the <span className="text-white font-bold">Scientific Vanguard</span>.
+                            Bridging ancient logic with the physics of tomorrow.
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-10">
+                            <LiquidMetalButton size="lg" onClick={handleInitiateTrajectory}>
                                 <span className="flex items-center gap-3">
-                                    SYSTEM OVERVIEW
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                                    Initiate Trajectory
+                                    <ArrowRight className="w-5 h-5" />
                                 </span>
-                            </AnimatedButton>
+                            </LiquidMetalButton>
+
+                            <button
+                                onClick={handleSystemOverview}
+                                className="text-slate-500 hover:text-white transition-all uppercase tracking-[0.4em] text-[9px] font-black flex items-center gap-6 group cursor-pointer bg-transparent border-none"
+                            >
+                                <span className="w-12 h-px bg-white/10 group-hover:w-20 group-hover:bg-blue-500 transition-all duration-500"></span>
+                                <span className="reveal-underline">System Overview</span>
+                            </button>
+                        </div>
+
+                        <div className="mt-28 flex items-center gap-10">
+                            <MaskedAvatars avatars={avatars} />
+                            <div className="h-10 w-px bg-white/10"></div>
+                            <div className="text-sm font-mono tracking-tighter text-slate-500">
+                                <span className="block text-white font-black text-3xl stat-glow">10,000+</span>
+                                <span className="uppercase text-[10px] tracking-[0.4em] opacity-40">Neural Nodes Active</span>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
 
-                <div className="absolute right-[-5%] top-0 w-3/5 h-full pointer-events-none hidden xl:block z-0">
+                <div className="absolute right-[-5%] top-0 w-3/5 h-full opacity-40 pointer-events-none hidden xl:block">
                     <AstronautCanvas />
                 </div>
             </section>
 
-            {/* Core Philosophy Section - One Frame Design */}
-            <section id="philosophy-section" className="relative min-h-screen py-16 px-6 lg:px-24 z-10 bg-gradient-to-b from-transparent via-blue-500/[0.02] to-transparent flex items-center justify-center">
-                {/* Animated Background Orbs */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Orbital Ring Animation */}
-                    <motion.div
-                        className="absolute top-1/2 left-1/2 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 border border-blue-500/10 rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                    />
-                    <motion.div
-                        className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 border border-blue-500/5 rounded-full"
-                        animate={{ rotate: -360 }}
-                        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-                    />
-                    {/* Floating Particles */}
-                    {[...Array(8)].map((_, i) => (
+            {/* Core Philosophy Section */}
+            <section id="philosophy-section" className="relative py-48 px-6 lg:px-24 z-10 bg-gradient-to-b from-transparent via-blue-500/[0.01] to-transparent">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-40 items-start">
                         <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 bg-blue-500/30 rounded-full blur-sm"
-                            style={{
-                                left: `${15 + i * 10}%`,
-                                top: `${20 + (i % 3) * 25}%`,
-                            }}
-                            animate={{
-                                y: [0, -30, 0],
-                                opacity: [0.3, 0.8, 0.3],
-                                scale: [1, 1.5, 1],
-                            }}
-                            transition={{
-                                duration: 4 + i * 0.5,
-                                repeat: Infinity,
-                                delay: i * 0.3,
-                            }}
-                        />
-                    ))}
-                    {/* Central Glow */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl" />
-                </div>
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1 }}
+                            viewport={{ once: true }}
+                        >
+                            <span className="section-label">Logic Framework // Pramana</span>
+                            <h2 className="text-5xl md:text-8xl font-black mb-12 tracking-tight leading-[0.85]">
+                                The Science of <br />
+                                <span className="gradient-text reveal-underline">Discovery.</span>
+                            </h2>
 
-                <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1 }}
-                        viewport={{ once: true }}
-                        className="text-center mb-16"
-                    >
-                        <span className="section-label text-center">Logic Framework // Pramana</span>
-                        <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-[0.9]">
-                            The Science of <br />
-                            <span className="gradient-text reveal-underline">
-                                <FlipText duration={3} delay={0.2} separator="">Discovery.</FlipText>
-                            </span>
-                        </h2>
-                    </motion.div>
+                            <div className="buddhist-quote-container border-blue-500/50 glass-panel p-10">
+                                <p className="text-2xl md:text-4xl text-white font-light italic leading-relaxed mb-8">
+                                    "Do not believe in anything simply because you have heard it... but after observation and analysis... accept it and live up to it."
+                                </p>
+                                <span className="text-blue-500 font-mono tracking-[0.5em] text-[10px] uppercase opacity-60">— The Buddha Code</span>
+                            </div>
 
-                    <TestimonialsCard
-                        items={[
-                            {
-                                id: "buddha-code",
-                                title: "The Buddha Code",
-                                description: "\"Do not believe in anything simply because you have heard it... but after observation and analysis... accept it and live up to it.\"",
-                                image: "/assets/heritage/buddhist_logic_modern_science_fusion_1770312594808.png"
-                            },
-                            {
-                                id: "conceptual-integrity",
-                                title: "Conceptual Integrity",
-                                description: "Upholding absolute truth through rigorous counter-questioning and persistent verification. The foundation of scientific inquiry.",
-                                image: "/assets/heritage/scientific_logic_visualization_diagram_1770314769518.png"
-                            },
-                            {
-                                id: "focused-discipline",
-                                title: "Focused Discipline",
-                                description: "A mind stilled by Zen is a mind capable of cracking the most complex quantum equations. Focus is the ultimate weapon.",
-                                image: "/assets/heritage/modern_space_atomic_premium_render_1770312628720.png"
-                            },
-                            {
-                                id: "vanguard-legacy",
-                                title: "Vanguard Legacy",
-                                description: "Restoring India's status as the global epicentre of systematic and verifiable knowledge. Building the next generation of pioneers.",
-                                image: "/assets/heritage/modern_science_pioneers_india_1770422667638.png"
-                            }
-                        ]}
-                        width={500}
-                        className="w-full"
-                        autoPlay={true}
-                        autoPlayInterval={5000}
-                    />
+                            <p className="text-slate-400 text-lg leading-relaxed font-light mt-12 max-w-xl">
+                                We recognize the <span className="text-white font-medium">Pramana System</span> as the world's most ancient scientific methodology. It demands rigorous proof via direct perception and logical inference.
+                            </p>
+                        </motion.div>
 
-                    <p className="text-slate-400 text-sm md:text-base leading-relaxed font-light mt-16 max-w-xl text-center">
-                        We recognize the <span className="text-white font-medium">Pramana System</span> as the world's most ancient scientific methodology. It demands rigorous proof via direct perception and logical inference.
-                    </p>
+                        <div className="systematic-grid mt-12 lg:mt-0">
+                            {[
+                                { icon: <ShieldCheck className="w-6 h-6" />, title: "Conceptual Integrity", desc: "Upholding absolute truth through rigorous counter-questioning and persistent verification." },
+                                { icon: <Target className="w-6 h-6" />, title: "Focused Discipline", desc: "A mind stilled by Zen is a mind capable of cracking the most complex quantum equations." },
+                                { icon: <Trophy className="w-6 h-6" />, title: "Vanguard Legacy", desc: "Restoring India's status as the global epicentre of systematic and verifiable knowledge." }
+                            ].map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.1, duration: 0.8 }}
+                                    viewport={{ once: true }}
+                                    className="systematic-card"
+                                >
+                                    <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-10 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500">
+                                        {item.icon}
+                                    </div>
+                                    <h4 className="text-xl font-bold text-white mb-4 uppercase tracking-wider">{item.title}</h4>
+                                    <p className="text-slate-500 leading-relaxed text-sm font-light">{item.desc}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* Systematic Units: Pioneers */}
-            <section className="relative min-h-screen flex flex-col justify-center py-12 px-6 lg:px-24 bg-blue-500/[0.02] z-10 border-y border-white/5">
-                <div className="max-w-7xl mx-auto w-full">
-                    <div className="text-center mb-12">
+            <section className="relative py-48 px-6 lg:px-24 bg-blue-500/[0.02] z-10 border-y border-white/5">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-40">
                         <span className="section-label text-center">Architects of the Modern Era</span>
-                        <FlipFadeText
-                            words={["VANGUARD UNITS.", "PIONEER MINDS.", "LEGACY BUILDERS."]}
-                            interval={3000}
-                            textClassName="text-5xl md:text-8xl font-black text-white tracking-tighter justify-center"
-                            className="min-h-[60px] md:min-h-[100px]"
-                        />
+                        <h3 className="text-6xl md:text-9xl font-black text-white tracking-tighter">VANGUARD UNITS.</h3>
                     </div>
 
-                    <TestimonialsCard
-                        items={[
-                            {
-                                id: "kalam",
-                                title: "Dr. APJ Abdul Kalam",
-                                description: "The 'Missile Man of India' who architected the Integrated Guided Missile Development Programme and served as the 11th President.",
-                                image: "/assets/scientists/kalam.jpg"
-                            },
-                            {
-                                id: "bhabha",
-                                title: "Dr. Homi J. Bhabha",
-                                description: "The father of the Indian nuclear programme, founding director of TIFR, and a visionary in quantum theory and cosmic radiation.",
-                                image: "/assets/scientists/bhabha.jpg"
-                            },
-                            {
-                                id: "sarabhai",
-                                title: "Dr. Vikram Sarabhai",
-                                description: "The father of the Indian Space Programme (ISRO). A physicist and industrialist who initiated space research and helped develop nuclear power in India.",
-                                image: "/assets/scientists/sarabhai.jpg"
-                            },
-                            {
-                                id: "raman",
-                                title: "C.V. Raman",
-                                description: "Nobel Laureate in Physics (1930) for the 'Raman Effect', demonstrating the scattering of light. The first Asian to receive a Nobel Prize in any branch of science.",
-                                image: "/assets/scientists/raman.jpg"
-                            },
-                            {
-                                id: "bose-sn",
-                                title: "Satyendra Nath Bose",
-                                description: "Theoretical physicist best known for his work on quantum mechanics in the early 1920s, providing the foundation for Bose-Einstein statistics and the theory of the Bose-Einstein condensate.",
-                                image: "/assets/scientists/bose-sn.jpg"
-                            },
-                            {
-                                id: "ramanujan",
-                                title: "Srinivasa Ramanujan",
-                                description: "One of the greatest mathematicians of all time. Made substantial contributions to mathematical analysis, number theory, infinite series, and continued fractions.",
-                                image: "/assets/scientists/ramanujan.jpg"
-                            },
-                            {
-                                id: "bose-jc",
-                                title: "Jagadish Chandra Bose",
-                                description: "A polymath, physicist, biologist, biophysicist, botanist and archaeologist, and an early writer of science fiction. He pioneered the investigation of radio and microwave optics.",
-                                image: "/assets/scientists/bose-jc.jpg"
-                            },
-                            {
-                                id: "kalpana",
-                                title: "Kalpana Chawla",
-                                description: "The first woman of Indian origin to go to space. An engineer and astronaut who flew on the Space Shuttle Columbia.",
-                                image: "/assets/scientists/kalpana.jpg"
-                            },
-                            {
-                                id: "venki",
-                                title: "Venkatraman Ramakrishnan",
-                                description: "Nobel Laureate in Chemistry (2009) for studies of the structure and function of the ribosome.",
-                                image: "/assets/scientists/venki.jpg"
-                            },
-                            {
-                                id: "chandrasekhar",
-                                title: "Subrahmanyan Chandrasekhar",
-                                description: "Nobel Laureate in Physics (1983) for his theoretical studies of the physical processes of importance to the structure and evolution of the stars (Chandrasekhar Limit).",
-                                image: "/assets/scientists/chandrasekhar.jpg"
-                            },
-                            {
-                                id: "tessy",
-                                title: "Tessy Thomas",
-                                description: "Known as the 'Missile Woman of India', she is a distinguished scientist who served as the Project Director for Agni-IV missile in DRDO.",
-                                image: "/assets/scientists/tessy.png"
-                            },
-                            {
-                                id: "visvesvaraya",
-                                title: "M. Visvesvaraya",
-                                description: "One of India's greatest civil engineers and statesmen, often regarded as the 'Father of Indian Engineering'.",
-                                image: "/assets/scientists/visvesvaraya.jpg"
-                            }
-                        ]}
-                        width={500}
-                        className="w-full"
-                        autoPlay={true}
-                        autoPlayInterval={2000}
-                    />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        {/* KALAM UNIT */}
+                        <motion.div
+                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 50 }}
+                            transition={{ duration: 1 }}
+                            viewport={{ once: true }}
+                            className="systematic-card group"
+                        >
+                            <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-1000">
+                                <Zap className="w-80 h-80 text-blue-500" />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="flex flex-wrap items-center gap-10 mb-16">
+                                    <div className="science-pioneer-frame w-32 h-32 grayscale group-hover:grayscale-0 transition-all duration-1000 overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/A._P._J._Abdul_Kalam.jpg" alt="Abdul Kalam" className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase">Dr. APJ Abdul Kalam</h4>
+                                        <p className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mt-3">Rocket Architecture // Strategic Vision</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-12">
+                                    <p className="text-2xl text-slate-300 font-light italic leading-relaxed">
+                                        "Confidence and Hard-work is the best medicine to kill the disease called failure."
+                                    </p>
+                                    <div className="grid grid-cols-2 gap-8">
+                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
+                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">Vision 2020</span>
+                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Systematic Directives</span>
+                                        </div>
+                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
+                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">SLV-III Unit</span>
+                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Integrated Design</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* BHABHA UNIT */}
+                        <motion.div
+                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 50 }}
+                            transition={{ delay: 0.2, duration: 1 }}
+                            viewport={{ once: true }}
+                            className="systematic-card group"
+                        >
+                            <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-1000">
+                                <Atom className="w-80 h-80 text-blue-500" />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="flex flex-wrap items-center gap-10 mb-16">
+                                    <div className="science-pioneer-frame w-32 h-32 grayscale group-hover:grayscale-0 transition-all duration-1000 overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/en/2/2a/Homi_Jehangir_Bhabha.jpg" alt="Homi Bhabha" className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase">Dr. Homi J. Bhabha</h4>
+                                        <p className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mt-3">Atomic Systems // Institution Builder</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-12">
+                                    <p className="text-2xl text-slate-300 font-light italic leading-relaxed">
+                                        "For, after all, the only way of learning is by doing, and the only way of getting work done is by doing it yourself."
+                                    </p>
+                                    <div className="grid grid-cols-2 gap-8">
+                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
+                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">TIFR Nexus</span>
+                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Architectural Root</span>
+                                        </div>
+                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
+                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">Nuclear 3</span>
+                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Systematic Mastery</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
-            {/* The Archive Section */}
-            <section className="relative py-32 px-6 flex flex-col items-center justify-center min-h-[80vh] bg-black/40 z-10 border-t border-white/5">
-                <h2 className="text-4xl md:text-6xl font-black text-white mb-20 z-10 tracking-tighter">
-                    THE <span className="text-purple-500">ARCHIVE</span>
-                </h2>
-                <div className="relative z-20">
-                    <InteractiveBook
-                        coverImage="/images/vigyan-book-cover.png"
-                        bookTitle="VIGYAN CODEX"
-                        bookAuthor="THE COLLECTIVE"
-                        width={300}
-                        height={420}
-                        pages={[
-                            {
-                                pageNumber: 1,
-                                title: "The Mission",
-                                content: (
-                                    <div className="flex flex-col gap-4">
-                                        <p>To restore the <span className="font-bold">DNA of Excellence</span>.</p>
-                                        <p>Vigyan.prep is not just a platform; it is a movement to reclaim the intellectual heritage that once mapped the stars.</p>
-                                        <p>Our curriculum is designed to forge critical thinkers, not just test-takers.</p>
-                                    </div>
-                                )
-                            },
-                            {
-                                pageNumber: 2,
-                                title: "Pramana",
-                                content: (
-                                    <div className="flex flex-col gap-4">
-                                        <p>We recognize the Pramana System as the ultimate methodology for truth.</p>
-                                        <p>1. <strong>Pratyaksha</strong> (Perception)</p>
-                                        <p>2. <strong>Anumana</strong> (Inference)</p>
-                                        <p>3. <strong>Shabda</strong> (Testimony)</p>
-                                    </div>
-                                )
-                            },
-                            {
-                                pageNumber: 3,
-                                title: "The Future",
-                                content: (
-                                    <div className="flex flex-col gap-4">
-                                        <p>The future belongs to those who can synthesize ancient wisdom with modern computation.</p>
-                                        <p>Join us in this journey of discovery.</p>
-                                        <p className="text-center font-bold mt-8">INITIATE TRAJECTORY</p>
-                                    </div>
-                                )
-                            }
-                        ]}
-                    />
+            {/* Heritage Units */}
+            <section className="relative py-48 px-6 lg:px-24 z-10">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+                        <div>
+                            <span className="section-label">Ancestral Intel</span>
+                            <h2 className="text-5xl md:text-8xl font-black mb-12 tracking-tight text-white reveal-underline">HERITAGE.</h2>
+                            <p className="text-xl text-slate-400 font-light leading-relaxed mb-16 max-w-xl">
+                                We are descendants of a culture that mapped stars thousands of years ago. Our mission: restore that <span className="text-white font-bold">DNA of Excellence</span> through analytical precision and institutional rigor.
+                            </p>
+                            <div className="flex gap-16">
+                                {[{ icon: <Binary />, label: "Ancient Logic" }, { icon: <Microscope />, label: "Deep Inquiry" }, { icon: <Compass />, label: "Guided Path" }].map((u, i) => (
+                                    <motion.div
+                                        key={i}
+                                        whileHover={{ y: -5 }}
+                                        className="flex flex-col gap-5 group cursor-help"
+                                    >
+                                        <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all duration-500">
+                                            {u.icon}
+                                        </div>
+                                        <span className="text-white/40 group-hover:text-white font-bold text-[10px] tracking-[0.3em] uppercase transition-colors duration-500">{u.label}</span>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-12 justify-center lg:justify-end">
+                            <FolderPreview variant="devi" label="Logic Artifacts" size="lg" images={["/assets/heritage/buddhist_logic_pramana_heritage_1770422630234.png"]} />
+                            <FolderPreview variant="ardra" label="Tactical Scroll" size="lg" images={["/assets/heritage/chanakya_strategic_brilliance_1770422646971.png"]} />
+                        </div>
+                    </div>
                 </div>
             </section>
 
