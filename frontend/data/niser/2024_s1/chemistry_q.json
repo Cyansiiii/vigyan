@@ -1,7 +1,7 @@
 [
     {
         "id": 0,
-        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q1.png' alt='Chemical Reactions' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>In this context, the correct statement is",
+        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q1.png' alt='Chemical Reactions' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>In this context, the correct statement is",
         "options": [
             "(a) Q is a ketone and T is an ether.",
             "(b) R is an acid and S is a ketal",
@@ -11,7 +11,7 @@
     },
     {
         "id": 1,
-        "question": "Aqueous solution of sodium salt of 2-methylbutanoic acid on Kolbe electrolysis yields **P** (major product). **P** is<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q2.png' alt='Kolbe Electrolysis Products' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "Aqueous solution of sodium salt of 2-methylbutanoic acid on Kolbe electrolysis yields **P** (major product). **P** is<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q2.png' alt='Kolbe Electrolysis Products' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(a)",
             "(b)",
@@ -21,7 +21,7 @@
     },
     {
         "id": 2,
-        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q3.png' alt='Reactions of P' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>**R** and **S**, respectively, are",
+        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q3.png' alt='Reactions of P' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>**R** and **S**, respectively, are",
         "options": [
             "(a) Methoxybenzene and 2-Hydroxybenzoic acid",
             "(b) Methylbenzene and Benzoic acid",
@@ -31,7 +31,7 @@
     },
     {
         "id": 3,
-        "question": "Glucose on treatment with bromine water yields **X**. **X** upon treatment with excess of acetic anhydride yields **Y**. The structure of **Y** is<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q4.png' alt='Structures' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "Glucose on treatment with bromine water yields **X**. **X** upon treatment with excess of acetic anhydride yields **Y**. The structure of **Y** is<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q4.png' alt='Structures' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(a)",
             "(b)",
@@ -41,7 +41,7 @@
     },
     {
         "id": 4,
-        "question": "An intramolecular aldol reaction of **P** in the presence of dilute NaOH yields a mixture of aldol reaction products.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q5_structure.png' alt='Compound P' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>One of the products that can be formed is<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q5_options.png' alt='Options' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "An intramolecular aldol reaction of **P** in the presence of dilute NaOH yields a mixture of aldol reaction products.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q5_structure.png' alt='Compound P' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>One of the products that can be formed is<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q5_options.png' alt='Options' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(a)",
             "(b)",
@@ -51,7 +51,7 @@
     },
     {
         "id": 5,
-        "question": "Consider the following compounds.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q6.png' alt='Compounds' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the compounds that show aromaticity are",
+        "question": "Consider the following compounds.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q6.png' alt='Compounds' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the compounds that show aromaticity are",
         "options": [
             "(a) I and IV",
             "(b) II and III",
@@ -61,7 +61,7 @@
     },
     {
         "id": 6,
-        "question": "Consider the following ethers.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q7.png' alt='Ethers' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the ethers that can be synthesized under mild conditions using Williamson's ether synthesis are",
+        "question": "Consider the following ethers.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q7.png' alt='Ethers' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the ethers that can be synthesized under mild conditions using Williamson's ether synthesis are",
         "options": [
             "(a) I and II",
             "(b) II and III",
@@ -151,7 +151,7 @@
     },
     {
         "id": 15,
-        "question": "Consider the reaction equilibrium \\(X(g) \rightleftharpoons Y(g) + Z(g)\\) at a constant temperature \\(T\\). Starting with 1 mole of \\(X\\), the equilibrium is reached at a given pressure \\(P\\). A plot of \\(PV/RT\\) vs \\(P/P^0\\) will look like:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q16.png' alt='PV/RT Plot' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "Consider the reaction equilibrium \\(X(g) \rightleftharpoons Y(g) + Z(g)\\) at a constant temperature \\(T\\). Starting with 1 mole of \\(X\\), the equilibrium is reached at a given pressure \\(P\\). A plot of \\(PV/RT\\) vs \\(P/P^0\\) will look like:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q16.png' alt='PV/RT Plot' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(a)",
             "(b)",
@@ -171,7 +171,7 @@
     },
     {
         "id": 17,
-        "question": "Consider the following molecular orbitals that are formed by sidewise overlap of adjacent 2p atomic orbitals.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q18.png' alt='Molecular Orbitals' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct order of energies of the molecular orbitals is",
+        "question": "Consider the following molecular orbitals that are formed by sidewise overlap of adjacent 2p atomic orbitals.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q18.png' alt='Molecular Orbitals' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct order of energies of the molecular orbitals is",
         "options": [
             "(a) IV<II=III<I",
             "(b) III < IV < II < I",

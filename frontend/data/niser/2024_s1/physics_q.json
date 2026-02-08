@@ -101,7 +101,7 @@
     },
     {
         "id": 10,
-        "question": "A conducting slab is between capacitor plates. Net surface charge density is \\(+\\sigma/2\\). Induced charge density facing positive terminal is:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/phys_q11.png' alt='Capacitor Diagram' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "A conducting slab is between capacitor plates. Net surface charge density is \\(+\\sigma/2\\). Induced charge density facing positive terminal is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/phys_q11.png' alt='Capacitor Diagram' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) \\(-\\sigma\\)",
             "(B) \\(-5\\sigma/4\\)",
@@ -111,7 +111,7 @@
     },
     {
         "id": 11,
-        "question": "A quarter circular loop in the \\(xz\\)-plane carries current \\(I\\). The \\(y\\)-component of magnetic field at \\((0, R, 0)\\) is:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/phys_q12.png' alt='Magnetic Field Loop' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "A quarter circular loop in the \\(xz\\)-plane carries current \\(I\\). The \\(y\\)-component of magnetic field at \\((0, R, 0)\\) is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/phys_q12.png' alt='Magnetic Field Loop' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) μ0I/(162R)",
             "(B) \\(\\mu_0 I / (4\\sqrt{2}R)\\)",
@@ -191,7 +191,7 @@
     },
     {
         "id": 19,
-        "question": "Two semi-infinite wires. Square loop of side \\(a\\) at \\(2a\\). Induced emf is:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/phys_q20.png' alt='Induced EMF' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "Two semi-infinite wires. Square loop of side \\(a\\) at \\(2a\\). Induced emf is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/phys_q20.png' alt='Induced EMF' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) \\(\\mu_0 k a / 4\\pi\\)",
             "(B) μ0kaln(5/3)/4π",

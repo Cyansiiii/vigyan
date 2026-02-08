@@ -1,7 +1,7 @@
 [
     {
         "id": 0,
-        "question": "Analyze the images and deduce the correct structural description of the molecules.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q1.png' alt='Molecules' style='max-width:550px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "Analyze the images and deduce the correct structural description of the molecules.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q1.png' alt='Molecules' style='max-width:550px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) DNA: primary; Protein: secondary; Antibody: tertiary",
             "(B) DNA: primary; Protein: tertiary; Antibody: quaternary",
@@ -11,7 +11,7 @@
     },
     {
         "id": 1,
-        "question": "The effects of elevated \\( CO_2 \\) supply, presence of legumes and phosphorus availability on non-legume plant growth biomass (gm) in grassland community is depicted in the graph.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q2.png' alt='Graph' style='max-width:600px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Based on the information, the correct option is:",
+        "question": "The effects of elevated \\( CO_2 \\) supply, presence of legumes and phosphorus availability on non-legume plant growth biomass (gm) in grassland community is depicted in the graph.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q2.png' alt='Graph' style='max-width:600px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Based on the information, the correct option is:",
         "options": [
             "(A) Nitrogen deprived plant grow better under elevated \\( CO_2 \\) conditions.",
             "(B) Plant growth is enhanced under elevated \\( CO_2 \\) in the presence of legume",
@@ -31,7 +31,7 @@
     },
     {
         "id": 3,
-        "question": "In the given pedigree, circles represent females and squares represent males. Filled shapes indicate affected individuals, while unfilled shapes indicate unaffected individuals. Based on the pedigree analysis, consider the statements (i) to (iv).<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q4.png' alt='Pedigree' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>(i) If the inheritance pattern is autosomal recessive, then the individual III-8 is a carrier of the disease.<br>(ii) If the inheritance pattern is X-linked recessive, then the individuals II-6 and III-7 are carriers of the disease.<br>(iii) Individuals I-1 and I-2 are homozygous for the allele under study.<br>(iv) If the inheritance pattern is autosomal recessive, then individuals III-2 and IV-1 must be carriers of the disease.<br>The correct combination of statements is:",
+        "question": "In the given pedigree, circles represent females and squares represent males. Filled shapes indicate affected individuals, while unfilled shapes indicate unaffected individuals. Based on the pedigree analysis, consider the statements (i) to (iv).<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q4.png' alt='Pedigree' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>(i) If the inheritance pattern is autosomal recessive, then the individual III-8 is a carrier of the disease.<br>(ii) If the inheritance pattern is X-linked recessive, then the individuals II-6 and III-7 are carriers of the disease.<br>(iii) Individuals I-1 and I-2 are homozygous for the allele under study.<br>(iv) If the inheritance pattern is autosomal recessive, then individuals III-2 and IV-1 must be carriers of the disease.<br>The correct combination of statements is:",
         "options": [
             "(A) i, ii and iv",
             "(B) Statements i and ii are correct",
@@ -51,7 +51,7 @@
     },
     {
         "id": 5,
-        "question": "An unknown organism that can utilise \\( NH_4Cl \\) as nitrogen source was grown for several generations under four different conditions as given below:<br>(i) medium containing \\( ^{15}NH_4Cl \\)<br>(ii) medium containing \\( ^{14}NH_4Cl \\)<br>(iii) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for one generation<br>(iv) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for two generations<br>DNA isolated from the organism was analysed by density gradient centrifugation. Assuming the mode of DNA replication is dispersive, the option representing the correct band pattern is:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q6.png' alt='DNA Replication' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "An unknown organism that can utilise \\( NH_4Cl \\) as nitrogen source was grown for several generations under four different conditions as given below:<br>(i) medium containing \\( ^{15}NH_4Cl \\)<br>(ii) medium containing \\( ^{14}NH_4Cl \\)<br>(iii) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for one generation<br>(iv) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for two generations<br>DNA isolated from the organism was analysed by density gradient centrifugation. Assuming the mode of DNA replication is dispersive, the option representing the correct band pattern is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q6.png' alt='DNA Replication' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) [Pattern A]",
             "(B) [The band pattern representing dispersive replication]",
@@ -81,7 +81,7 @@
     },
     {
         "id": 8,
-        "question": "An experimenter was analysing homogenized leaf tissue (containing both plant and bacterial ribosomes) for the presence of ribosomal RNA (rRNA) using an agarose gel.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q9.png' alt='Agarose Gel' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct statement about the observed band pattern is:",
+        "question": "An experimenter was analysing homogenized leaf tissue (containing both plant and bacterial ribosomes) for the presence of ribosomal RNA (rRNA) using an agarose gel.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q9.png' alt='Agarose Gel' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct statement about the observed band pattern is:",
         "options": [
             "(A) I, III, and V are from the plant ribosome",
             "(B) I, III and V are from the bacterial ribosome.",
@@ -101,7 +101,7 @@
     },
     {
         "id": 10,
-        "question": "In the vector map, GFP denotes green fluorescent protein, \\( Tet^R \\) is tetracycline resistance and \\( Amp^R \\) is ampicillin resistance. A DNA fragment containing the gene of interest was generated using \\(SalI\\) and ligated with the vector. The recombinants will grow on media containing:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q11.png' alt='Vector Map' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "In the vector map, GFP denotes green fluorescent protein, \\( Tet^R \\) is tetracycline resistance and \\( Amp^R \\) is ampicillin resistance. A DNA fragment containing the gene of interest was generated using \\(SalI\\) and ligated with the vector. The recombinants will grow on media containing:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q11.png' alt='Vector Map' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) ampicillin and are GFP positive",
             "(B) Tetracycline positive and GFP negative",
@@ -171,7 +171,7 @@
     },
     {
         "id": 17,
-        "question": "Identify the non-reducing disaccharide:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q18.png' alt='Non-reducing Disaccharide' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "question": "Identify the non-reducing disaccharide:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q18.png' alt='Non-reducing Disaccharide' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "(A) Cellobiose",
             "(B) Trehalose (non-reducing disaccharide)",

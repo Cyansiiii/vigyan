@@ -31,7 +31,7 @@
     },
     {
         "id": 3,
-        "question": "Consider the closed interval \\([0, 1]\\) and label it as \\(C_0\\).<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/math_q4.png' alt='Cantor Set Construction' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the sum of the lengths of the intervals in \\(C_4\\) is",
+        "question": "Consider the closed interval \\([0, 1]\\) and label it as \\(C_0\\).<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q4.png' alt='Cantor Set Construction' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the sum of the lengths of the intervals in \\(C_4\\) is",
         "options": [
             "A. 1/81",
             "B. 2/81",
@@ -81,7 +81,7 @@
     },
     {
         "id": 8,
-        "question": "Let \\(ABCD\\) be a square. \\(P\\) and \\(Q\\) are points such that \\(ABP\\) and \\(CDQ\\) are equilateral triangles.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/math_q9.png' alt='Square and Triangles' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the area of the intersection is",
+        "question": "Let \\(ABCD\\) be a square. \\(P\\) and \\(Q\\) are points such that \\(ABP\\) and \\(CDQ\\) are equilateral triangles.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q9.png' alt='Square and Triangles' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the area of the intersection is",
         "options": [
             "A. \\(\\frac{2}{\\sqrt{3}} - 1\\)",
             "B. less than \\(1/8\\)",
@@ -91,7 +91,7 @@
     },
     {
         "id": 9,
-        "question": "Let \\(AB\\) be the diameter of a circle with radius 1. \\(\\Sigma\\) is a circle tangent to \\(AB\\) at \\(O\\), and intersects the larger circle. [Geometry problem].<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/math_q10.png' alt='Geometry Problem' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the radius of the circle \\(\\Sigma\\) is",
+        "question": "Let \\(AB\\) be the diameter of a circle with radius 1. \\(\\Sigma\\) is a circle tangent to \\(AB\\) at \\(O\\), and intersects the larger circle. [Geometry problem].<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q10.png' alt='Geometry Problem' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the radius of the circle \\(\\Sigma\\) is",
         "options": [
             "A. \\(\\sqrt{3} - (3/2)\\)",
             "B. \\(\\sqrt{3}/8\\)",
@@ -151,7 +151,7 @@
     },
     {
         "id": 15,
-        "question": "Let \\(A, B, C\\) be non-collinear. \\(MN\\) parallel to \\(BC\\). [Geometry scaling problem].<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/math_q16.png' alt='Triangle Geometry' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the length of \\(AX\\) is",
+        "question": "Let \\(A, B, C\\) be non-collinear. \\(MN\\) parallel to \\(BC\\). [Geometry scaling problem].<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q16.png' alt='Triangle Geometry' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the length of \\(AX\\) is",
         "options": [
             "A. \\(1 + \\sqrt{2}\\)",
             "B. \\(5\\sqrt{15}/8\\)",
