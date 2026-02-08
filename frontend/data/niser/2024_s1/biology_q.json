@@ -11,7 +11,7 @@
     },
     {
         "id": 1,
-        "question": "The effects of elevated \\( CO_2 \\) supply, presence of legumes and phosphorus availability on non-legume plant growth biomass (gm) in grassland community is depicted in the graph.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q2.png' alt='Graph' style='max-width:600px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Based on the information, the correct option is:",
+        "question": "The effects of elevated \\( CO_2 \\) supply, presence of legumes and phosphorus availability on non-legume plant growth biomass (gm) in grassland community is depicted in the graph.<br><br><div style='text-align:center;'>[IMAGE_REQUIRED_BIO_Q2_GRAPH]</div><br>Based on the information, the correct option is:",
         "options": [
             "(A) Nitrogen deprived plant grow better under elevated \\( CO_2 \\) conditions.",
             "(B) Plant growth is enhanced under elevated \\( CO_2 \\) in the presence of legume",
