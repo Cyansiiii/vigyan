@@ -172,91 +172,48 @@ export default function AboutPage() {
             </section>
 
             {/* Systematic Units: Pioneers */}
-            <section className="relative py-48 px-6 lg:px-24 bg-blue-500/[0.02] z-10 border-y border-white/5">
+            <section className="relative py-32 px-6 lg:px-24 bg-blue-500/[0.02] z-10 border-y border-white/5">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-40">
+                    <div className="text-center mb-24">
                         <span className="section-label text-center">Architects of the Modern Era</span>
-                        <h3 className="text-6xl md:text-9xl font-black text-white tracking-tighter">VANGUARD UNITS.</h3>
+                        <h3 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">VANGUARD UNITS.</h3>
+                        <p className="text-slate-400 max-w-2xl mx-auto">The neural network of Indian science. 12 distinct nodes of excellence.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                        {/* KALAM UNIT */}
-                        <motion.div
-                            whileInView={{ opacity: 1, y: 0 }}
-                            initial={{ opacity: 0, y: 50 }}
-                            transition={{ duration: 1 }}
-                            viewport={{ once: true }}
-                            className="systematic-card group"
-                        >
-                            <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-1000">
-                                <Zap className="w-80 h-80 text-blue-500" />
-                            </div>
-                            <div className="relative z-10">
-                                <div className="flex flex-wrap items-center gap-10 mb-16">
-                                    <div className="science-pioneer-frame w-32 h-32 grayscale group-hover:grayscale-0 transition-all duration-1000 overflow-hidden">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/A._P._J._Abdul_Kalam.jpg" alt="Abdul Kalam" className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase">Dr. APJ Abdul Kalam</h4>
-                                        <p className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mt-3">Rocket Architecture // Strategic Vision</p>
-                                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        {[
+                            { name: "C.V. Raman", role: "Physics // Nobel Laureate", img: "/assets/scientists/raman.jpg", sub: "Physics" },
+                            { name: "Homi J. Bhabha", role: "Nuclear Physics // Architect", img: "/assets/scientists/bhabha.jpg", sub: "Physics" },
+                            { name: "Vikram Sarabhai", role: "Space Research // Visionary", img: "/assets/scientists/sarabhai.jpg", sub: "Space" },
+                            { name: "APJ Abdul Kalam", role: "Rocket Systems // Leader", img: "/assets/scientists/kalam.jpg", sub: "Space" },
+                            { name: "S. Ramanujan", role: "Mathematics // Infinite", img: "/assets/scientists/ramanujan.jpg", sub: "Mathematics" },
+                            { name: "J.C. Bose", role: "Radio Science // Biophysics", img: "/assets/scientists/bose-jc.jpg", sub: "Physics" },
+                            { name: "S.N. Bose", role: "Quantum Statistics // Boson", img: "/assets/scientists/bose-sn.jpg", sub: "Physics" },
+                            { name: "S. Chandrasekhar", role: "Astrophysics // Nobel Laureate", img: "/assets/scientists/chandrasekhar.jpg", sub: "Physics" },
+                            { name: "Kalpana Chawla", role: "Aerospace // Astronaut", img: "/assets/scientists/kalpana.jpg", sub: "Space" },
+                            { name: "Tessy Thomas", role: "Missile Systems // Agni", img: "/assets/scientists/tessy.png", sub: "Defense" },
+                            { name: "M. Visvesvaraya", role: "Engineering // Builder", img: "/assets/scientists/visvesvaraya.jpg", sub: "Engineering" },
+                            { name: "V. Ramakrishnan", role: "Structural Biology // Nobel", img: "/assets/scientists/venki.jpg", sub: "Biology" },
+                        ].map((s, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.05 }}
+                                viewport={{ once: true }}
+                                className="group relative overflow-hidden rounded-x border border-white/10 bg-white/5 hover:bg-white/10 transition-colors duration-500"
+                            >
+                                <div className="aspect-[4/5] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+                                    <img src={s.img} alt={s.name} className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" />
                                 </div>
-                                <div className="space-y-12">
-                                    <p className="text-2xl text-slate-300 font-light italic leading-relaxed">
-                                        "Confidence and Hard-work is the best medicine to kill the disease called failure."
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-8">
-                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
-                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">Vision 2020</span>
-                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Systematic Directives</span>
-                                        </div>
-                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
-                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">SLV-III Unit</span>
-                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Integrated Design</span>
-                                        </div>
-                                    </div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                                <div className="absolute bottom-0 left-0 w-full p-6">
+                                    <div className="text-[9px] uppercase tracking-[0.2em] text-blue-500 mb-2 font-mono">{s.sub}</div>
+                                    <h4 className="text-xl font-bold text-white leading-tight mb-1">{s.name}</h4>
+                                    <p className="text-slate-400 text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">{s.role}</p>
                                 </div>
-                            </div>
-                        </motion.div>
-
-                        {/* BHABHA UNIT */}
-                        <motion.div
-                            whileInView={{ opacity: 1, y: 0 }}
-                            initial={{ opacity: 0, y: 50 }}
-                            transition={{ delay: 0.2, duration: 1 }}
-                            viewport={{ once: true }}
-                            className="systematic-card group"
-                        >
-                            <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-1000">
-                                <Atom className="w-80 h-80 text-blue-500" />
-                            </div>
-                            <div className="relative z-10">
-                                <div className="flex flex-wrap items-center gap-10 mb-16">
-                                    <div className="science-pioneer-frame w-32 h-32 grayscale group-hover:grayscale-0 transition-all duration-1000 overflow-hidden">
-                                        <img src="https://upload.wikimedia.org/wikipedia/en/2/2a/Homi_Jehangir_Bhabha.jpg" alt="Homi Bhabha" className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase">Dr. Homi J. Bhabha</h4>
-                                        <p className="text-blue-500 font-mono text-[10px] tracking-[0.3em] uppercase mt-3">Atomic Systems // Institution Builder</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-12">
-                                    <p className="text-2xl text-slate-300 font-light italic leading-relaxed">
-                                        "For, after all, the only way of learning is by doing, and the only way of getting work done is by doing it yourself."
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-8">
-                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
-                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">TIFR Nexus</span>
-                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Architectural Root</span>
-                                        </div>
-                                        <div className="p-8 glass-panel border-blue-500/10 hover:border-blue-500/40 transition-all duration-500 group/item">
-                                            <span className="block text-white font-black text-2xl mb-1 stat-glow uppercase tracking-tighter group-hover/item:text-blue-400 transition-colors">Nuclear 3</span>
-                                            <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Systematic Mastery</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
