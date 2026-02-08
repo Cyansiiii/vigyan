@@ -1,152 +1,222 @@
 [
     {
-        "id": 1,
-        "text": "How many three digit numbers divisible by 5 (no repetition)?",
+        "id": 0,
+        "question": "Let f(X) = X^2 + 8X + 25. The number of solutions in R of (f(X))^2 - 18f(X) + 80 = 0 is:",
         "options": [
-            "128",
-            "144",
-            "162",
-            "136"
-        ]
+            "(A) 0",
+            "(B) 1",
+            "(C) 2",
+            "(D) 4"
+        ],
+        "image": null
+    },
+    {
+        "id": 1,
+        "question": "Let f: R → R be non-zero differentiable such that f(x^2) = xf(x). Then:",
+        "options": [
+            "(A) f'(0) = f(0)",
+            "(B) f'(1) = f(1)",
+            "(C) f'(2) = f(2)",
+            "(D) f'(3) = f(3)"
+        ],
+        "image": null
     },
     {
         "id": 2,
-        "text": "Matrix A (3x3) symmetric. How many values of x?",
+        "question": "N is the sum of integers 1000 < i < 2000. If N/x is in N, then x is:",
         "options": [
-            "2",
-            "Infinitely many",
-            "1",
-            "4"
-        ]
+            "(A) 5",
+            "(B) 7",
+            "(C) 11",
+            "(D) 13"
+        ],
+        "image": null
     },
     {
         "id": 3,
-        "text": "Sum series n. Which statement is TRUE?",
+        "question": "The GCD of n^2 + 4n + 3 and 2n + 6 for natural n > 3 is equal to:",
         "options": [
-            "n is divisible by 5",
-            "n is divisible by 6",
-            "n is divisible by 8",
-            "n is divisible by 9"
-        ]
+            "(A) n+3 for infinitely many n",
+            "(B) n-3 for infinitely many n",
+            "(C) n+3 for all n",
+            "(D) n-3 for all n"
+        ],
+        "image": null
     },
     {
         "id": 4,
-        "text": "f(x) = cos(tan^-1 x). Which is TRUE?",
+        "question": "Let a, b be roots of 3X^2 + 5X - 2. A is a 3x3 matrix with entries from {a, b}. Then:",
         "options": [
-            "Decreasing on R",
-            "Decreasing x < 0",
-            "Decreasing x > 0",
-            "Decreasing (-1, 1)"
-        ]
+            "(A) det(A)=0",
+            "(B) 0 ≤ det(A) ≤ 48",
+            "(C) -48 ≤ det(A) ≤ 0",
+            "(D) det(A) ≤ 30"
+        ],
+        "image": null
     },
     {
         "id": 5,
-        "text": "Set A where -31 < det < 29?",
+        "question": "Let f: Z → R such that f(m+n)f(m)f(n) = 1. Then:",
         "options": [
-            "A = (-2, 2]",
-            "A = (-2, 2)",
-            "A = [-2, 2)",
-            "A = [-2, 2]"
-        ]
+            "(A) f(n+1)≥f(n)≥f(n-1)",
+            "(B) f(n+1)≤f(n)≤f(n-1)",
+            "(C) |f(n)|≤1",
+            "(D) f(n)>0"
+        ],
+        "image": null
     },
     {
         "id": 6,
-        "text": "Complex numbers z1, z2, z3. Value of |4z1 + z2 + z3|?",
+        "question": "Let f(x) = x^3 + f'(0)x^2 + f''(1)x + 6. Then:",
         "options": [
-            "4",
-            "8",
-            "1/4",
-            "1/8"
-        ]
+            "(A) 5f(1)+f(0)+f(2)=4",
+            "(B) 5f(0)+f(1)+f(2)=3",
+            "(C) 5f(2)+f(0)+f(1)=5",
+            "(D) 5f(0)+5f(1)+f(2)=4"
+        ],
+        "image": null
     },
     {
         "id": 7,
-        "text": "f(x) = |x^3 - 3x|[x]. Continuity?",
+        "question": "Let f and g be distinct solutions of y'' + y = 0 such that the Wronskian W is not zero. Then W satisfies:",
         "options": [
-            "Continuous everywhere",
-            "Integer discontinuity",
-            "Non-zero integer discontinuity",
-            "Continuous except 0, sqrt(3)"
-        ]
+            "(A) W''+W'+W=0",
+            "(B) W''+W'-W=0",
+            "(C) W''+W'=0",
+            "(D) W''+W=0"
+        ],
+        "image": null
     },
     {
         "id": 8,
-        "text": "Line perpendicular to tangent of ellipse x^2 + 16y^2 = 4?",
+        "question": "Suppose the area of bounded region Rt is (t^2/2)(1-cos t). Then f(π/2) is:",
         "options": [
-            "y = 2sqrt(3)(x-2)",
-            "y = 4sqrt(3)(x-2)",
-            "y = sqrt(3)(x-2)",
-            "4sqrt(3)y = (x-2)"
-        ]
+            "(A) Value A",
+            "(B) Value B",
+            "(C) Value C",
+            "(D) Value D"
+        ],
+        "image": null
     },
     {
         "id": 9,
-        "text": "Value of |(a + b).(2i + 3j + k)|?",
+        "question": "An example of a correct inequality is:",
         "options": [
-            "0",
-            "sqrt(2)",
-            "3",
-            "3/sqrt(2)"
-        ]
+            "(A) Option A",
+            "(B) Option B",
+            "(C) Option C",
+            "(D) Option D"
+        ],
+        "image": null
     },
     {
         "id": 10,
-        "text": "Derivative of log(sin^2 x) w.r.t sin x?",
+        "question": "Let N(α) be the number of solutions to x^2 = α|sin x|. N(α) is:",
         "options": [
-            "sin 2x",
-            "2 cosec x",
-            "4 cosec x",
-            "cot x cosec 2x"
-        ]
+            "(A) Option A",
+            "(B) Option B",
+            "(C) Option C",
+            "(D) Option D"
+        ],
+        "image": null
     },
     {
         "id": 11,
-        "text": "Sequence sum difference. a13 - a10?",
+        "question": "In triangle ABC, sin A sin B + cos A cos B sin C = 1 and one side is 1. Sum of other sides s satisfies:",
         "options": [
-            "13",
-            "137",
-            "46",
-            "12"
-        ]
+            "(A) s irrational, s^2 rational",
+            "(B) s and s^2 irrational",
+            "(C) s^2 rational or (s-1)^2 rational",
+            "(D) s is rational"
+        ],
+        "image": null
     },
     {
         "id": 12,
-        "text": "Five coins tossed. Prob at least two heads?",
+        "question": "If f(x) is differentiable and f' is continuous, then a and b satisfy:",
         "options": [
-            "7/16",
-            "5/16",
-            "13/16",
-            "11/16"
-        ]
+            "(A) a+4b=0",
+            "(B) a-4b=0",
+            "(C) a-6b=0",
+            "(D) a+6b=0"
+        ],
+        "image": null
     },
     {
         "id": 13,
-        "text": "Function f(x) defined piecewise. Properties?",
+        "question": "The area of intersection of square ABCD and isosceles triangle ABE inside a unit circle is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/math_q13.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "One-one not onto",
-            "Neither",
-            "One-one and onto",
-            "Onto not one-one"
-        ]
+            "(A) √5/2",
+            "(B) 4-2√2",
+            "(C) less than 1",
+            "(D) √3"
+        ],
+        "image": null
     },
     {
         "id": 14,
-        "text": "Solution of x^2 dy/dx + 9xy = x^4?",
+        "question": "Three circles C1, C2, C3 of radius r are inside a unit square. The radius r is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/math_q14.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "12y = x^9 - 1/x^3",
-            "9y = x^21 - 1/x^3",
-            "12y = x^3 - 1/x^9",
-            "9y = x^3 - 1/x^21"
-        ]
+            "(A) 2-√3",
+            "(B) 5/2-√5",
+            "(C) √3-√2",
+            "(D) 2√2-5/2"
+        ],
+        "image": null
     },
     {
         "id": 15,
-        "text": "Integral x cos x sin x dx?",
+        "question": "The probability that the first semester president was a girl, given the second was a girl and P(same gender)=1/3, is:",
         "options": [
-            "pi/2",
-            "pi/4",
-            "12",
-            "pi/6"
-        ]
+            "(A) 2/5",
+            "(B) 2/15",
+            "(C) 1/4",
+            "(D) 1/6"
+        ],
+        "image": null
+    },
+    {
+        "id": 16,
+        "question": "Regarding the collection of functions F={f(x)=mx+n}:",
+        "options": [
+            "(A) every element is bijective",
+            "(B) infinite bijective, infinite non-bijective",
+            "(C) only finitely many bijective",
+            "(D) no element is bijective"
+        ],
+        "image": null
+    },
+    {
+        "id": 17,
+        "question": "The perpendicular bisector of segment PQ meets the y-axis at (0, a). a is:",
+        "options": [
+            "(A) -10/3",
+            "(B) -21/6",
+            "(C) -11/3",
+            "(D) -23/6"
+        ],
+        "image": null
+    },
+    {
+        "id": 18,
+        "question": "The relation αA defined by XA=AY is an equivalence relation on S:",
+        "options": [
+            "(A) for any subset S",
+            "(B) if all in S are symmetric",
+            "(C) if it is reflexive",
+            "(D) only if S elements are diagonal"
+        ],
+        "image": null
+    },
+    {
+        "id": 19,
+        "question": "The area of the region common to three discs of radius √2 centered at vertices of an equilateral triangle of side 2 is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/math_q19.png' style='max-width:400px; width:100%;'></div>",
+        "options": [
+            "(A) 2√3-π",
+            "(B) √3+π/2-3",
+            "(C) √3+16/9-π",
+            "(D) 9/4+√3-π"
+        ],
+        "image": null
     }
 ]

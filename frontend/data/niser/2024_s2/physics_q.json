@@ -1,152 +1,222 @@
 [
     {
-        "id": 1,
-        "text": "Elastic collision between particles. Graph?",
+        "id": 0,
+        "question": "A particle of unit mass moves along x-axis under force F=(-1)^p kx^n. The position vs momentum plot is:",
         "options": [
-            "Graph B",
-            "Graph A",
-            "Graph D",
-            "Graph C"
-        ]
+            "(A) hyperbola (p=1, n=2)",
+            "(B) ellipse (p=1, n=1)",
+            "(C) parabola (p=2, n=1)",
+            "(D) circle (p=0, n=2)"
+        ],
+        "image": null
+    },
+    {
+        "id": 1,
+        "question": "A satellite falls radially toward Earth through a tunnel to the center. Speed at the center is closest to:",
+        "options": [
+            "(A) 13 km/s",
+            "(B) 0 km/s",
+            "(C) 30 km/s",
+            "(D) 20 km/s"
+        ],
+        "image": null
     },
     {
         "id": 2,
-        "text": "Max compression of spring (block M, bullet m)?",
+        "question": "Regarding the modified gravitational potential with cosmological constant Λ, select the correct option:",
         "options": [
-            "sqrt((mv^2)/k)",
-            "sqrt((Mv^2)/k)",
-            "sqrt((m^2 v^2)/(k(M+m)))",
-            "sqrt((mMv^2)/(k(M+m)))"
-        ]
+            "(A) Accel = Λ * displacement away",
+            "(B) Oscillates with ω = √(Λ/3)",
+            "(C) Equilibrium at r = (6GM/Λ)^(1/3)",
+            "(D) Accel = Λ/3 * displacement toward"
+        ],
+        "image": null
     },
     {
         "id": 3,
-        "text": "Cart in loop. Quantity not playing role?",
+        "question": "Change in water level when ice containing a steel ball melts is closest to:",
         "options": [
-            "h1",
-            "h2",
-            "R",
-            "M"
-        ]
+            "(A) 1.7 cm rising",
+            "(B) 1.7 cm falling",
+            "(C) 2.2 cm rising",
+            "(D) 2.2 cm falling"
+        ],
+        "image": null
     },
     {
         "id": 4,
-        "text": "Disk stopping angle theta?",
+        "question": "The dimension of the quantity b/a in the provided energy integral is:",
         "options": [
-            "(w^2 M R^2)/8T",
-            "(w^2 M R^2)/4T",
-            "-(w^2 M R^2)/4T",
-            "-(w^2 M R^2)/8T"
-        ]
+            "(A) [ML^-1T^-2]",
+            "(B) [M^-1L^-1T^2]",
+            "(C) [M^-1/2L^-7/2T]",
+            "(D) [M^-2L^-4T^4]"
+        ],
+        "image": null
     },
     {
         "id": 5,
-        "text": "Black body T increase 1%, Vol increase?",
+        "question": "The charge Q contained in a spherical region of radius 1/α for the given E field is:",
         "options": [
-            "0.75%",
-            "0.50%",
-            "1.56%",
-            "6.25%"
-        ]
+            "(A) Option A",
+            "(B) Option B",
+            "(C) Option C",
+            "(D) Option D"
+        ],
+        "image": null
     },
     {
         "id": 6,
-        "text": "Pipe harmonics relation A and B?",
+        "question": "Instantaneous torque on a square loop in SI units about the z-axis is:",
         "options": [
-            "TA = (4nA^2 / nB^2) TB",
-            "TA = (nA^2 / 4nB^2) TB",
-            "TA = (nB^2 / 4nA^2) TB",
-            "TA = (4nB^2 / nA^2) TB"
-        ]
+            "(A) 0",
+            "(B) √2a^2 k",
+            "(C) a^2 k",
+            "(D) a^2/√2 k"
+        ],
+        "image": null
     },
     {
         "id": 7,
-        "text": "Superposition resultant amplitude and phase?",
+        "question": "The figure describing the induced voltage V as a function of time t for a magnet falling through a solenoid is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/phys_q7.png' style='max-width:500px; width:100%;'></div>",
         "options": [
-            "2A, pi/6",
-            "A/2, pi/3",
-            "2A, pi/3",
-            "A/2, pi/6"
-        ]
+            "(A) I",
+            "(B) II",
+            "(C) III",
+            "(D) IV"
+        ],
+        "image": null
     },
     {
         "id": 8,
-        "text": "Minimum KE to not hit plates?",
+        "question": "Kinetic energy of a particle moving with constant velocity in crossed E and B fields is:",
         "options": [
-            "d^2 / 2l^2",
-            "l^2 / d^2",
-            "d^2 / l^2",
-            "l^2 / 2d^2"
-        ]
+            "(A) 1.0 J",
+            "(B) 1.2 J",
+            "(C) 10.0 J",
+            "(D) 0.1 J"
+        ],
+        "image": null
     },
     {
         "id": 9,
-        "text": "Potential difference between P and Q?",
+        "question": "The ratio vX:vY of the velocity of sound in medium-X to medium-Y is:",
         "options": [
-            "0 V",
-            "4 V",
-            "8 V",
-            "12 V"
-        ]
+            "(A) 2:1",
+            "(B) 4:1",
+            "(C) 1:4",
+            "(D) 1:2"
+        ],
+        "image": null
     },
     {
         "id": 10,
-        "text": "Helical path radius and pitch?",
+        "question": "The distance between two thin lenses for image size to be independent of object position is:",
         "options": [
-            "r prop mv0, p prop mv0 (Formula A)",
-            "Formula B",
-            "Formula C",
-            "Formula D"
-        ]
+            "(A) 10.0 cm",
+            "(B) 35.0 cm",
+            "(C) 70.0 cm",
+            "(D) 17.5 cm"
+        ],
+        "image": null
     },
     {
         "id": 11,
-        "text": "Shrinking metallic frame B field effect?",
+        "question": "Shape of the second bright fringe in YDSE with pinholes at (0,0,±a) is a hyperbola with eccentricity:",
         "options": [
-            "Radius increases, freq decreases",
-            "Radius decreases, freq increases",
-            "Radius same, freq increases",
-            "Unchanged"
-        ]
+            "(A) a/λ",
+            "(B) √2",
+            "(C) ah/λ^2",
+            "(D) 2a/λ"
+        ],
+        "image": null
     },
     {
         "id": 12,
-        "text": "Angle of emergence theta?",
+        "question": "Temperature where average KE equals binding energy of H atom is closest to:",
         "options": [
-            "sin^-1 (1/3)",
-            "sin^-1 (1/2)",
-            "sin^-1 (3/4)",
-            "sin^-1 (sqrt(3)/2)"
-        ]
+            "(A) 10^5 K",
+            "(B) 10^2 K",
+            "(C) 10^3 K",
+            "(D) 10^4 K"
+        ],
+        "image": null
     },
     {
         "id": 13,
-        "text": "Polaroid angle?",
+        "question": "Time taken for coffee to cool from 40°C to 35°C is closest to:",
         "options": [
-            "15 deg",
-            "45 deg",
-            "75 deg",
-            "60 deg"
-        ]
+            "(A) 2 min",
+            "(B) 6 min",
+            "(C) 4 min",
+            "(D) 8 min"
+        ],
+        "image": null
     },
     {
         "id": 14,
-        "text": "Electron excitation level n?",
+        "question": "Select the correct option for ideal gas expansion:",
         "options": [
-            "sqrt(E1/(E1-Ea))",
-            "sqrt(Ea/(E1-Ea))",
-            "sqrt(E1/(E1+Ea))",
-            "sqrt(Ea/(E1+Ea))"
-        ]
+            "(A) T dec isobaric, inc adiabatic",
+            "(B) T inc both",
+            "(C) T dec adiabatic, inc isobaric",
+            "(D) T dec both"
+        ],
+        "image": null
     },
     {
         "id": 15,
-        "text": "De Broglie wavelength ratio d2/d1?",
+        "question": "Ratio of 235U to coal required to power a 100 MW plant per day is closest to:",
         "options": [
-            "M/m",
-            "sqrt(m/M)",
-            "m/M",
-            "sqrt(M/m)"
-        ]
+            "(A) 1kg U : 3x10^3 coal",
+            "(B) 100g U : 3x10^5 coal",
+            "(C) 10g U : 3x10^6 coal",
+            "(D) 1g U : 3x10^4 coal"
+        ],
+        "image": null
+    },
+    {
+        "id": 16,
+        "question": "Maximum atomic number for a hydrogenic atom according to Bohr's theory is closest to:",
+        "options": [
+            "(A) 127",
+            "(B) 140",
+            "(C) 92",
+            "(D) 137"
+        ],
+        "image": null
+    },
+    {
+        "id": 17,
+        "question": "Energy of second absorbed photon for H atom ground state reaching n=7 is closest to:",
+        "options": [
+            "(A) 0.57 eV",
+            "(B) 1.45 eV",
+            "(C) 0.81 eV",
+            "(D) 3.40 eV"
+        ],
+        "image": null
+    },
+    {
+        "id": 18,
+        "question": "The composition of the ideal gas heated under the described conditions is:",
+        "options": [
+            "(A) monoatomic",
+            "(B) rigid diatomic",
+            "(C) diatomic with vib mode",
+            "(D) polyatomic with vib mode"
+        ],
+        "image": null
+    },
+    {
+        "id": 19,
+        "question": "Approximate value of nuclear density in kg/m^3 is closest to:",
+        "options": [
+            "(A) 10^17",
+            "(B) 10^19",
+            "(C) 10^13",
+            "(D) 10^15"
+        ],
+        "image": null
     }
 ]

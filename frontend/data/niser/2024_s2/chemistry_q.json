@@ -1,152 +1,222 @@
 [
     {
-        "id": 1,
-        "text": "Nature of ZnO and CaO?",
+        "id": 0,
+        "question": "X exists in tautomeric form Y:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q0_y.png' style='max-width:200px; width:100%;'></div><br>X reacts with methylamine to form Z. The structure of Z is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q0_z.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "ZnO basic, CaO amphoteric",
-            "Both amphoteric",
-            "ZnO amphoteric, CaO basic",
-            "ZnO acidic, CaO basic"
-        ]
+            "(A) Structure (a)",
+            "(B) Structure (b)",
+            "(C) Structure (c)",
+            "(D) Structure (d)"
+        ],
+        "image": null
+    },
+    {
+        "id": 1,
+        "question": "Cyclohexene reacts with Cl2 (light) to give P, then with NaI to produce Q. The structure of Q is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q1.png' style='max-width:400px; width:100%;'></div>",
+        "options": [
+            "(A) Structure (a)",
+            "(B) Structure (b)",
+            "(C) Structure (c)",
+            "(D) Structure (d)"
+        ],
+        "image": null
     },
     {
         "id": 2,
-        "text": "Process with increasing bond order but no magnetic change?",
+        "question": "X reacts with NaBH4 to give Y, then with H2SO4 at 100°C to give Z. Structure Z is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q2.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "(i) and (ii)",
-            "(ii) and (iii)",
-            "(iii) only",
-            "(ii) only"
-        ]
+            "(A) Structure (a)",
+            "(B) Structure (b)",
+            "(C) Structure (c)",
+            "(D) Structure (d)"
+        ],
+        "image": null
     },
     {
         "id": 3,
-        "text": "Value of E°(Fe3+/Fe0)? Given E°(Fe3+/Fe2+)=0.77V, E°(Fe2+/Fe0)=-0.44V",
+        "question": "Phenol treated with dil HNO3 gives P and Q. P reduction gives R. R with NaNO2/H2SO4 then C2H5OD gives S. Structure S is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q3.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "-0.04 V",
-            "0.33 V",
-            "0.11 V",
-            "-0.11 V"
-        ]
+            "(A) Structure (a)",
+            "(B) Structure (b)",
+            "(C) Structure (c)",
+            "(D) Structure (d)"
+        ],
+        "image": null
     },
     {
         "id": 4,
-        "text": "Correct order of stability?",
+        "question": "2-Phenylpropanamide treated with Br2/NaOH gives P. P with ethanoic anhydride gives Q. Structure Q is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q4.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "VCl5 > VF5; CuCl2 > CuI2",
-            "VF5 > VCl5; CuCl2 > CuI2",
-            "VCl5 > VF5; CuI2 > CuCl2",
-            "VF5 > VCl5; CuI2 > CuCl2"
-        ]
+            "(A) Structure (a)",
+            "(B) Structure (b)",
+            "(C) Structure (c)",
+            "(D) Structure (d)"
+        ],
+        "image": null
     },
     {
         "id": 5,
-        "text": "Reaction of CrCl3.6H2O with AgNO3. Which is correct?",
+        "question": "For the provided compounds P, Q, R, and S, the correct order for the rate of acid-catalyzed dehydration is:",
         "options": [
-            "Both P and Q show geometrical isomerism",
-            "P shows geometrical isomerism",
-            "Q shows geometrical isomerism",
-            "P shows geometrical isomerism, absorbs lower wavelength"
-        ]
+            "(A) P > Q > R > S",
+            "(B) R > P > Q > S",
+            "(C) S > R > P > Q",
+            "(D) S > P > Q > R"
+        ],
+        "image": ""
     },
     {
         "id": 6,
-        "text": "Beta-hydrogens in 2-methyl-3-phenyl-pentan-1-al?",
+        "question": "The amino acid whose aqueous solution turns red litmus blue is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q6.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "1",
-            "3",
-            "4",
-            "2"
-        ]
+            "(A) Structure (a)",
+            "(B) Structure (b)",
+            "(C) Structure (c)",
+            "(D) Structure (d)"
+        ],
+        "image": null
     },
     {
         "id": 7,
-        "text": "Which reaction does NOT provide an aldehyde?",
+        "question": "The correct order of reactivity of the metals Rb, Ba, Mo, and Ce with water is:",
         "options": [
-            "Reaction (b)",
-            "Reaction (c)",
-            "Reaction (a)",
-            "Reaction (d)"
-        ]
+            "(A) Rb > Ba > Ce > Mo",
+            "(B) Ce > Ba > Mo > Rb",
+            "(C) Ba > Rb > Mo > Ce",
+            "(D) Mo > Ce > Ba > Rb"
+        ],
+        "image": null
     },
     {
         "id": 8,
-        "text": "Major products in reaction sequence Ph-CH=C(CH3)-Ph...?",
+        "question": "For the coordination compounds P, Q, R, and S, the correct order of wavelengths of light absorbed is:",
         "options": [
-            "Option (c)",
-            "Option (a)",
-            "Option (d)",
-            "Option (b)"
-        ]
+            "(A) Q > P > R > S",
+            "(B) Q > R > P > S",
+            "(C) S > R > Q > P",
+            "(D) S > R > P > Q"
+        ],
+        "image": null
     },
     {
         "id": 9,
-        "text": "Major product: Ph-CN -> DIBAL-H -> H2O -> Zn-Hg/HCl?",
+        "question": "The number of geometrical isomers possible for the complex [Cr(NH3)2(H2O)2Cl2]+ is:",
         "options": [
-            "Ph-CH2-NH2",
-            "Ph-CHO",
-            "Ph-OH",
-            "Ph-CH3"
-        ]
+            "(A) 3",
+            "(B) 4",
+            "(C) 5",
+            "(D) 6"
+        ],
+        "image": null
     },
     {
         "id": 10,
-        "text": "Structure of I in hydroboration-oxidation sequence?",
+        "question": "Element 106 is [Ra] 5f14 6d4 7s2. The element with atomic number 114 is expected to be in:",
         "options": [
-            "Structure (b)",
-            "Structure (c)",
-            "Structure (a)",
-            "Structure (d)"
-        ]
+            "(A) Group 13",
+            "(B) Group 14",
+            "(C) Group 15",
+            "(D) Group 16"
+        ],
+        "image": null
     },
     {
         "id": 11,
-        "text": "Work done in expansion V to 2V in three steps vs two steps?",
+        "question": "Cobalt (III) chloride with ammonia yields compound X (green and violet forms) which is a 1:1 electrolyte. X is:",
         "options": [
-            "RT",
-            "1/30 RT",
-            "-RT ln()",
-            "RT"
-        ]
+            "(A) CoCl3(NH3)6",
+            "(B) CoCl3(NH3)5",
+            "(C) CoCl3(NH3)4",
+            "(D) CoCl3(NH3)3"
+        ],
+        "image": null
     },
     {
         "id": 12,
-        "text": "Rate constant plot correct option?",
+        "question": "A solution of (NH4)3VO4 in HCl is treated with tin. The final oxidation state of vanadium is:",
         "options": [
-            "Plot (d)",
-            "Plot (b)",
-            "Plot (c)",
-            "Plot (a)"
-        ]
+            "(A) +5",
+            "(B) +4",
+            "(C) +3",
+            "(D) +2"
+        ],
+        "image": null
     },
     {
         "id": 13,
-        "text": "Time period of electron in 4th Bohr orbit of He+?",
+        "question": "For the cyclic process shown in the T-P graph, which option is correct?<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q13.png' style='max-width:300px; width:100%;'></div>",
         "options": [
-            "4.8 fs",
-            "24 fs",
-            "2.4 fs",
-            "0.24 fs"
-        ]
+            "(A) Work done in Y→Z is zero",
+            "(B) Work done in Y→Z is nRT2 ln(P2/P3)",
+            "(C) In Z→X, ΔU is positive and ΔH is zero",
+            "(D) In X→Y, ΔU is zero and ΔH is positive"
+        ],
+        "image": null
     },
     {
         "id": 14,
-        "text": "Dipole moments 0.0 D, 0.2 D, 1.5 D. Identity?",
+        "question": "In the Wheatstone bridge conductivity study, lines (X), (Y), and (Z) correspond to M+ as:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q14.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "BF3, NF3, NH3",
-            "BF3, NH3, NF3",
-            "ClF3, NF3, NH3",
-            "BCl3, NH3, NF3"
-        ]
+            "(A) H+, K+, Na+",
+            "(B) Na+, K+, H+",
+            "(C) H+, Na+, K+",
+            "(D) K+, Na+, H+"
+        ],
+        "image": null
     },
     {
         "id": 15,
-        "text": "Which redox reaction does NOT occur in lead-acid battery?",
+        "question": "For the first-order reaction X(g) → 2Y(g) starting with 1 mole of pure X, the correct plot is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s2/images/chem_q15.png' style='max-width:400px; width:100%;'></div>",
         "options": [
-            "Pb -> Pb2+ + 2e-",
-            "Pb4+ + 4e- -> Pb",
-            "Pb2+ -> Pb4+ + 2e-",
-            "2Pb2+ -> Pb4+ + Pb"
-        ]
+            "(A) Plot (a)",
+            "(B) Plot (b)",
+            "(C) Plot (c)",
+            "(D) Plot (d)"
+        ],
+        "image": null
+    },
+    {
+        "id": 16,
+        "question": "The ratio of enthalpy of solution for solutes X (solubility factor 3) and Y (factor 2) is:",
+        "options": [
+            "(A) 3/2",
+            "(B) 9/4",
+            "(C) ln(3/2)",
+            "(D) ln 3 / ln 2"
+        ],
+        "image": null
+    },
+    {
+        "id": 17,
+        "question": "2s-2p mixing causes energy swapping of which molecular orbitals?",
+        "options": [
+            "(A) σ*2p and π*2p",
+            "(B) σ*2s and σ2p",
+            "(C) σ2p and π2p",
+            "(D) π*2p and π2p"
+        ],
+        "image": null
+    },
+    {
+        "id": 18,
+        "question": "For a reaction with positive ΔG°, which statement is correct?",
+        "options": [
+            "(A) Never proceeds forward",
+            "(B) Always proceeds backward",
+            "(C) Proceeds forward with unit concentrations",
+            "(D) K < 1; direction depends on initial conditions"
+        ],
+        "image": null
+    },
+    {
+        "id": 19,
+        "question": "For the two reaction vessels described, the equilibrium constants K1 and K2 are related as:",
+        "options": [
+            "(A) K1 = K2",
+            "(B) 4K1 = 27K2",
+            "(C) 2K1 = 3K2",
+            "(D) 8K1 = 9K2"
+        ],
+        "image": null
     }
 ]
