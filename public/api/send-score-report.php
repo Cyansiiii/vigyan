@@ -1,9 +1,14 @@
 <?php
 /**
  * NISER Score Report Email Sender
- * Hosted on: Hostinger
- * Purpose: Send score report emails using Hostinger SMTP (bypasses Railway block)
+ * Uses PHPMailer for reliable SMTP delivery
  */
+
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/email_error.log');
 
 // CORS headers
 header('Access-Control-Allow-Origin: https://vigyanprep.com');
@@ -11,7 +16,6 @@ header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 
-// Handle preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -23,7 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Get JSON input
+// Load PHPMailer classes manually
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!$input) {
@@ -42,13 +53,12 @@ $totalCorrect = intval($input['totalCorrect'] ?? 0);
 $totalWrong = intval($input['totalWrong'] ?? 0);
 $totalQuestions = intval($input['totalQuestions'] ?? 80);
 
-// Validate email
 if (!$email) {
     echo json_encode(['success' => false, 'message' => 'Valid email required']);
     exit;
 }
 
-// Build section rows
+// Build section rows (same HTML logic as before)
 $sectionRows = '';
 $sections = ['Biology', 'Chemistry', 'Physics', 'Mathematics'];
 foreach ($sections as $s) {
@@ -72,7 +82,7 @@ foreach ($sections as $s) {
 $skipped = $totalQuestions - $totalCorrect - $totalWrong;
 $year = date('Y');
 
-// Email HTML
+// HTML Template
 $emailHtml = <<<HTML
 <!DOCTYPE html>
 <html>
@@ -85,8 +95,7 @@ $emailHtml = <<<HTML
         <tr>
             <td align="center">
                 <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-                    
-                    <!-- Header - matches website brand -->
+                    <!-- Header -->
                     <tr>
                         <td style="background: #0d0d0d; padding: 25px 40px; border-bottom: 3px solid #d4af37;">
                             <table width="100%" cellpadding="0" cellspacing="0">
@@ -192,16 +201,28 @@ HTML;
 // Send email using mail() - Hostinger's built-in
 $to = $email;
 $subject = "🎯 Your NISER $examYear Score Report - Merit: $meritScore/180";
+// Email headers
 $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 $headers .= "From: Vigyan.prep Exams <noreply@vigyanprep.com>\r\n";
 $headers .= "Reply-To: noreply@vigyanprep.com\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion();
 
-$sent = mail($to, $subject, $emailHtml, $headers);
+// Use -f parameter to set Envelope Sender (critical for delivery)
+$params = "-f noreply@vigyanprep.com";
 
-if ($sent) {
+// Logging
+$logFile = __DIR__ . '/email.log';
+$logEntry = date('[Y-m-d H:i:s] ') . "Attempting to send to $to... ";
+
+if (mail($to, $subject, $emailHtml, $headers, $params)) {
+    $logEntry .= "SUCCESS\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
     echo json_encode(['success' => true, 'message' => 'Score report sent', 'email' => $email]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Email sending failed']);
+    $error = error_get_last()['message'] ?? 'Unknown error';
+    $logEntry .= "FAILED: $error\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
+    echo json_encode(['success' => false, 'message' => 'Email sending failed', 'error' => $error]);
 }
 ?>

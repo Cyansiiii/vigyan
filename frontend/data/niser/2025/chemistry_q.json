@@ -51,7 +51,7 @@
     },
     {
         "id": 6,
-        "text": "The molecular orbital energy diagram represents:<br><br><div style='text-align:center;'><img src='images/chem_mo.png' alt='MO Diagram' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "The molecular orbital energy diagram represents:<br><br><div style='text-align:center;'><img src='images/chem_mo_v2.png' alt='MO Diagram' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "O₂ molecule",
             "N₂ molecule",
@@ -111,7 +111,7 @@
     },
     {
         "id": 12,
-        "text": "Which of the following is a quinone derivative?<br><br><div style='text-align:center;'><img src='images/chem_quinone.png' alt='Quinone Options' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "Which of the following is a quinone derivative?<br><br><div style='text-align:center;'><img src='images/chem_quinone_v2.png' alt='Quinone Options' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Compound (a)",
             "Compound (b)",

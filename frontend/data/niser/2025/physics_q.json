@@ -21,7 +21,7 @@
     },
     {
         "id": 3,
-        "text": "Light travels from medium 1 (n₁) to medium 2 (n₂) as shown. If n₁ > n₂, the ray will:<br><br><div style='text-align:center;'><img src='images/phys_refraction.png' alt='Refraction' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "Light travels from medium 1 (n₁) to medium 2 (n₂) as shown. If n₁ > n₂, the ray will:<br><br><div style='text-align:center;'><img src='images/phys_refraction_v2.png' alt='Refraction' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Bend towards the normal",
             "Bend away from the normal",
@@ -31,7 +31,7 @@
     },
     {
         "id": 4,
-        "text": "A light ray passes through four transparent media as shown. If n₁ < n₂ < n₃ < n₄, the ray emerges:<br><br><div style='text-align:center;'><img src='images/phys_layers.png' alt='Four Media' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "A light ray passes through four transparent media as shown. If n₁ < n₂ < n₃ < n₄, the ray emerges:<br><br><div style='text-align:center;'><img src='images/phys_layers_v2.png' alt='Four Media' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Parallel to incident ray",
             "Perpendicular to incident ray",
@@ -41,7 +41,7 @@
     },
     {
         "id": 5,
-        "text": "The graph of maximum velocity (Vmax) vs frequency (ν) in the photoelectric effect is:<br><br><div style='text-align:center;'><img src='images/phys_photoelectric.png' alt='Photoelectric Effect' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "The graph of maximum velocity (Vmax) vs frequency (ν) in the photoelectric effect is:<br><br><div style='text-align:center;'><img src='images/phys_photoelectric_v2.png' alt='Photoelectric Effect' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Graph (a)",
             "Graph (b)",
@@ -91,7 +91,7 @@
     },
     {
         "id": 10,
-        "text": "In the DC circuit shown, after a long time, the charges on capacitors C₁ and C₂ are:<br><br><div style='text-align:center;'><img src='images/phys_q40.png' alt='DC Circuit' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "In the DC circuit shown, after a long time, the charges on capacitors C₁ and C₂ are:<br><br><div style='text-align:center;'><img src='images/phys_q40_v2.png' alt='DC Circuit' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "8 μC and 16 μC",
             "16 μC and 8 μC",

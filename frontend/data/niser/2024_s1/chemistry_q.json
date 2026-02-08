@@ -1,0 +1,202 @@
+[
+    {
+        "id": 0,
+        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q1.png' alt='Chemical Reactions' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>In this context, the correct statement is",
+        "options": [
+            "(a) Q is a ketone and T is an ether.",
+            "(b) R is an acid and S is a ketal",
+            "(c) R is an aldehyde and S is a ketal.",
+            "(d) Q is an acid and T is an ester."
+        ]
+    },
+    {
+        "id": 1,
+        "question": "Aqueous solution of sodium salt of 2-methylbutanoic acid on Kolbe electrolysis yields **P** (major product). **P** is<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q2.png' alt='Kolbe Electrolysis Products' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(a)",
+            "(b)",
+            "(c)",
+            "(d)"
+        ]
+    },
+    {
+        "id": 2,
+        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q3.png' alt='Reactions of P' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>**R** and **S**, respectively, are",
+        "options": [
+            "(a) Methoxybenzene and 2-Hydroxybenzoic acid",
+            "(b) Methylbenzene and Benzoic acid",
+            "(c) Methoxybenzene and Benzoic acid",
+            "(d) 2-Hydroxy-methylbenzene and 2-Hydroxybenzoic acid"
+        ]
+    },
+    {
+        "id": 3,
+        "question": "Glucose on treatment with bromine water yields **X**. **X** upon treatment with excess of acetic anhydride yields **Y**. The structure of **Y** is<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q4.png' alt='Structures' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(a)",
+            "(b)",
+            "(c)",
+            "(d)"
+        ]
+    },
+    {
+        "id": 4,
+        "question": "An intramolecular aldol reaction of **P** in the presence of dilute NaOH yields a mixture of aldol reaction products.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q5_structure.png' alt='Compound P' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>One of the products that can be formed is<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q5_options.png' alt='Options' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(a)",
+            "(b)",
+            "(c)",
+            "(d)"
+        ]
+    },
+    {
+        "id": 5,
+        "question": "Consider the following compounds.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q6.png' alt='Compounds' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the compounds that show aromaticity are",
+        "options": [
+            "(a) I and IV",
+            "(b) II and III",
+            "(c) III and IV",
+            "(d) I and III (Thiophene and Naphthalene)"
+        ]
+    },
+    {
+        "id": 6,
+        "question": "Consider the following ethers.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q7.png' alt='Ethers' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the ethers that can be synthesized under mild conditions using Williamson's ether synthesis are",
+        "options": [
+            "(a) I and II",
+            "(b) II and III",
+            "(c) II and IV",
+            "(d) III and IV"
+        ]
+    },
+    {
+        "id": 7,
+        "question": "Consider the following reaction:<br>\\(x MnO_4^- + y I^- + z H^+ \\rightarrow p Mn^{2+} + q IO_3^- + r H_2O\\)<br>The correct ratio \\(x : y\\) in the balanced equation is",
+        "options": [
+            "(a) 6:5",
+            "(b) 6 : 4",
+            "(c) 5 : 6",
+            "(d) 4 : 6"
+        ]
+    },
+    {
+        "id": 8,
+        "question": "The spin only magnetic moment of a manganese (atomic number 25) amine complex is 2.83 BM. The oxidation state of Mn in the complex is",
+        "options": [
+            "(a) +2",
+            "(b) +3",
+            "(c) +4",
+            "(d) +5"
+        ]
+    },
+    {
+        "id": 9,
+        "question": "Consider the radioactive decay, \\(X \text{ (radioactive)} \rightarrow Y \text{ (stable)}\\). At time \\(t = 0\\), \\(X\\) is present in the pure form and at \\(t = 2\\) h, the ratio of amounts of \\(X\\) and \\(Y\\) is 1:3. The duration required for the ratio to become 1:15 is",
+        "options": [
+            "(a) 10 h",
+            "(b) 8 h",
+            "(c) 6 h",
+            "(d) 4 h"
+        ]
+    },
+    {
+        "id": 10,
+        "question": "The correct statement regarding chromate and dichromate is",
+        "options": [
+            "(a) Oxidation states are +4 and +6",
+            "(b) Dichromate with \\(H_2SO_4\\) gives chromate",
+            "(c) All bond distances are equal",
+            "(d) Six electrons involved in reduction"
+        ]
+    },
+    {
+        "id": 11,
+        "question": "Among the elements Cr, Mn, Cu, and Zn, the one having the highest second ionization energy is",
+        "options": [
+            "(a) Cr",
+            "(b) Mn",
+            "(c) Cu",
+            "(d) Zn"
+        ]
+    },
+    {
+        "id": 12,
+        "question": "The compound having highest covalent character in the metal-chlorine bond is",
+        "options": [
+            "(a) \\(NaCl\\)",
+            "(b) \\(MgCl_2\\)",
+            "(c) AlCl3",
+            "(d) \\(TiCl_4\\)"
+        ]
+    },
+    {
+        "id": 13,
+        "question": "The correct order of basicity is",
+        "options": [
+            "(a) \\(Al(OH)_3 > Ca(OH)_2 > Lu(OH)_3 > La(OH)_3\\)",
+            "(b) Ca(OH)2>La(OH)3>Lu(OH)3>Al(OH)3",
+            "(c) \\(Lu(OH)_3 > La(OH)_3 > Ca(OH)_2 > Al(OH)_3\\)",
+            "(d) \\(La(OH)_3 > Ca(OH)_2 > Al(OH)_3 > Lu(OH)_3\\)"
+        ]
+    },
+    {
+        "id": 14,
+        "question": "Certain amount (say, n moles) of a monoatomic ideal gas (\\(C_V = \frac{3}{2}R\\)) of volume \\(V_1\\), temperature \\(T_1\\), and pressure \\(P_1\\) is expanded against a constant external pressure \\(P_2\\) until the pressure of the gas becomes \\(P_2\\). The correct statement is",
+        "options": [
+            "(a) If expanded adiabatically, work is \\(\frac{3}{2} V_1(P_2 - P_1)\\)",
+            "(b) If expanded adiabatically, entropy change is zero",
+            "(c) If expanded isothermally, work is \\(-nRT_1 \\ln(P_1/P_2)\\)",
+            "(d) All of the above are true"
+        ]
+    },
+    {
+        "id": 15,
+        "question": "Consider the reaction equilibrium \\(X(g) \rightleftharpoons Y(g) + Z(g)\\) at a constant temperature \\(T\\). Starting with 1 mole of \\(X\\), the equilibrium is reached at a given pressure \\(P\\). A plot of \\(PV/RT\\) vs \\(P/P^0\\) will look like:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q16.png' alt='PV/RT Plot' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(a)",
+            "(b)",
+            "(c)",
+            "(d)"
+        ]
+    },
+    {
+        "id": 16,
+        "question": "Consider two mutually soluble solids **PQ** and **RS\\(_2\\)**. [Complex solubility problem statement]. The ratio of solubility products of **PQ** and **RS\\(_2\\)** at \\(T_3\\) is given by",
+        "options": [
+            "(a) 1",
+            "(b) 9/8",
+            "(c) 9/32",
+            "(d) 3/2"
+        ]
+    },
+    {
+        "id": 17,
+        "question": "Consider the following molecular orbitals that are formed by sidewise overlap of adjacent 2p atomic orbitals.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/chem_q18.png' alt='Molecular Orbitals' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct order of energies of the molecular orbitals is",
+        "options": [
+            "(a) IV<II=III<I",
+            "(b) III < IV < II < I",
+            "(c) I < II < IV < III",
+            "(d) IV = II = III < I"
+        ]
+    },
+    {
+        "id": 18,
+        "question": "The quantity \\(\\sum_{i=1}^{\\infty} \\nu_{min}^{(i)}\\) expressed in terms of the ground state energy of hydrogen atom, \\(E_H\\) and the Planck's constant \\(h\\) is",
+        "options": [
+            "(a) \\(-(E_H/h) \\sum_{n=1}^{\\infty} \\frac{1}{n^2}\\)",
+            "(b) −EH/h",
+            "(c) \\(-E_H\\)",
+            "(d) Infinity"
+        ]
+    },
+    {
+        "id": 19,
+        "question": "Consider the first order reaction \\(X(g) \rightarrow 2Y(g) + 2Z(g)\\). [Pressure change problem statement]. The fraction of unreacted **X** at \\(t = 1\\) h is",
+        "options": [
+            "(a) 12.5%",
+            "(b) 25%",
+            "(c) 50%",
+            "(d) 75%"
+        ]
+    }
+]

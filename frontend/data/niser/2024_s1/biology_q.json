@@ -1,0 +1,202 @@
+[
+    {
+        "id": 0,
+        "question": "Analyze the images and deduce the correct structural description of the molecules.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q1.png' alt='Molecules' style='max-width:550px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(A) DNA: primary; Protein: secondary; Antibody: tertiary",
+            "(B) DNA: primary; Protein: tertiary; Antibody: quaternary",
+            "(C) DNA: quaternary; Protein: primary; Antibody: secondary",
+            "(D) DNA - secondary; Protein - secondary; Antibody - quaternary"
+        ]
+    },
+    {
+        "id": 1,
+        "question": "The effects of elevated \\( CO_2 \\) supply, presence of legumes and phosphorus availability on non-legume plant growth biomass (gm) in grassland community is depicted in the graph.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q2.png' alt='Graph' style='max-width:600px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Based on the information, the correct option is:",
+        "options": [
+            "(A) Nitrogen deprived plant grow better under elevated \\( CO_2 \\) conditions.",
+            "(B) Plant growth is enhanced under elevated \\( CO_2 \\) in the presence of legume",
+            "(C) In the absence of phosphorus, legumes provide no growth benefit to the plants.",
+            "(D) In the presence of legumes, there is no growth benefits on addition of phosphorus under elevated \\( CO_2 \\) conditions."
+        ]
+    },
+    {
+        "id": 2,
+        "question": "In a given plant, the flower colour is governed by a single gene locus. The flower can be either white, red, blue or purple colour. However, a single flower will never have different coloured petals. Multiple crosses were carried out between plants with different flower colours (white, red, blue or purple) and the observations on the progeny phenotype are tabulated.<br>[IMAGE_REQUIRED_BIO_Q3]<br>Based on this information, the correct option is:",
+        "options": [
+            "(A) There are two alleles governing flower colour.",
+            "(B) Purple allele is dominant over Red allele, and Red allele is dominant over Blue allele.",
+            "(C) Red and Blue alleles show incomplete dominance",
+            "(D) White allele is dominant over purple allele."
+        ]
+    },
+    {
+        "id": 3,
+        "question": "In the given pedigree, circles represent females and squares represent males. Filled shapes indicate affected individuals, while unfilled shapes indicate unaffected individuals. Based on the pedigree analysis, consider the statements (i) to (iv).<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q4.png' alt='Pedigree' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>(i) If the inheritance pattern is autosomal recessive, then the individual III-8 is a carrier of the disease.<br>(ii) If the inheritance pattern is X-linked recessive, then the individuals II-6 and III-7 are carriers of the disease.<br>(iii) Individuals I-1 and I-2 are homozygous for the allele under study.<br>(iv) If the inheritance pattern is autosomal recessive, then individuals III-2 and IV-1 must be carriers of the disease.<br>The correct combination of statements is:",
+        "options": [
+            "(A) i, ii and iv",
+            "(B) Statements i and ii are correct",
+            "(C) ii, iii, iv",
+            "(D) ii, iv"
+        ]
+    },
+    {
+        "id": 4,
+        "question": "Katalin Karikó and Drew Weissman were awarded the Nobel Prize in Physiology or Medicine for the year 2023 for their observation that pseudo-uridine (\\(\\psi\\)) incorporated mRNA (but not mRNA with normal bases A, U, G, and C) is better for RNA vaccine production. These observations paved the way for developing the RNA vaccine against SARS-CoV-2. The reason that pseudo-uridine incorporated mRNA worked as a better vaccine candidate is:",
+        "options": [
+            "(A) Innate immune system doesn't recognize pseudo-uridine incorporated mRNA",
+            "(B) Unmodified mRNA encoding spike protein cannot be translated by the ribosome.",
+            "(C) Antigen-presenting cells can translate only pseudo-uridine incorporated mRNA.",
+            "(D) Spike protein from unmodified mRNA cannot induce immune response."
+        ]
+    },
+    {
+        "id": 5,
+        "question": "An unknown organism that can utilise \\( NH_4Cl \\) as nitrogen source was grown for several generations under four different conditions as given below:<br>(i) medium containing \\( ^{15}NH_4Cl \\)<br>(ii) medium containing \\( ^{14}NH_4Cl \\)<br>(iii) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for one generation<br>(iv) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for two generations<br>DNA isolated from the organism was analysed by density gradient centrifugation. Assuming the mode of DNA replication is dispersive, the option representing the correct band pattern is:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q6.png' alt='DNA Replication' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(A) [Pattern A]",
+            "(B) [The band pattern representing dispersive replication]",
+            "(C) [Pattern C]",
+            "(D) [Pattern D]"
+        ]
+    },
+    {
+        "id": 6,
+        "question": "Consider the following statements about photorespiration in plants:<br>(i) Photorespiration produces one molecule of 3-phosphoglycerate from ribulose bisphosphate.<br>(ii) Photorespiration is a wasteful process because neither ATP nor NADPH is produced.<br>(iii) Phosphoglycolate is converted to glycolate in chloroplast.<br>(iv) Photorespiration in C3 plants is more compared to C4 plants.<br>The correct combination of statements is:",
+        "options": [
+            "(A) i and ii",
+            "(B) ii and iv",
+            "(C) iii and iv",
+            "(D) Statements ii and iii are correct"
+        ]
+    },
+    {
+        "id": 7,
+        "question": "In order to generate a crop variety with C4 carbon fixation, a researcher expressed PEPcase enzyme from C4 pathway in leaves of the C3 plant. However, the modified C3 plant did not show carbon fixation efficiency as expected. The most likely reason is:",
+        "options": [
+            "(A) Improper compartmentalization of C4 PEPcase in C3 leaves",
+            "(B) C3 plants lack the enzyme Rubisco, which is essential for C4 pathway.",
+            "(C) C4 plants use mitochondrial ATP for carbon fixation, while C3 plants use chloroplast ATP.",
+            "(D) PEPcase enzyme is active only at very low \\( CO_2 \\) concentrations."
+        ]
+    },
+    {
+        "id": 8,
+        "question": "An experimenter was analysing homogenized leaf tissue (containing both plant and bacterial ribosomes) for the presence of ribosomal RNA (rRNA) using an agarose gel.<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q9.png' alt='Agarose Gel' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct statement about the observed band pattern is:",
+        "options": [
+            "(A) I, III, and V are from the plant ribosome",
+            "(B) I, III and V are from the bacterial ribosome.",
+            "(C) II, III and VI are from the bacterial ribosome.",
+            "(D) IV and VI are absent in plant ribosome."
+        ]
+    },
+    {
+        "id": 9,
+        "question": "A researcher incubated algal cells with a fluorescently-labeled cytidine analogue. The cells were lysed and different membrane-bound organelles were isolated. The organelle fractions that show incorporation of the fluorescence signal are:",
+        "options": [
+            "(A) Mitochondria and chloroplast",
+            "(B) chloroplast and endoplasmic reticulum.",
+            "(C) mitochondria and endoplasmic reticulum.",
+            "(D) endoplasmic reticulum but not nucleus."
+        ]
+    },
+    {
+        "id": 10,
+        "question": "In the vector map, GFP denotes green fluorescent protein, \\( Tet^R \\) is tetracycline resistance and \\( Amp^R \\) is ampicillin resistance. A DNA fragment containing the gene of interest was generated using \\(SalI\\) and ligated with the vector. The recombinants will grow on media containing:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q11.png' alt='Vector Map' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(A) ampicillin and are GFP positive",
+            "(B) Tetracycline positive and GFP negative",
+            "(C) ampicillin and are GFP negative",
+            "(D) tetracycline and are GFP positive"
+        ]
+    },
+    {
+        "id": 11,
+        "question": "In an ecological interaction between wild plants (\\(\\mathbf{X1}\\), \\(\\mathbf{X2}\\)) and a crop plant (\\(\\mathbf{Y}\\)), wild plants compete with crop plants. Wild plants \\(\\mathbf{X1}\\) support insects (\\(\\mathbf{T1}\\)) that feast on pests (\\(\\mathbf{P}\\)). Wild plants \\(\\mathbf{X2}\\) support pollinators (\\(\\mathbf{T2}\\)). The correct statement is:",
+        "options": [
+            "(A) Direct negative interaction of Y with X1 and X2",
+            "(B) The interaction between \\(\\mathbf{T1}\\) and \\(\\mathbf{T2}\\) insects is commensalism.",
+            "(C) Removing \\(\\mathbf{X1}\\) and \\(\\mathbf{X2}\\) will improve overall crop productivity.",
+            "(D) The interaction between \\(\\mathbf{T1}\\) and crop plants \\(\\mathbf{Y}\\) is parasitism."
+        ]
+    },
+    {
+        "id": 12,
+        "question": "The forelimbs of whales, bats, cheetahs and humans share similar anatomical structures. The most appropriate option that captures the evolution of these forelimb bones is:",
+        "options": [
+            "(A) Divergent and orthologous",
+            "(B) Convergent and homologous",
+            "(C) Divergent and paralogous",
+            "(D) Convergent and orthologous"
+        ]
+    },
+    {
+        "id": 13,
+        "question": "In the Tree of Life, viruses are not included. The reason for this is:",
+        "options": [
+            "(A) Viruses lack a cellular structure",
+            "(B) Viruses do not evolve from their ancestors.",
+            "(C) Evolution of viruses do not follow Darwinian principles.",
+            "(D) Viruses infect all domains of life."
+        ]
+    },
+    {
+        "id": 14,
+        "question": "Chloroplasts of Euglenophyta are surrounded by three membranes. Assuming gain-of-function and gene addition, the most likely evolutionary scenario is:",
+        "options": [
+            "(A) Euglenophyta evolved from an independent secondary endosymbiont",
+            "(B) Heterokontophyta and Cryptophyta evolved from Euglenophyta.",
+            "(C) Euglenophyta evolved from Heterokontophyta and Cryptophyta.",
+            "(D) They evolved from a common ancestor through a single event."
+        ]
+    },
+    {
+        "id": 15,
+        "question": "Bleeding into internal organs occurs when the platelet count is very low. This is because:",
+        "options": [
+            "(A) Blood becomes thin and flows out easily.",
+            "(B) Clotting factors from platelets stop internal bleeding",
+            "(C) Red blood cells cannot bind to each other.",
+            "(D) White blood cells cannot reach the site."
+        ]
+    },
+    {
+        "id": 16,
+        "question": "Lokiarchaeon co-cultured with Methanobacterium and a proteobacterium. The interactions between Lokiarchaeon with Methanobacterium and Lokiarchaeon/Methanobacterium with proteobacterium, respectively, are:",
+        "options": [
+            "(A) Mutualism and commensalism",
+            "(B) Mutualism and parasitism",
+            "(C) Commensalism and mutualism",
+            "(D) Mutualism and amensalism"
+        ]
+    },
+    {
+        "id": 17,
+        "question": "Identify the non-reducing disaccharide:<br><br><div style='text-align:center;'><img src='data/niser/2024_s1/images/bio_q18.png' alt='Non-reducing Disaccharide' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "(A) Cellobiose",
+            "(B) Trehalose (non-reducing disaccharide)",
+            "(C) Lactose",
+            "(D) Maltose"
+        ]
+    },
+    {
+        "id": 18,
+        "question": "A researcher found a cottony growth on plant tissue. Microscopic examination showed branched, thread-like structures with linearly arranged cells and cross walls. Each cell has a nucleus. Staining revealed complex polysaccharides in cell walls. The organism belongs to:",
+        "options": [
+            "(A) Kingdom: Protista, Phylum: Amoebozoa",
+            "(B) Kingdom: Fungi; Phylum: Ascomycota",
+            "(C) Kingdom: Monera; Phylum: Actinomycetota",
+            "(D) Kingdom: Plantae; Phylum: Charophyta"
+        ]
+    },
+    {
+        "id": 19,
+        "question": "The graph depicts an energy diagram (potential energy \\( vs \\) progress of reaction) of an uncatalyzed and enzyme-catalysed reaction.<br>[IMAGE_REQUIRED_BIO_Q20]<br>Which of the following statement/s about enzyme catalysis is/are CORRECT:",
+        "options": [
+            "(A) Statements i and ii are correct",
+            "(B) i and iii",
+            "(C) i, ii and iv",
+            "(D) ii and iv"
+        ]
+    }
+]

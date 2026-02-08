@@ -2,8 +2,14 @@
     'use strict';
 
     // ==========================================
-    // VIGYAN.PREP "UNIVERSAL" EXAM ENGINE (v3.0)
-    // Secure Vault & Year-Agnostic Engine
+    // VIGYAN.PREP "UNIVERSAL" EXAM ENGINE (v3.1)
+    // ==========================================
+    // ⚠️ IMPORTANT: THIS FILE CONTAINS LOGIC ONLY (NO QUESTIONS).
+    // It fetches questions from: /frontend/data/{EXAM}/{YEAR}/...
+    //
+    // CAPABILITIES:
+    // 1. Supports Exam Types: 'niser' and 'iiser'
+    // 2. Supports Years: '2024_s1', '2025', etc. (Year-Agnostic)
     // ==========================================
 
     // ENCAPSULATED STATE
@@ -21,7 +27,11 @@
     // Detect Year from URL
     const urlParams = new URLSearchParams(window.location.search);
     let yearParam = urlParams.get('year') || '2025';
-    const TEST_YEAR = yearParam.replace(/[^0-9]/g, '');
+    let examType = urlParams.get('type') || 'niser'; // Default to niser
+
+    // Allow alphanumeric (e.g., 2024_s1) but sanitize strictly to safe chars
+    const TEST_YEAR = yearParam.replace(/[^a-zA-Z0-9_]/g, '');
+    const EXAM_TYPE = examType.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase(); // niser or iiser
 
     // HELPER: Base64 Decoder
     function decodeKey(base64) {
@@ -54,7 +64,12 @@
             questionStatus[s] = {};
         });
 
-        document.getElementById('examTitleHeader').textContent = `NISER PYQ ${TEST_YEAR}`;
+        const examTitle = EXAM_TYPE.toUpperCase();
+        document.getElementById('examTitleHeader').textContent = `${examTitle} PYQ ${TEST_YEAR}`;
+
+        // Also update instruction page title if present
+        const instTitle = document.getElementById('examTitle');
+        if (instTitle) instTitle.textContent = `Vigyan.prep ${examTitle} PYQ ${TEST_YEAR}`;
 
         try {
             await ensureSectionLoaded(currentSection);
@@ -76,15 +91,15 @@
 
     async function ensureSectionLoaded(section) {
         if (loadedQuestions[section]) return;
-        // Dynamically fetch based on TEST_YEAR
-        const response = await fetch(`../data/niser/${TEST_YEAR}/${section.toLowerCase()}_q.json?v=${Date.now()}`);
-        if (!response.ok) throw new Error(`Failed to fetch ${section} for ${TEST_YEAR}`);
+        // Dynamically fetch based on EXAM_TYPE and TEST_YEAR
+        const response = await fetch(`../data/${EXAM_TYPE}/${TEST_YEAR}/${section.toLowerCase()}_q.json?v=${Date.now()}`);
+        if (!response.ok) throw new Error(`Failed to fetch ${section} for ${EXAM_TYPE} ${TEST_YEAR}`);
         loadedQuestions[section] = await response.json();
     }
 
     async function ensureKeysLoaded(section) {
         if (loadedKeys[section]) return;
-        const response = await fetch(`../data/niser/${TEST_YEAR}/${section.toLowerCase()}_k.json?v=${Date.now()}`);
+        const response = await fetch(`../data/${EXAM_TYPE}/${TEST_YEAR}/${section.toLowerCase()}_k.json?v=${Date.now()}`);
         if (!response.ok) throw new Error(`Failed to fetch keys for ${section}`);
         loadedKeys[section] = await response.json();
     }
@@ -252,6 +267,7 @@
 
     async function submitExam(auto = false) {
         clearInterval(timerInterval);
+
         document.getElementById('submitModal').style.display = 'none';
 
         // Show loading indicator

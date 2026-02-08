@@ -271,6 +271,35 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
 
+        /* Session Buttons Container */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .session-btn {
+            flex: 1;
+            padding: 0.75rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .session-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
         /* Floating Animation */
         @keyframes float {
 
@@ -412,8 +441,8 @@
 
     <!-- PYQ Cards Container -->
     <div class="cards-container">
-        <!-- 2025 -->
-        <div class="pyq-card" onclick="startExam(2025)">
+        <!-- 2025 (Single Set - Latest) -->
+        <div class="pyq-card" onclick="startExam('2025')">
             <div class="card-inner">
                 <span class="card-badge">Latest</span>
                 <div class="card-year">2025</div>
@@ -436,8 +465,8 @@
             </div>
         </div>
 
-        <!-- 2024 -->
-        <div class="pyq-card" onclick="startExam(2024)">
+        <!-- 2024 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2024</div>
                 <div class="card-title">NISER PYQ</div>
@@ -450,17 +479,16 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2024_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2024_s2')">Session 2</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2023 -->
-        <div class="pyq-card" onclick="startExam(2023)">
+        <!-- 2023 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2023</div>
                 <div class="card-title">NISER PYQ</div>
@@ -473,17 +501,16 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2023_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2023_s2')">Session 2</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2022 -->
-        <div class="pyq-card" onclick="startExam(2022)">
+        <!-- 2022 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2022</div>
                 <div class="card-title">NISER PYQ</div>
@@ -496,17 +523,16 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2022_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2022_s2')">Session 2</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2021 -->
-        <div class="pyq-card" onclick="startExam(2021)">
+        <!-- 2021 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2021</div>
                 <div class="card-title">NISER PYQ</div>
@@ -519,17 +545,16 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2021_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2021_s2')">Session 2</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2020 -->
-        <div class="pyq-card" onclick="startExam(2020)">
+        <!-- 2020 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2020</div>
                 <div class="card-title">NISER PYQ</div>
@@ -542,17 +567,16 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2020_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2020_s2')">Session 2</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2019 -->
-        <div class="pyq-card" onclick="startExam(2019)">
+        <!-- 2019 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2019</div>
                 <div class="card-title">NISER PYQ</div>
@@ -565,17 +589,16 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2019_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2019_s2')">Session 2</button>
+                </div>
             </div>
         </div>
 
-        <!-- 2018 -->
-        <div class="pyq-card" onclick="startExam(2018)">
+        <!-- 2018 (Two Sets) -->
+        <div class="pyq-card">
             <div class="card-inner">
                 <div class="card-year">2018</div>
                 <div class="card-title">NISER PYQ</div>
@@ -588,12 +611,11 @@
                         <span class="detail-label">Duration</span>
                         <span class="detail-value">180 min</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Max Marks</span>
-                        <span class="detail-value">240</span>
-                    </div>
                 </div>
-                <button class="start-btn">Start Practice →</button>
+                <div class="card-actions">
+                    <button class="session-btn" onclick="startExam('2018_s1')">Session 1</button>
+                    <button class="session-btn" onclick="startExam('2018_s2')">Session 2</button>
+                </div>
             </div>
         </div>
     </div>

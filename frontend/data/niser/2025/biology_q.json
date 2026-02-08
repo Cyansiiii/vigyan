@@ -31,7 +31,7 @@
     },
     {
         "id": 4,
-        "text": "The oxygen dissociation curve (as percentage saturation versus \\(pO_2\\)) of blood for a healthy adult is shown. The regions P, Q, and R represent:<br><br><div style='text-align:center;'><img src='images/bio_q4.png' alt='Oxygen Curve' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "The oxygen dissociation curve (as percentage saturation versus \\(pO_2\\)) of blood for a healthy adult is shown. The regions P, Q, and R represent:<br><br><div style='text-align:center;'><img src='images/bio_oxy_v2.png' alt='Oxygen Curve' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "P: Tissues at rest, Q: Active tissues, R: Lungs",
             "P: Lungs, Q: Active tissues, R: Tissues at rest",
@@ -71,7 +71,7 @@
     },
     {
         "id": 8,
-        "text": "In the eukaryotic cell cycle shown, the black solid bars (1, 2 and 3) represent important checkpoints. These checkpoints monitor:<br><br><div style='text-align:center;'><img src='images/bio_q8.png' alt='Cell Cycle' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "In the eukaryotic cell cycle shown, the black solid bars (1, 2 and 3) represent important checkpoints. These checkpoints monitor:<br><br><div style='text-align:center;'><img src='images/bio_cellcycle_v2.png' alt='Cell Cycle' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "1: chromosome attachment to spindles; 2: DNA replication; 3: growth factors.",
             "1: DNA replication; 2: growth factors; 3: chromosome attachment to spindles.",
@@ -121,7 +121,7 @@
     },
     {
         "id": 13,
-        "text": "In the given pedigree charts (i, ii, iii, iv), which pattern represents autosomal recessive inheritance?<br><br><div style='text-align:center;'><img src='images/bio_q13.png' alt='Pedigree Charts' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "In the given pedigree charts (i, ii, iii, iv), which pattern represents autosomal recessive inheritance?<br><br><div style='text-align:center;'><img src='images/bio_pedigree_v2.png' alt='Pedigree Charts' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Pedigree (i)",
             "Pedigree (ii)",
@@ -131,7 +131,7 @@
     },
     {
         "id": 14,
-        "text": "The diagram shows cell growth pattern with layers P, Q, and R over time. This represents:<br><br><div style='text-align:center;'><img src='images/bio_q14.png' alt='Cell Growth' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "The diagram shows cell growth pattern with layers P, Q, and R over time. This represents:<br><br><div style='text-align:center;'><img src='images/bio_growth_v2.png' alt='Cell Growth' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Primary growth in dicot stem",
             "Secondary growth in dicot stem",
@@ -141,7 +141,7 @@
     },
     {
         "id": 15,
-        "text": "The histogram shows bristle number distribution in three populations (Plot I, II, III). This pattern indicates:<br><br><div style='text-align:center;'><img src='images/bio_q15.png' alt='Bristle Distribution' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "text": "The histogram shows bristle number distribution in three populations (Plot I, II, III). This pattern indicates:<br><br><div style='text-align:center;'><img src='images/bio_histogram_v2.png' alt='Bristle Distribution' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
         "options": [
             "Stabilizing selection",
             "Directional selection",
