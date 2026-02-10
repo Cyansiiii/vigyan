@@ -5,7 +5,14 @@ import './Navbar.css';
 const Navbar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+        if (!isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+    };
 
     const navItems = [
         { label: 'Home', href: 'index.html' },
@@ -31,7 +38,7 @@ const Navbar: React.FC = () => {
 
     return (
         <nav className="navbar flex justify-between items-center px-[5%] py-5 fixed top-0 w-full z-[1000] bg-black/90 backdrop-blur-xl border-b border-white/5">
-            <a href="index.html" className="logo flex items-baseline">
+            <a href="index.html" className="logo flex items-baseline z-[1100]">
                 <span className="logo-vigyan text-2xl font-bold italic uppercase">Vigyan</span>
                 <span className="logo-dot text-lg opacity-60">.</span>
                 <span className="logo-prep text-sm opacity-50 lowercase">prep</span>
@@ -46,20 +53,20 @@ const Navbar: React.FC = () => {
                 {isMenuOpen ? <X size={28} /> : <MoreVertical size={28} />}
             </button>
 
-            {/* Navbar Links Overlay */}
+            {/* Navbar Links Overlay - Fixed positioning for mobile */}
             <div className={`
-                fixed lg:static top-0 right-0 h-screen lg:h-auto w-full lg:w-auto
-                bg-[#000000] lg:bg-transparent backdrop-blur-3xl lg:backdrop-blur-none
+                fixed lg:static inset-0 lg:inset-auto h-screen lg:h-auto w-full lg:w-auto
+                bg-black lg:bg-transparent backdrop-blur-3xl lg:backdrop-blur-none
                 flex flex-col lg:flex-row items-center justify-center lg:justify-start
-                gap-8 lg:gap-8 transition-all duration-500 ease-in-out
-                ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 lg:opacity-100 pointer-events-none lg:pointer-events-auto'}
+                gap-8 lg:gap-8 transition-all duration-300 ease-in-out
+                ${isMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-10 lg:translate-y-0 lg:opacity-100 pointer-events-none lg:pointer-events-auto'}
                 z-[1050] lg:z-auto
             `}>
                 {navItems.map((item, idx) => (
-                    <div key={idx} className="relative group flex flex-col items-center">
+                    <div key={idx} className="relative group flex flex-col items-center w-full lg:w-auto">
                         {item.dropdown ? (
-                            <div className="flex flex-col items-center">
-                                <span className="text-2xl lg:text-sm font-semibold tracking-wide text-white/50 lg:text-white/70 mb-4 lg:mb-0">
+                            <div className="flex flex-col items-center w-full">
+                                <span className="text-xl lg:text-sm font-bold uppercase tracking-[2px] text-white/30 lg:text-white/70 mb-4 lg:mb-0">
                                     {item.label}
                                 </span>
                                 <div className="flex flex-col lg:hidden gap-4 mb-4">
@@ -67,8 +74,8 @@ const Navbar: React.FC = () => {
                                         <a
                                             key={sIdx}
                                             href={sub.href}
-                                            className="text-xl text-white font-medium hover:text-blue-400 transition-colors"
-                                            onClick={() => setIsMenuOpen(false)}
+                                            className="text-2xl text-white font-medium hover:text-blue-400 transition-colors text-center"
+                                            onClick={() => { setIsMenuOpen(false); document.body.style.overflow = 'unset'; }}
                                         >
                                             {sub.label}
                                         </a>
@@ -92,8 +99,8 @@ const Navbar: React.FC = () => {
                         ) : (
                             <a
                                 href={item.href}
-                                className="text-2xl lg:text-sm font-semibold tracking-wide text-white hover:text-blue-400 transition-colors"
-                                onClick={() => setIsMenuOpen(false)}
+                                className="text-3xl lg:text-sm font-semibold tracking-wide text-white hover:text-blue-400 transition-colors"
+                                onClick={() => { setIsMenuOpen(false); document.body.style.overflow = 'unset'; }}
                             >
                                 {item.label}
                             </a>
@@ -103,8 +110,8 @@ const Navbar: React.FC = () => {
 
                 <a
                     href="signinpage.html"
-                    className="mt-8 lg:mt-0 px-10 py-4 lg:px-6 lg:py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-bold text-white text-xl lg:text-xs"
-                    onClick={() => setIsMenuOpen(false)}
+                    className="mt-8 lg:mt-0 px-12 py-4 lg:px-6 lg:py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-bold text-white text-xl lg:text-xs shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                    onClick={() => { setIsMenuOpen(false); document.body.style.overflow = 'unset'; }}
                 >
                     Login
                 </a>
