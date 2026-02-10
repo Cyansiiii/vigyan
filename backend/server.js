@@ -280,6 +280,9 @@ console.log('🔵 Configuring static file serving...');
 // 1. Serve 'frontend' folder (CSS, JS, Images)
 app.use('/frontend', express.static(path.join(__dirname, '../frontend')));
 
+// 2. Serve production assets from 'dist/assets'
+app.use('/assets', express.static(path.join(__dirname, '../dist/assets')));
+
 // 2. Serve specific HTML files from root
 app.get('/:page.html', (req, res) => {
     const filePath = path.join(__dirname, `../${req.params.page}.html`);
