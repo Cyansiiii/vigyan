@@ -67,8 +67,8 @@ export function AstronautCanvas() {
                         className="w-auto h-auto max-w-[95%] max-h-[95%] object-contain select-none pointer-events-none brightness-110 contrast-105"
                         style={{
                             mixBlendMode: 'screen',
-                            WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
-                            maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                            WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 75%)',
+                            maskImage: 'radial-gradient(circle, black 40%, transparent 75%)',
                         }}
                         initial={{ opacity: 0, scale: 0.85 }}
                         animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0.85 }}
