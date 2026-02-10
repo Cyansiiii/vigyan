@@ -24,7 +24,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -73,6 +73,11 @@ body {
     align-items: center;
     padding: 0 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    /* Added for mobile/tablet */
+    gap: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .sections-tabs {
@@ -163,7 +168,10 @@ body {
 /* MAIN CONTENT */
 .main-content {
     display: flex;
-    height: calc(100vh - 90px);
+    flex: 1;
+    /* Properly take remaining space */
+    min-height: 0;
+    /* Important for flex child with overflow */
 }
 
 /* LEFT: QUESTION AREA */
@@ -174,7 +182,8 @@ body {
     display: flex;
     flex-direction: column;
     border-right: 1px solid #ccc;
-    overflow-y: auto;
+    position: relative;
+    /* Anchor for footer */
 }
 
 .q-header-bar {
@@ -293,7 +302,7 @@ body {
     display: flex;
     flex-direction: column;
     border-left: 1px solid #ccc;
-    max-height: calc(100vh - 100px);
+    height: 100%;
     overflow: hidden;
 }
 
@@ -301,6 +310,7 @@ body {
     background: white;
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    flex-shrink: 0;
 }
 
 .legend-grid {
@@ -674,4 +684,113 @@ body {
     background: #28a745;
     color: white;
     border-color: #28a745;
+}
+
+/* TABLET & IPAD RESPONSIVENESS */
+@media screen and (max-width: 1024px) {
+    .exam-header {
+        height: auto;
+        padding: 5px 15px;
+    }
+
+    .exam-title-text {
+        font-size: 0.9rem;
+    }
+
+    .sub-header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        min-height: auto;
+    }
+
+    .sections-tabs {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: auto;
+        padding-bottom: 5px;
+    }
+
+    .section-tab {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .sidebar {
+        width: 260px;
+    }
+
+    .palette-btn {
+        width: 28px;
+        height: 28px;
+        margin: 3px;
+        font-size: 0.8rem;
+    }
+
+    .footer-actions {
+        padding: 15px 10px;
+        background: #f8fafc;
+        border-top: 2px solid #e2e8f0;
+        margin-top: auto;
+        /* Ensure it stays at bottom of question area */
+        z-index: 10;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-action {
+        padding: 12px 15px;
+        /* Larger hit targets for touch */
+        font-size: 0.85rem;
+        flex: 1;
+        /* Distribute space evenly on tablet */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .btn-mark {
+        border-radius: 8px;
+    }
+
+    .sidebar-bottom {
+        padding: 10px;
+    }
+
+    .btn-submit {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+}
+
+/* MOBILE RESPONSIVENESS (PHONES) */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid #ccc;
+    }
+
+    .question-area {
+        height: auto;
+        min-height: 500px;
+        border-right: none;
+    }
+
+    .instruction-content-wrapper {
+        flex-direction: column;
+    }
+
+    .inst-right-panel {
+        width: 100%;
+        order: -1;
+    }
 }
