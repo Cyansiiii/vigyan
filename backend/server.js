@@ -274,6 +274,23 @@ app.get('/health', (req, res) => {
     });
 });
 
+// DEBUG ENDPOINT for assets
+app.get('/api/debug-assets', (req, res) => {
+    const assetsPath = path.join(__dirname, '../dist/assets');
+    const exists = fs.existsSync(assetsPath);
+    let files = [];
+    if (exists) {
+        files = fs.readdirSync(assetsPath);
+    }
+    res.json({
+        path: assetsPath,
+        exists: exists,
+        files: files.slice(0, 10),
+        cwd: process.cwd(),
+        dirname: __dirname
+    });
+});
+
 // Serve Static Frontend Files
 console.log('🔵 Configuring static file serving...');
 
