@@ -8,8 +8,8 @@
 }
 
 .systematic-card {
-    background: rgba(5, 11, 26, 0.3);
-    border: 1px solid rgba(59, 130, 246, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2.5rem;
     padding: 3.5rem;
     position: relative;
@@ -62,7 +62,8 @@
     border-left: 4px solid #3b82f6;
     padding-left: 2rem;
     margin: 2rem 0;
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .science-pioneer-frame {
@@ -119,10 +120,11 @@
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #94a3b8;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.6;
     font-weight: 400;
 }
+
 
 .glass-panel {
     background: rgba(15, 23, 42, 0.6);

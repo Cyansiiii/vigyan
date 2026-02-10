@@ -76,17 +76,14 @@ export default function AboutPage() {
             <Navbar />
 
             {/* Background Architecture */}
-            <div className="fixed inset-0 z-0">
+            <div className="fixed inset-0 z-0 bg-black">
                 <PerspectiveGrid gridSize={40} className="opacity-5" />
                 <ZenRain />
                 <StarField />
-                {/* Atmospheric Nebulae */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(13,27,59,0.5),transparent_70%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,rgba(59,130,246,0.15),transparent_60%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_70%,rgba(147,51,234,0.08),transparent_60%)]"></div>
                 {/* Subtle Grain */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
             </div>
+
 
 
             {/* Hero Section */}
