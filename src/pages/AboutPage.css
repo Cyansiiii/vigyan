@@ -193,3 +193,23 @@
         opacity: 0.5;
     }
 }
+
+/* Core Philosophy Section - One Frame Design */
+#philosophy-section {
+    background: transparent !important;
+}
+
+/* Systematic Units: Pioneers */
+section.bg-blue-500\/\[0\.02\] {
+    background: transparent !important;
+}
+
+/* The Archive Section */
+section.bg-black\/40 {
+    background: transparent !important;
+}
+
+/* Final Terminal Architecture */
+footer {
+    background: transparent !important;
+}

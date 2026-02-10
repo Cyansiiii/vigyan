@@ -19,6 +19,33 @@ import { TestimonialsCard } from "@/components/ui/testimonials-card";
 import { ArrowRight, Binary, Microscope, Zap, Compass, Atom, ShieldCheck, Target, Trophy, Terminal } from "lucide-react";
 import "./AboutPage.css";
 
+const StarField = () => {
+    return (
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            {[...Array(150)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-px h-px bg-white rounded-full"
+                    style={{
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                    }}
+                    animate={{
+                        opacity: [0.1, 0.8, 0.1],
+                        scale: [1, 1.5, 1],
+                    }}
+                    transition={{
+                        duration: 2 + Math.random() * 5,
+                        repeat: Infinity,
+                        delay: Math.random() * 7,
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
+
+
 export default function AboutPage() {
     // Navigation handlers
 
@@ -52,8 +79,15 @@ export default function AboutPage() {
             <div className="fixed inset-0 z-0">
                 <PerspectiveGrid gridSize={40} className="opacity-5" />
                 <ZenRain />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(48,44,55,0.4),transparent_70%)]"></div>
+                <StarField />
+                {/* Atmospheric Nebulae */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(13,27,59,0.5),transparent_70%)]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,rgba(59,130,246,0.15),transparent_60%)]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_70%,rgba(147,51,234,0.08),transparent_60%)]"></div>
+                {/* Subtle Grain */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
             </div>
+
 
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center px-6 lg:px-24 z-10 pt-20">
