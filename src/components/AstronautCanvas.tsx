@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import astronautImg from "../assets/images/hero-astronaut.png";
+
 
 export function AstronautCanvas() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -62,7 +64,8 @@ export function AstronautCanvas() {
                         Drop shadow added for depth
                     */}
                     <motion.img
-                        src="/images/astronaut.png"
+                        src={astronautImg}
+
                         alt="Astronaut floating in space"
                         className="w-auto h-auto max-w-[95%] max-h-[95%] object-contain select-none pointer-events-none brightness-110 contrast-105"
                         style={{
