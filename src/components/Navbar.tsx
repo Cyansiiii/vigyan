@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { MoreVertical, X } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -37,50 +37,62 @@ const Navbar: React.FC = () => {
                 <span className="logo-prep text-sm opacity-50 lowercase">prep</span>
             </a>
 
-            {/* Hamburger Toggle (Visible on Mobile/Tablet) */}
+            {/* Hamburger Toggle (Three Dots) */}
             <button
-                className="lg:hidden z-[1100] p-2 text-white"
+                className="lg:hidden z-[1100] p-2 text-white bg-white/10 rounded-full hover:bg-white/20 transition-all"
                 onClick={toggleMenu}
                 aria-label="Toggle Menu"
             >
-                {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+                {isMenuOpen ? <X size={28} /> : <MoreVertical size={28} />}
             </button>
 
-            {/* Navbar Links (Desktop & Mobile Overlay) */}
+            {/* Navbar Links Overlay */}
             <div className={`
-                nav-links fixed lg:static top-0 right-0 h-screen lg:h-auto w-full lg:w-auto
-                bg-black/98 lg:bg-transparent backdrop-blur-2xl lg:backdrop-blur-none
+                fixed lg:static top-0 right-0 h-screen lg:h-auto w-full lg:w-auto
+                bg-[#000000] lg:bg-transparent backdrop-blur-3xl lg:backdrop-blur-none
                 flex flex-col lg:flex-row items-center justify-center lg:justify-start
-                gap-10 lg:gap-8 transition-all duration-500 ease-in-out
-                ${isMenuOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
+                gap-8 lg:gap-8 transition-all duration-500 ease-in-out
+                ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 lg:opacity-100 pointer-events-none lg:pointer-events-auto'}
                 z-[1050] lg:z-auto
             `}>
                 {navItems.map((item, idx) => (
                     <div key={idx} className="relative group flex flex-col items-center">
                         {item.dropdown ? (
-                            <>
-                                <button className="text-xl lg:text-sm font-semibold tracking-wide text-white/70 hover:text-white transition-colors">
+                            <div className="flex flex-col items-center">
+                                <span className="text-2xl lg:text-sm font-semibold tracking-wide text-white/50 lg:text-white/70 mb-4 lg:mb-0">
                                     {item.label}
-                                </button>
-                                <div className="hidden group-hover:flex lg:absolute top-full left-1/2 -translate-x-1/2 pt-4 flex-col gap-2 min-w-[200px]">
-                                    <div className="bg-black/90 border border-white/10 rounded-xl p-2 flex flex-col items-center">
+                                </span>
+                                <div className="flex flex-col lg:hidden gap-4 mb-4">
+                                    {item.dropdown.map((sub, sIdx) => (
+                                        <a
+                                            key={sIdx}
+                                            href={sub.href}
+                                            className="text-xl text-white font-medium hover:text-blue-400 transition-colors"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            {sub.label}
+                                        </a>
+                                    ))}
+                                </div>
+                                {/* Desktop Dropdown */}
+                                <div className="hidden lg:group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-4 flex-col gap-2 min-w-[200px]">
+                                    <div className="bg-black/95 border border-white/10 rounded-xl p-2 flex flex-col items-center shadow-2xl">
                                         {item.dropdown.map((sub, sIdx) => (
                                             <a
                                                 key={sIdx}
                                                 href={sub.href}
                                                 className="w-full text-center px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                                                onClick={() => setIsMenuOpen(false)}
                                             >
                                                 {sub.label}
                                             </a>
                                         ))}
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         ) : (
                             <a
                                 href={item.href}
-                                className="text-xl lg:text-sm font-semibold tracking-wide text-white/70 hover:text-white transition-colors"
+                                className="text-2xl lg:text-sm font-semibold tracking-wide text-white hover:text-blue-400 transition-colors"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {item.label}
@@ -91,7 +103,7 @@ const Navbar: React.FC = () => {
 
                 <a
                     href="signinpage.html"
-                    className="btn-login px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-bold text-white lg:text-sm"
+                    className="mt-8 lg:mt-0 px-10 py-4 lg:px-6 lg:py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-bold text-white text-xl lg:text-xs"
                     onClick={() => setIsMenuOpen(false)}
                 >
                     Login
