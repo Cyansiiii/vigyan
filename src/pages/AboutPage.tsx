@@ -50,9 +50,9 @@ export default function AboutPage() {
 
             {/* Background Architecture */}
             <div className="fixed inset-0 z-0">
-                <PerspectiveGrid gridSize={40} className="opacity-10" />
+                <PerspectiveGrid gridSize={40} className="opacity-5" />
                 <ZenRain />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(48,44,55,0.4),transparent_70%)]"></div>
             </div>
 
             {/* Hero Section */}
@@ -64,7 +64,7 @@ export default function AboutPage() {
                         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <div className="mb-14">
-                            <h1 className="systematic-heading text-6xl md:text-9xl tracking-tighter">
+                            <h1 className="systematic-heading text-6xl md:text-8xl lg:text-9xl tracking-tighter">
                                 <span className="block opacity-30">SYMMETRY OF</span>
                                 <span className="block text-blue-500">
                                     <FlipText duration={3} delay={0.5}>ZEN SCIENCE.</FlipText>
@@ -86,7 +86,7 @@ export default function AboutPage() {
                     </motion.div>
                 </div>
 
-                <div className="absolute right-[-5%] top-0 w-3/5 h-full pointer-events-none hidden xl:block z-0">
+                <div className="absolute right-[-10%] md:right-[-5%] top-0 w-full md:w-3/5 h-full pointer-events-none z-0 opacity-40 xl:opacity-100">
                     <AstronautCanvas />
                 </div>
             </section>
@@ -290,11 +290,11 @@ export default function AboutPage() {
                 </h2>
                 <div className="relative z-20">
                     <InteractiveBook
-                        coverImage="/images/vigyan-book-cover.png"
+                        coverImage="/images/vigyan-codex-premium.png"
                         bookTitle="VIGYAN CODEX"
                         bookAuthor="THE COLLECTIVE"
-                        width={300}
-                        height={420}
+                        width={350}
+                        height={500}
                         pages={[
                             {
                                 pageNumber: 1,

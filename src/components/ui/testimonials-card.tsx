@@ -94,7 +94,7 @@ export function TestimonialsCard({
                 )}
 
                 {/* Image Card Stack */}
-                <div className="row-start-2  col-start-1 md:row-start-1 row-span-3 relative w-full aspect-square">
+                <div className="row-start-2 col-start-1 md:row-start-1 md:row-span-3 relative w-full aspect-square max-w-[300px] md:max-w-none mx-auto">
                     <AnimatePresence custom={direction}>
                         {items.map((item, index) => {
                             const isActive = index === activeIndex;
@@ -103,42 +103,42 @@ export function TestimonialsCard({
                             return (
                                 <motion.div
                                     key={item.id}
-                                    className="absolute inset-0 w-full h-full overflow-hidden border-[6px] bg-neutral-200 dark:bg-neutral-800 border-white dark:border-neutral-700 shadow-2xl rounded-lg"
+                                    className="absolute inset-0 w-full h-full overflow-hidden border-[4px] md:border-[6px] bg-neutral-200 dark:bg-neutral-800 border-white dark:border-neutral-700 shadow-2xl rounded-lg"
                                     initial={{
-                                        x: offset * 15,
-                                        y: Math.abs(offset) * 6,
-                                        z: -150 * Math.abs(offset),
-                                        scale: 0.85 - Math.abs(offset) * 0.04,
+                                        x: offset * 10,
+                                        y: Math.abs(offset) * 4,
+                                        z: -100 * Math.abs(offset),
+                                        scale: 0.9 - Math.abs(offset) * 0.04,
                                         rotateZ: rotations[index % 4],
-                                        opacity: isActive ? 1 : 0.5,
+                                        opacity: isActive ? 1 : 0.4,
                                         zIndex: 10 - Math.abs(offset),
                                     }}
                                     animate={
                                         isActive
                                             ? {
-                                                x: [offset * 15, direction === 1 ? -200 : 200, 0],
-                                                y: [Math.abs(offset) * 6, 0, 0],
-                                                z: [-200, 150, 250],
-                                                scale: [0.85, 1.05, 1],
+                                                x: [offset * 10, direction === 1 ? -150 : 150, 0],
+                                                y: [Math.abs(offset) * 4, 0, 0],
+                                                z: [-150, 100, 200],
+                                                scale: [0.9, 1.02, 1],
                                                 rotateZ: [rotations[index % 4], -5, 0],
                                                 opacity: 1,
                                                 zIndex: 100,
                                             }
                                             : {
-                                                x: offset * 15,
-                                                y: Math.abs(offset) * 6,
-                                                z: -150 * Math.abs(offset),
+                                                x: offset * 10,
+                                                y: Math.abs(offset) * 4,
+                                                z: -100 * Math.abs(offset),
                                                 rotateZ: rotations[index % 4],
-                                                scale: 0.85 - Math.abs(offset) * 0.04,
-                                                opacity: 0.55,
+                                                scale: 0.9 - Math.abs(offset) * 0.04,
+                                                opacity: 0.5,
                                                 zIndex: 10 - Math.abs(offset),
                                             }
                                     }
                                     exit={{
-                                        x: direction === 1 ? -250 : 250,
-                                        z: -260,
-                                        scale: 0.75,
-                                        rotateZ: direction === 1 ? -10 : 10,
+                                        x: direction === 1 ? -200 : 200,
+                                        z: -200,
+                                        scale: 0.8,
+                                        rotateZ: direction === 1 ? -8 : 8,
                                         opacity: 0,
                                     }}
                                     transition={{
