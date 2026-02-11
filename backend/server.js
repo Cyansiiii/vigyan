@@ -19,7 +19,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 🛠️ STARTUP LOGGING (File-based for Hostinger debugging)
+// 🛠️ STARTUP LOGGING
 const LOG_FILE = path.join(__dirname, '../startup_log.txt');
 function logStartup(message) {
     const timestamp = new Date().toISOString();
@@ -34,23 +34,18 @@ function logStartup(message) {
 logStartup('🚀 STARTING BACKEND SERVER.JS');
 logStartup(`Running on Node ${process.version}`);
 logStartup(`Env PORT: ${process.env.PORT}`);
-// 🔍 DEBUG: Log ALL Environment Keys (but not values to avoid leaking secrets)
+// 🔍 DEBUG: Log ALL Environment Keys
 const envKeys = Object.keys(process.env).sort();
 logStartup(`Available Env Keys: ${envKeys.join(', ')}`);
-if (envKeys.length < 5) {
-    logStartup('⚠️ WARNING: Environment seems empty! Hostinger vars not injected?');
-}
 
 // Load environment variables
 console.log('🔵 Loading environment variables...');
-// Environment variables are already loaded by config/env.js
 
 const app = express();
 console.log('🔵 Creating Express app...');
 
-// 🔧 CRITICAL FIX #1: Enable trust proxy for Hostinger (fixes rate-limit warnings)
+// 🔧 Enable trust proxy
 app.set('trust proxy', true);
-console.log('✅ Trust proxy enabled for Hostinger');
 
 const PORT = process.env.PORT || 3000;
 
@@ -71,20 +66,18 @@ const validateEnvironmentVariables = () => {
     }
 
     // Email vars are optional but warn if missing
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-        console.warn('⚠️  Email credentials not configured - email notifications will be disabled');
-    }
+    console.warn('⚠️  Email credentials not configured - email notifications will be disabled');
+}
 
-    if (missingVars.length > 0) {
-        console.error('\n⚠️ WARNING: Missing environment variables:');
-        missingVars.forEach((v, i) => console.error(`   ${i + 1}. ${v}`));
-        console.error('\n📝 Some features may not work correctly.');
-        console.warn('⚠️  Hostinger Tip: Ensure variables are set in the Hosting Panel, NOT just in .env');
-        console.error('📚 See .env.example for reference\n');
-        // Continue running instead of exiting - let individual features fail gracefully
-    } else {
-        console.log('✅ All required environment variables are configured');
-    }
+if (missingVars.length > 0) {
+    console.error('\n⚠️ WARNING: Missing environment variables:');
+    missingVars.forEach((v, i) => console.error(`   ${i + 1}. ${v}`));
+    console.error('\n📝 Some features may not work correctly.');
+    console.error('📚 See .env.example for reference\n');
+    // Continue running instead of exiting - let individual features fail gracefully
+} else {
+    console.log('✅ All required environment variables are configured');
+}
 };
 
 // Validate env vars before starting
@@ -106,9 +99,8 @@ const allowedOrigins = [
     'https://www.vigyanprep.com',
     'http://www.vigyanprep.com',
 
-    // Backend domain (for API calls)
-    'https://backend-vigyanpreap.vigyanprep.com',
-    'http://backend-vigyanpreap.vigyanprep.com',
+    // Backend domain (Railway)
+    'https://vigyan-production.up.railway.app',
 
     // Environment variable
     process.env.FRONTEND_URL
@@ -135,7 +127,13 @@ const corsOptions = {
             return callback(null, true);
         }
 
-        // 🔧 CRITICAL: Allow all origins in production for Hostinger (temporary fix)
+        // 🔧 ALLOW Railway subdomains
+        if (origin.includes('railway.app')) {
+            console.log(`✅ CORS: Allowing railway.app origin: ${origin}`);
+            return callback(null, true);
+        }
+
+        // 🔧 CRITICAL: Allow all origins in production (temporary fix)
         console.warn(`⚠️ CORS: Allowing non-whitelisted origin: ${origin}`);
         callback(null, true);
     },
@@ -177,7 +175,7 @@ app.use((req, res, next) => {
                 const envScript = `
     <script>
       window.__ENV__ = {
-        API_URL: "${process.env.API_URL || 'https://vigyanprep.com:3000'}",
+        API_URL: "${process.env.API_URL || 'https://vigyan-production.up.railway.app'}",
         ENVIRONMENT: "${process.env.NODE_ENV || 'production'}",
         DEBUG: ${process.env.DEBUG_MODE === 'true' ? 'true' : 'false'}
       };
@@ -229,7 +227,7 @@ app.get('/api/config', (req, res) => {
     res.json({
         RAZORPAY_KEY_ID: process.env.RAZORPAY_API_KEY || '',
         NODE_ENV: process.env.NODE_ENV || 'production',
-        API_URL: process.env.API_URL || 'https://backend-vigyanpreap.vigyanprep.com',
+        API_URL: process.env.API_URL || 'https://vigyan-production.up.railway.app',
         FRONTEND_URL: process.env.FRONTEND_URL || 'https://vigyanprep.com'
     });
 });
@@ -243,7 +241,10 @@ app.use('/api/admin', migrationRoute);
 console.log('✅ Migration endpoint mounted');
 
 // ✅ NEW ADMIN ROUTES - Full Admin Panel Support (FIXED PATHS)
+import adminTestRoutes from './routes/adminTestRoutes.js';
+
 // IMPORTANT: Specific routes MUST come before the generic /api/admin route
+app.use('/api/admin/live-preview', adminTestRoutes);
 app.use('/api/admin/tests', adminTestPricingRoutes);
 app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/admin/students', studentRoutes);

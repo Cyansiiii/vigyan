@@ -22,8 +22,8 @@ window.APP_CONFIG = {
             return 'http://localhost:3000';
         }
 
-        // 3. PRODUCTION: Hostinger backend (New)
-        return 'https://backend-vigyanpreap.vigyanprep.com';
+        // 3. PRODUCTION: Railway backend
+        return 'https://vigyan-production.up.railway.app';
     })(),
 
     // Feature flags

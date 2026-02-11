@@ -382,6 +382,56 @@ const AdminAPI = {
         });
     },
 
+    // ==================== LIVE TEST PREVIEW ====================
+    async getLivePreviewUpcomingTests() {
+        return await this.request('/api/admin/live-preview/tests/upcoming');
+    },
+
+    async getQuestionsBySubject(subject, page = 1, limit = 50) {
+        return await this.request(`/api/admin/live-preview/questions/by-subject/${subject}?page=${page}&limit=${limit}`);
+    },
+
+    async getTestQuestions(testId) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}/questions`);
+    },
+
+    async addQuestionsToTest(testId, questions) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}/questions`, {
+            method: 'POST',
+            body: JSON.stringify({ questions })
+        });
+    },
+
+    async removeQuestionsFromTest(testId, questionIds) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}/questions`, {
+            method: 'DELETE',
+            body: JSON.stringify({ questionIds })
+        });
+    },
+
+    async getTestPreview(testId) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}/preview`);
+    },
+
+    async finalizeLiveTest(testId) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}/finalize`, {
+            method: 'POST'
+        });
+    },
+
+    async deleteLiveTest(testId) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}`, {
+            method: 'DELETE'
+        });
+    },
+
+    async rescheduleLiveTest(testId, testDate, testTime) {
+        return await this.request(`/api/admin/live-preview/tests/${testId}/reschedule`, {
+            method: 'PUT',
+            body: JSON.stringify({ testDate, testTime })
+        });
+    },
+
     // ==================== HEALTH CHECK ====================
     async checkHealth() {
         try {

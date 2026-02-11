@@ -5,24 +5,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vigyan.prep NISER PYQ - Assessment Center</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="calculator.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Preconnect for faster DNS resolution -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- Local CSS - load immediately (v2.5 = cache bust) -->
+    <link rel="stylesheet" href="styles_v2.css?v=2.5">
+    <link rel="stylesheet" href="calculator.css?v=2.5">
+
+    <!-- Google Fonts - non-blocking load (swap to loaded font when ready) -->
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
+
+    <!-- MathJax config (runs before script loads) -->
     <script>
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
             },
             options: {
                 skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            },
+            startup: {
+                ready: () => {
+                    console.log('MathJax ready');
+                    MathJax.startup.defaultReady();
+                }
             }
         };
     </script>
+
+    <!-- MathJax - defer load until page is interactive -->
+    <script>
+        // Load MathJax after page is ready (non-blocking)
+        window.addEventListener('DOMContentLoaded', function () {
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
+
+    <style>
+        /* Critical CSS - inline for instant render */
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #1e3a5f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Loading overlay - shows instantly, hides when ready -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading NISER Exam...</p>
+        </div>
+    </div>
+    <script>
+        // Hide loader once DOM is ready (don't wait for all resources)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('pageLoader').classList.add('hidden');
+            setTimeout(() => document.getElementById('pageLoader').style.display = 'none', 300);
+        });
+    </script>
+
     <div id="instructionPage" class="instruction-container">
         <div class="inst-header">
             <span id="examTitle">Vigyan.prep NISER PYQ 2025</span>
@@ -118,25 +211,42 @@
             </div>
 
             <div class="inst-right-panel">
-                <div class="candidate-card">
-                    <div class="candidate-img">
-                        <i class="fas fa-user" style="font-size: 2rem;"></i>
+                <div class="candidate-card"
+                    style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); border: 2px solid #d4af37; text-align: center; padding: 25px 20px;">
+                    <div
+                        style="width: 70px; height: 70px; background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" fill="#1e3a5f" />
+                            <ellipse cx="12" cy="18" rx="7" ry="5" fill="#1e3a5f" />
+                        </svg>
                     </div>
-                    <h3 style="margin: 0;">Candidate Name</h3>
-                    <p style="color: #666; margin: 5px 0;">John Doe</p>
+                    <h3 style="margin: 0; color: #d4af37; font-size: 1.1rem; font-weight: 600;">Welcome, Candidate</h3>
+                    <p style="color: #94a3b8; margin: 8px 0 0 0; font-size: 0.85rem;">Please enter your details below
+                    </p>
                 </div>
 
-                <div class="login-form">
-                    <div style="text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">Login
-                        details:</div>
-                    <input type="text" id="candidateName" placeholder="Enter Your Name" value="Student">
-                    <label class="agree-box">
-                        <input type="checkbox" id="agreeTerms">
+                <div class="login-form"
+                    style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                    <div
+                        style="text-align: left; margin-bottom: 12px; font-weight: 600; font-size: 0.95rem; color: #1e3a5f;">
+                        📝 Login Details
+                    </div>
+                    <input type="text" id="candidateName" placeholder="Enter your full name" required
+                        style="margin-bottom: 10px; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s;">
+                    <input type="email" id="candidateEmail" placeholder="Enter your email (for score report)" required
+                        style="padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s;">
+                    <label class="agree-box"
+                        style="margin-top: 15px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem; color: #64748b;">
+                        <input type="checkbox" id="agreeTerms" style="margin-top: 3px; accent-color: #d4af37;">
                         <span>I have read and understood the instructions. I agree that in case of not adhering to the
                             instructions, my candidature may be cancelled.</span>
                     </label>
-                    <button class="begin-btn" id="beginTestBtn" disabled>I am ready to begin</button>
-                    <div style="margin-top: 10px; font-size: 0.8rem; color: #888;">System ID: C101 | Ver: 18.02.00</div>
+                    <button class="begin-btn" id="beginTestBtn" disabled
+                        style="width: 100%; padding: 14px; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; transition: all 0.3s; opacity: 0.6;">
+                        I am ready to begin
+                    </button>
+                    <div style="margin-top: 12px; font-size: 0.75rem; color: #94a3b8; text-align: center;">System ID:
+                        C101 | Ver: 18.02.00</div>
                 </div>
             </div>
         </div>
@@ -149,7 +259,13 @@
             </div>
             <div class="header-right">
                 <div class="profile-box">
-                    <img src="https://via.placeholder.com/30" alt="Img" class="profile-img">
+                    <!-- Inline SVG avatar - no external request -->
+                    <svg class="profile-img" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="15" cy="15" r="15" fill="#d4af37" />
+                        <circle cx="15" cy="11" r="5" fill="#1e3a5f" />
+                        <ellipse cx="15" cy="24" rx="8" ry="6" fill="#1e3a5f" />
+                    </svg>
                     <span id="userNameDisplay">Candidate</span>
                 </div>
             </div>
@@ -159,14 +275,10 @@
             <div class="sub-header-left">
                 <span class="sect-label">Sections:</span>
                 <div class="sections-tabs">
-                    <button class="section-tab active" data-section="Biology">Biology <span class="badge-count"
-                            id="biologyCount"></span></button>
-                    <button class="section-tab" data-section="Chemistry">Chemistry <span class="badge-count"
-                            id="chemistryCount"></span></button>
-                    <button class="section-tab" data-section="Mathematics">Mathematics <span class="badge-count"
-                            id="mathematicsCount"></span></button>
-                    <button class="section-tab" data-section="Physics">Physics <span class="badge-count"
-                            id="physicsCount"></span></button>
+                    <button class="section-tab active" data-section="Biology">Biology</button>
+                    <button class="section-tab" data-section="Chemistry">Chemistry</button>
+                    <button class="section-tab" data-section="Mathematics">Mathematics</button>
+                    <button class="section-tab" data-section="Physics">Physics</button>
                 </div>
             </div>
             <div class="sub-header-right">
@@ -184,7 +296,7 @@
                         <span class="q-num">Question No. <span id="questionNumberDisplay">1</span></span>
                     </div>
                     <div class="q-marks">
-                        Marks for correct answer: <span class="green-text">4</span> | Negative Marks: <span
+                        Marks for correct answer: <span class="green-text">3</span> | Negative Marks: <span
                             class="red-text">1</span>
                     </div>
                 </div>
@@ -192,6 +304,25 @@
                 <div class="question-scroll-box">
                     <div class="question-text" id="questionContent">Loading...</div>
                     <div class="options-container" id="optionsContainer"></div>
+
+                    <!-- Quick Tips to fill empty space -->
+                    <div class="exam-tips-box"
+                        style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; border-left: 4px solid #0ea5e9;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                            <span style="font-size: 1.3rem;">💡</span>
+                            <span style="font-weight: 600; color: #0369a1; font-size: 0.95rem;">Quick Exam Tips</span>
+                        </div>
+                        <ul
+                            style="margin: 0; padding-left: 20px; color: #475569; font-size: 0.85rem; line-height: 1.7;">
+                            <li>Read each question carefully before selecting an answer</li>
+                            <li><strong>+3 marks</strong> for correct, <strong>-1 mark</strong> for wrong answer</li>
+                            <li>Merit score = Best 3 subjects out of 4 (max 180)</li>
+                            <li>Use <span
+                                    style="background: #6610f2; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">Mark
+                                    for Review</span> for questions you want to revisit</li>
+                            <li>You can change your answer until you submit the exam</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="footer-actions">
@@ -204,18 +335,31 @@
             <div class="sidebar">
                 <div class="sidebar-top">
                     <div class="legend-grid">
-                        <div class="leg-item"><span class="leg-circle answered">0</span> Answered</div>
-                        <div class="leg-item"><span class="leg-circle not-answered">0</span> Not Answered</div>
-                        <div class="leg-item"><span class="leg-circle not-visited">0</span> Not Visited</div>
-                        <div class="leg-item"><span class="leg-circle marked">0</span> Marked for Review</div>
-                        <div class="leg-item full-width"><span class="leg-circle ans-marked">0</span> Answered & Marked
-                            for Review (will be considered for evaluation)</div>
+                        <div class="leg-item">
+                            <div class="leg-circle not-visited"></div>
+                            <span>Not Visited</span>
+                        </div>
+                        <div class="leg-item">
+                            <div class="leg-circle not-answered"></div>
+                            <span>Not Answered</span>
+                        </div>
+                        <div class="leg-item">
+                            <div class="leg-circle answered"></div>
+                            <span>Answered</span>
+                        </div>
+                        <div class="leg-item">
+                            <div class="leg-circle marked"></div>
+                            <span>Marked for Review</span>
+                        </div>
+                        <div class="leg-item full-width">
+                            <div class="leg-circle ans-marked"></div>
+                            <span>Answered & Marked for Review</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="palette-area">
                     <div class="palette-header" id="sectionTitle">Biology</div>
-                    <div class="palette-header-sub">Choose a Question</div>
                     <div class="question-palette" id="questionPalette"></div>
                 </div>
 
@@ -251,24 +395,9 @@
         </div>
     </div>
 
-    <script src="calculator.js"></script>
-    <script>
-        // Get year from URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const year = urlParams.get('year') || '2025';
-
-        // Update all titles with the year
-        document.getElementById('examTitle').textContent = `NISER PYQ ${year}`;
-        document.getElementById('examTitleHeader').textContent = `NISER PYQ ${year}`;
-
-        // Load the appropriate JavaScript file with cache busting
-        const script = document.createElement('script');
-        script.src = `../js-exam/niser_exam_${year}.js?v=${new Date().getTime()}`;
-        script.onerror = function () {
-            alert(`Error: Questions for NISER ${year} not found. Please make sure niser_exam_${year}.js exists.`);
-        };
-        document.body.appendChild(script);
-    </script>
+    <script type="module" src="calculator.js"></script>
+    <!-- Universal NISER Engine (handles all years 2018-2025 via JSON Vault) -->
+    <script type="module" src="../js-exam/niser_exam_engine_v3.js?v=3.3"></script>
 </body>
 
 </html>

@@ -1,0 +1,202 @@
+[
+    {
+        "id": 1,
+        "text": "Change of amino acids in a protein led to formation of a salt bridge, without affecting the overall fold. This change results in:",
+        "options": [
+            "an increase in free energy change (\\(\\Delta G\\)) of the protein.",
+            "a decrease in melting temperature (\\(T_m\\)) of the protein.",
+            "a decrease in enthalpy (\\(\\Delta H\\)) of the protein.",
+            "a decrease in stability of the protein."
+        ]
+    },
+    {
+        "id": 2,
+        "text": "Regarding light reaction of photosynthesis, which of the following is correct?<br>(I) Water is oxidized at the oxygen evolving complex.<br>(II) Pheophytin reduces NADP+ directly.<br>(III) Cytochrome b6f complex transports protons across the thylakoid membrane.<br>(IV) ATP synthase transports protons from stroma to lumen.",
+        "options": [
+            "(I) and (II)",
+            "(II) and (IV)",
+            "(I) and (III)",
+            "(II) and (III)"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "Malaria is caused by Plasmodium. The most virulent form X is stored in the salivary gland of the mosquito, and a toxic substance Y is released when RBCs rupture. X and Y are:",
+        "options": [
+            "trophozoite and haemozoin.",
+            "sporozoite and haemozoin.",
+            "merozoite and hemagglutinin.",
+            "sporozoite and hemagglutinin."
+        ]
+    },
+    {
+        "id": 4,
+        "text": "The oxygen dissociation curve (as percentage saturation versus \\(pO_2\\)) of blood for a healthy adult is shown. The regions P, Q, and R represent:<br><br><div style='text-align:center;'><img src='images/bio_oxy_v2.png' alt='Oxygen Curve' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "P: Tissues at rest, Q: Active tissues, R: Lungs",
+            "P: Lungs, Q: Active tissues, R: Tissues at rest",
+            "P: Active tissues, Q: Tissues at rest, R: Lungs",
+            "P: Tissues at rest, Q: Lungs, R: Active tissues"
+        ]
+    },
+    {
+        "id": 5,
+        "text": "When a human somatic cell undergoes mitotic division, the ploidy level in metaphase and telophase, respectively, would be:",
+        "options": [
+            "2n and 4n",
+            "2n and 2n",
+            "4n and 2n",
+            "4n and 4n"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "Which of the following is NOT a characteristic of meristematic cells?",
+        "options": [
+            "They have thin cell walls.",
+            "They have large vacuoles.",
+            "They are metabolically active.",
+            "They have dense cytoplasm."
+        ]
+    },
+    {
+        "id": 7,
+        "text": "In the electron transport chain, the final electron acceptor is:",
+        "options": [
+            "NAD+",
+            "FAD",
+            "Cytochrome c",
+            "Oxygen"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "In the eukaryotic cell cycle shown, the black solid bars (1, 2 and 3) represent important checkpoints. These checkpoints monitor:<br><br><div style='text-align:center;'><img src='images/bio_cellcycle_v2.png' alt='Cell Cycle' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "1: chromosome attachment to spindles; 2: DNA replication; 3: growth factors.",
+            "1: DNA replication; 2: growth factors; 3: chromosome attachment to spindles.",
+            "1: growth factors; 2: chromosome attachment to spindles; 3: DNA replication.",
+            "1: growth factors; 2: DNA replication; 3: chromosome attachment to spindles."
+        ]
+    },
+    {
+        "id": 9,
+        "text": "The process of transcription in eukaryotes occurs in:",
+        "options": [
+            "Cytoplasm only",
+            "Nucleus only",
+            "Both nucleus and cytoplasm",
+            "Mitochondria only"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "Which of the following amino acids contains a sulfur atom?",
+        "options": [
+            "Serine",
+            "Threonine",
+            "Cysteine",
+            "Tyrosine"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "The Hardy-Weinberg equilibrium can be disrupted by:",
+        "options": [
+            "Random mating",
+            "Large population size",
+            "Genetic drift",
+            "Absence of selection"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "Which of the following is a primary metabolite?",
+        "options": [
+            "Alkaloids",
+            "Proteins",
+            "Terpenes",
+            "Flavonoids"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "In the given pedigree charts (i, ii, iii, iv), which pattern represents autosomal recessive inheritance?<br><br><div style='text-align:center;'><img src='images/bio_pedigree_v2.png' alt='Pedigree Charts' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Pedigree (i)",
+            "Pedigree (ii)",
+            "Pedigree (iii)",
+            "Pedigree (iv)"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "The diagram shows cell growth pattern with layers P, Q, and R over time. This represents:<br><br><div style='text-align:center;'><img src='images/bio_growth_v2.png' alt='Cell Growth' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Primary growth in dicot stem",
+            "Secondary growth in dicot stem",
+            "Growth of epidermis",
+            "Root cap formation"
+        ]
+    },
+    {
+        "id": 15,
+        "text": "The histogram shows bristle number distribution in three populations (Plot I, II, III). This pattern indicates:<br><br><div style='text-align:center;'><img src='images/bio_histogram_v2.png' alt='Bristle Distribution' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Stabilizing selection",
+            "Directional selection",
+            "Disruptive selection",
+            "No selection"
+        ]
+    },
+    {
+        "id": 16,
+        "text": "The enzyme DNA polymerase III adds nucleotides in which direction?",
+        "options": [
+            "3' to 5' direction",
+            "5' to 3' direction",
+            "Both directions simultaneously",
+            "Random direction"
+        ]
+    },
+    {
+        "id": 17,
+        "text": "Which type of RNA is the most abundant in a cell?",
+        "options": [
+            "mRNA",
+            "tRNA",
+            "rRNA",
+            "snRNA"
+        ]
+    },
+    {
+        "id": 18,
+        "text": "The hormone responsible for fruit ripening is:",
+        "options": [
+            "Auxin",
+            "Gibberellin",
+            "Cytokinin",
+            "Ethylene"
+        ]
+    },
+    {
+        "id": 19,
+        "text": "Which of the following is NOT a function of the liver?",
+        "options": [
+            "Detoxification",
+            "Bile production",
+            "Glycogen storage",
+            "Insulin production"
+        ]
+    },
+    {
+        "id": 20,
+        "text": "The process by which mRNA is synthesized from DNA template is called:",
+        "options": [
+            "Replication",
+            "Translation",
+            "Transcription",
+            "Transduction"
+        ]
+    }
+]

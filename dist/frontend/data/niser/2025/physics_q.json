@@ -1,0 +1,202 @@
+[
+    {
+        "id": 1,
+        "text": "Noah Lyles and Kishane Thompson finished the 100m sprint in 9.784 s and 9.789 s respectively. If they ran at constant speeds, what was the distance between them at the finish?",
+        "options": [
+            "10 cm",
+            "25 cm",
+            "5 cm",
+            "50 cm"
+        ]
+    },
+    {
+        "id": 2,
+        "text": "A ball is dropped from height h. If it loses 20% of its energy on each bounce, after how many bounces will it reach a maximum height less than h/2?",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "Light travels from medium 1 (n₁) to medium 2 (n₂) as shown. If n₁ > n₂, the ray will:<br><br><div style='text-align:center;'><img src='images/phys_refraction_v2.png' alt='Refraction' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Bend towards the normal",
+            "Bend away from the normal",
+            "Continue straight",
+            "Undergo total internal reflection"
+        ]
+    },
+    {
+        "id": 4,
+        "text": "A light ray passes through four transparent media as shown. If n₁ < n₂ < n₃ < n₄, the ray emerges:<br><br><div style='text-align:center;'><img src='images/phys_layers_v2.png' alt='Four Media' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Parallel to incident ray",
+            "Perpendicular to incident ray",
+            "At a smaller angle to normal",
+            "At a larger angle to normal"
+        ]
+    },
+    {
+        "id": 5,
+        "text": "The graph of maximum velocity (Vmax) vs frequency (ν) in the photoelectric effect is:<br><br><div style='text-align:center;'><img src='images/phys_photoelectric_v2.png' alt='Photoelectric Effect' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Graph (a)",
+            "Graph (b)",
+            "Graph (c)",
+            "Graph (d)"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "The de Broglie wavelength of an electron accelerated through potential V is:",
+        "options": [
+            "\\(\\lambda = \\frac{h}{\\sqrt{2meV}}\\)",
+            "\\(\\lambda = \\frac{h}{meV}\\)",
+            "\\(\\lambda = \\frac{2h}{meV}\\)",
+            "\\(\\lambda = \\frac{h}{2meV}\\)"
+        ]
+    },
+    {
+        "id": 7,
+        "text": "Two identical springs with spring constant k are connected in series. The effective spring constant is:",
+        "options": [
+            "2k",
+            "k/2",
+            "k",
+            "4k"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "The moment of inertia of a uniform disc about an axis through its center perpendicular to its plane is I. The moment of inertia about a diameter is:",
+        "options": [
+            "I",
+            "I/2",
+            "I/4",
+            "2I"
+        ]
+    },
+    {
+        "id": 9,
+        "text": "A satellite is in a circular orbit around Earth. If its speed is doubled, it will:",
+        "options": [
+            "Escape Earth's gravity",
+            "Move to a higher orbit",
+            "Move to a lower orbit",
+            "Remain in the same orbit"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "In the DC circuit shown, after a long time, the charges on capacitors C₁ and C₂ are:<br><br><div style='text-align:center;'><img src='images/phys_q40_v2.png' alt='DC Circuit' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "8 μC and 16 μC",
+            "16 μC and 8 μC",
+            "4 μC and 4 μC",
+            "8 μC and 8 μC"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "The electric field inside a uniformly charged sphere at distance r from center (r < R) is:",
+        "options": [
+            "\\(E \\propto r\\)",
+            "\\(E \\propto 1/r\\)",
+            "\\(E \\propto 1/r^2\\)",
+            "E = 0"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "A square loop with side a carrying current I is placed in a magnetic field \\(\\vec{B} = \\beta y \\hat{z}\\). The net force on the loop is:<br><br><div style='text-align:center;'><img src='images/phys_q42.png' alt='Magnetic Force' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "\\(I \\beta a^2\\)",
+            "zero",
+            "\\(2 I \\beta a^2\\)",
+            "\\(I \\beta a / 2\\)"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "The work done by a gas in an isothermal expansion from V to 2V is:",
+        "options": [
+            "nRT",
+            "nRT ln 2",
+            "2nRT",
+            "nRT/2"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "In a p-n junction diode, the width of depletion region:",
+        "options": [
+            "Increases with forward bias",
+            "Decreases with forward bias",
+            "Remains constant",
+            "Becomes zero at forward bias"
+        ]
+    },
+    {
+        "id": 15,
+        "text": "The binding energy per nucleon is maximum for:",
+        "options": [
+            "Hydrogen",
+            "Iron",
+            "Uranium",
+            "Helium"
+        ]
+    },
+    {
+        "id": 16,
+        "text": "A wire of resistance R is stretched uniformly to double its length. The new resistance is:",
+        "options": [
+            "R",
+            "2R",
+            "4R",
+            "R/2"
+        ]
+    },
+    {
+        "id": 17,
+        "text": "The time period of a simple pendulum on Moon (g_moon = g/6) compared to Earth is:",
+        "options": [
+            "Same",
+            "√6 times larger",
+            "6 times larger",
+            "√6 times smaller"
+        ]
+    },
+    {
+        "id": 18,
+        "text": "In Young's double slit experiment, the fringe width is proportional to:",
+        "options": [
+            "d (slit separation)",
+            "1/d",
+            "d²",
+            "1/d²"
+        ]
+    },
+    {
+        "id": 19,
+        "text": "The dimension of Planck's constant is:",
+        "options": [
+            "[ML²T⁻¹]",
+            "[ML²T⁻²]",
+            "[MLT⁻¹]",
+            "[M²LT⁻¹]"
+        ]
+    },
+    {
+        "id": 20,
+        "text": "The root mean square speed of gas molecules is proportional to:",
+        "options": [
+            "T",
+            "√T",
+            "T²",
+            "1/T"
+        ]
+    }
+]

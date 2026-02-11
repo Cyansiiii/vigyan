@@ -689,7 +689,8 @@ function callPageInit(page) {
         'add-student': 'initAddStudent',
         'transactions': 'initTransactions',
         'view-results': 'initResults',
-        'performance': 'initPerformance'
+        'performance': 'initPerformance',
+        'live-test-preview': 'initLiveTestPreview'
     };
 
     const initFunctionName = pageInitMap[page];

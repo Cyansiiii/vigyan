@@ -1,26 +1,32 @@
-// ============================================
-// SIMPLE USER PANEL - LOCALHOST ONLY (NO BACKEND VERIFICATION)
-// Reads from localStorage and renders user panel with calendar link
-// ============================================
+
 
 console.log('📦 User Panel v3.0 - Simple localStorage-only version');
 
 // Main render function - reads from localStorage and displays panel
-window.renderUserPanelDirect = function(userData) {
+window.renderUserPanelDirect = function (userData) {
   console.log('⚡ Rendering user panel with data:', userData);
-  
+
   const navPlaceholder = document.getElementById("navLoginPlaceholder");
   if (!navPlaceholder) {
     console.warn('⚠️ navLoginPlaceholder not found in DOM');
     return;
   }
-  
+
   const email = userData.email || '';
   const rollNumber = userData.rollNumber || 'N/A';
   const tests = userData.tests || [];
-  
+
   console.log('📊 Panel data:', { email, rollNumber, tests });
-  
+
+  // CHECK: If no email, render LOGIN BUTTON instead of profile
+  if (!email) {
+    console.log('👤 No user data - Rendering Login Button');
+    navPlaceholder.innerHTML = `
+        <a href="signinpage.html?v=clean_v4" class="btn-login">Login</a>
+    `;
+    return;
+  }
+
   // Render user panel
   navPlaceholder.innerHTML = `
     <div class="relative">
@@ -53,12 +59,11 @@ window.renderUserPanelDirect = function(userData) {
           <p class="text-[11px] text-gray-400 uppercase font-bold mb-2">Purchased Tests</p>
           ${tests.length > 0 ? tests.map(t => `
             <div class="flex items-center justify-between text-xs mb-2">
-              <span class="${
-                t === "iat" ? "text-green-400" : 
-                t === "nest" ? "text-purple-400" : 
-                t === "isi" ? "text-pink-400" : 
-                "text-blue-400"
-              } font-semibold">
+              <span class="${t === "iat" ? "text-green-400" :
+      t === "nest" ? "text-purple-400" :
+        t === "isi" ? "text-pink-400" :
+          "text-blue-400"
+    } font-semibold">
                 <i class="fas fa-check-circle mr-1"></i> ${t.toUpperCase()} Series
               </span>
             </div>
@@ -70,29 +75,98 @@ window.renderUserPanelDirect = function(userData) {
       </div>
     </div>
   `;
-  
+
   attachProfileEventListeners();
   console.log('✅ User panel rendered successfully!');
 };
 
-// Simple function - just reads localStorage and renders (NO BACKEND CALLS)
-window.refreshUserDashboard = function() {
-  console.log('🔄 refreshUserDashboard called');
-  
+// Simple function - reads localStorage, renders immediately, then verifies with backend
+window.refreshUserDashboard = async function () {
+  console.log('🔄 refreshUserDashboard called - background verification active');
+
   const email = localStorage.getItem("userEmail");
   const rollNumber = localStorage.getItem("userRollNumber");
   const purchasedTests = localStorage.getItem("purchasedTests");
-  
-  console.log('📂 localStorage data:', { email, rollNumber, purchasedTests });
-  
+  const token = localStorage.getItem("userToken"); // JWT Token for verification
+
+  console.log('📂 localStorage data:', { email, rollNumber, hasPurchasedTests: !!purchasedTests, hasToken: !!token });
+
+  // STEP 1: Strict Token Check (Security Fix for Ghost Login)
+  if (!token || token === "null" || token === "undefined" || token.length < 10) {
+    console.warn('❌ No valid token found. Clearing potential ghost session.');
+    if (email || rollNumber) {
+      localStorage.clear();
+      console.log('🧹 Cleared stale localStorage data');
+    }
+    window.renderUserPanelDirect({ email: '', rollNumber: '', tests: [] }); // Clear UI
+    return;
+  }
+
+  // STEP 2: Render immediately from localStorage (FAST perceived performance)
   if (email && rollNumber) {
     const tests = purchasedTests ? JSON.parse(purchasedTests) : [];
-    
+
     window.renderUserPanelDirect({
       email: email,
       rollNumber: rollNumber,
       tests: tests
     });
+
+    // STEP 3: Background verification (SECURITY)
+    // Only verify if we have a token or valid session indicator
+    if (token) {
+      try {
+        console.log('🔍 Verifying session with backend...');
+
+        // Use the centralized API_BASE_URL to avoid hitting the wrong server
+        const apiBase = window.API_BASE_URL || "";
+        const response = await fetch(`${apiBase}/api/user/profile?cb=${Date.now()}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            // ❌ REMOVED: Cache-Control - causing CORS preflight issues on some servers
+          }
+        });
+
+        console.log(`📡 Background verification response: ${response.status} ${response.statusText}`);
+
+        if (response.ok) {
+          // ... existing logic ...
+          const contentType = response.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/json")) {
+            console.error('❌ Expected JSON but got:', contentType);
+            throw new Error("Invalid response type");
+          }
+
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("userEmail", data.email);
+            localStorage.setItem("userRollNumber", data.rollNumber || "");
+            localStorage.setItem("purchasedTests", JSON.stringify(data.purchasedTests || []));
+            window.renderUserPanelDirect({ email: data.email, rollNumber: data.rollNumber, tests: data.purchasedTests });
+          }
+        } else {
+          throw new Error(`Server returned ${response.status}`);
+        }
+      } catch (error) {
+        console.warn('❌ Session verification failed- Logout Forced:', error.message);
+
+        // 🏁 FORCE LOGOUT - ULTRA ROBUST
+        localStorage.clear();
+        sessionStorage.clear();
+
+        try {
+          if (window.handleLogout) window.handleLogout();
+        } catch (e) { console.error('Error in handleLogout:', e); }
+
+        // Final escape hatch
+        setTimeout(() => {
+          window.location.href = "index.html?v=logout_sync";
+        }, 100);
+      }
+    }
   } else {
     console.log('ℹ️ User not logged in (missing email or rollNumber)');
   }
@@ -103,20 +177,20 @@ function attachProfileEventListeners() {
   const btn = document.getElementById("profileButton");
   const dropdown = document.getElementById("profileDropdown");
   const logoutBtn = document.getElementById("logoutBtn");
-  
+
   if (btn && dropdown) {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       dropdown.classList.toggle("hidden");
     });
-    
+
     document.addEventListener('click', (e) => {
       if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.classList.add('hidden');
       }
     });
   }
-  
+
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       console.log('🚪 Logging out...');
@@ -143,7 +217,7 @@ if (document.readyState === 'loading') {
 window.addEventListener('load', initUserPanel);
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { 
+  module.exports = {
     refreshUserDashboard: window.refreshUserDashboard,
     renderUserPanelDirect: window.renderUserPanelDirect
   };

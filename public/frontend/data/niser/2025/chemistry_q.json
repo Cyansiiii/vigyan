@@ -1,0 +1,202 @@
+[
+    {
+        "id": 1,
+        "text": "Maltose, a disaccharide, contains a glycosidic linkage between:",
+        "options": [
+            "two units of \\(\\beta\\)-D-glucose",
+            "two units of \\(\\alpha\\)-D-glucose",
+            "\\(\\beta\\)-D-glucose and \\(\\alpha\\)-D-fructose",
+            "\\(\\alpha\\)-D-glucose and \\(\\beta\\)-D-fructose"
+        ]
+    },
+    {
+        "id": 2,
+        "text": "The IUPAC name of the compound shown is:<br><br><div style='text-align:center;'><img src='images/chem_q22.png' alt='IUPAC Structure' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "5-ethyl-6-methylnonan-3-ol",
+            "1,3-diethyl-4-methylheptan-1-ol",
+            "5-ethyl-6-propylheptan-3-ol",
+            "5-ethyl-4-methylnonan-7-ol"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "Which of the following has the highest lattice energy?",
+        "options": [
+            "NaCl",
+            "NaBr",
+            "NaI",
+            "NaF"
+        ]
+    },
+    {
+        "id": 4,
+        "text": "The hybridization of carbon in \\(\\text{CO}_2\\) is:",
+        "options": [
+            "sp",
+            "sp²",
+            "sp³",
+            "sp³d"
+        ]
+    },
+    {
+        "id": 5,
+        "text": "Which of the following is an example of a Lewis acid?",
+        "options": [
+            "NH₃",
+            "BF₃",
+            "H₂O",
+            "OH⁻"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "The molecular orbital energy diagram represents:<br><br><div style='text-align:center;'><img src='images/chem_mo_v2.png' alt='MO Diagram' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "O₂ molecule",
+            "N₂ molecule",
+            "F₂ molecule",
+            "CO molecule"
+        ]
+    },
+    {
+        "id": 7,
+        "text": "The product of reaction with 2-propanone in basic \\(\\text{I}_2\\) (iodoform reaction) is:",
+        "options": [
+            "CHI₃ and CH₃COO⁻",
+            "CH₃I and CH₃CO⁻",
+            "C₂H₅I and HCOO⁻",
+            "CHI₃ and C₂H₅O⁻"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "The major product in electrophilic aromatic substitution on the given compound is:<br><br><div style='text-align:center;'><img src='images/chem_q23.png' alt='EAS Reaction' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Product (a)",
+            "Product (b)",
+            "Product (c)",
+            "Product (d)"
+        ]
+    },
+    {
+        "id": 9,
+        "text": "The product P of the reaction with methyl magnesium bromide (2 equiv) followed by \\(\\text{H}_3\\text{O}^+\\) is:<br><br><div style='text-align:center;'><img src='images/chem_q24.png' alt='Grignard Reaction' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Product (a)",
+            "Product (b)",
+            "Product (c)",
+            "Product (d)"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "Which of the following species is paramagnetic?",
+        "options": [
+            "N₂",
+            "O₂",
+            "CO",
+            "F₂"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "The order of bond length in \\(\\text{O}_2\\), \\(\\text{O}_2^-\\) and \\(\\text{O}_2^{2-}\\) is:",
+        "options": [
+            "O₂ < O₂⁻ < O₂²⁻",
+            "O₂²⁻ < O₂⁻ < O₂",
+            "O₂⁻ < O₂ < O₂²⁻",
+            "O₂²⁻ < O₂ < O₂⁻"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "Which of the following is a quinone derivative?<br><br><div style='text-align:center;'><img src='images/chem_quinone_v2.png' alt='Quinone Options' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Compound (a)",
+            "Compound (b)",
+            "Compound (c)",
+            "Compound (d)"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "The rate of SN1 reaction depends on:",
+        "options": [
+            "Concentration of substrate only",
+            "Concentration of nucleophile only",
+            "Concentration of both substrate and nucleophile",
+            "Temperature only"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "Which of the following is the correct IUPAC name?",
+        "options": [
+            "2-methylpropan-2-ol",
+            "tert-butyl alcohol",
+            "1,1-dimethylethanol",
+            "2-methylpropanol"
+        ]
+    },
+    {
+        "id": 15,
+        "text": "The pH of a 0.01 M HCl solution is:",
+        "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ]
+    },
+    {
+        "id": 16,
+        "text": "For a spontaneous process at constant T and P:",
+        "options": [
+            "ΔG > 0",
+            "ΔG < 0",
+            "ΔG = 0",
+            "ΔH > 0"
+        ]
+    },
+    {
+        "id": 17,
+        "text": "The Gibbs free energy (G) vs Temperature (T) and Pressure (P) relationship is shown. Which graph correctly represents \\(\\left(\\frac{\\partial G}{\\partial T}\\right)_P\\)?<br><br><div style='text-align:center;'><img src='images/chem_thermo.png' alt='Thermodynamics Graphs' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+            "Graph (a)",
+            "Graph (b)",
+            "Graph (c)",
+            "Graph (d)"
+        ]
+    },
+    {
+        "id": 18,
+        "text": "Which of the following is the strongest acid?",
+        "options": [
+            "HF",
+            "HCl",
+            "HBr",
+            "HI"
+        ]
+    },
+    {
+        "id": 19,
+        "text": "The coordination number of Na+ in NaCl crystal is:",
+        "options": [
+            "4",
+            "6",
+            "8",
+            "12"
+        ]
+    },
+    {
+        "id": 20,
+        "text": "Which of the following reactions is an example of disproportionation?",
+        "options": [
+            "2H₂O₂ → 2H₂O + O₂",
+            "Zn + 2HCl → ZnCl₂ + H₂",
+            "2Cu⁺ → Cu + Cu²⁺",
+            "Fe + CuSO₄ → FeSO₄ + Cu"
+        ]
+    }
+]

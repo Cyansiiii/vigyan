@@ -32,9 +32,42 @@ const ScheduledTestSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['scheduled', 'ongoing', 'completed', 'cancelled'],
-    default: 'scheduled'
+    enum: ['draft', 'scheduled', 'ongoing', 'completed', 'cancelled'],
+    default: 'draft'
   },
+  subjects: [
+    {
+      subjectName: {
+        type: String,
+        enum: ['Physics', 'Chemistry', 'Mathematics', 'Biology']
+      },
+      isIncluded: {
+        type: Boolean,
+        default: false
+      },
+      questionCount: {
+        type: Number,
+        default: 0
+      },
+      marksPerQuestion: {
+        type: Number,
+        default: 4
+      },
+      totalMarks: {
+        type: Number,
+        default: 0
+      }
+    }
+  ],
+  total_marks: {
+    type: Number,
+    default: 0
+  },
+  isFinalized: {
+    type: Boolean,
+    default: false
+  },
+  finalizedAt: Date,
   description: {
     type: String,
     default: '',
@@ -74,7 +107,7 @@ const ScheduledTestSchema = new mongoose.Schema({
 });
 
 // Update the updated_at field before saving
-ScheduledTestSchema.pre('save', function(next) {
+ScheduledTestSchema.pre('save', function (next) {
   this.updated_at = Date.now();
   next();
 });

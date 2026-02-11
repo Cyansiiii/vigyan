@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "text": "Match the entries in column I and column II.<br><br>\n            <table border=\"1\" style=\"width:100%; border-collapse: collapse; text-align: left;\">\n              <tr><th style=\"padding: 5px;\">Column I</th><th style=\"padding: 5px;\">Column II</th></tr>\n              <tr><td style=\"padding: 5px;\">P. Notochord and hollow nerve cord present</td><td style=\"padding: 5px;\">i. Cyclostomata</td></tr>\n              <tr><td style=\"padding: 5px;\">Q. Ectoparasite with 6-15 pairs of gills</td><td style=\"padding: 5px;\">ii. Chondrichthyes</td></tr>\n              <tr><td style=\"padding: 5px;\">R. Marine animals with placoid scales</td><td style=\"padding: 5px;\">iii. Hemichordata</td></tr>\n              <tr><td style=\"padding: 5px;\">S. Animals with stomochord</td><td style=\"padding: 5px;\">iv. Chordata</td></tr>\n            </table>",
+        "options": [
+            "P-iv; Q-ii; R-i; S-iii",
+            "P-iv; Q-i; R-ii; S-iii",
+            "P-iii; Q-i; R-ii; S-iv",
+            "P-i; Q-iii; R-ii; S-iv"
+        ]
+    },
+    {
+        "id": 2,
+        "text": "Chromosomes are classified as metacentric, sub-metacentric, acrocentric and telocentric based on the position of:",
+        "options": [
+            "Centrosome",
+            "Centriole",
+            "Telomere",
+            "Centromere"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "Which one of the following options describes a triglyceride?",
+        "options": [
+            "Three glycerol molecules linked to a fatty acid chain",
+            "Three fatty acid chains linked to a molecule of glycerol",
+            "Three saturated fatty acid chains linked to cholesterol",
+            "Three glyceride molecules linked to phospholipid"
+        ]
+    },
+    {
+        "id": 4,
+        "text": "Which one of the following statements about a plant carotenoid is FALSE?",
+        "options": [
+            "It accumulates in chromoplasts during fruit ripening.",
+            "It protects chlorophyll a from photo-oxidation.",
+            "It is an accessory pigment which absorbs light at 600-700 nm.",
+            "It provides precursor for the synthesis of stress hormone."
+        ]
+    },
+    {
+        "id": 5,
+        "text": "Mitochondria treated with Chemical X (inhibits Complex I) and Y (inhibits Complex III). ATP synthesis order?",
+        "options": [
+            "Exp 2 < Exp 1 < Exp 3",
+            "Exp 1 < Exp 2 < Exp 3",
+            "Exp 1 = Exp 2 = Exp 3",
+            "Exp 2 < Exp 1 = Exp 3"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "Which autoregulatory mechanism is employed by the kidney when GFR is reduced?",
+        "options": [
+            "Levels of renin and aldosterone are reduced.",
+            "Levels of renin, angiotensin I/II and aldosterone increased.",
+            "Levels of renin increased, angiotensin/aldosterone reduced.",
+            "Levels of angiotensin increased, aldosterone reduced."
+        ]
+    },
+    {
+        "id": 7,
+        "text": "Which condition favours maximum dissociation of oxygen from oxyhaemoglobin?",
+        "options": [
+            "higher [H+] lower temperature",
+            "lower [H+] higher temperature",
+            "higher [H+] higher temperature",
+            "lower [H+] lower temperature"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "Which one of the following statements is correct regarding muscle fibres?",
+        "options": [
+            "Mitochondria are more in white than red fibres.",
+            "Red muscle fibres produce ATP aerobically.",
+            "Lactic acid accumulates more in red fibres.",
+            "All muscle fibres produce ATP anaerobically."
+        ]
+    },
+    {
+        "id": 9,
+        "text": "Which organism produces the female gamete by mitosis of haploid cells?",
+        "options": [
+            "Honey bee",
+            "Garden pea",
+            "Fruit fly",
+            "Chicken"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "Which amino acid will be charged on the tRNA with anticodon 5'-GUU-3'?",
+        "options": [
+            "Valine",
+            "Leucine",
+            "Asparagine",
+            "Glutamine"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "Two double heterozygous plants (PpQq) cross results. Which represents parents?",
+        "options": [
+            "R1=PPQQ; R2=ppqq",
+            "R1=ppQQ; R2=PPqq",
+            "R1=ppQQ; R2=PPqq",
+            "R1=PPQQ; R2=R3"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "What are retroviruses?",
+        "options": [
+            "Viruses with DNA genome, no reverse transcriptase",
+            "Viruses with DNA genome and reverse transcriptase",
+            "Viruses with RNA genome and reverse transcriptase",
+            "Viruses with RNA genome, no reverse transcriptase"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "Plasmid digestion with enzymes X and Y. Which diagram represents sites?",
+        "options": [
+            "Diagram C",
+            "Diagram B",
+            "Diagram D",
+            "Diagram A"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "Which statement is INCORRECT about honey bees?",
+        "options": [
+            "Males cannot have daughters but can have sons.",
+            "Males from unfertilized, females from fertilized.",
+            "Male has no father but has grandfather.",
+            "Males form gametes by mitosis."
+        ]
+    },
+    {
+        "id": 15,
+        "text": "Which statement regarding ecology is FALSE?",
+        "options": [
+            "Only 10% energy transferred to higher trophic levels.",
+            "More than 80% solar energy captured by plants.",
+            "All organisms included for energy estimation.",
+            "Energy movement is unidirectional."
+        ]
+    }
+]
