@@ -10,6 +10,7 @@ console.log('Timestamp:', new Date().toISOString(), '\n\n');
 
 import './config/env.js'; // 🔵 LOAD ENV VARS FIRST
 import express from 'express';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
@@ -336,18 +337,19 @@ app.get('/api/debug/db-info', async (req, res) => {
             host: mongoose.connection.host,
             readyState: mongoose.connection.readyState,
             models: Object.keys(mongoose.models),
-            env: {
-                MONGODB_URI_EXISTS: !!process.env.MONGODB_URI,
-                MONGODB_URI_PREFIX: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) : 'none',
-                NODE_ENV: process.env.NODE_ENV
-            },
             counts: {
-                studentpayments: await mongoose.connection.db.collection('studentpayments').countDocuments(),
-                students: await mongoose.connection.db.collection('students').countDocuments()
+                studentpayments: isMongoDBConnected ? await mongoose.connection.db.collection('studentpayments').countDocuments() : 'N/A',
+                students: isMongoDBConnected ? await mongoose.connection.db.collection('students').countDocuments() : 'N/A'
+            },
+            env: {
+                PORT: process.env.PORT,
+                NODE_ENV: process.env.NODE_ENV,
+                MONGODB_URI_EXISTS: !!process.env.MONGODB_URI
             }
         };
         res.json(info);
     } catch (error) {
+        console.error('Debug Endpoint Error:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 });
