@@ -14,7 +14,7 @@ import { generateAuthToken } from '../middlewares/auth.js';
 // Create Nodemailer transporter with Hostinger SMTP
 // ✅ FIXED: Using smart port detection for Railway/Hostinger compatibility
 const emailPort = parseInt(process.env.EMAIL_PORT) || 587;
-const transporter = nodemailer.createTransport({
+export const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
   port: emailPort,
   secure: emailPort === 465, // true for 465 (SSL), false for 587 (STARTTLS)
