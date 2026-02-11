@@ -1,48 +1,42 @@
+
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-dotenv.config({ path: join(__dirname, 'backend/.env') });
+const MONGODB_URI = 'mongodb+srv://harsh:Buddy700@cluster0.jtele7g.mongodb.net/vigyanprep?retryWrites=true&w=majority&appName=Cluster0';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-// Define EmailLog Schema
-const emailLogSchema = new mongoose.Schema({
+const EmailLogSchema = new mongoose.Schema({
     email: String,
-    type: String,
+    subject: String,
     status: String,
     error: String,
-    sentAt: Date
-});
+    sentAt: { type: Date, default: Date.now }
+}, { collection: 'emaillogs' }); // Adjust if the collection name is different
 
-const EmailLog = mongoose.model('EmailLog', emailLogSchema);
+const EmailLog = mongoose.models.EmailLog || mongoose.model('EmailLog', EmailLogSchema);
 
-async function checkLogs() {
+async function checkEmails() {
     try {
+        console.log('Connecting to MongoDB...');
         await mongoose.connect(MONGODB_URI);
-        console.log('✅ Connected to MongoDB');
+        console.log('Connected!');
 
+        console.log('Fetching last 10 email logs...');
         const logs = await EmailLog.find().sort({ sentAt: -1 }).limit(10);
 
-        console.log('\n--- LATEST EMAIL LOGS ---');
-        if (logs.length === 0) {
-            console.log('No logs found.');
-        } else {
+        if (logs.length > 0) {
             logs.forEach(log => {
-                console.log(`[${log.sentAt.toISOString()}] ${log.email} | Status: ${log.status.toUpperCase()} ${log.error ? '| Error: ' + log.error : ''}`);
+                console.log(`[${log.sentAt.toISOString()}] To: ${log.email} | Subject: ${log.subject} | Status: ${log.status}`);
+                if (log.error) console.log(`   Error: ${log.error}`);
             });
+        } else {
+            console.log('No email logs found.');
         }
-        console.log('-------------------------\n');
 
     } catch (error) {
-        console.error('❌ Error:', error.message);
+        console.error('Error:', error);
     } finally {
         await mongoose.disconnect();
-        process.exit(0);
+        console.log('Disconnected');
     }
 }
 
-checkLogs();
+checkEmails();

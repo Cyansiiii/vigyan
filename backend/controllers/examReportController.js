@@ -13,8 +13,12 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASSWORD,
     },
     tls: {
-        rejectUnauthorized: false
-    }
+        rejectUnauthorized: false,
+        minVersion: 'TLSv1.2'
+    },
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,    // 10 seconds
+    socketTimeout: 15000       // 15 seconds
 });
 
 // Verify transporter on load
