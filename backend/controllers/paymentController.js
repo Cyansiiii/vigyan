@@ -484,7 +484,7 @@ export const paymentVerification = async (req, res) => {
         const emailHtml = getEnrollmentEmailHtml(fullName.trim(), rollNumber, testSeriesName);
 
         const mailOptions = {
-          from: `"Vigyan.prep Exams" <${process.env.EMAIL_USER}>`,
+          from: `"Vigyan.prep Exams" <${process.env.EMAIL_USER || 'noreply@vigyanprep.com'}>`,
           to: normalizedEmail,
           subject: `✅ Registration Confirmed - ${testSeriesName} Test Series`,
           html: emailHtml,
