@@ -100,12 +100,15 @@ window.refreshUserDashboard = async function () {
     if (token) {
       try {
         console.log('🔍 Verifying session with backend...');
-        // We use fetch here to avoid dependency on global axios if it's not yet loaded
-        const response = await fetch('/api/user/profile', {
+
+        // Use the centralized API_BASE_URL to avoid hitting the wrong server
+        const apiBase = window.API_BASE_URL || "";
+        const response = await fetch(`${apiBase}/api/user/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
           }
         });
 
