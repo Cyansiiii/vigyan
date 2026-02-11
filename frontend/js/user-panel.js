@@ -103,34 +103,38 @@ window.refreshUserDashboard = async function () {
 
         // Use the centralized API_BASE_URL to avoid hitting the wrong server
         const apiBase = window.API_BASE_URL || "";
-        const response = await fetch(`${apiBase}/api/user/profile`, {
+        const response = await fetch(`${apiBase}/api/user/profile?cb=${Date.now()}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache'
           }
         });
+
+        console.log(`📡 Background verification response: ${response.status} ${response.statusText}`);
 
         if (response.ok) {
           const data = await response.json();
           console.log('✅ Session verified successfully');
 
-          // Update localStorage with fresh data from server
+          // Update localStorage with fresh data
           if (data.success) {
             localStorage.setItem("userEmail", data.email);
-            localStorage.setItem("userRollNumber", data.rollNumber);
-            localStorage.setItem("purchasedTests", JSON.stringify(data.purchasedTests));
+            localStorage.setItem("userRollNumber", data.rollNumber || "");
+            localStorage.setItem("purchasedTests", JSON.stringify(data.purchasedTests || []));
 
-            // Re-render if data has changed (e.g. new test purchased)
+            // Re-render with fresh data
             window.renderUserPanelDirect({
               email: data.email,
               rollNumber: data.rollNumber,
               tests: data.purchasedTests
             });
           }
-        } else if (response.status === 401 || response.status === 404) {
-          console.warn('❌ Session invalid or account deleted. Logging out...');
+        } else {
+          // AGGRESSIVE: If the response is not 200, assume session is dead or account is gone
+          console.warn('❌ Session invalid, account deleted, or server error. Logging out for safety...');
           if (window.handleLogout) {
             window.handleLogout();
           } else {
@@ -139,8 +143,8 @@ window.refreshUserDashboard = async function () {
           }
         }
       } catch (error) {
-        console.error('⚠️ Background verification failed (Network error):', error.message);
-        // We don't log out on network errors, just keep using stale data
+        console.error('⚠️ Background verification network error:', error.message);
+        // On hard network errors (server down), we keep the UI for UX, but log it.
       }
     }
   } else {
