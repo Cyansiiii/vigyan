@@ -4,6 +4,10 @@
 // 🔥 PAYMENT FIX: Improved CORS for payment endpoint - Jan 26, 2026 1:55 AM IST
 // 🔥 ADMIN AUTH: Added admin authentication routes - Jan 26, 2026 1:59 AM IST
 
+// 🔥 REBOOT LOG: Feb 11, 2026 - 6:53 AM IST
+console.log('\n\n🚀🚀🚀 SERVER REBOOTING - NEW VERSION LOADED 🚀🚀🚀');
+console.log('Timestamp:', new Date().toISOString(), '\n\n');
+
 import './config/env.js'; // 🔵 LOAD ENV VARS FIRST
 import express from 'express';
 import cors from 'cors';
