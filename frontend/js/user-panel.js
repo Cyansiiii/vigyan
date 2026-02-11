@@ -133,6 +133,13 @@ window.refreshUserDashboard = async function () {
         console.log(`📡 Background verification response: ${response.status} ${response.statusText}`);
 
         if (response.ok) {
+          // 🔒 FIX: Strictly validate that response is JSON
+          const contentType = response.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/json")) {
+            console.error('❌ Expected JSON but got:', contentType);
+            throw new Error("Invalid response type"); // Trigger logout below
+          }
+
           const data = await response.json();
           console.log('✅ Session verified successfully');
 
@@ -151,22 +158,18 @@ window.refreshUserDashboard = async function () {
           }
         } else {
           // AGGRESSIVE: If the response is not 200, assume session is dead or account is gone
-          console.warn('❌ Session invalid, account deleted, or server error. Logging out for safety...');
-
-          // FORCE LOGOUT IMMEDIATELY
-          localStorage.clear();
-          sessionStorage.clear();
-
-          // Fallback to function if exists for extra cleanup
-          if (window.handleLogout) {
-            window.handleLogout();
-          }
-
-          window.location.href = "index.html";
+          throw new Error(`Server returned ${response.status}`);
         }
       } catch (error) {
-        console.error('⚠️ Background verification network error:', error.message);
-        // On hard network errors (server down), we keep the UI for UX, but log it.
+        console.warn('❌ Session verification failed:', error.message);
+        console.warn('🔒 Forcing logout to prevent ghost session.');
+
+        // FORCE LOGOUT ON ANY ERROR
+        localStorage.clear();
+        sessionStorage.clear();
+
+        if (window.handleLogout) window.handleLogout();
+        window.location.href = "index.html";
       }
     }
   } else {
