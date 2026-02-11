@@ -8,6 +8,7 @@ import Student from "../models/Student.js";
 import { TestSeries } from "../models/TestSeries.js"; // 🔒 NEW: Import TestSeries model
 import { EmailLog } from "../models/EmailLog.js"; // 🔒 NEW: Import EmailLog model
 import mongoose from "mongoose";
+import { getEnrollmentEmailHtml } from "../utils/emailTemplates.js";
 import { generateAuthToken } from '../middlewares/auth.js';
 
 // Create Nodemailer transporter with Hostinger SMTP
@@ -475,90 +476,8 @@ export const paymentVerification = async (req, res) => {
       try {
         const testSeriesName = testId.toUpperCase();
 
-        const emailHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f5f5;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 20px 0;">
-        <tr>
-            <td align="center">
-                <table width="500" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    
-                    <!-- Header -->
-                    <tr>
-                        <td style="background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); padding: 30px 40px; text-align: center;">
-                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: 1px;">VIGYAN<span style="font-weight: 300; font-size: 18px;">.prep</span></h1>
-                            <p style="margin: 8px 0 0 0; color: #bfdbfe; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;">Examination Authority</p>
-                        </td>
-                    </tr>
-
-                    <!-- Success Icon -->
-                    <tr>
-                        <td style="padding: 40px 40px 20px; text-align: center;">
-                            <div style="width: 60px; height: 60px; background: #10b981; border-radius: 50%; margin: 0 auto; line-height: 60px; font-size: 32px; color: white;">✓</div>
-                        </td>
-                    </tr>
-
-                    <!-- Content -->
-                    <tr>
-                        <td style="padding: 0 40px 30px;">
-                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 22px; font-weight: 600; text-align: center;">Enrollment Confirmed!</h2>
-                            
-                            <p style="margin: 0 0 8px 0; color: #6b7280; font-size: 15px; text-align: center;">Hello <strong style="color: #1f2937;">${fullName.trim()}</strong>,</p>
-                            <p style="margin: 0 0 20px 0; color: #6b7280; font-size: 14px; text-align: center;"><strong style="color: #2563eb;">${fullName.trim()}</strong> has successfully enrolled in the <strong style="color: #2563eb;">${testSeriesName} Test Series</strong>! 🎉</p>
-
-                            <!-- Roll Number Box -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; margin-bottom: 30px;">
-                                <tr>
-                                    <td style="padding: 25px; text-align: center;">
-                                        <p style="margin: 0 0 12px 0; color: #92400e; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">⚡ Your Roll Number</p>
-                                        <p style="margin: 0 0 15px 0; font-family: 'Courier New', monospace; font-size: 36px; font-weight: 900; color: #000000; letter-spacing: 4px;">${rollNumber}</p>
-                                        <div style="background: #dc2626; color: #ffffff; padding: 6px 16px; border-radius: 4px; font-size: 9px; font-weight: 700; letter-spacing: 1px; display: inline-block;">CONFIDENTIAL - DO NOT SHARE</div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <!-- Important Notice -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: #fee2e2; border-left: 3px solid #ef4444; border-radius: 4px; margin-bottom: 30px;">
-                                <tr>
-                                    <td style="padding: 15px;">
-                                        <p style="margin: 0; color: #991b1b; font-size: 12px; line-height: 1.6;"><strong>⚠️ Important:</strong> Save this roll number. You'll need it to access your tests.</p>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <!-- CTA Button -->
-                            <table width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td align="center">
-                                        <a href="https://vigyanprep.com/testfirstpage.html" style="display: inline-block; background: #2563eb; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 14px; letter-spacing: 0.5px;">GO TO DASHBOARD →</a>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <p style="margin: 30px 0 0 0; text-align: center; font-size: 12px; color: #9ca3af;">Need help? Reply to this email or visit our support center.</p>
-                        </td>
-                    </tr>
-
-                    <!-- Footer -->
-                    <tr>
-                        <td style="background: #f9fafb; padding: 20px 40px; text-align: center; border-top: 1px solid #e5e7eb;">
-                            <p style="margin: 0 0 5px 0; font-size: 11px; color: #9ca3af;">This is an automated email from Vigyan.prep</p>
-                            <p style="margin: 0; font-size: 11px; color: #9ca3af;">© ${new Date().getFullYear()} Vigyan.prep Exams. All rights reserved.</p>
-                        </td>
-                    </tr>
-
-                </table>
-            </td>
-        </tr>
-    </table>
-</body>
-</html>
-        `;
+        // Branded HTML Email Template
+        const emailHtml = getEnrollmentEmailHtml(fullName.trim(), rollNumber, testSeriesName);
 
         const mailOptions = {
           from: `"Vigyan.prep Exams" <${process.env.EMAIL_USER}>`,
