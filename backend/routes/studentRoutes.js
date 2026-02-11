@@ -1,7 +1,10 @@
 import express from 'express';
 import Student from '../models/Student.js';
-import { StudentAttempt } from '../models/StudentAttempt.js'; // ✅ FIXED: Named import
-import { PaymentTransaction } from '../models/PaymentTransaction.js'; // ✅ FIXED: Named import
+import { StudentAttempt } from '../models/StudentAttempt.js';
+import { PaymentTransaction } from '../models/PaymentTransaction.js';
+import { StudentPayment } from '../models/StudentPayment.js'; // 🔒 NEW: Import for cleanup
+import { PurchasedTest } from '../models/PurchasedTest.js'; // 🔒 NEW: Import for cleanup
+import { EmailLog } from '../models/EmailLog.js'; // 🔒 NEW: Import for cleanup
 import { verifyAdminAuth } from '../middlewares/adminAuth.js';
 
 const router = express.Router();
@@ -226,10 +229,16 @@ router.delete('/:id', async (req, res) => {
             });
         }
 
-        // Also delete related data
-        await StudentAttempt.deleteMany({ email: deletedStudent.email });
+        // Also delete ALL related data across various collections
+        await Promise.all([
+            StudentAttempt.deleteMany({ email: deletedStudent.email }),
+            PurchasedTest.deleteMany({ email: deletedStudent.email }),
+            StudentPayment.deleteMany({ email: deletedStudent.email }),
+            PaymentTransaction.deleteMany({ email: deletedStudent.email }),
+            EmailLog.deleteMany({ email: deletedStudent.email })
+        ]);
 
-        console.log(`✅ [STUDENTS] Student deleted: ${id}`);
+        console.log(`✅ [STUDENTS] Student and all related records deleted: ${id} (${deletedStudent.email})`);
 
         res.json({
             success: true,
