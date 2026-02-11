@@ -37,10 +37,9 @@
     <meta http-equiv="expires" content="0">
 
     <script>
-        const API_BASE_URL = "https://vigyan-production.up.railway.app";
-        const PAYMENT_API_URL = "https://vigyan-production.up.railway.app";
-        window.API_BASE_URL = API_BASE_URL;
-        window.PAYMENT_API_URL = PAYMENT_API_URL;
+        // Centralized API configuration is handled by config.js
+        const API_BASE_URL = window.API_BASE_URL;
+        const PAYMENT_API_URL = window.PAYMENT_API_URL || window.API_BASE_URL;
     </script>
 
     <style>

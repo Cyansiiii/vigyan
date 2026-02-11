@@ -8,8 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <!-- Dynamic Configuration -->
+    <script src="frontend/js/config.js"></script>
     <script>
-        const API_BASE_URL = "https://vigyan-production.up.railway.app";
+        // Fallback if config.js fails to load or window.API_BASE_URL is not set
+        if (!window.API_BASE_URL) {
+            window.API_BASE_URL = "https://backend-vigyanpreap.vigyanprep.com";
+        }
+        const API_BASE_URL = window.API_BASE_URL;
     </script>
 
     <style>
@@ -261,10 +267,14 @@
                     localStorage.setItem('userEmail', email);
                     localStorage.setItem('userRollNumber', token); // ✅ Unified key (Roll Number)
                     // 🔒 FIX: Save actual JWT token from backend, NOT the roll number
-                    if (response.data.authToken) {
-                        localStorage.setItem('userToken', response.data.authToken);
+                    const authToken = response.data.authToken || response.data.token;
+                    if (authToken) {
+                        localStorage.setItem('userToken', authToken);
+                        console.log('✅ Auth token saved to userToken');
                     } else {
-                        console.warn('⚠️ No auth token received from server');
+                        // Fallback for older API versions or missing tokens
+                        localStorage.setItem('userToken', token);
+                        console.warn('⚠️ No auth token received from server, fallback to roll number');
                     }
 
                     // Parse and normalize purchased tests

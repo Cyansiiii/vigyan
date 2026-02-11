@@ -520,8 +520,8 @@
     <script src="frontend/js/user-panel.js?v=GHOST_FIX_FINAL_V6"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        // 🔄 UPDATED: Railway Backend URL (2026-01-28)
-        const API_BASE_URL = "https://vigyan-production.up.railway.app";
+        // API_BASE_URL is inherited from config.js
+        const API_BASE_URL = window.API_BASE_URL || 'https://backend-vigyanpreap.vigyanprep.com';
 
         let allQuestions = [];
         let questionsBySubject = { "Physics": [], "Chemistry": [], "Mathematics": [] };

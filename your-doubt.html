@@ -435,7 +435,7 @@
     <script src="frontend/js/enrollment-lock.js"></script>
     <script src="frontend/js/user-panel.js?v=GHOST_FIX_FINAL_V6"></script>
     <script>
-        const API_URL = "https://vigyan-production.up.railway.app";
+        const API_URL = window.API_BASE_URL || "/api";
         let isTyping = false;
 
         function enterWorkspace() {

@@ -122,7 +122,7 @@ export async function verifyAuth(req, res, next) {
     // Attach user data to request
     req.user = {
       email: decoded.email,
-      rollNumber: student.roll_number,
+      rollNumber: student.rollNumber,
       purchasedTests: purchasedTests.map(t => t.test_id),
       tokenTimestamp: decoded.timestamp
     };

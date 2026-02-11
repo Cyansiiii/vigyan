@@ -327,6 +327,31 @@ app.get('/api', (req, res) => {
 import { connectDB, isMongoDBConnected } from './config/mongodb.js';
 
 // ✅ Wrap async operations in IIFE to avoid top-level await
+// 🔍 DEBUG: Database Info Endpoint
+app.get('/api/debug/db-info', async (req, res) => {
+    try {
+        const info = {
+            success: true,
+            database: mongoose.connection.name,
+            host: mongoose.connection.host,
+            readyState: mongoose.connection.readyState,
+            models: Object.keys(mongoose.models),
+            env: {
+                MONGODB_URI_EXISTS: !!process.env.MONGODB_URI,
+                MONGODB_URI_PREFIX: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) : 'none',
+                NODE_ENV: process.env.NODE_ENV
+            },
+            counts: {
+                studentpayments: await mongoose.connection.db.collection('studentpayments').countDocuments(),
+                students: await mongoose.connection.db.collection('students').countDocuments()
+            }
+        };
+        res.json(info);
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 (async () => {
     try {
         console.log('🔗 Connecting to MongoDB...');
