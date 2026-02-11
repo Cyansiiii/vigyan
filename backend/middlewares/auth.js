@@ -2,6 +2,7 @@
 // 🔒 COMPLETE JWT AUTHENTICATION & AUTHORIZATION MIDDLEWARE
 
 import jwt from 'jsonwebtoken';
+import Student from '../models/Student.js'; // ✅ FIX: Import Student model
 import { StudentPayment } from '../models/StudentPayment.js';
 import { PurchasedTest } from '../models/PurchasedTest.js';
 
@@ -26,14 +27,14 @@ export function generateAuthToken(email, rollNumber, purchasedTests) {
       type: 'student_access'
     };
 
-    const token = jwt.sign(payload, JWT_SECRET, { 
+    const token = jwt.sign(payload, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN,
       issuer: 'vigyan-prep-backend'
     });
 
     console.log(`✅ Generated JWT for ${email}`);
     return token;
-    
+
   } catch (error) {
     console.error('❌ Error generating JWT:', error.message);
     throw new Error('Failed to generate authentication token');
@@ -87,7 +88,7 @@ export async function verifyAuth(req, res, next) {
           code: 'TOKEN_EXPIRED'
         });
       }
-      
+
       console.warn('⚠️ Invalid token:', jwtError.message);
       return res.status(401).json({
         success: false,
@@ -97,7 +98,8 @@ export async function verifyAuth(req, res, next) {
     }
 
     // Verify student still exists in database
-    const student = await StudentPayment.findOne({
+    // 🔒 FIX: Check Student model (primary record), not StudentPayment
+    const student = await Student.findOne({
       email: decoded.email
     });
 
@@ -181,10 +183,10 @@ export async function verifyTestAccess(req, res, next) {
     }
 
     console.log(`✅ Test access granted: ${req.user.email} → ${normalizedTestId}`);
-    
+
     // Attach testId to request for controller use
     req.testId = normalizedTestId;
-    
+
     next();
 
   } catch (error) {
