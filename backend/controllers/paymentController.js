@@ -11,17 +11,18 @@ import mongoose from "mongoose";
 import { generateAuthToken } from '../middlewares/auth.js';
 
 // Create Nodemailer transporter with Hostinger SMTP
-// ✅ FIXED: Using Port 587 with STARTTLS for 100% reliability on Hostinger
+// ✅ FIXED: Using smart port detection for Railway/Hostinger compatibility
+const emailPort = parseInt(process.env.EMAIL_PORT) || 587;
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
-  port: parseInt(process.env.EMAIL_PORT) || 587,
-  secure: false, // true for 465, false for 587
+  port: emailPort,
+  secure: emailPort === 465, // true for 465 (SSL), false for 587 (STARTTLS)
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
   tls: {
-    rejectUnauthorized: false // Helps with self-signed certs common on some servers
+    rejectUnauthorized: false
   }
 });
 
