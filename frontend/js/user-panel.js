@@ -22,7 +22,7 @@ window.renderUserPanelDirect = function (userData) {
   if (!email) {
     console.log('👤 No user data - Rendering Login Button');
     navPlaceholder.innerHTML = `
-        <a href="signinpage.html" class="btn-login">Login</a>
+        <a href="signinpage.html?v=clean_v4" class="btn-login">Login</a>
     `;
     return;
   }
