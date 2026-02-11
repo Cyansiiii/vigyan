@@ -1,5 +1,5 @@
 import { ScheduledTest } from '../models/ScheduledTest.js';
-import { Question } from '../models/Question.js';
+import Question from '../schemas/QuestionSchema.js';
 import { TestQuestion } from '../models/TestQuestion.js';
 import mongoose from 'mongoose';
 
