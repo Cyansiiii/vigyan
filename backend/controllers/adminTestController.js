@@ -45,9 +45,10 @@ export const getQuestionsBySubject = async (req, res) => {
             });
         }
 
-        const totalQuestions = await Question.countDocuments({ subject });
+        // Query against 'section' (per QuestionSchema.js) but mapped from 'subject' param
+        const totalQuestions = await Question.countDocuments({ section: subject });
 
-        const questions = await Question.find({ subject })
+        const questions = await Question.find({ section: subject })
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
@@ -56,7 +57,7 @@ export const getQuestionsBySubject = async (req, res) => {
         res.json({
             success: true,
             data: {
-                questions: questions,
+                questions: questions.map(q => ({ ...q, subject: q.section })),
                 pagination: {
                     currentPage: page,
                     totalPages: Math.ceil(totalQuestions / limit),
