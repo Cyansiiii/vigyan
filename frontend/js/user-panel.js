@@ -1,7 +1,4 @@
-// ============================================
-// SIMPLE USER PANEL - LOCALHOST ONLY (NO BACKEND VERIFICATION)
-// Reads from localStorage and renders user panel with calendar link
-// ============================================
+
 
 console.log('📦 User Panel v3.0 - Simple localStorage-only version');
 
@@ -85,7 +82,18 @@ window.refreshUserDashboard = async function () {
 
   console.log('📂 localStorage data:', { email, rollNumber, hasPurchasedTests: !!purchasedTests, hasToken: !!token });
 
-  // STEP 1: Render immediately from localStorage (FAST perceived performance)
+  // STEP 1: Strict Token Check (Security Fix for Ghost Login)
+  if (!token || token === "null" || token === "undefined" || token.length < 10) {
+    console.warn('❌ No valid token found. Clearing potential ghost session.');
+    if (email || rollNumber) {
+      localStorage.clear();
+      console.log('🧹 Cleared stale localStorage data');
+    }
+    window.renderUserPanelDirect({ email: '', rollNumber: '', tests: [] }); // Clear UI
+    return;
+  }
+
+  // STEP 2: Render immediately from localStorage (FAST perceived performance)
   if (email && rollNumber) {
     const tests = purchasedTests ? JSON.parse(purchasedTests) : [];
 
@@ -95,7 +103,7 @@ window.refreshUserDashboard = async function () {
       tests: tests
     });
 
-    // STEP 2: Background verification (SECURITY)
+    // STEP 3: Background verification (SECURITY)
     // Only verify if we have a token or valid session indicator
     if (token) {
       try {

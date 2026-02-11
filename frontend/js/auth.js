@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeAuth() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const userEmail = localStorage.getItem('userEmail');
-    const userToken = localStorage.getItem('userToken') || localStorage.getItem('userRollNumber');
+    const userToken = localStorage.getItem('userToken'); // 🔒 FIX: Strict token only
     const purchasedTests = localStorage.getItem('purchasedTests');
 
     console.log('🔐 Auth state:', {
@@ -28,12 +28,13 @@ function initializeAuth() {
     // If user is logged in, trigger the unified user panel render
     if (isLoggedIn === 'true' && userEmail) {
         console.log('✅ User is logged in - Calling unified refreshUserDashboard()');
-        
+
         // Ensure userRollNumber is synced (for backward compatibility)
+        // 🔒 FIX: Do NOT use rollNumber as token fallback
         if (userToken && !localStorage.getItem('userRollNumber')) {
-            localStorage.setItem('userRollNumber', userToken);
+            // decipher roll number from token if possible, or just leave it blank
         }
-        
+
         // Call the unified render function from user-panel.js
         if (window.refreshUserDashboard) {
             window.refreshUserDashboard();
@@ -46,9 +47,9 @@ function initializeAuth() {
 }
 
 // Global logout function
-window.handleLogout = function() {
+window.handleLogout = function () {
     console.log('🚪 Logging out...');
-    
+
     // Clear all user data
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
@@ -58,9 +59,9 @@ window.handleLogout = function() {
     localStorage.removeItem('purchasedTests');
     localStorage.removeItem('tempTestId');
     localStorage.removeItem('tempAmount');
-    
+
     console.log('✅ Logged out successfully');
-    
+
     // Redirect to homepage
     window.location.href = 'index.html';
 }
@@ -70,7 +71,7 @@ window.triggerLogout = window.handleLogout;
 
 // Export for modules
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { 
+    module.exports = {
         initializeAuth,
         handleLogout
     };
