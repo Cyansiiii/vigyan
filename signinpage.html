@@ -259,8 +259,13 @@
                     // 🔥 CRITICAL: Set ALL required keys for unified user panel
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userEmail', email);
-                    localStorage.setItem('userRollNumber', token); // ✅ Unified key
-                    localStorage.setItem('userToken', token); // Legacy support
+                    localStorage.setItem('userRollNumber', token); // ✅ Unified key (Roll Number)
+                    // 🔒 FIX: Save actual JWT token from backend, NOT the roll number
+                    if (response.data.authToken) {
+                        localStorage.setItem('userToken', response.data.authToken);
+                    } else {
+                        console.warn('⚠️ No auth token received from server');
+                    }
 
                     // Parse and normalize purchased tests
                     const tests = response.data.purchasedTests || [];
@@ -277,6 +282,7 @@
                     console.log('✅ Saved:', {
                         email,
                         rollNumber: token,
+                        hasAuthToken: !!response.data.authToken,
                         tests: normalizedTests
                     });
 
