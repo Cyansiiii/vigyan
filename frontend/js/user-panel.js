@@ -6,21 +6,21 @@
 console.log('📦 User Panel v3.0 - Simple localStorage-only version');
 
 // Main render function - reads from localStorage and displays panel
-window.renderUserPanelDirect = function(userData) {
+window.renderUserPanelDirect = function (userData) {
   console.log('⚡ Rendering user panel with data:', userData);
-  
+
   const navPlaceholder = document.getElementById("navLoginPlaceholder");
   if (!navPlaceholder) {
     console.warn('⚠️ navLoginPlaceholder not found in DOM');
     return;
   }
-  
+
   const email = userData.email || '';
   const rollNumber = userData.rollNumber || 'N/A';
   const tests = userData.tests || [];
-  
+
   console.log('📊 Panel data:', { email, rollNumber, tests });
-  
+
   // Render user panel
   navPlaceholder.innerHTML = `
     <div class="relative">
@@ -53,12 +53,11 @@ window.renderUserPanelDirect = function(userData) {
           <p class="text-[11px] text-gray-400 uppercase font-bold mb-2">Purchased Tests</p>
           ${tests.length > 0 ? tests.map(t => `
             <div class="flex items-center justify-between text-xs mb-2">
-              <span class="${
-                t === "iat" ? "text-green-400" : 
-                t === "nest" ? "text-purple-400" : 
-                t === "isi" ? "text-pink-400" : 
-                "text-blue-400"
-              } font-semibold">
+              <span class="${t === "iat" ? "text-green-400" :
+      t === "nest" ? "text-purple-400" :
+        t === "isi" ? "text-pink-400" :
+          "text-blue-400"
+    } font-semibold">
                 <i class="fas fa-check-circle mr-1"></i> ${t.toUpperCase()} Series
               </span>
             </div>
@@ -70,29 +69,77 @@ window.renderUserPanelDirect = function(userData) {
       </div>
     </div>
   `;
-  
+
   attachProfileEventListeners();
   console.log('✅ User panel rendered successfully!');
 };
 
-// Simple function - just reads localStorage and renders (NO BACKEND CALLS)
-window.refreshUserDashboard = function() {
-  console.log('🔄 refreshUserDashboard called');
-  
+// Simple function - reads localStorage, renders immediately, then verifies with backend
+window.refreshUserDashboard = async function () {
+  console.log('🔄 refreshUserDashboard called - background verification active');
+
   const email = localStorage.getItem("userEmail");
   const rollNumber = localStorage.getItem("userRollNumber");
   const purchasedTests = localStorage.getItem("purchasedTests");
-  
-  console.log('📂 localStorage data:', { email, rollNumber, purchasedTests });
-  
+  const token = localStorage.getItem("userToken"); // JWT Token for verification
+
+  console.log('📂 localStorage data:', { email, rollNumber, hasPurchasedTests: !!purchasedTests, hasToken: !!token });
+
+  // STEP 1: Render immediately from localStorage (FAST perceived performance)
   if (email && rollNumber) {
     const tests = purchasedTests ? JSON.parse(purchasedTests) : [];
-    
+
     window.renderUserPanelDirect({
       email: email,
       rollNumber: rollNumber,
       tests: tests
     });
+
+    // STEP 2: Background verification (SECURITY)
+    // Only verify if we have a token or valid session indicator
+    if (token) {
+      try {
+        console.log('🔍 Verifying session with backend...');
+        // We use fetch here to avoid dependency on global axios if it's not yet loaded
+        const response = await fetch('/api/user/profile', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('✅ Session verified successfully');
+
+          // Update localStorage with fresh data from server
+          if (data.success) {
+            localStorage.setItem("userEmail", data.email);
+            localStorage.setItem("userRollNumber", data.rollNumber);
+            localStorage.setItem("purchasedTests", JSON.stringify(data.purchasedTests));
+
+            // Re-render if data has changed (e.g. new test purchased)
+            window.renderUserPanelDirect({
+              email: data.email,
+              rollNumber: data.rollNumber,
+              tests: data.purchasedTests
+            });
+          }
+        } else if (response.status === 401 || response.status === 404) {
+          console.warn('❌ Session invalid or account deleted. Logging out...');
+          if (window.handleLogout) {
+            window.handleLogout();
+          } else {
+            localStorage.clear();
+            window.location.href = "index.html";
+          }
+        }
+      } catch (error) {
+        console.error('⚠️ Background verification failed (Network error):', error.message);
+        // We don't log out on network errors, just keep using stale data
+      }
+    }
   } else {
     console.log('ℹ️ User not logged in (missing email or rollNumber)');
   }
@@ -103,20 +150,20 @@ function attachProfileEventListeners() {
   const btn = document.getElementById("profileButton");
   const dropdown = document.getElementById("profileDropdown");
   const logoutBtn = document.getElementById("logoutBtn");
-  
+
   if (btn && dropdown) {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       dropdown.classList.toggle("hidden");
     });
-    
+
     document.addEventListener('click', (e) => {
       if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.classList.add('hidden');
       }
     });
   }
-  
+
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       console.log('🚪 Logging out...');
@@ -143,7 +190,7 @@ if (document.readyState === 'loading') {
 window.addEventListener('load', initUserPanel);
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { 
+  module.exports = {
     refreshUserDashboard: window.refreshUserDashboard,
     renderUserPanelDirect: window.renderUserPanelDirect
   };
