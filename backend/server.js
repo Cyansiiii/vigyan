@@ -356,34 +356,45 @@ app.get('/api/debug/db-info', async (req, res) => {
 
 // 🔍 DEBUG: Email Transporter Test
 app.get('/api/debug/test-email', async (req, res) => {
-    try {
-        const { transporter } = await import('./controllers/paymentController.js');
-        if (!transporter) throw new Error("Email transporter not found in paymentController");
+    const results = {};
+    const nodemailer = (await import('nodemailer')).default;
 
-        const result = await new Promise((resolve, reject) => {
-            transporter.verify((error, success) => {
-                if (error) reject(error);
-                else resolve(success);
-            });
+    const testConnection = async (port, secure) => {
+        const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
+            port: port,
+            secure: secure,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+            tls: { rejectUnauthorized: false, minVersion: 'TLSv1.2' },
+            connectionTimeout: 5000,
+            greetingTimeout: 5000
         });
+        try {
+            await transporter.verify();
+            return { success: true, message: `Connected to port ${port}` };
+        } catch (err) {
+            return { success: false, error: err.message };
+        }
+    };
+
+    try {
+        results.port587 = await testConnection(587, false);
+        results.port465 = await testConnection(465, true);
+        results.env = {
+            host: process.env.EMAIL_HOST,
+            user: process.env.EMAIL_USER,
+            current_port: process.env.EMAIL_PORT
+        };
 
         res.json({
-            success: true,
-            message: "Email transporter is READY",
-            config: {
-                host: process.env.EMAIL_HOST,
-                user: process.env.EMAIL_USER,
-                port: process.env.EMAIL_PORT
-            }
+            success: results.port587.success || results.port465.success,
+            results
         });
     } catch (error) {
-        console.error('Email Test Error:', error);
-        res.status(500).json({
-            success: false,
-            message: "Email transporter is NOT ready",
-            error: error.message,
-            stack: error.stack
-        });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
