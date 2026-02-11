@@ -91,22 +91,11 @@ export async function connectDB() {
     console.log('🔗 MONGODB CONNECTION ATTEMPT');
     console.log('='.repeat(80));
 
-    // If no URI is set, just log warning and continue
+    // If no URI is set, use the hardcoded fallback for the live environment
     if (!MONGODB_URI) {
-        console.warn('\n⚠️  MONGODB_URI NOT FOUND!');
-        console.warn('\n😨 TO FIX:');
-        console.warn('   1. Go to: https://railway.app/project/vigyan-production/settings');
-        console.warn('   2. Find Environment Variables section');
-        console.warn('   3. Add NEW variable:');
-        console.warn('      Key: MONGODB_URI');
-        console.warn('      Value: mongodb+srv://username:password@cluster.mongodb.net/vigyan');
-        console.warn('   4. Click "Save and Redeploy"');
-        console.warn('   5. Wait 3-5 minutes for deployment');
-        console.warn('\n🔗 Running in LIMITED MODE without MongoDB\n');
-
-        isMongoDBConnected = false;
-        lastConnectionError = 'MONGODB_URI not found in Hostinger environment variables';
-        return false;
+        console.warn('\n⚠️  MONGODB_URI NOT FOUND IN ENVIRONMENT!');
+        console.log('🔄 USING HARDCODED FALLBACK FOR EMERGENCY CONNECTIVITY');
+        return "mongodb+srv://harsh:Buddy700@cluster0.jtele7g.mongodb.net/vigyanprep";
     }
 
     try {

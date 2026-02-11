@@ -354,6 +354,39 @@ app.get('/api/debug/db-info', async (req, res) => {
     }
 });
 
+// 🔍 DEBUG: Email Transporter Test
+app.get('/api/debug/test-email', async (req, res) => {
+    try {
+        const { transporter } = await import('./controllers/paymentController.js');
+        if (!transporter) throw new Error("Email transporter not found in paymentController");
+
+        const result = await new Promise((resolve, reject) => {
+            transporter.verify((error, success) => {
+                if (error) reject(error);
+                else resolve(success);
+            });
+        });
+
+        res.json({
+            success: true,
+            message: "Email transporter is READY",
+            config: {
+                host: process.env.EMAIL_HOST,
+                user: process.env.EMAIL_USER,
+                port: process.env.EMAIL_PORT
+            }
+        });
+    } catch (error) {
+        console.error('Email Test Error:', error);
+        res.status(500).json({
+            success: false,
+            message: "Email transporter is NOT ready",
+            error: error.message,
+            stack: error.stack
+        });
+    }
+});
+
 (async () => {
     try {
         console.log('🔗 Connecting to MongoDB...');
