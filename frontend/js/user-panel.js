@@ -125,51 +125,46 @@ window.refreshUserDashboard = async function () {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache'
+            'Content-Type': 'application/json'
+            // ❌ REMOVED: Cache-Control - causing CORS preflight issues on some servers
           }
         });
 
         console.log(`📡 Background verification response: ${response.status} ${response.statusText}`);
 
         if (response.ok) {
-          // 🔒 FIX: Strictly validate that response is JSON
+          // ... existing logic ...
           const contentType = response.headers.get("content-type");
           if (!contentType || !contentType.includes("application/json")) {
             console.error('❌ Expected JSON but got:', contentType);
-            throw new Error("Invalid response type"); // Trigger logout below
+            throw new Error("Invalid response type");
           }
 
           const data = await response.json();
-          console.log('✅ Session verified successfully');
-
-          // Update localStorage with fresh data
           if (data.success) {
             localStorage.setItem("userEmail", data.email);
             localStorage.setItem("userRollNumber", data.rollNumber || "");
             localStorage.setItem("purchasedTests", JSON.stringify(data.purchasedTests || []));
-
-            // Re-render with fresh data
-            window.renderUserPanelDirect({
-              email: data.email,
-              rollNumber: data.rollNumber,
-              tests: data.purchasedTests
-            });
+            window.renderUserPanelDirect({ email: data.email, rollNumber: data.rollNumber, tests: data.purchasedTests });
           }
         } else {
-          // AGGRESSIVE: If the response is not 200, assume session is dead or account is gone
           throw new Error(`Server returned ${response.status}`);
         }
       } catch (error) {
-        console.warn('❌ Session verification failed:', error.message);
-        console.warn('🔒 Forcing logout to prevent ghost session.');
+        console.warn('❌ Session verification failed- Logout Forced:', error.message);
 
-        // FORCE LOGOUT ON ANY ERROR
+        // 🏁 FORCE LOGOUT - ULTRA ROBUST
         localStorage.clear();
         sessionStorage.clear();
 
-        if (window.handleLogout) window.handleLogout();
-        window.location.href = "index.html";
+        try {
+          if (window.handleLogout) window.handleLogout();
+        } catch (e) { console.error('Error in handleLogout:', e); }
+
+        // Final escape hatch
+        setTimeout(() => {
+          window.location.href = "index.html?v=logout_sync";
+        }, 100);
       }
     }
   } else {
