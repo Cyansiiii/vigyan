@@ -99,18 +99,20 @@ export async function verifyAuth(req, res, next) {
 
     // Verify student still exists in database
     // 🔒 FIX: Check Student model (primary record), not StudentPayment
+    console.log(`🔍 verifyAuth: Looking up student with email: ${decoded.email}`);
     const student = await Student.findOne({
       email: decoded.email
     });
 
     if (!student) {
-      console.warn('⚠️ Student not found:', decoded.email);
+      console.warn('⚠️ verifyAuth: Student NOT found in DB:', decoded.email);
       return res.status(401).json({
         success: false,
         message: 'Student account not found. Please contact support.',
         code: 'STUDENT_NOT_FOUND'
       });
     }
+    console.log(`✅ verifyAuth: Student FOUND (ID: ${student._id})`);
 
     // Get fresh purchased tests list
     const purchasedTests = await PurchasedTest.find({

@@ -152,12 +152,17 @@ window.refreshUserDashboard = async function () {
         } else {
           // AGGRESSIVE: If the response is not 200, assume session is dead or account is gone
           console.warn('❌ Session invalid, account deleted, or server error. Logging out for safety...');
+
+          // FORCE LOGOUT IMMEDIATELY
+          localStorage.clear();
+          sessionStorage.clear();
+
+          // Fallback to function if exists for extra cleanup
           if (window.handleLogout) {
             window.handleLogout();
-          } else {
-            localStorage.clear();
-            window.location.href = "index.html";
           }
+
+          window.location.href = "index.html";
         }
       } catch (error) {
         console.error('⚠️ Background verification network error:', error.message);
