@@ -916,7 +916,7 @@
                                 email: userEmail,
                                 amount: amount,
                                 fullName: fullName  // ✅ SEND NAME TO BACKEND
-                            }, { timeout: 15000 });
+                            }, { timeout: 30000 });
 
                             if (verifyRes.data.success) {
                                 const rollNumber = verifyRes.data.rollNumber;

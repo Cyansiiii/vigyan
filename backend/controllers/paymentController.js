@@ -103,7 +103,7 @@ export const checkout = async (req, res) => {
     // 🔒 SECURITY: Only accept testId and email from frontend
     // Amount will be fetched from DATABASE, not from frontend!
     const { testId, email } = req.body;
-    
+
     console.log('🔍 Check 2: Request validation');
     console.log('   TestId:', testId, typeof testId);
     console.log('   Email:', email, typeof email);
@@ -130,10 +130,10 @@ export const checkout = async (req, res) => {
 
     // 🔒 SECURITY CRITICAL: Fetch price from database
     console.log(`🔍 Fetching price for test '${testId}' from DATABASE...`);
-    
-    const testSeries = await TestSeries.findOne({ 
-      testId: testId.toLowerCase().trim(), 
-      isActive: true 
+
+    const testSeries = await TestSeries.findOne({
+      testId: testId.toLowerCase().trim(),
+      isActive: true
     });
 
     if (!testSeries) {
@@ -570,85 +570,85 @@ export const paymentVerification = async (req, res) => {
           html: emailHtml,
         };
 
-        await transporter.sendMail(mailOptions);
-        console.log(`✅ Email sent successfully to ${normalizedEmail}`);
+        // Send email asynchronously (do not await)
+        transporter.sendMail(mailOptions)
+          .then(() => console.log(`✅ Email sent successfully to ${normalizedEmail}`))
+          .catch(emailError => console.error("❌ Email Error:", emailError.message));
 
-      } catch (emailError) {
-        console.error("❌ Email Error:", emailError.message);
-        emailWarning = "Email notification could not be sent, but your registration is complete";
+        emailWarning = null; // We already processed the intent to send
+
+      } else {
+        console.warn('⚠️ Email credentials not configured');
+        emailWarning = "Email notifications are currently disabled";
       }
-    } else {
-      console.warn('⚠️ Email credentials not configured');
-      emailWarning = "Email notifications are currently disabled";
-    }
 
-    // 🔐 GENERATE JWT TOKEN FOR AUTHENTICATION
-    console.log("🔐 Generating JWT authentication token...");
+      // 🔐 GENERATE JWT TOKEN FOR AUTHENTICATION
+      console.log("🔐 Generating JWT authentication token...");
 
-    const authToken = generateAuthToken(
-      normalizedEmail,
-      rollNumber,
-      purchasedTests
-    );
+      const authToken = generateAuthToken(
+        normalizedEmail,
+        rollNumber,
+        purchasedTests
+      );
 
-    // Set HTTP-only cookie (secure in production)
-    res.cookie('auth_token', authToken, {
-      httpOnly: true,  // Cannot be accessed by JavaScript (XSS protection)
-      secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-      sameSite: 'strict', // CSRF protection
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      path: '/' // Available across entire site
-    });
+      // Set HTTP-only cookie (secure in production)
+      res.cookie('auth_token', authToken, {
+        httpOnly: true,  // Cannot be accessed by JavaScript (XSS protection)
+        secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+        sameSite: 'strict', // CSRF protection
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        path: '/' // Available across entire site
+      });
 
-    console.log("✅ JWT token generated and set in cookie");
-    console.log("✅ Sending success response to frontend...");
+      console.log("✅ JWT token generated and set in cookie");
+      console.log("✅ Sending success response to frontend...");
 
-    const responseData = {
-      success: true,
-      rollNumber: rollNumber,
-      isNewStudent: isNewStudent,
-      purchasedTests: purchasedTests,
-      authToken: authToken, // Send token in response too (fallback)
-      message: isNewStudent
-        ? "Payment successful! Your Roll Number has been sent to your email."
-        : "Payment successful! Test added to your account.",
-      emailSent: !emailWarning,
-      emailWarning: emailWarning
-    };
+      const responseData = {
+        success: true,
+        rollNumber: rollNumber,
+        isNewStudent: isNewStudent,
+        purchasedTests: purchasedTests,
+        authToken: authToken, // Send token in response too (fallback)
+        message: isNewStudent
+          ? "Payment successful! Your Roll Number has been sent to your email."
+          : "Payment successful! Test added to your account.",
+        emailSent: !emailWarning,
+        emailWarning: emailWarning
+      };
 
-    console.log("🔹 ========== PAYMENT VERIFICATION SUCCESS ==========");
-    console.log("📊 Final Response:", JSON.stringify(responseData, null, 2));
-    res.status(200).json(responseData);
+      console.log("🔹 ========== PAYMENT VERIFICATION SUCCESS ==========");
+      console.log("📊 Final Response:", JSON.stringify(responseData, null, 2));
+      res.status(200).json(responseData);
 
-  } catch (error) {
-    console.error("🔴 ========== PAYMENT VERIFICATION ERROR ==========");
-    console.error("❌ Error:", error.message);
-    console.error("❌ Stack:", error.stack);
+    } catch (error) {
+      console.error("🔴 ========== PAYMENT VERIFICATION ERROR ==========");
+      console.error("❌ Error:", error.message);
+      console.error("❌ Stack:", error.stack);
 
-    // 🆕 Rollback transaction on error
-    if (session) {
-      try {
-        await session.abortTransaction();
-        console.log("🔄 Database transaction rolled back");
-      } catch (abortError) {
-        console.error("❌ Error aborting transaction:", abortError.message);
+      // 🆕 Rollback transaction on error
+      if (session) {
+        try {
+          await session.abortTransaction();
+          console.log("🔄 Database transaction rolled back");
+        } catch (abortError) {
+          console.error("❌ Error aborting transaction:", abortError.message);
+        }
+      }
+
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error: " + error.message,
+        debug: {
+          errorName: error.name,
+          errorMessage: error.message,
+          databaseConnected: mongoose.connection.readyState === 1
+        }
+      });
+    } finally {
+      // 🆕 Always end session
+      if (session) {
+        session.endSession();
+        console.log("🔄 Database session ended");
       }
     }
-
-    res.status(500).json({
-      success: false,
-      message: "Internal Server Error: " + error.message,
-      debug: {
-        errorName: error.name,
-        errorMessage: error.message,
-        databaseConnected: mongoose.connection.readyState === 1
-      }
-    });
-  } finally {
-    // 🆕 Always end session
-    if (session) {
-      session.endSession();
-      console.log("🔄 Database session ended");
-    }
-  }
-};
+  };
