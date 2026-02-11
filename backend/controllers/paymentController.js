@@ -434,23 +434,26 @@ export const paymentVerification = async (req, res) => {
 
       console.log(`✅ NEW STUDENT CREATED SUCCESSFULLY: ${normalizedEmail}, Roll: ${rollNumber}`);
 
-      // 🆕 SYNC WITH DASHBOARD STUDENT MODEL
-      console.log("🔄 Syncing with Dashboard Student Model...");
-      try {
-        await Student.findOneAndUpdate(
-          { email: normalizedEmail },
-          {
-            email: normalizedEmail,
-            rollNumber: rollNumber,
-            fullName: fullName.trim(), // ✅ USE PROVIDED NAME
-            lastLoginAt: new Date()
-          },
-          { upsert: true, new: true, session }
-        );
-        console.log("✅ Dashboard Student record synced with fullName:", fullName.trim());
-      } catch (syncError) {
-        console.error("❌ Error syncing Dashboard Student record:", syncError.message);
-      }
+    }
+
+    // 🆕 SYNC WITH DASHBOARD STUDENT MODEL
+    // This happens for both new and existing students to keep the dashboard accurate
+    console.log("🔄 Syncing with Dashboard Student Model...");
+    try {
+      await Student.findOneAndUpdate(
+        { email: normalizedEmail },
+        {
+          email: normalizedEmail,
+          rollNumber: rollNumber,
+          fullName: fullName.trim(),
+          course: testId.toUpperCase(), // 🎓 FIX: Set the course name correctly (ISI, NEST, etc.)
+          lastLoginAt: new Date()
+        },
+        { upsert: true, new: true, session }
+      );
+      console.log(`✅ Dashboard Student record synced. Name: ${fullName.trim()}, Course: ${testId.toUpperCase()}`);
+    } catch (syncError) {
+      console.error("❌ Error syncing Dashboard Student record:", syncError.message);
     }
 
     // 🆕 STEP 4: Commit transaction to database
