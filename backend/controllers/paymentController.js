@@ -12,9 +12,6 @@ import { generateAuthToken } from '../middlewares/auth.js';
 
 // Create Nodemailer transporter with Hostinger SMTP
 const transporter = nodemailer.createTransport({
-  pool: true, // 🚀 Speed optimization: reuse connections
-  maxConnections: 5,
-  maxMessages: 100,
   host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
   port: parseInt(process.env.EMAIL_PORT) || 465,
   secure: true,
