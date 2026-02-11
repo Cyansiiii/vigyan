@@ -67,17 +67,16 @@ const validateEnvironmentVariables = () => {
 
     // Email vars are optional but warn if missing
     console.warn('⚠️  Email credentials not configured - email notifications will be disabled');
-}
 
-if (missingVars.length > 0) {
-    console.error('\n⚠️ WARNING: Missing environment variables:');
-    missingVars.forEach((v, i) => console.error(`   ${i + 1}. ${v}`));
-    console.error('\n📝 Some features may not work correctly.');
-    console.error('📚 See .env.example for reference\n');
-    // Continue running instead of exiting - let individual features fail gracefully
-} else {
-    console.log('✅ All required environment variables are configured');
-}
+    if (missingVars.length > 0) {
+        console.error('\n⚠️ WARNING: Missing environment variables:');
+        missingVars.forEach((v, i) => console.error(`   ${i + 1}. ${v}`));
+        console.error('\n📝 Some features may not work correctly.');
+        console.error('📚 See .env.example for reference\n');
+        // Continue running instead of exiting - let individual features fail gracefully
+    } else {
+        console.log('✅ All required environment variables are configured');
+    }
 };
 
 // Validate env vars before starting
