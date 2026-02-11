@@ -18,6 +18,15 @@ window.renderUserPanelDirect = function (userData) {
 
   console.log('📊 Panel data:', { email, rollNumber, tests });
 
+  // CHECK: If no email, render LOGIN BUTTON instead of profile
+  if (!email) {
+    console.log('👤 No user data - Rendering Login Button');
+    navPlaceholder.innerHTML = `
+        <a href="signinpage.html" class="btn-login">Login</a>
+    `;
+    return;
+  }
+
   // Render user panel
   navPlaceholder.innerHTML = `
     <div class="relative">
