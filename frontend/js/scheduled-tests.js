@@ -109,18 +109,19 @@ async function loadScheduledTests() {
     try {
         showLoading(true);
 
-        console.log('📡 Fetching tests via AdminAPI...');
+        console.log('📡 Fetching scheduled tests via AdminAPI...');
 
         let data;
         try {
-            data = await window.AdminAPI.getTests(); // Calls /api/admin/tests
+            // Primary: Use the live-preview API which queries ScheduledTest collection
+            data = await window.AdminAPI.getLivePreviewUpcomingTests();
+            console.log('✅ Got data from live-preview/tests/upcoming:', data);
         } catch (err) {
-            console.warn('Primary endpoint failed, trying scheduled tests endpoint...');
+            console.warn('Live-preview endpoint failed, trying fallbacks...', err.message);
             try {
-                data = await window.AdminAPI.getScheduledTests(); // Calls /api/admin/scheduled-tests
+                data = await window.AdminAPI.getTests(); // Fallback: TestSeries collection
             } catch (innerErr) {
-                // Try exam list route as last resort
-                console.warn('Secondary endpoint failed, trying exam list...');
+                console.warn('Tests endpoint also failed, trying exam list...');
                 const response = await fetch(`${window.AdminAPI.baseURL}/api/exam/list`);
                 data = await response.json();
             }
@@ -129,45 +130,33 @@ async function loadScheduledTests() {
         console.log('📦 Loaded tests data:', data);
 
         // Handle various response/empty structures
-        if (!data || (!data.tests && !data.exams && !Array.isArray(data))) {
-            console.log('ℹ️ No scheduled tests found (empty/invalid data)');
-            allTests = [];
-            filteredTests = [];
-            showEmptyState();
-            showLoading(false);
-            return;
-        }
-
-        // Normalize data
         let tests = [];
         if (Array.isArray(data)) {
             tests = data;
-        } else if (data.tests) {
+        } else if (data && data.tests) {
             tests = data.tests;
-        } else if (data.exams) {
+        } else if (data && data.exams) {
             tests = data.exams;
         }
 
-        if (tests.length === 0) {
-            console.log('ℹ️ Database returned empty test list - Rendering Empty State');
+        if (!tests || tests.length === 0) {
+            console.log('ℹ️ No scheduled tests found');
             allTests = [];
             filteredTests = [];
 
             const container = document.getElementById('tests-container');
             if (container) {
-                console.log('✅ Clearing loader and showing empty state');
-                container.innerHTML = ''; // Explicitly clear loader
+                container.innerHTML = '';
                 showEmptyState();
-            } else {
-                console.error('❌ tests-container not found when trying to show empty state');
             }
+            showLoading(false);
             return;
         }
 
         allTests = tests;
         filteredTests = [...allTests];
 
-        console.log(`✅ Loaded ${allTests.length} tests`);
+        console.log(`✅ Loaded ${allTests.length} scheduled tests`);
 
         displayTests(filteredTests);
         showLoading(false);
