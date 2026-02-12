@@ -133,6 +133,8 @@ async function loadScheduledTests() {
         let tests = [];
         if (Array.isArray(data)) {
             tests = data;
+        } else if (data && data.data && Array.isArray(data.data)) {
+            tests = data.data;  // live-preview API returns {success, data: [...]}
         } else if (data && data.tests) {
             tests = data.tests;
         } else if (data && data.exams) {
