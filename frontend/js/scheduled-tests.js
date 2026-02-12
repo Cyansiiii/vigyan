@@ -260,7 +260,18 @@ function createTestCard(test) {
     const startTime = test.start_time || test.startTime || test.exam_time || 'Not set';
     const testType = (test.test_type || test.testType || test.exam_type || 'TEST').toUpperCase();
     const testName = test.test_name || test.testName || test.exam_name || 'Unnamed Test';
-    const subjects = test.subjects || test.sections || 'N/A';
+    // Handle subjects array of objects from ScheduledTest model
+    let subjects = 'N/A';
+    if (Array.isArray(test.subjects)) {
+        const includedSubjects = test.subjects
+            .filter(s => s.isIncluded !== false)
+            .map(s => s.subjectName || s.name || s);
+        subjects = includedSubjects.length > 0 ? includedSubjects.join(', ') : 'N/A';
+    } else if (typeof test.subjects === 'string') {
+        subjects = test.subjects;
+    } else if (test.sections) {
+        subjects = test.sections;
+    }
     const totalQuestions = test.total_questions || test.totalQuestions || 0;
     const totalMarks = test.total_marks || test.totalMarks || 0;
     const status = test.status || 'scheduled';
