@@ -1,34 +1,38 @@
 /**
  * Scheduled Tests Page - Complete Backend Integration
  * FIXED: 2026-01-26 - Integrated with AdminAPI service
+ * IIFE wrapper to prevent `let allTests` collision with transactions.js
  */
 
-console.log('🔵 scheduled-tests.js loading...');
+(function () {
+    'use strict';
 
-let allTests = [];
-let filteredTests = [];
+    console.log('🔵 scheduled-tests.js loading...');
 
-// Initialize page when called from dashboard
-window.initScheduledTests = async function () {
-    console.log('🔥 ✅ initScheduledTests CALLED!');
-    console.log('🔵 Initializing Scheduled Tests page...');
+    let allTests = [];
+    let filteredTests = [];
 
-    // Ensure AdminAPI is available
-    if (!window.AdminAPI) {
-        console.error('❌ AdminAPI service not found');
-        return;
-    }
+    // Initialize page when called from dashboard
+    window.initScheduledTests = async function () {
+        console.log('🔥 ✅ initScheduledTests CALLED!');
+        console.log('🔵 Initializing Scheduled Tests page...');
 
-    const page = document.getElementById('scheduled-tests-page');
-    if (!page) {
-        console.error('❌ Scheduled tests page element not found');
-        return;
-    }
+        // Ensure AdminAPI is available
+        if (!window.AdminAPI) {
+            console.error('❌ AdminAPI service not found');
+            return;
+        }
 
-    console.log('✅ Page container found');
+        const page = document.getElementById('scheduled-tests-page');
+        if (!page) {
+            console.error('❌ Scheduled tests page element not found');
+            return;
+        }
 
-    // Render page HTML
-    page.innerHTML = `
+        console.log('✅ Page container found');
+
+        // Render page HTML
+        page.innerHTML = `
         <div class="page-header">
             <h1><i class="fas fa-clock"></i> Scheduled Tests</h1>
             <button class="btn-primary" onclick="navigateToCreateTest()">
@@ -72,114 +76,114 @@ window.initScheduledTests = async function () {
         </div>
     `;
 
-    console.log('✅ HTML rendered');
+        console.log('✅ HTML rendered');
 
-    // Load tests from backend
-    await loadScheduledTests();
-    setupEventListeners();
+        // Load tests from backend
+        await loadScheduledTests();
+        setupEventListeners();
 
-    console.log('✅ Scheduled Tests page initialized');
-};
+        console.log('✅ Scheduled Tests page initialized');
+    };
 
-console.log('🔍 Verifying initScheduledTests function:', typeof window.initScheduledTests);
+    console.log('🔍 Verifying initScheduledTests function:', typeof window.initScheduledTests);
 
-// Navigate to create test page
-window.navigateToCreateTest = function () {
-    const createTestLink = document.querySelector('[data-page="create-test"]');
-    if (createTestLink) {
-        createTestLink.click();
+    // Navigate to create test page
+    window.navigateToCreateTest = function () {
+        const createTestLink = document.querySelector('[data-page="create-test"]');
+        if (createTestLink) {
+            createTestLink.click();
+        }
+    };
+
+    // Setup event listeners
+    function setupEventListeners() {
+        const typeFilter = document.getElementById('type-filter');
+        const statusFilter = document.getElementById('status-filter');
+        const searchInput = document.getElementById('search-tests');
+
+        if (typeFilter) typeFilter.addEventListener('change', applyFilters);
+        if (statusFilter) statusFilter.addEventListener('change', applyFilters);
+        if (searchInput) searchInput.addEventListener('input', applyFilters);
+
+        console.log('✅ Event listeners attached');
     }
-};
 
-// Setup event listeners
-function setupEventListeners() {
-    const typeFilter = document.getElementById('type-filter');
-    const statusFilter = document.getElementById('status-filter');
-    const searchInput = document.getElementById('search-tests');
-
-    if (typeFilter) typeFilter.addEventListener('change', applyFilters);
-    if (statusFilter) statusFilter.addEventListener('change', applyFilters);
-    if (searchInput) searchInput.addEventListener('input', applyFilters);
-
-    console.log('✅ Event listeners attached');
-}
-
-// Load scheduled tests from database
-async function loadScheduledTests() {
-    try {
-        showLoading(true);
-
-        console.log('📡 Fetching scheduled tests via AdminAPI...');
-
-        let data;
+    // Load scheduled tests from database
+    async function loadScheduledTests() {
         try {
-            // Primary: Use the live-preview API which queries ScheduledTest collection
-            data = await window.AdminAPI.getLivePreviewUpcomingTests();
-            console.log('✅ Got data from live-preview/tests/upcoming:', data);
-        } catch (err) {
-            console.warn('Live-preview endpoint failed, trying fallbacks...', err.message);
+            showLoading(true);
+
+            console.log('📡 Fetching scheduled tests via AdminAPI...');
+
+            let data;
             try {
-                data = await window.AdminAPI.getTests(); // Fallback: TestSeries collection
-            } catch (innerErr) {
-                console.warn('Tests endpoint also failed, trying exam list...');
-                const response = await fetch(`${window.AdminAPI.baseURL}/api/exam/list`);
-                data = await response.json();
+                // Primary: Use the live-preview API which queries ScheduledTest collection
+                data = await window.AdminAPI.getLivePreviewUpcomingTests();
+                console.log('✅ Got data from live-preview/tests/upcoming:', data);
+            } catch (err) {
+                console.warn('Live-preview endpoint failed, trying fallbacks...', err.message);
+                try {
+                    data = await window.AdminAPI.getTests(); // Fallback: TestSeries collection
+                } catch (innerErr) {
+                    console.warn('Tests endpoint also failed, trying exam list...');
+                    const response = await fetch(`${window.AdminAPI.baseURL}/api/exam/list`);
+                    data = await response.json();
+                }
             }
-        }
 
-        console.log('📦 Loaded tests data:', data);
+            console.log('📦 Loaded tests data:', data);
 
-        // Handle various response/empty structures
-        let tests = [];
-        if (Array.isArray(data)) {
-            tests = data;
-        } else if (data && data.data && Array.isArray(data.data)) {
-            tests = data.data;  // live-preview API returns {success, data: [...]}
-        } else if (data && data.tests) {
-            tests = data.tests;
-        } else if (data && data.exams) {
-            tests = data.exams;
-        }
+            // Handle various response/empty structures
+            let tests = [];
+            if (Array.isArray(data)) {
+                tests = data;
+            } else if (data && data.data && Array.isArray(data.data)) {
+                tests = data.data;  // live-preview API returns {success, data: [...]}
+            } else if (data && data.tests) {
+                tests = data.tests;
+            } else if (data && data.exams) {
+                tests = data.exams;
+            }
 
-        if (!tests || tests.length === 0) {
-            console.log('ℹ️ No scheduled tests found');
+            if (!tests || tests.length === 0) {
+                console.log('ℹ️ No scheduled tests found');
+                allTests = [];
+                filteredTests = [];
+
+                const container = document.getElementById('tests-container');
+                if (container) {
+                    container.innerHTML = '';
+                    showEmptyState();
+                }
+                showLoading(false);
+                return;
+            }
+
+            allTests = tests;
+            filteredTests = [...allTests];
+
+            console.log(`✅ Loaded ${allTests.length} scheduled tests`);
+
+            displayTests(filteredTests);
+            showLoading(false);
+
+        } catch (error) {
+            console.error('❌ Error loading tests:', error);
+            console.error('Error details:', error.message);
+
+            showErrorState(error);
+
             allTests = [];
             filteredTests = [];
-
-            const container = document.getElementById('tests-container');
-            if (container) {
-                container.innerHTML = '';
-                showEmptyState();
-            }
             showLoading(false);
-            return;
         }
-
-        allTests = tests;
-        filteredTests = [...allTests];
-
-        console.log(`✅ Loaded ${allTests.length} scheduled tests`);
-
-        displayTests(filteredTests);
-        showLoading(false);
-
-    } catch (error) {
-        console.error('❌ Error loading tests:', error);
-        console.error('Error details:', error.message);
-
-        showErrorState(error);
-
-        allTests = [];
-        filteredTests = [];
-        showLoading(false);
     }
-}
 
-function showEmptyState() {
-    const container = document.getElementById('tests-container');
-    if (!container) return;
+    function showEmptyState() {
+        const container = document.getElementById('tests-container');
+        if (!container) return;
 
-    container.innerHTML = `
+        container.innerHTML = `
         <div class="no-tests" style="text-align: center; padding: 80px 20px; color: #94a3b8; background: white; border-radius: 12px;">
             <i class="fas fa-calendar-times" style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;"></i>
             <p style="font-size: 18px; margin-bottom: 20px; font-weight: 500;">No scheduled tests found</p>
@@ -189,13 +193,13 @@ function showEmptyState() {
             </button>
         </div>
     `;
-}
+    }
 
-function showErrorState(error) {
-    const container = document.getElementById('tests-container');
-    if (!container) return;
+    function showErrorState(error) {
+        const container = document.getElementById('tests-container');
+        if (!container) return;
 
-    container.innerHTML = `
+        container.innerHTML = `
         <div style="text-align: center; padding: 60px 20px; color: #ef4444; background: white; border-radius: 12px;">
             <i class="fas fa-exclamation-circle" style="font-size: 48px; margin-bottom: 16px;"></i>
             <h3 style="margin: 0 0 8px 0; font-size: 18px;">Unable to Load Scheduled Tests</h3>
@@ -207,96 +211,96 @@ function showErrorState(error) {
             </button>
         </div>
     `;
-}
+    }
 
-// Apply filters to tests
-function applyFilters() {
-    const typeFilter = document.getElementById('type-filter')?.value || 'all';
-    const statusFilter = document.getElementById('status-filter')?.value || 'all';
-    const searchQuery = document.getElementById('search-tests')?.value.toLowerCase() || '';
+    // Apply filters to tests
+    function applyFilters() {
+        const typeFilter = document.getElementById('type-filter')?.value || 'all';
+        const statusFilter = document.getElementById('status-filter')?.value || 'all';
+        const searchQuery = document.getElementById('search-tests')?.value.toLowerCase() || '';
 
-    filteredTests = allTests.filter(test => {
-        const testType = test.test_type || test.testType || test.exam_type || '';
-        const testStatus = test.status || 'scheduled';
-        const testName = test.test_name || test.testName || test.exam_name || '';
-        const subjects = test.subjects || '';
+        filteredTests = allTests.filter(test => {
+            const testType = test.test_type || test.testType || test.exam_type || '';
+            const testStatus = test.status || 'scheduled';
+            const testName = test.test_name || test.testName || test.exam_name || '';
+            const subjects = test.subjects || '';
 
-        if (typeFilter !== 'all' && testType.toUpperCase() !== typeFilter.toUpperCase()) return false;
-        if (statusFilter !== 'all' && testStatus !== statusFilter) return false;
-        if (searchQuery) {
-            const matchName = testName.toLowerCase().includes(searchQuery);
-            const matchSubjects = subjects.toLowerCase().includes(searchQuery);
-            if (!matchName && !matchSubjects) return false;
-        }
-        return true;
-    });
+            if (typeFilter !== 'all' && testType.toUpperCase() !== typeFilter.toUpperCase()) return false;
+            if (statusFilter !== 'all' && testStatus !== statusFilter) return false;
+            if (searchQuery) {
+                const matchName = testName.toLowerCase().includes(searchQuery);
+                const matchSubjects = subjects.toLowerCase().includes(searchQuery);
+                if (!matchName && !matchSubjects) return false;
+            }
+            return true;
+        });
 
-    console.log(`🔍 Filtered ${filteredTests.length} tests from ${allTests.length} total`);
-    displayTests(filteredTests);
-}
+        console.log(`🔍 Filtered ${filteredTests.length} tests from ${allTests.length} total`);
+        displayTests(filteredTests);
+    }
 
-// Display tests in the UI
-function displayTests(tests) {
-    const container = document.getElementById('tests-container');
-    if (!container) return;
+    // Display tests in the UI
+    function displayTests(tests) {
+        const container = document.getElementById('tests-container');
+        if (!container) return;
 
-    if (tests.length === 0) {
-        container.innerHTML = `
+        if (tests.length === 0) {
+            container.innerHTML = `
             <div style="text-align: center; padding: 60px 20px; color: #94a3b8; background: white; border-radius: 12px;">
                 <i class="fas fa-search" style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;"></i>
                 <p style="font-size: 18px;">No tests match your filters</p>
                 <p style="font-size: 14px; color: #94a3b8;">Try adjusting your search criteria</p>
             </div>
         `;
-        return;
+            return;
+        }
+
+        container.innerHTML = tests.map(test => createTestCard(test)).join('');
     }
 
-    container.innerHTML = tests.map(test => createTestCard(test)).join('');
-}
+    // Create test card HTML
+    function createTestCard(test) {
+        const examDate = test.exam_date || test.examDate || test.date;
+        const testDate = new Date(examDate);
+        const formattedDate = testDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        const startTime = test.start_time || test.startTime || test.exam_time || 'Not set';
+        const testType = (test.test_type || test.testType || test.exam_type || 'TEST').toUpperCase();
+        const testName = test.test_name || test.testName || test.exam_name || 'Unnamed Test';
+        // Handle subjects array of objects from ScheduledTest model
+        let subjects = 'N/A';
+        if (Array.isArray(test.subjects)) {
+            const includedSubjects = test.subjects
+                .filter(s => s.isIncluded !== false)
+                .map(s => s.subjectName || s.name || s);
+            subjects = includedSubjects.length > 0 ? includedSubjects.join(', ') : 'N/A';
+        } else if (typeof test.subjects === 'string') {
+            subjects = test.subjects;
+        } else if (test.sections) {
+            subjects = test.sections;
+        }
+        const totalQuestions = test.total_questions || test.totalQuestions || 0;
+        const totalMarks = test.total_marks || test.totalMarks || 0;
+        const status = test.status || 'scheduled';
+        // FIXED: Prioritize MongoDB _id
+        // FIXED: Prioritize MongoDB _id with explicit check
+        const testId = test._id || test.id || test.test_id || test.testId || test.exam_id;
+        if (!testId) {
+            console.warn('❌ Test ID missing for:', testName, test);
+        }
 
-// Create test card HTML
-function createTestCard(test) {
-    const examDate = test.exam_date || test.examDate || test.date;
-    const testDate = new Date(examDate);
-    const formattedDate = testDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-    const startTime = test.start_time || test.startTime || test.exam_time || 'Not set';
-    const testType = (test.test_type || test.testType || test.exam_type || 'TEST').toUpperCase();
-    const testName = test.test_name || test.testName || test.exam_name || 'Unnamed Test';
-    // Handle subjects array of objects from ScheduledTest model
-    let subjects = 'N/A';
-    if (Array.isArray(test.subjects)) {
-        const includedSubjects = test.subjects
-            .filter(s => s.isIncluded !== false)
-            .map(s => s.subjectName || s.name || s);
-        subjects = includedSubjects.length > 0 ? includedSubjects.join(', ') : 'N/A';
-    } else if (typeof test.subjects === 'string') {
-        subjects = test.subjects;
-    } else if (test.sections) {
-        subjects = test.sections;
-    }
-    const totalQuestions = test.total_questions || test.totalQuestions || 0;
-    const totalMarks = test.total_marks || test.totalMarks || 0;
-    const status = test.status || 'scheduled';
-    // FIXED: Prioritize MongoDB _id
-    // FIXED: Prioritize MongoDB _id with explicit check
-    const testId = test._id || test.id || test.test_id || test.testId || test.exam_id;
-    if (!testId) {
-        console.warn('❌ Test ID missing for:', testName, test);
-    }
+        const durationMinutes = test.duration_minutes || test.duration || test.durationMinutes || 180;
 
-    const durationMinutes = test.duration_minutes || test.duration || test.durationMinutes || 180;
+        // Status badge colors
+        const statusColors = {
+            'scheduled': { bg: '#dbeafe', color: '#1e40af' },
+            'active': { bg: '#d1fae5', color: '#065f46' },
+            'completed': { bg: '#e0e7ff', color: '#4338ca' },
+            'cancelled': { bg: '#fee2e2', color: '#991b1b' }
+        };
 
-    // Status badge colors
-    const statusColors = {
-        'scheduled': { bg: '#dbeafe', color: '#1e40af' },
-        'active': { bg: '#d1fae5', color: '#065f46' },
-        'completed': { bg: '#e0e7ff', color: '#4338ca' },
-        'cancelled': { bg: '#fee2e2', color: '#991b1b' }
-    };
+        const statusStyle = statusColors[status] || statusColors.scheduled;
 
-    const statusStyle = statusColors[status] || statusColors.scheduled;
-
-    return `
+        return `
         <div class="test-card" style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 16px; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;" 
              onmouseenter="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" 
              onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)';">
@@ -349,62 +353,64 @@ function createTestCard(test) {
             </div>
         </div>
     `;
-}
-
-// Edit test
-window.editTest = function (testId) {
-    console.log('✏️ Edit test:', testId);
-    if (window.AdminUtils) {
-        window.AdminUtils.showToast('Edit functionality coming soon!', 'info');
-    } else {
-        alert('Edit functionality coming soon!');
     }
-};
 
-// Delete test
-window.deleteTest = async function (testId) {
-    if (!confirm('⚠️ Are you sure you want to delete this test? This action cannot be undone.')) return;
-
-    try {
-        console.log('🗑️ Deleting test with ID:', testId);
-
-        await window.AdminAPI.deleteTest(testId);
-
-        console.log('✅ Delete success');
-
+    // Edit test
+    window.editTest = function (testId) {
+        console.log('✏️ Edit test:', testId);
         if (window.AdminUtils) {
-            window.AdminUtils.showToast('✅ Test deleted successfully!', 'success');
+            window.AdminUtils.showToast('Edit functionality coming soon!', 'info');
         } else {
-            alert('Test deleted successfully!');
+            alert('Edit functionality coming soon!');
         }
+    };
 
-        // Reload tests
-        await loadScheduledTests();
+    // Delete test
+    window.deleteTest = async function (testId) {
+        if (!confirm('⚠️ Are you sure you want to delete this test? This action cannot be undone.')) return;
 
-    } catch (error) {
-        console.error('❌ Error deleting test:', error);
-        if (window.AdminUtils) {
-            window.AdminUtils.showToast(`❌ Failed to delete test: ${error.message}`, 'error');
-        } else {
-            alert(`Failed to delete test: ${error.message}`);
+        try {
+            console.log('🗑️ Deleting test with ID:', testId);
+
+            await window.AdminAPI.deleteTest(testId);
+
+            console.log('✅ Delete success');
+
+            if (window.AdminUtils) {
+                window.AdminUtils.showToast('✅ Test deleted successfully!', 'success');
+            } else {
+                alert('Test deleted successfully!');
+            }
+
+            // Reload tests
+            await loadScheduledTests();
+
+        } catch (error) {
+            console.error('❌ Error deleting test:', error);
+            if (window.AdminUtils) {
+                window.AdminUtils.showToast(`❌ Failed to delete test: ${error.message}`, 'error');
+            } else {
+                alert(`Failed to delete test: ${error.message}`);
+            }
         }
-    }
-};
+    };
 
-// Show loading state
-function showLoading(show) {
-    const container = document.getElementById('tests-container');
-    if (!container) return;
+    // Show loading state
+    function showLoading(show) {
+        const container = document.getElementById('tests-container');
+        if (!container) return;
 
-    if (show) {
-        container.innerHTML = `
+        if (show) {
+            container.innerHTML = `
             <div class="loading" style="text-align: center; padding: 80px 20px; color: #94a3b8; background: white; border-radius: 12px;">
                 <i class="fas fa-spinner fa-spin" style="font-size: 48px; margin-bottom: 16px; color: #6366f1;"></i>
                 <p style="font-size: 16px; font-weight: 500;">Loading tests...</p>
             </div>
         `;
+        }
     }
-}
 
-console.log('✅ Scheduled Tests module loaded');
-console.log('🔍 initScheduledTests available:', typeof window.initScheduledTests === 'function');
+    console.log('✅ Scheduled Tests module loaded');
+    console.log('🔍 initScheduledTests available:', typeof window.initScheduledTests === 'function');
+
+})(); // End IIFE
