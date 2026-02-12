@@ -220,6 +220,7 @@ import transactionRoutes from './routes/transactionRoutes.js';
 import resultRoutes from './routes/resultRoutes.js';
 import adminTestPricingRoutes from './routes/adminTestPricingRoutes.js';
 import doubtRoutes from './routes/doubtRoutes.js';
+import livePreviewRoutes from './routes/livePreviewRoutes.js';
 
 // 🔧 CONFIG ENDPOINT - CRITICAL FOR PAYMENT GATEWAY
 app.get('/api/config', (req, res) => {
@@ -250,6 +251,8 @@ app.use('/api/admin/students', studentRoutes);
 app.use('/api/admin/transactions', transactionRoutes);
 app.use('/api/admin/results', resultRoutes);
 app.use('/api/admin', questionRoutes); // ✅ ADDED: Unified question management
+app.use('/api/admin/live-preview', livePreviewRoutes); // ✅ ADDED: Live test preview routes
+console.log('✅ Live preview routes mounted - /api/admin/live-preview/*');
 
 // Generic Admin API routes (OLD structure) - Mount LAST to avoid collisions
 app.use('/api/admin', adminRoutes);

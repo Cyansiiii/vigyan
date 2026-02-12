@@ -344,7 +344,12 @@ export const getTestPreview = async (req, res) => {
                 _id: tq.questionId._id,
                 questionNo: idx + 1,
                 questionText: tq.questionId.questionText,
-                options: tq.questionId.options.map(o => ({ optionId: o.optionId, optionText: o.optionText })),
+                options: (tq.questionId.options || []).map((o, i) => {
+                    if (typeof o === 'object' && o !== null && o.optionText) {
+                        return { optionId: o.optionId || String.fromCharCode(65 + i), optionText: o.optionText };
+                    }
+                    return { optionId: String.fromCharCode(65 + i), optionText: typeof o === 'string' ? o : JSON.stringify(o) };
+                }),
                 images: tq.questionId.images || []
             });
         });
