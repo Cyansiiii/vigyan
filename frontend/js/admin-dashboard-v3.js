@@ -705,19 +705,26 @@ function callPageInit(page) {
         return;
     }
 
-    // Try calling the init function (silent failure)
-    if (typeof window[initFunctionName] === 'function') {
-        console.log(`🚀 Calling ${initFunctionName}()`);
-        try {
-            window[initFunctionName]();
-        } catch (error) {
-            console.warn(`⚠️ Error in ${initFunctionName}:`, error);
-            showPagePlaceholder(page, error.message);
+    // ✅ ROBUST INIT: Try calling the init function, retry if not yet loaded
+    const tryInit = (retries = 0) => {
+        if (typeof window[initFunctionName] === 'function') {
+            console.log(`🚀 Calling ${initFunctionName}() [Attempt ${retries + 1}]`);
+            try {
+                window[initFunctionName]();
+            } catch (error) {
+                console.warn(`⚠️ Error in ${initFunctionName}:`, error);
+                showPagePlaceholder(page, error.message);
+            }
+        } else if (retries < 10) { // Retry for up to 5 seconds (500ms * 10)
+            console.log(`⏳ ${initFunctionName} not loaded yet, retrying... (${retries + 1}/10)`);
+            setTimeout(() => tryInit(retries + 1), 500);
+        } else {
+            console.log(`❌ ${initFunctionName} failed to load after 5s - showing placeholder`);
+            showPagePlaceholder(page);
         }
-    } else {
-        console.log(`ℹ️ ${initFunctionName} not loaded yet - showing placeholder`);
-        showPagePlaceholder(page);
-    }
+    };
+
+    tryInit();
 }
 
 // ✅ NEW: Show placeholder when page init fails

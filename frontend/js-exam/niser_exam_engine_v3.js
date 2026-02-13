@@ -33,6 +33,13 @@
     const TEST_YEAR = yearParam.replace(/[^a-zA-Z0-9_]/g, '');
     const EXAM_TYPE = examType.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase(); // niser or iiser
 
+    // Dynamic Marking Scheme
+    const MARKING = {
+        correct: EXAM_TYPE === 'iiser' ? 4 : 3,
+        incorrect: -1,
+        totalQuestions: 60
+    };
+
     // HELPER: Base64 Decoder
     function decodeKey(base64) {
         try {
@@ -66,6 +73,12 @@
 
         const examTitle = EXAM_TYPE.toUpperCase();
         document.getElementById('examTitleHeader').textContent = `${examTitle} PYQ ${TEST_YEAR}`;
+
+        // Update marking display if elements exist
+        const correctEl = document.querySelector('.q-marks .green-text');
+        const incorrectEl = document.querySelector('.q-marks .red-text');
+        if (correctEl) correctEl.textContent = MARKING.correct;
+        if (incorrectEl) incorrectEl.textContent = Math.abs(MARKING.incorrect);
 
         // Also update instruction page title if present
         const instTitle = document.getElementById('examTitle');
@@ -308,11 +321,11 @@
                         const correctLetter = decodeKey(keys[i]);
                         const correctIdx = correctLetter.charCodeAt(0) - 65;
                         if (userAnswers[s][i] === correctIdx) {
-                            sectionScore += 3; // +3 for correct
+                            sectionScore += MARKING.correct;
                             sectionCorrect++;
                             totalCorrect++;
                         } else {
-                            sectionScore -= 1; // -1 for incorrect
+                            sectionScore += MARKING.incorrect;
                             sectionWrong++;
                             totalWrong++;
                         }
@@ -322,17 +335,29 @@
                 sectionScores[s] = { score: sectionScore, correct: sectionCorrect, wrong: sectionWrong };
             });
 
-            // Calculate best 3 subjects for merit list
-            const sortedScores = Object.values(sectionScores).map(s => s.score).sort((a, b) => b - a);
-            const meritScore = sortedScores.slice(0, 3).reduce((sum, s) => sum + s, 0);
-            const totalScore = Object.values(sectionScores).reduce((sum, s) => sum + s.score, 0);
+            // Calculate scores based on Exam Type
+            const scores = Object.values(sectionScores).map(s => s.score);
+            const totalScore = scores.reduce((sum, s) => sum + s, 0);
+
+            let displayScore, scoreLabel, secondaryScore;
+
+            if (EXAM_TYPE === 'iiser') {
+                displayScore = totalScore;
+                scoreLabel = 'Total Score (All 4 Subjects)';
+                secondaryScore = `Max Marks: 240`;
+            } else {
+                const sortedScores = [...scores].sort((a, b) => b - a);
+                displayScore = sortedScores.slice(0, 3).reduce((sum, s) => sum + s, 0);
+                scoreLabel = 'Merit Score (Best 3 Subjects)';
+                secondaryScore = `Total (All 4): ${totalScore}`;
+            }
 
             document.getElementById('scoreModal').style.display = 'flex';
             document.getElementById('scoreContent').innerHTML = `
                 <div style="text-align:center;">
-                    <p style="font-size: 2.5rem; font-weight: bold; color: var(--header-blue);">${meritScore}</p>
-                    <p style="color: #666;">Merit Score (Best 3 Subjects)</p>
-                    <p style="font-size: 1rem; color: #888;">Total (All 4): ${totalScore}</p>
+                    <p style="font-size: 2.5rem; font-weight: bold; color: var(--header-blue);">${displayScore}</p>
+                    <p style="color: #666;">${scoreLabel}</p>
+                    <p style="font-size: 1rem; color: #888;">${secondaryScore}</p>
                     <hr style="border-color: #eee; margin: 20px 0;">
                     <div style="text-align:left; margin: 10px 20px;">
                         <p><strong>Subject-wise Breakdown:</strong></p>
@@ -350,9 +375,11 @@
             sendScoreReport({
                 name: userName,
                 email: userEmail,
+                examType: EXAM_TYPE,
                 examYear: TEST_YEAR,
                 sectionScores: sectionScores,
-                meritScore: meritScore,
+                finalScore: displayScore,
+                scoreType: scoreLabel,
                 totalScore: totalScore,
                 totalCorrect: totalCorrect,
                 totalWrong: totalWrong,

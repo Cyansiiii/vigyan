@@ -16,6 +16,22 @@ const LTPState = {
 // Initialize the module
 async function initLiveTestPreview() {
     console.log('🚀 Initializing Live Test Preview Module...');
+
+    // ✅ CRITICAL FIX: Inject Modal into body ONLY if not already present
+    // This MUST be done first because it needs top-level stacking context
+    if (!document.getElementById('ltpPreviewModal')) {
+        const modalContainer = document.createElement('div');
+        modalContainer.id = 'ltp-modal-root';
+        modalContainer.innerHTML = `
+            <div class="preview-overlay" id="ltpPreviewOverlay" style="display:none;"></div>
+            <div class="preview-modal" id="ltpPreviewModal" style="display:none;">
+                <div id="ltpPreviewContent" style="height:100%; display:flex; flex-direction:column;"></div>
+            </div>
+        `;
+        document.body.appendChild(modalContainer);
+        console.log('✅ Preview modal injected to body root');
+    }
+
     LTPState.selectedQuestions.clear();
     LTPState.selectedTestId = null;
 
@@ -96,13 +112,6 @@ function renderLTPContainer() {
                     <p>Select an upcoming test from the sidebar to begin question selection.</p>
                 </div>
             </div>
-        </div>
-
-        <!-- Preview Modal -->
-        <div class="preview-overlay" id="ltpPreviewOverlay"></div>
-        <div class="preview-modal" id="ltpPreviewModal">
-            <div id="ltpPreviewContent" style="height:100%; display:flex; flex-direction:column;"></div>
-        </div>
     `;
 }
 
@@ -207,7 +216,7 @@ function renderLTPQuestions() {
                     ${q.questionText.replace(/<[^>]*>/g, '')}
                 </div>
             </td>
-            <td><span class="badge badge-outline">${q.questionType}</span></td>
+            <td><span class="badge badge-outline">${(q.type && q.type !== 'undefined') ? q.type : (q.questionType && q.questionType !== 'undefined' ? q.questionType : 'MCQ')}</span></td>
             <td>${q.marks || 4}</td>
         </tr>
     `).join('');
@@ -276,6 +285,15 @@ async function finalizeLTPTest() {
     }
 }
 
+// --- Preview Perspective (Student View) State ---
+let LTPPreviewData = null;
+let LTPPreviewState = {
+    currentSubjectIdx: 0,
+    currentQuestionIdx: 0,
+    statusMap: {}, // { questionId: 'not-visited' | 'answered' | 'marked' | 'marked-answered' }
+    answersMap: {}  // { questionId: selectedOptionId }
+};
+
 // Open Perspective Preview (Student View)
 async function openLTPPreview() {
     const modal = document.getElementById('ltpPreviewModal');
@@ -284,72 +302,221 @@ async function openLTPPreview() {
 
     modal.style.display = 'flex';
     overlay.style.display = 'block';
-
-    content.innerHTML = '<div style="padding:100px; text-align:center;">Loading Preview...</div>';
+    content.innerHTML = '<div style="padding:100px; text-align:center; color:white;">Loading Student Perspective...</div>';
 
     try {
         const response = await AdminAPI.getTestPreview(LTPState.selectedTestId);
         if (response.success) {
-            const test = response.data;
-            renderStudentPerspective(test);
+            LTPPreviewData = response.data;
+            console.log('DEBUG: LTPPreviewData Loaded:', JSON.parse(JSON.stringify(LTPPreviewData)));
+
+            // Initialize State
+            LTPPreviewState.currentSubjectIdx = 0;
+            LTPPreviewState.currentQuestionIdx = 0;
+            LTPPreviewState.statusMap = {};
+            LTPPreviewState.answersMap = {};
+
+            // Default all questions to not-visited
+            LTPPreviewData.sections.forEach(sec => {
+                sec.questions.forEach(q => {
+                    LTPPreviewState.statusMap[q._id] = 'not-visited';
+                });
+            });
+
+            renderStudentPerspective();
         }
     } catch (error) {
-        content.innerHTML = '<div style="padding:100px; text-align:center;">Error loading preview.</div>';
+        console.error('Preview Error:', error);
+        content.innerHTML = '<div style="padding:100px; text-align:center; color:white;">Error loading student view.</div>';
     }
 }
 
-function renderStudentPerspective(test) {
+function renderStudentPerspective() {
     const content = document.getElementById('ltpPreviewContent');
+    if (!LTPPreviewData) return;
+
+    const currentSection = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
+    const currentQuestion = currentSection?.questions[LTPPreviewState.currentQuestionIdx];
+
+    // Update status to visited if not answered
+    if (currentQuestion && LTPPreviewState.statusMap[currentQuestion._id] === 'not-visited') {
+        LTPPreviewState.statusMap[currentQuestion._id] = 'not-answered';
+    }
 
     content.innerHTML = `
         <div class="student-view-header">
             <div>
-                <h4 style="margin:0">${test.test_name}</h4>
+                <h4 style="margin:0">${LTPPreviewData.test_name}</h4>
                 <div style="font-size:12px; opacity:0.8;">Admin Preview Mode</div>
             </div>
             <div style="text-align:right;">
-                <div style="font-family:'Roboto Mono', monospace; font-size:20px;">03:00:00</div>
+                <div style="font-family:'Roboto Mono', monospace; font-size:20px;" id="ltpTimer">03:00:00</div>
                 <button class="btn btn-sm btn-outline-light" onclick="closeLTPPreview()">Exit Preview</button>
             </div>
         </div>
-        <div class="student-view-body">
-            <div class="question-area">
-                <div style="border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:20px; display:flex; justify-content:space-between;">
-                    <span style="font-weight:700;">Question 1</span>
-                    <span style="color:#10b981; font-weight:600;">+4 | -1</span>
+        <div class="student-view-body" style="background: #0f172a; color: white;">
+            <div class="question-area" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius:12px;">
+                <div style="border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-weight:700; font-size:18px;">Question ${LTPPreviewState.currentQuestionIdx + 1}</span>
+                    <span style="background:rgba(16, 185, 129, 0.2); color:#10b981; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600;">+4 | -1</span>
                 </div>
+                
                 <div class="q-content">
-                    <p>${test.sections[0]?.questions[0]?.questionText || 'No questions selected yet.'}</p>
+                    <div style="font-size:16px; line-height:1.6; margin-bottom:25px;">
+                        ${currentQuestion?.questionText || 'No question content found.'}
+                    </div>
+
                     <div class="options-grid" style="display:flex; flex-direction:column; gap:12px; margin-top:30px;">
-                        ${test.sections[0]?.questions[0]?.options.map(opt => `
-                            <div style="padding:15px; border:1px solid #e2e8f0; border-radius:8px; display:flex; gap:10px; cursor:pointer;">
-                                <span style="font-weight:700;">${opt.optionId}.</span>
-                                <span>${opt.optionText}</span>
+                        ${(currentQuestion?.options || []).map((opt, i) => {
+        const id = String.fromCharCode(65 + i);
+        const isSelected = LTPPreviewState.answersMap[currentQuestion._id] === id;
+        let text = 'Option Text Missing';
+
+        if (typeof opt === 'string') {
+            text = opt;
+        } else if (typeof opt === 'object' && opt !== null) {
+            text = opt.optionText || opt.text || opt.content || 'Check Data';
+        }
+
+        return `
+                                <div onclick="selectLTPOption('${id}')" 
+                                     style="padding:15px; border:1px solid ${isSelected ? '#3b82f6' : 'rgba(255,255,255,0.1)'}; 
+                                            background: ${isSelected ? 'rgba(59, 130, 246, 0.1)' : 'transparent'};
+                                            border-radius:8px; display:flex; gap:15px; cursor:pointer;"
+                                     class="preview-opt-row">
+                                    <div style="width:24px; height:24px; border-radius:50%; border:2px solid ${isSelected ? '#3b82f6' : '#64748b'}; 
+                                                display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold;">
+                                        ${id}
+                                    </div>
+                                    <span>${text}</span>
+                                </div>
+                            `;
+    }).join('')}
+                    </div>
+                </div>
+
+                <div style="margin-top:auto; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px; display:flex; gap:15px;">
+                    <button class="btn btn-secondary" onclick="markForReviewLTP()">Mark for Review</button>
+                    <button class="btn btn-outline-light" onclick="clearResponseLTP()">Clear Response</button>
+                    <div style="flex:1"></div>
+                    <button class="btn btn-primary" onclick="saveAndNextLTP()" style="padding: 10px 30px;">Save & Next</button>
+                </div>
+            </div>
+
+            <div class="student-sidebar" style="background: rgba(15, 23, 42, 0.9); border-left: 1px solid rgba(255,255,255,0.1);">
+                <div style="margin-bottom:25px;">
+                    <h5 style="margin-bottom:15px; font-size:14px; color:#94a3b8; text-transform:uppercase; letter-spacing:1px;">Subject Sections</h5>
+                    <div class="tabs" style="display:flex; flex-direction:column; gap:8px;">
+                        ${LTPPreviewData.sections.map((s, idx) => `
+                            <div class="subject-tag ${idx === LTPPreviewState.currentSubjectIdx ? 'active' : ''}" 
+                                 onclick="switchLTPPreviewSubject(${idx})"
+                                 style="padding:10px 15px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:500;
+                                        background: ${idx === LTPPreviewState.currentSubjectIdx ? '#3b82f6' : 'rgba(255,255,255,0.05)'};">
+                                ${s.subjectName.toUpperCase()}
                             </div>
                         `).join('')}
                     </div>
                 </div>
-                <div style="margin-top:50px; border-top:1px solid #eee; padding-top:20px; display:flex; gap:15px;">
-                    <button class="btn btn-secondary">Mark for Review</button>
-                    <button class="btn btn-outline">Clear Response</button>
-                    <div style="flex:1"></div>
-                    <button class="btn btn-primary">Save & Next</button>
+
+                <h5 style="margin-bottom:15px; font-size:14px; color:#94a3b8; text-transform:uppercase; letter-spacing:1px;">Question Palette</h5>
+                <div class="palette-grid" style="display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:8px;">
+                    ${currentSection.questions.map((q, i) => {
+        const status = LTPPreviewState.statusMap[q._id];
+        let bg = '#1e293b'; // not-visited
+        let color = '#94a3b8';
+
+        if (status === 'answered') { bg = '#10b981'; color = '#fff'; }
+        else if (status === 'not-answered') { bg = '#ef4444'; color = '#fff'; }
+        else if (status === 'marked') { bg = '#8b5cf6'; color = '#fff'; }
+        else if (status === 'marked-answered') { bg = '#8b5cf6'; color = '#fff'; } // Specific styling for marked-answered often has a dot in real JEE
+
+        const isActive = i === LTPPreviewState.currentQuestionIdx;
+
+        return `
+                            <div onclick="jumpToLTPQuestion(${i})" 
+                                 style="width:35px; height:35px; background:${bg}; color:${color}; 
+                                        border: ${isActive ? '2px solid #3b82f6' : 'none'};
+                                        border-radius:4px; display:flex; align-items:center; justify-content:center; 
+                                        font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s;">
+                                ${i + 1}
+                            </div>
+                        `;
+    }).join('')}
                 </div>
-            </div>
-            <div class="student-sidebar">
-                <div style="margin-bottom:25px;">
-                    <h5 style="margin-bottom:10px;">Subjects</h5>
-                    <div class="tabs" style="display:flex; flex-wrap:wrap; gap:5px;">
-                        ${test.sections.map(s => `<span class="badge badge-primary">${s.subjectName}</span>`).join('')}
-                    </div>
-                </div>
-                <h5 style="margin-bottom:15px;">Question Palette</h5>
-                <div class="palette-grid" style="display:grid; grid-template-columns:repeat(5, 1fr); gap:8px;">
-                    ${Array.from({ length: 60 }, (_, i) => `<div style="width:35px; height:35px; background:white; border:1px solid #ddd; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:12px;">${i + 1}</div>`).join('')}
+                
+                <div style="margin-top:20px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:11px;">
+                    <div style="display:flex; align-items:center; gap:5px;"><div style="width:12px; height:12px; background:#10b981; border-radius:2px;"></div> Answered</div>
+                    <div style="display:flex; align-items:center; gap:5px;"><div style="width:12px; height:12px; background:#ef4444; border-radius:2px;"></div> Not Answered</div>
+                    <div style="display:flex; align-items:center; gap:5px;"><div style="width:12px; height:12px; background:#8b5cf6; border-radius:2px;"></div> Marked</div>
+                    <div style="display:flex; align-items:center; gap:5px;"><div style="width:12px; height:12px; background:#1e293b; border-radius:2px;"></div> Not Visited</div>
                 </div>
             </div>
         </div>
     `;
+}
+
+// --- Interactive Navigation Handlers ---
+
+function selectLTPOption(optionId) {
+    const section = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
+    const question = section.questions[LTPPreviewState.currentQuestionIdx];
+    LTPPreviewState.answersMap[question._id] = optionId;
+    renderStudentPerspective();
+}
+
+function saveAndNextLTP() {
+    const section = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
+    const question = section.questions[LTPPreviewState.currentQuestionIdx];
+
+    // Set status
+    if (LTPPreviewState.answersMap[question._id]) {
+        LTPPreviewState.statusMap[question._id] = 'answered';
+    } else {
+        LTPPreviewState.statusMap[question._id] = 'not-answered';
+    }
+
+    // Move to next question or next subject
+    if (LTPPreviewState.currentQuestionIdx < section.questions.length - 1) {
+        LTPPreviewState.currentQuestionIdx++;
+    } else if (LTPPreviewState.currentSubjectIdx < LTPPreviewData.sections.length - 1) {
+        LTPPreviewState.currentSubjectIdx++;
+        LTPPreviewState.currentQuestionIdx = 0;
+    }
+
+    renderStudentPerspective();
+}
+
+function markForReviewLTP() {
+    const section = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
+    const question = section.questions[LTPPreviewState.currentQuestionIdx];
+
+    if (LTPPreviewState.answersMap[question._id]) {
+        LTPPreviewState.statusMap[question._id] = 'marked-answered';
+    } else {
+        LTPPreviewState.statusMap[question._id] = 'marked';
+    }
+
+    // Auto-advance
+    saveAndNextLTP();
+}
+
+function clearResponseLTP() {
+    const section = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
+    const question = section.questions[LTPPreviewState.currentQuestionIdx];
+    delete LTPPreviewState.answersMap[question._id];
+    LTPPreviewState.statusMap[question._id] = 'not-answered';
+    renderStudentPerspective();
+}
+
+function jumpToLTPQuestion(idx) {
+    LTPPreviewState.currentQuestionIdx = idx;
+    renderStudentPerspective();
+}
+
+function switchLTPPreviewSubject(idx) {
+    LTPPreviewState.currentSubjectIdx = idx;
+    LTPPreviewState.currentQuestionIdx = 0;
+    renderStudentPerspective();
 }
 
 function closeLTPPreview() {
@@ -364,10 +531,10 @@ function renderLTPPagination(pagination) {
     let html = '';
     if (pagination.totalPages > 1) {
         html = `
-            <button class="btn btn-sm btn-outline" ${pagination.currentPage === 1 ? 'disabled' : ''} onclick="changeLTPPage(${pagination.currentPage - 1})">Prev</button>
+        < button class="btn btn-sm btn-outline" ${pagination.currentPage === 1 ? 'disabled' : ''} onclick = "changeLTPPage(${pagination.currentPage - 1})" > Prev</button >
             <span style="margin: 0 15px; font-weight:500;">Page ${pagination.currentPage} of ${pagination.totalPages}</span>
             <button class="btn btn-sm btn-outline" ${pagination.currentPage === pagination.totalPages ? 'disabled' : ''} onclick="changeLTPPage(${pagination.currentPage + 1})">Next</button>
-        `;
+    `;
     }
     footer.innerHTML = html;
 }
@@ -397,3 +564,11 @@ window.openLTPPreview = openLTPPreview;
 window.closeLTPPreview = closeLTPPreview;
 window.changeLTPPage = changeLTPPage;
 window.toggleAllLTPQuestions = toggleAllLTPQuestions;
+
+// Student Perspective Functions
+window.selectLTPOption = selectLTPOption;
+window.saveAndNextLTP = saveAndNextLTP;
+window.markForReviewLTP = markForReviewLTP;
+window.clearResponseLTP = clearResponseLTP;
+window.jumpToLTPQuestion = jumpToLTPQuestion;
+window.switchLTPPreviewSubject = switchLTPPreviewSubject;

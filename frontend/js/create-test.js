@@ -270,7 +270,12 @@ async function handleModernCreateTest(e) {
         description: document.getElementById('testDescription').value,
         duration_minutes: document.getElementById('testDuration').value,
         total_marks: document.getElementById('totalMarks').value,
-        subjects: selectedSections.join(', ')
+        subjects: selectedSections.map(s => ({
+            subjectName: s,
+            isIncluded: true,
+            questionCount: 0,
+            totalMarks: 0
+        }))
     };
 
     // 🧠 SMART SANITIZER: Automatically detects and formats data types
