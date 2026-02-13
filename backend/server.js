@@ -15,6 +15,8 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
+import { apiLimiter, adminLimiter, loginLimiter, paymentLimiter } from './middlewares/rateLimiter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,8 +46,14 @@ console.log('🔵 Loading environment variables...');
 const app = express();
 console.log('🔵 Creating Express app...');
 
-// 🔧 Enable trust proxy
-app.set('trust proxy', true);
+// 🔧 Enable trust proxy (essential for Railway/Render)
+app.set('trust proxy', 1);
+
+// 🛡️ SECURITY HEADERS (Helmet)
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow Vite assets
+    contentSecurityPolicy: false, // Disable for now to avoid breaking Vite/frontend
+}));
 
 const PORT = process.env.PORT || 3000;
 
@@ -105,44 +113,34 @@ const allowedOrigins = [
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
-// 🔧 ENHANCED: More permissive CORS for Hostinger deployment
+// 🔧 ENHANCED: Strict CORS for Production
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps, Postman, or same-origin)
+        // Allow requests with no origin (mobile apps, Postman)
+        // ONLY for endpoints that don't rely on cookies/browser-auth
         if (!origin) {
-            console.log('✅ CORS: Allowing request with no origin (same-origin/Postman)');
             return callback(null, true);
         }
 
-        // Check if origin is in whitelist
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            console.log(`✅ CORS: Allowed whitelisted origin: ${origin}`);
+        // Banned Origin Check (Production)
+        if (origin === 'null') {
+            return callback(new Error('Origin "null" is not allowed by CORS'));
+        }
+
+        // Whitelist Check
+        if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vigyanprep.com') || origin.endsWith('.railway.app')) {
             return callback(null, true);
         }
 
-        // 🔧 FIX: In production, allow all vigyanprep.com subdomains
-        if (origin.includes('vigyanprep.com')) {
-            console.log(`✅ CORS: Allowing vigyanprep.com subdomain: ${origin}`);
-            return callback(null, true);
-        }
-
-        // 🔧 ALLOW Railway subdomains
-        if (origin.includes('railway.app')) {
-            console.log(`✅ CORS: Allowing railway.app origin: ${origin}`);
-            return callback(null, true);
-        }
-
-        // 🔧 CRITICAL: Allow all origins in production (temporary fix)
-        console.warn(`⚠️ CORS: Allowing non-whitelisted origin: ${origin}`);
-        callback(null, true);
+        // Deny anything else
+        console.warn(`❌ CORS Denied: Unauthorized origin: ${origin}`);
+        callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cache-Control', 'Pragma', 'Expires'],
-    exposedHeaders: ['Content-Range', 'X-Content-Range'],
-    maxAge: 600, // Cache preflight for 10 minutes
-    preflightContinue: false,
-    optionsSuccessStatus: 200  // 🔥 FIX: Changed from 204 to 200 for better compatibility
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    maxAge: 600, // 10 minutes cache
+    optionsSuccessStatus: 200
 };
 
 // Apply CORS middleware
@@ -192,10 +190,10 @@ app.use((req, res, next) => {
 });
 console.log('✅ Environment injection middleware ready');
 
-// Body parsing middleware
-console.log('🔵 Setting up body parsers...');
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+// Body parsing middleware - 🛡️ TIGHTENED LIMITS
+console.log('🔵 Setting up body parsers (2mb limit)...');
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 
 // Razorpay is initialized in config/razorpay.js
 // This prevents circular dependencies
@@ -235,7 +233,7 @@ app.get('/api/config', (req, res) => {
 
 // ✅ CRITICAL: Admin auth routes MUST be FIRST (before protected routes)
 console.log('🔵 Setting up Admin Auth routes (FIRST - no auth required)...');
-app.use('/api/admin/auth', adminAuthRoutes);
+app.use('/api/admin/auth', loginLimiter, adminAuthRoutes);
 console.log('✅ Admin auth routes mounted - /api/admin/auth/* (PUBLIC)');
 
 app.use('/api/admin', migrationRoute);
@@ -261,10 +259,10 @@ console.log('✅ Admin API routes mounted');
 
 // Mount other API routes
 console.log('🔵 Mounting API routes...');
-app.use('/api', authRoutes);
+app.use('/api', apiLimiter, authRoutes); // Apply general API rate limit
 console.log('✅ Auth routes mounted - /api/verify-user-full');
 // NOTE: adminAuthRoutes already mounted above (before protected admin routes)
-app.use('/api/payment', paymentRoutes);
+app.use('/api/payment', paymentLimiter, paymentRoutes); // Apply strict payment limit
 console.log('✅ Payment routes mounted - /api/payment/*');
 app.use('/api/exam', examRoutes);
 console.log('✅ Exam routes mounted - /api/exam/*');

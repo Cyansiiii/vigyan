@@ -146,11 +146,11 @@ export const startTest = async (req, res) => {
       purchasedTests
     );
 
-    // Set HTTP-only cookie
+    // Set HTTP-only cookie (secure for cross-site auth)
     res.cookie('auth_token', authToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: '/'
     });

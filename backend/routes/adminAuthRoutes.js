@@ -69,10 +69,12 @@ router.post('/login', async (req, res) => {
         // Set HTTP-only cookie (cross-origin enabled)
         // ⚠️ TEMPORARY: sameSite: 'none' for cross-domain auth
         // TODO: Move to api.vigyanprep.com subdomain and change to 'lax'
+        // 🔐 SECURITY TRADE-OFF: SameSite=None required for cross-domain auth (Hostinger -> Railway)
+        // Must move to a unified domain (e.g. api.vigyanprep.com) to enable SameSite=Lax.
         res.cookie('admin_token', adminToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'none',  // ✅ CHANGED: Allow cross-origin (vigyanprep.com → railway.app)
+            secure: true, // Specific requirement for SameSite=None
+            sameSite: 'none',
             maxAge: 24 * 60 * 60 * 1000 // 24 hours
         });
 

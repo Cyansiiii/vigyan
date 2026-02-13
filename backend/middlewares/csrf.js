@@ -23,11 +23,12 @@ export const generateCSRFToken = () => {
 export const provideCSRFToken = (req, res, next) => {
     const csrfToken = generateCSRFToken();
 
-    // Set CSRF token in cookie (readable by JavaScript)
+    // 🔐 SECURITY TRADE-OFF: SameSite=None used to support cross-origin state-changing requests.
+    // Robustness depends on x-csrf-token header enforcement.
     res.cookie('csrf_token', csrfToken, {
         httpOnly: false,  // ✅ Frontend needs to read this
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'none',  // ✅ Match admin_token cookie setting
+        secure: true,
+        sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 

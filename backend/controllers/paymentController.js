@@ -545,11 +545,11 @@ export const paymentVerification = async (req, res) => {
       purchasedTests
     );
 
-    // Set HTTP-only cookie (secure in production)
+    // Set HTTP-only cookie (secure for cross-site auth)
     res.cookie('auth_token', authToken, {
       httpOnly: true,  // Cannot be accessed by JavaScript (XSS protection)
-      secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-      sameSite: 'strict', // CSRF protection
+      secure: true,    // Required for SameSite=None
+      sameSite: 'none', // Allow cross-origin compatibility (Hostinger -> Railway)
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       path: '/' // Available across entire site
     });
