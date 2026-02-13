@@ -27,7 +27,15 @@
     // Detect Year from URL
     const urlParams = new URLSearchParams(window.location.search);
     let yearParam = urlParams.get('year') || '2025';
-    let examType = urlParams.get('type') || 'niser'; // Default to niser
+    let examType = urlParams.get('type');
+    if (!examType) {
+        // Sophisticated detection: check if path contains 'iiser'
+        if (window.location.pathname.includes('iiser')) {
+            examType = 'iiser';
+        } else {
+            examType = 'niser'; // fallback
+        }
+    }
 
     // Allow alphanumeric (e.g., 2024_s1) but sanitize strictly to safe chars
     const TEST_YEAR = yearParam.replace(/[^a-zA-Z0-9_]/g, '');
