@@ -37,12 +37,28 @@
     <meta http-equiv="expires" content="0">
 
     <!-- 🚀 CENTRALIZED CONFIGURATION (Load Early) -->
-    <script src="frontend/js/config.js?v=20260213_v1"></script>
+    <script src="frontend/js/config.js?v=20260213_v2"></script>
     <script>
-        // Use the centralized config or fallback
-        const API_BASE_URL = window.API_BASE_URL || (window.APP_CONFIG ? window.APP_CONFIG.API_BASE_URL : 'https://vigyan-production.up.railway.app');
-        const PAYMENT_API_URL = window.PAYMENT_API_URL || API_BASE_URL;
-        console.log("📍 API Initialization:", { API_BASE_URL, PAYMENT_API_URL });
+        // Use a function to get the current API_BASE_URL to avoid race conditions
+        function getApiBaseUrl() {
+            return window.API_BASE_URL ||
+                (window.APP_CONFIG ? window.APP_CONFIG.API_BASE_URL : null) ||
+                (window.__ENV__ ? window.__ENV__.API_URL : null) ||
+                'https://vigyan-production.up.railway.app';
+        }
+
+        // Define these globally but initialize safely
+        var API_BASE_URL = getApiBaseUrl();
+        var PAYMENT_API_URL = API_BASE_URL;
+
+        console.log("📍 Initial API Check:", { API_BASE_URL, PAYMENT_API_URL });
+
+        // Final fallback on DOM ready to catch late-loading scripts
+        document.addEventListener('DOMContentLoaded', () => {
+            API_BASE_URL = getApiBaseUrl();
+            PAYMENT_API_URL = API_BASE_URL;
+            console.log("📍 Final API Check (DOM Ready):", { API_BASE_URL });
+        });
     </script>
 
     <style>
