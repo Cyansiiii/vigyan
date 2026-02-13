@@ -212,6 +212,7 @@ import authRoutes from './routes/authRoutes.js';
 import adminAuthRoutes from './routes/adminAuthRoutes.js';
 import pdfRoutes from './routes/pdf.js';
 import userRoutes from './routes/userRoutes.js'; // 🔒 NEW: For student session validation
+import analyticsRoutes from './routes/analyticsRoutes.js'; // 📊 NEW: For payment & error logging
 
 // ✅ NEW ADMIN ROUTES - Added Jan 25, 2026
 import adminDashboardRoutes from './routes/adminDashboardRoutes.js';
@@ -272,6 +273,8 @@ console.log('✅ News routes mounted - /api/news/*');
 app.use('/api/pdf', pdfRoutes);
 app.use('/api/doubt', doubtRoutes);
 app.use('/api/user', userRoutes); // 🔒 NEW: Student profile & verification
+app.use('/api/analytics', analyticsRoutes); // 📊 NEW: Unified analytics & logging
+console.log('✅ Analytics routes mounted - /api/analytics/*');
 console.log('✅ PDF routes mounted - /api/pdf/*');
 
 // Health check

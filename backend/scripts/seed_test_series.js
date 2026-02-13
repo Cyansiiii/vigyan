@@ -42,21 +42,21 @@ const testSeriesData = [
         testId: 'iat',  // ✅ Matches frontend request
         name: 'IAT SERIES',
         description: 'Speed Mastery - Comprehensive test series for IAT preparation',
-        price: 1,  // Update this to your actual price
+        price: 199,  // ✅ Fixed from ₹1
         isActive: true
     },
     {
         testId: 'nest',  // ✅ Matches frontend request
         name: 'NEST SERIES',
         description: 'Deep Dive - Advanced test series for NEST examination',
-        price: 1,  // Update this to your actual price
+        price: 199,  // ✅ Fixed from ₹1
         isActive: true
     },
     {
         testId: 'isi',  // ✅ Matches frontend request
         name: 'ISI SERIES',
         description: 'Proof Academy - Professional test series for ISI preparation',
-        price: 1,  // Update this to your actual price
+        price: 199,  // ✅ Fixed from ₹1
         isActive: true
     }
 ];
@@ -69,21 +69,21 @@ async function seedData() {
 
         for (const testData of testSeriesData) {
             console.log(`🔍 Processing test '${testData.testId}'...`);
-            
+
             const existing = await TestSeries.findOne({ testId: testData.testId });
 
             if (existing) {
                 console.log(`⚠️  Test '${testData.testId}' already exists`);
                 console.log(`   Current: ${existing.name} - ₹${existing.price}`);
                 console.log(`   Updating to: ${testData.name} - ₹${testData.price}\n`);
-                
+
                 existing.price = testData.price;
                 existing.name = testData.name;
                 existing.description = testData.description;
                 existing.isActive = testData.isActive;
                 existing.updatedAt = new Date();
                 await existing.save();
-                
+
                 console.log(`✅ Test '${testData.testId}' updated successfully\n`);
             } else {
                 console.log(`🌱 Creating new test '${testData.testId}'...`);
@@ -95,12 +95,12 @@ async function seedData() {
         // Verify all tests exist
         console.log('📋 VERIFICATION - All Test Series in Database:');
         console.log('═══════════════════════════════════════════════\n');
-        
+
         const allTests = await TestSeries.find({ isActive: true }).sort({ testId: 1 });
         allTests.forEach(test => {
             console.log(`✅ ${test.testId.toUpperCase().padEnd(10)} | ${test.name.padEnd(30)} | ₹${test.price}`);
         });
-        
+
         console.log('\n═══════════════════════════════════════════════');
         console.log(`✅ Total Active Tests: ${allTests.length}`);
         console.log('\n🎉 Database seeding completed successfully!');

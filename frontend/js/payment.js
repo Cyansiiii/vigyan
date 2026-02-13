@@ -93,7 +93,6 @@ async function startPayment(userEmail, testId, amount) {
             description: `Unlock ${testId.toUpperCase()} Series`,
             order_id: order.id,
             prefill: { email: userEmail },
-            theme: { color: "#3b82f6" },
             handler: async function (response) {
                 // FIXED: Pass testId and amount to backend
                 const verifyRes = await axios.post(`${window.API_BASE_URL}/api/paymentverification`, {

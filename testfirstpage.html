@@ -36,10 +36,13 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
 
+    <!-- 🚀 CENTRALIZED CONFIGURATION (Load Early) -->
+    <script src="frontend/js/config.js?v=20260213_v1"></script>
     <script>
-        // Centralized API configuration is handled by config.js
-        const API_BASE_URL = window.API_BASE_URL;
-        const PAYMENT_API_URL = window.PAYMENT_API_URL || window.API_BASE_URL;
+        // Use the centralized config or fallback
+        const API_BASE_URL = window.API_BASE_URL || (window.APP_CONFIG ? window.APP_CONFIG.API_BASE_URL : 'https://vigyan-production.up.railway.app');
+        const PAYMENT_API_URL = window.PAYMENT_API_URL || API_BASE_URL;
+        console.log("📍 API Initialization:", { API_BASE_URL, PAYMENT_API_URL });
     </script>
 
     <style>
@@ -573,16 +576,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="cardsContainer"></div>
     </main>
 
-    <script src="frontend/js/config.js?v=GHOST_FIX_FINAL_V3"></script>
     <script src="frontend/js/auth.js?v=GHOST_FIX_FINAL_V3"></script>
     <script src="frontend/js/user-panel.js?v=GHOST_FIX_FINAL_V6"></script>
     <script src="frontend/js/mobile-nav.js"></script>
 
     <script>
         let testSeries = [
-            { id: 'iat', iconColor: 'iat', iconEmoji: '⚡', name: 'IAT SERIES', subtitle: 'Speed Mastery', price: 1 },
-            { id: 'nest', iconColor: 'nest', iconEmoji: '🔬', name: 'NEST SERIES', subtitle: 'Deep Dive', price: 1 },
-            { id: 'isi', iconColor: 'isi', iconEmoji: '🏆', name: 'ISI SERIES', subtitle: 'Proof Academy', price: 1 }
+            { id: 'iat', iconColor: 'iat', iconEmoji: '⚡', name: 'IAT SERIES', subtitle: 'Speed Mastery', price: 199 },
+            { id: 'nest', iconColor: 'nest', iconEmoji: '🔬', name: 'NEST SERIES', subtitle: 'Deep Dive', price: 199 },
+            { id: 'isi', iconColor: 'isi', iconEmoji: '🏆', name: 'ISI SERIES', subtitle: 'Proof Academy', price: 199 }
         ];
 
         let countdownInterval = null;

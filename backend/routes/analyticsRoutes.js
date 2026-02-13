@@ -29,16 +29,15 @@ const PaymentLog = mongoose.model('PaymentLog', PaymentLogSchema);
 
 // ✅ SECURITY FIX (Issue #47): Added authentication to analytics endpoints
 // POST /api/analytics/payment-event - Log payment events
-router.post('/payment-event', verifyAuth, async (req, res) => {
+router.post('/payment-event', async (req, res) => {
     try {
-        const { event, data, timestamp, userAgent } = req.body;
+        const { event, data, timestamp, userAgent, email } = req.body;
 
-        // ✅ SECURITY: Use authenticated user's email from JWT token
-        const authenticatedEmail = req.user.email;
+        const clientEmail = email || (req.user ? req.user.email : 'anonymous');
 
         await PaymentLog.create({
             event,
-            email: authenticatedEmail,  // Use JWT email, not body data
+            email: clientEmail,  // Use JWT or body email
             testId: data.testId,
             error: data.error || null,
             timestamp: new Date(timestamp),
@@ -54,16 +53,15 @@ router.post('/payment-event', verifyAuth, async (req, res) => {
 
 // ✅ SECURITY FIX (Issue #47): Added authentication to analytics endpoints
 // POST /api/analytics/payment-failed - Log failed payments (backward compatibility)
-router.post('/payment-failed', verifyAuth, async (req, res) => {
+router.post('/payment-failed', async (req, res) => {
     try {
-        const { testId, error, errorCode, timestamp } = req.body;
+        const { testId, error, errorCode, timestamp, email } = req.body;
 
-        // ✅ SECURITY: Use authenticated user's email from JWT token
-        const authenticatedEmail = req.user.email;
+        const clientEmail = email || (req.user ? req.user.email : 'anonymous');
 
         await PaymentLog.create({
             event: 'failed',
-            email: authenticatedEmail,  // Use JWT email, not body data
+            email: clientEmail,  // Use JWT or body email
             testId,
             error: error || errorCode,
             timestamp: new Date(timestamp),

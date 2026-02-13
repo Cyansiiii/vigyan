@@ -45,20 +45,22 @@ if (!$input) {
 // Extract data
 $name = htmlspecialchars($input['name'] ?? 'Student');
 $email = filter_var($input['email'] ?? '', FILTER_VALIDATE_EMAIL);
+$examType = htmlspecialchars($input['examType'] ?? 'niser');
 $examYear = htmlspecialchars($input['examYear'] ?? '2025');
 $sectionScores = $input['sectionScores'] ?? [];
-$meritScore = intval($input['meritScore'] ?? 0);
+$finalScore = intval($input['finalScore'] ?? 0);
+$scoreType = htmlspecialchars($input['scoreType'] ?? 'Merit Score (Best 3 Subjects)');
 $totalScore = intval($input['totalScore'] ?? 0);
 $totalCorrect = intval($input['totalCorrect'] ?? 0);
 $totalWrong = intval($input['totalWrong'] ?? 0);
-$totalQuestions = intval($input['totalQuestions'] ?? 80);
+$totalQuestions = intval($input['totalQuestions'] ?? 60);
 
 if (!$email) {
     echo json_encode(['success' => false, 'message' => 'Valid email required']);
     exit;
 }
 
-// Build section rows (same HTML logic as before)
+// Build section rows
 $sectionRows = '';
 $sections = ['Biology', 'Chemistry', 'Physics', 'Mathematics'];
 foreach ($sections as $s) {
@@ -81,6 +83,8 @@ foreach ($sections as $s) {
 
 $skipped = $totalQuestions - $totalCorrect - $totalWrong;
 $year = date('Y');
+$examLabel = strtoupper($examType);
+$maxMarks = ($examType === 'iiser') ? 240 : 180;
 
 // HTML Template
 $emailHtml = <<<HTML
@@ -97,14 +101,14 @@ $emailHtml = <<<HTML
                 <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
                     <!-- Header -->
                     <tr>
-                        <td style="background: #0d0d0d; padding: 25px 40px; border-bottom: 3px solid #d4af37;">
+                        <td style="background: #1e3a5f; padding: 25px 40px; border-bottom: 3px solid #d4af37;">
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
                                         <span style="font-family: 'Georgia', serif; font-size: 28px; font-weight: 400; letter-spacing: 2px; color: #d4af37;">VIGYAN</span><span style="font-family: 'Georgia', serif; font-size: 20px; font-weight: 300; color: #9ca3af;">.prep</span>
                                     </td>
                                     <td style="text-align: right;">
-                                        <span style="font-size: 11px; color: #6b7280; letter-spacing: 1px;">SCORE REPORT</span>
+                                        <span style="font-size: 11px; color: #d4af37; letter-spacing: 1px;">ASSESSMENT CENTER</span>
                                     </td>
                                 </tr>
                             </table>
@@ -113,16 +117,16 @@ $emailHtml = <<<HTML
 
                     <!-- Score Hero -->
                     <tr>
-                        <td style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(180deg, #fefce8 0%, #ffffff 100%);">
-                            <p style="margin: 0 0 5px 0; color: #92400e; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">🎯 Your NISER $examYear Score Report</p>
-                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 20px; font-weight: 500;">Hello, <strong>$name</strong>!</h2>
+                        <td style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);">
+                            <p style="margin: 0 0 5px 0; color: #1e3a5f; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">🎯 Your $examLabel $examYear Score Report</p>
+                            <h2 style="margin: 0 0 20px 0; color: #1e3a5f; font-size: 20px; font-weight: 500;">Hello, <strong>$name</strong>!</h2>
                             
-                            <!-- Merit Score Box -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 3px solid #d4af37; border-radius: 12px; margin-bottom: 10px;">
+                            <!-- Score Box -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #f8faff 0%, #e0f2fe 100%); border: 3px solid #1e3a5f; border-radius: 12px; margin-bottom: 10px;">
                                 <tr>
                                     <td style="padding: 30px; text-align: center;">
-                                        <p style="margin: 0 0 8px 0; color: #92400e; font-size: 11px; font-weight: 700; letter-spacing: 2px;">⭐ Merit Score (Best 3 Subjects)</p>
-                                        <p style="margin: 0; font-size: 56px; font-weight: 900; color: #78350f;">$meritScore<span style="font-size: 24px; font-weight: 400; color: #92400e;">/180</span></p>
+                                        <p style="margin: 0 0 8px 0; color: #1e3a5f; font-size: 11px; font-weight: 700; letter-spacing: 2px;">⭐ $scoreType</p>
+                                        <p style="margin: 0; font-size: 56px; font-weight: 900; color: #1e3a5f;">$finalScore<span style="font-size: 24px; font-weight: 400; color: #64748b;">/$maxMarks</span></p>
                                     </td>
                                 </tr>
                             </table>
@@ -200,7 +204,7 @@ HTML;
 
 // Send email using mail() - Hostinger's built-in
 $to = $email;
-$subject = "🎯 Your NISER $examYear Score Report - Merit: $meritScore/180";
+$subject = "🎯 Your $examLabel $examYear Score Report - $scoreType: $finalScore/$maxMarks";
 // Email headers
 $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
