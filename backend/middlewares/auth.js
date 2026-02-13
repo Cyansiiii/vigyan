@@ -7,7 +7,7 @@ import { StudentPayment } from '../models/StudentPayment.js';
 import { PurchasedTest } from '../models/PurchasedTest.js';
 
 // 🔐 JWT Configuration
-const JWT_SECRET = process.env.JWT_SECRET || 'vigyan-prep-secret-key-change-in-production-min-32-chars';
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = '7d'; // Token valid for 7 days
 
 /**

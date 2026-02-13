@@ -91,11 +91,9 @@ export async function connectDB() {
     console.log('🔗 MONGODB CONNECTION ATTEMPT');
     console.log('='.repeat(80));
 
-    // If no URI is set, use the hardcoded fallback for the live environment
+    // If no URI is set, strictly fail in production or warn in dev
     if (!MONGODB_URI) {
-        console.warn('\n⚠️  MONGODB_URI NOT FOUND IN ENVIRONMENT!');
-        console.log('🔄 USING HARDCODED FALLBACK FOR EMERGENCY CONNECTIVITY');
-        return "mongodb+srv://harsh:Buddy700@cluster0.jtele7g.mongodb.net/vigyanprep";
+        throw new Error('MONGODB_URI is not defined in the environment. Database connection is required.');
     }
 
     try {

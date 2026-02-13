@@ -17,6 +17,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet';
 import { apiLimiter, adminLimiter, loginLimiter, paymentLimiter } from './middlewares/rateLimiter.js';
+import { validateEnv } from './config/envValidator.js';
+
+// 🛡️ Validate environment before starting
+validateEnv();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -339,87 +343,21 @@ app.get('/api', (req, res) => {
     });
 });
 
-// ✅ MONGODB CONNECTION (Replaced MySQL)
+// ✅ MONGODB CONNECTION
 import { connectDB, isMongoDBConnected } from './config/mongodb.js';
 
-// ✅ Wrap async operations in IIFE to avoid top-level await
-// 🔍 DEBUG: Database Info Endpoint
-app.get('/api/debug/db-info', async (req, res) => {
-    try {
-        const info = {
-            success: true,
-            database: mongoose.connection.name,
-            host: mongoose.connection.host,
-            readyState: mongoose.connection.readyState,
-            models: Object.keys(mongoose.models),
-            counts: {
-                studentpayments: isMongoDBConnected ? await mongoose.connection.db.collection('studentpayments').countDocuments() : 'N/A',
-                students: isMongoDBConnected ? await mongoose.connection.db.collection('students').countDocuments() : 'N/A'
-            },
-            env: {
-                PORT: process.env.PORT,
-                NODE_ENV: process.env.NODE_ENV,
-                MONGODB_URI_EXISTS: !!process.env.MONGODB_URI
-            }
-        };
-        res.json(info);
-    } catch (error) {
-        console.error('Debug Endpoint Error:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-// 🔍 DEBUG: Email Transporter Test
-app.get('/api/debug/test-email', async (req, res) => {
-    const results = {};
-    const nodemailer = (await import('nodemailer')).default;
-
-    const testConnection = async (port, secure) => {
-        const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
-            port: port,
-            secure: secure,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD,
-            },
-            tls: { rejectUnauthorized: false, minVersion: 'TLSv1.2' },
-            connectionTimeout: 5000,
-            greetingTimeout: 5000
-        });
-        try {
-            await transporter.verify();
-            return { success: true, message: `Connected to port ${port}` };
-        } catch (err) {
-            return { success: false, error: err.message };
-        }
-    };
-
-    try {
-        results.port587 = await testConnection(587, false);
-        results.port465 = await testConnection(465, true);
-        results.env = {
-            host: process.env.EMAIL_HOST,
-            user: process.env.EMAIL_USER,
-            current_port: process.env.EMAIL_PORT
-        };
-
-        res.json({
-            success: results.port587.success || results.port465.success,
-            results
-        });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
+// ✅ Wrap async operations in IIFE
 
 (async () => {
     try {
         console.log('🔗 Connecting to MongoDB...');
         const dbConnected = await connectDB();
-        // const dbConnected = false;
-
         if (!dbConnected) {
+            console.error('❌ CRITICAL: MongoDB not connected!');
+            if (process.env.NODE_ENV === 'production') {
+                console.error('💀 Exiting due to database connection failure in production.');
+                process.exit(1);
+            }
             console.warn('⚠️  MongoDB not connected - running in limited mode');
             console.warn('🔗 Some features will not work without MongoDB');
         } else {

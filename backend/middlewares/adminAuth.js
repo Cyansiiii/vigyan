@@ -5,7 +5,8 @@
 import jwt from 'jsonwebtoken';
 
 // JWT Configuration
-const JWT_SECRET = process.env.JWT_ADMIN_SECRET || process.env.JWT_SECRET || 'vigyan-prep-admin-secret-change-in-production-min-32-chars';
+// JWT Configuration
+const JWT_SECRET = process.env.JWT_ADMIN_SECRET || process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = '24h'; // Admin sessions last 24 hours
 
 /**
