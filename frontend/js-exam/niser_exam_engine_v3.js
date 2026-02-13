@@ -425,12 +425,24 @@
                 const nameValid = nameInput && nameInput.value.trim().length >= 2;
                 const emailValid = emailInput && emailInput.value.trim().includes('@');
                 const termsChecked = agreeTerms.checked;
-                beginTestBtn.disabled = !(nameValid && emailValid && termsChecked);
+
+                const isValid = nameValid && emailValid && termsChecked;
+                beginTestBtn.disabled = !isValid;
+
+                // Toggle active class for visual feedback
+                if (isValid) {
+                    beginTestBtn.classList.add('active');
+                } else {
+                    beginTestBtn.classList.remove('active');
+                }
             };
 
             agreeTerms.onchange = validateInputs;
             document.getElementById('candidateName').oninput = validateInputs;
             document.getElementById('candidateEmail').oninput = validateInputs;
+
+            // Check once on load in case of autofill
+            setTimeout(validateInputs, 500);
         }
 
         if (beginTestBtn) beginTestBtn.onclick = initExam;
