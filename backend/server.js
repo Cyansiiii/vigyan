@@ -127,8 +127,8 @@ const corsOptions = {
             return callback(new Error('Origin "null" is not allowed by CORS'));
         }
 
-        // Whitelist Check
-        if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vigyanprep.com') || origin.endsWith('.railway.app')) {
+        // Whitelist Check (Strict)
+        if (allowedOrigins.indexOf(origin) !== -1) {
             return callback(null, true);
         }
 
@@ -152,8 +152,19 @@ app.options('/api/payment/paymentverification', cors(corsOptions));
 app.options('/api/payment/getkey', cors(corsOptions));
 
 console.log('✅ CORS configured for:', allowedOrigins.filter(Boolean).join(', '));
-console.log('✅ CORS: Allowing all vigyanprep.com subdomains');
 console.log('✅ Payment endpoints have explicit preflight handling');
+
+// 🛡️ CORS ERROR HANDLER - Maps CORS errors to 403 Forbidden
+app.use((err, req, res, next) => {
+    if (err.message === 'Not allowed by CORS' || err.message === 'Origin "null" is not allowed by CORS') {
+        return res.status(403).json({
+            success: false,
+            message: 'CORS policy violation: Access from this origin is not allowed.',
+            error: 'Forbidden'
+        });
+    }
+    next(err);
+});
 
 // 🔧 INJECT ENVIRONMENT VARIABLES INTO HTML FILES - MUST BE FIRST MIDDLEWARE
 // This middleware injects environment variables into the browser at runtime
