@@ -140,6 +140,15 @@
                     }
 
                     .begin-btn {
+                        width: 100%;
+                        padding: 14px;
+                        background: #64748b;
+                        color: white !important;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        font-weight: 700;
+                        margin-top: 15px;
                         transition: all 0.3s ease !important;
                         opacity: 0.5 !important;
                         cursor: not-allowed !important;
@@ -176,8 +185,7 @@
                         <span>I have read and understood the instructions. I agree that in case of not adhering to the
                             instructions, my candidature may be cancelled.</span>
                     </label>
-                    <button class="begin-btn" id="beginTestBtn" disabled
-                        style="width: 100%; padding: 14px; background: #64748b; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; margin-top: 15px;">
+                    <button class="begin-btn" id="beginTestBtn" disabled>
                         I am ready to begin
                     </button>
                     <div style="margin-top: 12px; font-size: 0.75rem; color: #94a3b8; text-align: center;">System ID:
@@ -190,7 +198,7 @@
     <div id="examInterface" class="exam-interface" style="display: none;">
         <header class="exam-header">
             <div class="header-left">
-                <span class="exam-title-text">Vigyan.prep Aptitude Test 2024</span>
+                <span class="exam-title-text" id="examTitleHeader">Vigyan.prep Aptitude Test 2024</span>
             </div>
             <div class="header-right">
                 <div class="profile-box">

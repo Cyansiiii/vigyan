@@ -72,7 +72,8 @@
         });
 
         const examTitle = EXAM_TYPE.toUpperCase();
-        document.getElementById('examTitleHeader').textContent = `${examTitle} PYQ ${TEST_YEAR}`;
+        const headerTitle = document.getElementById('examTitleHeader');
+        if (headerTitle) headerTitle.textContent = `${examTitle} PYQ ${TEST_YEAR}`;
 
         // Update marking display if elements exist
         const correctEl = document.querySelector('.q-marks .green-text');
