@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: https://vigyanprep.com");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, X-Upload-Signature, X-Upload-Timestamp");
 header("Content-Type: application/json");
@@ -83,7 +83,7 @@ if ($fileError !== 0) {
 
 // Generate unique filename
 $newFileName = 'q_' . bin2hex(random_bytes(8)) . '_' . time() . '.' . $ext;
-$uploadDir = __DIR__ . '/uploads/questions/';
+$uploadDir = __DIR__ . '/../uploads/questions/';
 
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
