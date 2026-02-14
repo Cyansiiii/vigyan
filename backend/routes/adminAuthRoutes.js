@@ -13,9 +13,16 @@ const router = express.Router();
 
 // Admin credentials from environment
 const ADMIN_CREDENTIALS = {
-    username: process.env.ADMIN_USERNAME,
-    passwordHash: process.env.ADMIN_PASSWORD_HASH
+    username: (process.env.ADMIN_USERNAME || '').trim(),
+    passwordHash: (process.env.ADMIN_PASSWORD_HASH || '').trim()
 };
+
+// Startup diagnostic check (safe logging)
+if (ADMIN_CREDENTIALS.username && ADMIN_CREDENTIALS.passwordHash) {
+    console.log(`🔐 Admin credentials found: User='${ADMIN_CREDENTIALS.username}', HashLength=${ADMIN_CREDENTIALS.passwordHash.length}`);
+} else {
+    console.error('❌ CRITICAL: Admin credentials missing in environment!');
+}
 
 console.log('🔐 Admin Auth routes loaded');
 // ✅ SECURITY FIX: Removed password logging
