@@ -70,6 +70,7 @@ const AdminAPI = {
             const response = await fetch(fullURL, {
                 ...defaultOptions,
                 ...options,
+                credentials: 'include', // Ensure cookies are sent/received cross-origin
                 headers: { ...defaultOptions.headers, ...options.headers }
             });
 

@@ -399,6 +399,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include', // Support cross-origin cookies
                     body: JSON.stringify({ username, password })
                 });
 
