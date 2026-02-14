@@ -13,7 +13,12 @@ if (file_exists(__DIR__ . '/.env')) {
     $dotenv->load();
 }
 
-$GATEWAY_SECRET = $_ENV['EMAIL_GATEWAY_SECRET'] ?? 'fallback_secret_change_me';
+$GATEWAY_SECRET = $_ENV['UPLOAD_GATEWAY_SECRET'] ?? null;
+if (!$GATEWAY_SECRET) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'Upload gateway secret not configured or missing in .env']);
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);

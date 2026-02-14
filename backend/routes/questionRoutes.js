@@ -42,134 +42,79 @@ const questionService = new QuestionService();
 router.post('/questions', async (req, res) => {
     try {
         console.log('📥 [ADMIN] Receiving new question...');
-        console.log('📦 Payload:', JSON.stringify(req.body, null, 2));
-
         const {
             testId,
-            examType,
-            year,
-            paperType,
             questionNumber,
             questionText,
             options,
             correctAnswer,
             section,
-            marks,
+            marksPositive,
+            marksNegative,
             difficulty,
             topic,
-            explanation
+            explanation,
+            questionType,
+            imageUrl,
+            status
         } = req.body;
 
         // ===== VALIDATION =====
-        if (!testId || !examType || !year) {
-            return res.status(400).json({
-                success: false,
-                error: 'Missing required fields: testId, examType, year'
-            });
+        const qType = questionType || req.body.type;
+        if (!testId || !section || !questionText || !qType) {
+            return res.status(400).json({ success: false, error: 'testId, section, questionText, and questionType are required' });
         }
 
-        if (!questionNumber || !questionText || !section) {
-            return res.status(400).json({
-                success: false,
-                error: 'Missing required fields: questionNumber, questionText, section'
-            });
+        // ===== AUTO-MAP MCQ OPTION INDEX =====
+        let correctOptionIndex = req.body.correctOptionIndex;
+        if (correctOptionIndex === undefined && correctAnswer) {
+            const mapping = { 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+            correctOptionIndex = mapping[correctAnswer.toUpperCase()];
         }
 
-        if (!Array.isArray(options) || options.length !== 4) {
-            return res.status(400).json({
-                success: false,
-                error: 'Options must be an array of exactly 4 items'
-            });
+        // ===== AUTO-NUMBERING =====
+        let finalQuestionNumber = questionNumber;
+        if (!finalQuestionNumber || finalQuestionNumber === 0) {
+            const lastQuestion = await QuestionModel.findOne({ testId, section }).sort({ questionNumber: -1 });
+            finalQuestionNumber = lastQuestion ? lastQuestion.questionNumber + 1 : 1;
         }
 
-        if (!correctAnswer || !['A', 'B', 'C', 'D'].includes(correctAnswer)) {
-            return res.status(400).json({
-                success: false,
-                error: 'correctAnswer must be A, B, C, or D'
-            });
-        }
-
-        // Validate exam type
-        if (!['IISER', 'ISI', 'NEST'].includes(examType)) {
-            return res.status(400).json({
-                success: false,
-                error: 'examType must be IISER, ISI, or NEST'
-            });
-        }
-
-        // For ISI, paperType is required
-        if (examType === 'ISI' && !paperType) {
-            return res.status(400).json({
-                success: false,
-                error: 'paperType (A or B) is required for ISI exams'
-            });
-        }
-
-        // Check if question number already exists for this test+section
-        const existingQuestion = await QuestionModel.findOne({
-            testId: testId,
-            questionNumber: questionNumber,
-            section: section
-        });
-
-        if (existingQuestion) {
-            return res.status(400).json({
-                success: false,
-                error: `Question number ${questionNumber} already exists for ${testId} - ${section}. Please use a different number or update the existing question.`
-            });
-        }
-
-        // ===== INSERT QUESTION INTO DATABASE =====
         const newQuestion = new QuestionModel({
             testId,
-            questionNumber: questionNumber || 0,
+            questionNumber: finalQuestionNumber,
             questionText,
-            options,
+            options: Array.isArray(options) ? options : [],
             correctAnswer,
-            section: section,
+            correctOptionIndex,
+            correctNumericAnswer: req.body.correctNumericAnswer,
+            numericTolerance: req.body.numericTolerance || 0,
+            modelAnswer: req.body.modelAnswer || '',
+            section,
             topic: topic || 'General',
             difficulty: difficulty || 'Medium',
-            marksPositive: marks || 4,
-            marksNegative: req.body.marksNegative || -1,
-            type: req.body.type || 'MCQ',
-            imageUrl: req.body.imageUrl || null
+            marksPositive: marksPositive || 4,
+            marksNegative: marksNegative || -1,
+            questionType: qType,
+            imageUrl,
+            status: status || 'approved'
         });
 
         const savedQuestion = await newQuestion.save();
 
-        console.log(`✅ [ADMIN] Question added with ID: ${savedQuestion._id}`);
-        console.log(`📊 Test ID: ${testId}`);
-        console.log(`📝 Question Number: ${questionNumber}`);
-        console.log(`📚 Subject: ${section}`);
-
-        // Return success response
         res.status(201).json({
             success: true,
-            message: 'Question added successfully',
-            question: {
-                id: savedQuestion._id,
-                testId,
-                examType,
-                year,
-                paperType,
-                questionNumber,
-                section,
-                marksPositive: savedQuestion.marksPositive,
-                marksNegative: savedQuestion.marksNegative,
-                difficulty: difficulty || 'Medium',
-                topic
-            }
+            id: savedQuestion._id,
+            questionNumber: finalQuestionNumber
         });
 
     } catch (error) {
         console.error('❌ [ADMIN] Error adding question:', error);
-        res.status(500).json({
-            success: false,
-            error: error.message,
-            details: 'Failed to add question. Please check server logs.'
-        });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
+
+// 🎓 STUDENT-FACING API DELETED HERE (USE examRoutes.js)
+// router.get('/exam/questions', ...)
 
 /**
  * POST /api/admin/questions/draft
@@ -179,16 +124,16 @@ router.post('/questions/draft', async (req, res) => {
     try {
         const { testId, section, questionType } = req.body;
 
-        if (!testId || !section) {
-            return res.status(400).json({ success: false, error: 'testId and section are required for drafts' });
+        if (!testId || !section || !questionType) {
+            return res.status(400).json({ success: false, error: 'testId, section, and questionType are required' });
         }
 
         const draft = new QuestionModel({
             testId,
             section,
-            questionType: questionType || 'MCQ',
+            questionType,
             status: 'draft',
-            questionNumber: 0 // Will be set properly during final approval
+            questionNumber: 0 // Placeholder
         });
 
         const savedDraft = await draft.save();
@@ -200,77 +145,6 @@ router.post('/questions/draft', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-// =============================================================================
-// 🎓 STUDENT-FACING API - GET QUESTIONS BY TEST ID
-// =============================================================================
-
-/**
- * GET /api/exam/questions?testId=IISER_2025
- * 
- * Student selects exam → Fetches questions for that testId
- * 
- * Used by: exam.html
- */
-router.get('/exam/questions', async (req, res) => {
-    try {
-        const { testId } = req.query;
-
-        console.log(`🎓 [STUDENT] Fetching questions for testId: ${testId}`);
-
-        if (!testId) {
-            return res.status(400).json({
-                success: false,
-                error: 'testId parameter is required'
-            });
-        }
-
-        // Fetch all questions for this test, sorted by question number
-        const questions = await QuestionModel.find({
-            testId: testId,
-            status: 'approved'
-        }).sort({ questionNumber: 1 });
-
-        if (questions.length === 0) {
-            console.log(`⚠️ [STUDENT] No questions found for testId: ${testId}`);
-            return res.status(404).json({
-                success: false,
-                error: `No questions found for test: ${testId}`
-            });
-        }
-
-        const parsedQuestions = questions.map(q => ({
-            _id: q._id,
-            testId: q.testId,
-            questionNumber: q.questionNumber || 0,
-            questionText: q.questionText,
-            options: q.options || [],
-            correctAnswer: q.correctAnswer,
-            section: q.section,
-            optionA: q.options?.[0] || '',
-            optionB: q.options?.[1] || '',
-            optionC: q.options?.[2] || '',
-            optionD: q.options?.[3] || ''
-        }));
-
-        console.log(`✅ [STUDENT] Returning ${parsedQuestions.length} questions for ${testId}`);
-
-        res.json({
-            success: true,
-            testId: testId,
-            count: parsedQuestions.length,
-            questions: parsedQuestions
-        });
-
-    } catch (error) {
-        console.error('❌ [STUDENT] Error fetching questions:', error);
-        res.status(500).json({
-            success: false,
-            error: error.message,
-            questions: []
-        });
     }
 });
 
@@ -511,19 +385,15 @@ import crypto from 'crypto';
  */
 router.get('/gateway/sign-upload', (req, res) => {
     try {
-        const secret = process.env.EMAIL_GATEWAY_SECRET;
+        const secret = process.env.UPLOAD_GATEWAY_SECRET;
         if (!secret) {
-            return res.status(500).json({ success: false, error: 'Gateway secret not configured' });
+            return res.status(500).json({ success: false, error: 'Upload gateway secret not configured' });
         }
 
         const timestamp = Math.floor(Date.now() / 1000).toString();
         const signature = crypto.createHmac('sha256', secret).update(timestamp).digest('hex');
 
-        res.json({
-            success: true,
-            timestamp,
-            signature
-        });
+        res.json({ success: true, timestamp, signature });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

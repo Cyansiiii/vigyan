@@ -95,9 +95,14 @@ function initAddQuestions() {
                         </div>
                         
                         <div class="form-group">
-                            <label for="questionNumber">Question NR (Numeric) *</label>
-                            <input type="number" id="questionNumber" required class="form-input" placeholder="e.g. 1">
-                            <small style="color: #64748b;">Sequence number in this test</small>
+                            <label for="questionType">Question Type *</label>
+                            <select id="questionType" required class="form-input">
+                                <option value="">Select Type</option>
+                                <option value="MCQ">MCQ (Multiple Choice)</option>
+                                <option value="Numerical">Numerical (Integer/Decimal)</option>
+                                <option value="TrueFalse">True/False</option>
+                                <option value="Descriptive">Descriptive (ISI Paper B)</option>
+                            </select>
                         </div>
                         
                         <div class="form-group" style="display: flex; gap: 10px;">
@@ -109,6 +114,21 @@ function initAddQuestions() {
                                 <label for="marksNegative">Marks (-)</label>
                                 <input type="number" id="marksNegative" required class="form-input" value="-1">
                             </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; display: none;" id="extraFieldsRow">
+                        <div class="form-group" id="numericAnswerGroup">
+                            <label for="correctNumericAnswer">Correct Numeric Answer *</label>
+                            <input type="number" id="correctNumericAnswer" class="form-input" step="any" placeholder="e.g. 10.5">
+                        </div>
+                        <div class="form-group" id="numericToleranceGroup">
+                            <label for="numericTolerance">Tolerance (+/-)</label>
+                            <input type="number" id="numericTolerance" class="form-input" value="0" step="any">
+                        </div>
+                        <div class="form-group" id="questionNumberGroup">
+                            <label for="questionNumber">Force Number (Optional)</label>
+                            <input type="number" id="questionNumber" class="form-input" placeholder="0 = Auto">
                         </div>
                     </div>
 
@@ -220,6 +240,77 @@ function setupEventListeners() {
     });
 
     form.addEventListener('submit', handleFormSubmit);
+
+    document.getElementById('questionType')?.addEventListener('change', handleTypeChange);
+
+    // Draft creation trigger fields
+    ['examType', 'examYear', 'paperType', 'subject'].forEach(id => {
+        document.getElementById(id)?.addEventListener('change', triggerDraftCreation);
+    });
+}
+
+function handleTypeChange() {
+    const type = document.getElementById('questionType').value;
+    const mcqOptionsGroup = document.getElementById('mcqOptions');
+    const extraFieldsRow = document.getElementById('extraFieldsRow');
+    const numericGroup = document.getElementById('numericAnswerGroup');
+    const toleranceGroup = document.getElementById('numericToleranceGroup');
+
+    if (type === 'MCQ' || type === 'TrueFalse') {
+        mcqOptionsGroup.style.display = 'block';
+        extraFieldsRow.style.display = 'none';
+
+        // Adjust for True/False (hide C/D if wanted, but standard 4 is safer for layout)
+        if (type === 'TrueFalse') {
+            document.getElementById('optionA').value = 'True';
+            document.getElementById('optionB').value = 'False';
+            document.getElementById('optionC').parentElement.style.display = 'none';
+            document.getElementById('optionD').parentElement.style.display = 'none';
+        } else {
+            document.getElementById('optionC').parentElement.style.display = 'block';
+            document.getElementById('optionD').parentElement.style.display = 'block';
+        }
+    } else {
+        mcqOptionsGroup.style.display = 'none';
+        extraFieldsRow.style.display = 'grid';
+        if (type === 'Numerical') {
+            numericGroup.style.display = 'block';
+            toleranceGroup.style.display = 'block';
+        } else {
+            numericGroup.style.display = 'none';
+            toleranceGroup.style.display = 'none';
+        }
+    }
+}
+
+let activeDraftId = null;
+
+async function triggerDraftCreation() {
+    const examType = document.getElementById('examType').value;
+    const examYear = document.getElementById('examYear').value;
+    const subject = document.getElementById('subject').value;
+    const questionType = document.getElementById('questionType').value;
+
+    if (!examType || !examYear || !subject || !questionType) return;
+
+    const testId = document.getElementById('testIdPreview').textContent;
+    const type = document.getElementById('questionType').value;
+
+    try {
+        const result = await window.AdminAPI.request('/api/admin/questions/draft', {
+            method: 'POST',
+            body: JSON.stringify({ testId, section: subject, questionType: type })
+        });
+
+        if (result.success) {
+            activeDraftId = result.id;
+            console.log('📝 Draft created with ID:', activeDraftId);
+            const preview = document.getElementById('testIdPreview');
+            preview.innerHTML = `${testId} <br><small style="color: #64748b;">Draft ID: ${activeDraftId}</small>`;
+        }
+    } catch (err) {
+        console.error('❌ Draft creation failed:', err);
+    }
 }
 
 function handleExamTypeChange() {
@@ -260,6 +351,38 @@ function restoreStickyConfig() {
     updateTestIdPreview();
 }
 
+function buildQuestionPayload() {
+    const type = document.getElementById('questionType').value;
+    const qNrInput = document.getElementById('questionNumber').value;
+    const payload = {
+        testId: document.getElementById('testIdPreview').textContent.trim().split(/\s+/)[0],
+        questionNumber: parseInt(document.getElementById('questionNumber').value) || 0,
+        questionText: document.getElementById('questionText').value.trim(),
+        questionType: type,
+        section: document.getElementById('subject').value,
+        marksPositive: parseInt(document.getElementById('marksPositive').value),
+        marksNegative: parseInt(document.getElementById('marksNegative').value),
+        imageUrl: document.getElementById('imageUrl').value || null,
+        status: 'approved'
+    };
+
+    if (type === 'MCQ' || type === 'TrueFalse') {
+        payload.options = [
+            document.getElementById('optionA').value.trim(),
+            document.getElementById('optionB').value.trim(),
+        ];
+        if (type === 'MCQ') {
+            payload.options.push(document.getElementById('optionC').value.trim());
+            payload.options.push(document.getElementById('optionD').value.trim());
+        }
+        payload.correctAnswer = document.getElementById('correctAnswer').value;
+    } else if (type === 'Numerical') {
+        payload.correctNumericAnswer = parseFloat(document.getElementById('correctNumericAnswer').value);
+        payload.numericTolerance = parseFloat(document.getElementById('numericTolerance').value) || 0;
+    }
+    return payload;
+}
+
 async function handleFormSubmit(e) {
     e.preventDefault();
     const submitBtn = document.getElementById('submitQuestionBtn');
@@ -268,39 +391,37 @@ async function handleFormSubmit(e) {
     submitBtn.innerHTML = '<div class="spinner"></div> Saving...';
 
     try {
-        const payload = {
-            testId: document.getElementById('testIdPreview').textContent,
-            questionNumber: parseInt(document.getElementById('questionNumber').value),
-            questionText: document.getElementById('questionText').value.trim(),
-            options: [
-                document.getElementById('optionA').value.trim(),
-                document.getElementById('optionB').value.trim(),
-                document.getElementById('optionC').value.trim(),
-                document.getElementById('optionD').value.trim()
-            ],
-            correctAnswer: document.getElementById('correctAnswer').value,
-            section: document.getElementById('subject').value,
-            marksPositive: parseInt(document.getElementById('marksPositive').value),
-            marksNegative: parseInt(document.getElementById('marksNegative').value),
-            imageUrl: document.getElementById('imageUrl').value || null,
-            status: 'approved'
-        };
+        const payload = buildQuestionPayload();
 
-        const result = await window.AdminAPI.request('/api/admin/questions', {
-            method: 'POST',
+        const endpoint = activeDraftId ? `/api/admin/questions/${activeDraftId}` : '/api/admin/questions';
+        const method = activeDraftId ? 'PUT' : 'POST';
+
+        const result = await window.AdminAPI.request(endpoint, {
+            method: method,
             body: JSON.stringify(payload)
         });
 
         if (result.success) {
             window.AdminUtils.showToast('✅ Question Added Successfully', 'success');
+            activeDraftId = null; // Reset draft ID for next question
+
             // Clear only content
-            ['questionText', 'optionA', 'optionB', 'optionC', 'optionD', 'correctAnswer', 'imageUrl'].forEach(id => {
-                document.getElementById(id).value = '';
+            ['questionText', 'optionA', 'optionB', 'optionC', 'optionD', 'correctAnswer', 'imageUrl', 'correctNumericAnswer', 'numericTolerance'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
             });
             clearImageUpload();
+            updateTestIdPreview(); // Refresh to remove "Draft ID:" text
             // Increment question number
             const qNr = document.getElementById('questionNumber');
-            qNr.value = parseInt(qNr.value) + 1;
+            const serverQNr = result.questionNumber;
+            if (serverQNr) {
+                qNr.value = serverQNr + 1;
+            } else {
+                const currentNum = parseInt(qNr.value) || 0;
+                if (currentNum > 0) qNr.value = currentNum + 1;
+            }
+            // if it was 0/auto, backend already assigned one, but frontend stays 0 for next auto
         } else {
             throw new Error(result.error || 'Failed to add question');
         }

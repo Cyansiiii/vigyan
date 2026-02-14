@@ -7,6 +7,39 @@ import { StudentAttempt } from "../models/StudentAttempt.js";
 import { generateAuthToken } from '../middlewares/auth.js';
 import { TestSeries } from "../models/TestSeries.js";
 
+// Helper function to calculate score for a single question
+const evaluateQuestionScore = (q, userAnswer) => {
+  const { questionType, marksPositive, marksNegative, correctNumericAnswer, numericTolerance, correctOptionIndex } = q;
+  const qType = questionType || 'MCQ';
+  let isCorrect = false;
+  let correctAnswerText = '';
+
+  const isUnanswered = userAnswer === null || userAnswer === undefined || userAnswer === '';
+
+  if (isUnanswered) {
+    return { isCorrect: false, status: 'unanswered', marks: 0, correctAnswerText: '' };
+  }
+
+  if (qType === 'MCQ' || qType === 'TrueFalse') {
+    isCorrect = parseInt(userAnswer) === correctOptionIndex;
+    correctAnswerText = q.options && q.options[correctOptionIndex] !== undefined ? q.options[correctOptionIndex] : (q.correctAnswer || '');
+  } else if (qType === 'Numerical') {
+    correctAnswerText = correctNumericAnswer !== null ? correctNumericAnswer.toString() : '';
+    const userNum = parseFloat(userAnswer);
+    const targetNum = correctNumericAnswer;
+    const tolerance = numericTolerance || 0;
+    isCorrect = !isNaN(userNum) && Math.abs(userNum - targetNum) <= tolerance;
+  }
+
+  const marks = isCorrect ? (marksPositive || 4) : (marksNegative || -1);
+  return {
+    isCorrect,
+    correctAnswerText,
+    marks,
+    status: isCorrect ? 'correct' : 'wrong'
+  };
+};
+
 // Helper function to safely parse JSON
 const safeJsonParse = (jsonString, fallback = null) => {
   try {
@@ -222,50 +255,55 @@ export const submitExam = async (req, res) => {
       });
     }
 
-    // Create a map for easier lookup by question number
-    const correctAnswersMap = {};
-    questions.forEach((q, index) => {
-      correctAnswersMap[index + 1] = q.correctAnswer;
+    // Create a map for easier lookup by _id
+    const questionsMap = {};
+    questions.forEach(q => {
+      questionsMap[q._id.toString()] = q;
     });
 
     const questionWiseResults = [];
+    let totalScore = 0;
 
-    userResponses.forEach((userAnswer, index) => {
-      const questionNumber = index + 1;
-      const correctAnswer = correctAnswersMap[questionNumber];
+    // Support both legacy array of answers and new array of {questionId, answer}
+    userResponses.forEach((resp, index) => {
+      let qId, userAnswer;
 
-      if (userAnswer === null || userAnswer === undefined) {
-        unanswered++;
-        questionWiseResults.push({
-          questionNumber,
-          userAnswer: null,
-          correctAnswer,
-          isCorrect: false,
-          status: 'unanswered'
-        });
-      } else if (userAnswer === correctAnswer) {
-        correctAnswers++;
-        questionWiseResults.push({
-          questionNumber,
-          userAnswer,
-          correctAnswer,
-          isCorrect: true,
-          status: 'correct'
-        });
+      if (typeof resp === 'object' && resp !== null && resp.questionId) {
+        qId = resp.questionId;
+        userAnswer = resp.answer;
       } else {
-        wrongAnswers++;
-        questionWiseResults.push({
-          questionNumber,
-          userAnswer,
-          correctAnswer,
-          isCorrect: false,
-          status: 'wrong'
-        });
+        // Fallback to index-based mapping (legacy)
+        const qAtIdx = questions[index];
+        if (!qAtIdx) return;
+        qId = qAtIdx._id.toString();
+        userAnswer = resp;
       }
+
+      const q = questionsMap[qId];
+      if (!q) return;
+
+      const result = evaluateQuestionScore(q, userAnswer);
+
+      if (result.status === 'unanswered') unanswered++;
+      else if (result.isCorrect) correctAnswers++;
+      else wrongAnswers++;
+
+      totalScore += result.marks;
+      questionWiseResults.push({
+        questionId: qId,
+        questionNumber: q.questionNumber,
+        userAnswer,
+        correctAnswer: result.correctAnswerText,
+        isCorrect: result.isCorrect,
+        status: result.status,
+        marks: result.marks
+      });
     });
 
-    const score = correctAnswers;
-    const percentage = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
+    const score = totalScore;
+    // Calculate percentage based on max possible score
+    const maxScore = questions.reduce((acc, q) => acc + (q.marksPositive || 1), 0);
+    const percentage = maxScore > 0 ? Math.max(0, (totalScore / maxScore) * 100) : 0;
 
     // Save to student_attempts collection
     const attempt = await StudentAttempt.create({

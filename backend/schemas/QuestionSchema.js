@@ -150,7 +150,13 @@ QuestionSchema.pre("save", function (next) {
 });
 
 QuestionSchema.index({ testId: 1, status: 1, section: 1 });
-QuestionSchema.index({ testId: 1, questionNumber: 1 });
+QuestionSchema.index(
+    { testId: 1, section: 1, questionNumber: 1 },
+    { unique: true, partialFilterExpression: { questionNumber: { $gt: 0 } } }
+);
+
+// Performance optimization for auto-numbering sort
+QuestionSchema.index({ testId: 1, section: 1, questionNumber: -1 });
 
 QuestionSchema.virtual("id").get(function () {
     return this._id.toString();
