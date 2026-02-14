@@ -2,34 +2,43 @@ import nodemailer from "nodemailer";
 import { getScoreReportEmailHtml } from "../utils/emailTemplates.js";
 
 // Create Nodemailer transporter with Hostinger SMTP
-// ✅ FIXED: Using smart port detection for Railway/Hostinger compatibility
-const emailPort = parseInt(process.env.EMAIL_PORT) || 587;
-const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
-    port: emailPort,
-    secure: emailPort === 465, // true for 465 (SSL), false for 587 (STARTTLS)
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-    },
-    tls: {
-        rejectUnauthorized: false,
-        minVersion: 'TLSv1.2'
-    },
-    connectionTimeout: 10000, // 10 seconds
-    greetingTimeout: 10000,    // 10 seconds
-    socketTimeout: 15000       // 15 seconds
-});
+// 🚀 SMTP Optimization: Disable local Nodemailer if secure Email Gateway is active
+const isGatewayActive = !!process.env.EMAIL_GATEWAY_URL;
+let transporter = null;
 
-// Verify transporter on load
-if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
-    transporter.verify((error, success) => {
-        if (error) {
-            console.error('❌ Email transporter (examReport) verification failed:', error.message);
-        } else {
-            console.log('✅ Email server ready for score reports');
-        }
+if (!isGatewayActive) {
+    const emailPort = parseInt(process.env.EMAIL_PORT) || 587;
+    transporter = nodemailer.createTransport({
+        host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
+        port: emailPort,
+        secure: emailPort === 465,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+        },
+        tls: {
+            rejectUnauthorized: false,
+            minVersion: 'TLSv1.2'
+        },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 15000
     });
+
+    // Verify transporter on load
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+        transporter.verify((error, success) => {
+            if (error) {
+                console.error('❌ Email transporter (examReport) verification failed:', error.message);
+            } else {
+                console.log('✅ Email server ready for score reports');
+            }
+        });
+    }
+} else {
+    if (String(process.env.DEBUG || '').toLowerCase() === 'true') {
+        console.log('🛡️ Email Gateway detected: Skipping local SMTP transporter verification');
+    }
 }
 
 /**

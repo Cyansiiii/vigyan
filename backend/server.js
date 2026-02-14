@@ -50,11 +50,15 @@ if (IS_DEBUG) {
     logStartup(`Available Env Keys: ${envKeys.join(', ')}`);
 }
 
-// Load environment variables
-console.log('🔵 Loading environment variables...');
+if (IS_DEBUG) {
+    console.log('🔵 Loading environment variables...');
+}
 
 const app = express();
-console.log('🔵 Creating Express app...');
+
+if (IS_DEBUG) {
+    console.log('🔵 Creating Express app...');
+}
 
 // 🔧 Enable trust proxy (essential for Railway/Render)
 app.set('trust proxy', 1);
@@ -67,41 +71,12 @@ app.use(helmet({
 
 const PORT = process.env.PORT || 3000;
 
-// 🔴 VALIDATE ENVIRONMENT VARIABLES (non-fatal - logs warnings instead of exiting)
-const validateEnvironmentVariables = () => {
-    const requiredVars = {
-        'RAZORPAY_API_KEY': 'Payment gateway (Razorpay) API Key',
-        'RAZORPAY_API_SECRET': 'Payment gateway (Razorpay) API Secret',
-        'MONGODB_URI': 'MongoDB database connection URI',
-        'NODE_ENV': 'Application environment (development/production)',
-    };
-
-    const missingVars = [];
-    for (const [varName, description] of Object.entries(requiredVars)) {
-        if (!process.env[varName]) {
-            missingVars.push(`${varName} (${description})`);
-        }
-    }
-
-    // Email vars are optional but warn if missing
-    console.warn('⚠️  Email credentials not configured - email notifications will be disabled');
-
-    if (missingVars.length > 0) {
-        console.error('\n⚠️ WARNING: Missing environment variables:');
-        missingVars.forEach((v, i) => console.error(`   ${i + 1}. ${v}`));
-        console.error('\n📝 Some features may not work correctly.');
-        console.error('📚 See .env.example for reference\n');
-        // Continue running instead of exiting - let individual features fail gracefully
-    } else {
-        console.log('✅ All required environment variables are configured');
-    }
-};
-
-// Validate env vars before starting
-validateEnvironmentVariables();
+// Environment validation is handled by config/envValidator.js at the start of this file
 
 // 🔧 CRITICAL FIX #2: ENHANCED CORS Configuration - MUST BE FIRST middleware!
-console.log('🔵 Setting up CORS...');
+if (IS_DEBUG) {
+    console.log('🔵 Setting up CORS...');
+}
 const allowedOrigins = [
     // Local development
     'http://localhost:5173',
@@ -161,8 +136,10 @@ app.options('/api/payment/checkout', cors(corsOptions));
 app.options('/api/payment/paymentverification', cors(corsOptions));
 app.options('/api/payment/getkey', cors(corsOptions));
 
-console.log('✅ CORS configured for:', allowedOrigins.filter(Boolean).join(', '));
-console.log('✅ Payment endpoints have explicit preflight handling');
+if (IS_DEBUG) {
+    console.log('✅ CORS configured for:', allowedOrigins.filter(Boolean).join(', '));
+    console.log('✅ Payment endpoints have explicit preflight handling');
+}
 
 // 🛡️ CORS ERROR HANDLER - Maps CORS errors to 403 Forbidden
 app.use((err, req, res, next) => {
@@ -178,7 +155,9 @@ app.use((err, req, res, next) => {
 
 // 🔧 INJECT ENVIRONMENT VARIABLES INTO HTML FILES - MUST BE FIRST MIDDLEWARE
 // This middleware injects environment variables into the browser at runtime
-console.log('🔵 Setting up environment injection middleware...');
+if (IS_DEBUG) {
+    console.log('🔵 Setting up environment injection middleware...');
+}
 app.use((req, res, next) => {
     // Only intercept HTML file requests
     if (req.path.endsWith('.html') || req.path === '/' || !req.path.includes('.')) {
@@ -209,10 +188,14 @@ app.use((req, res, next) => {
     }
     next();
 });
-console.log('✅ Environment injection middleware ready');
+if (IS_DEBUG) {
+    console.log('✅ Environment injection middleware ready');
+}
 
 // Body parsing middleware - 🛡️ TIGHTENED LIMITS
-console.log('🔵 Setting up body parsers (2mb limit)...');
+if (IS_DEBUG) {
+    console.log('🔵 Setting up body parsers (2mb limit)...');
+}
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.use(cookieParser());

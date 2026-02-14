@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const IS_DEBUG = String(process.env.DEBUG || '').toLowerCase() === 'true';
 const IS_PROD = String(process.env.NODE_ENV || '').toLowerCase() === 'production';
 
-if (IS_DEBUG) {
+if (IS_DEBUG && !IS_PROD) {
   console.log('\n' + '='.repeat(80));
   console.log('🔵 ENVIRONMENT CONFIGURATION STARTUP');
   console.log('='.repeat(80));
@@ -24,41 +24,40 @@ const possiblePaths = [
   path.join(process.cwd(), 'backend/.env'),  // working dir + backend/.env
 ];
 
-if (IS_DEBUG) {
-  console.log('\n🔍 Searching for .env file in multiple locations:');
-}
-let envPath = null;
-for (const testPath of possiblePaths) {
-  if (IS_DEBUG) console.log(`   Trying: ${testPath}`);
-  if (fs.existsSync(testPath)) {
-    if (IS_DEBUG) console.log(`   ✅ FOUND at: ${testPath}`);
-    envPath = testPath;
-    break;
-  } else if (IS_DEBUG) {
-    console.log(`   ❌ Not found`);
-  }
-}
-
-if (!envPath) {
-  console.error('\n❌ .env file NOT FOUND in any location!');
-  console.error('   Searched:');
-  possiblePaths.forEach(p => console.error(`   - ${p}`));
-  console.error('\n😨 App will run with limited functionality\n');
+// In production (Railway/Render), skip local .env file search
+if (IS_PROD) {
+  if (IS_DEBUG) console.log('🔒 Production mode: Skipping local .env discovery');
 } else {
-  console.log(`\n🔧 Loading .env from: ${envPath}`);
-  try {
-    const result = dotenv.config({ path: envPath });
+  if (IS_DEBUG) console.log('\n🔍 Searching for .env file in multiple locations:');
 
-    if (result.error) {
-      console.error('   ❌ Error parsing .env file:', result.error.message);
-    } else {
-      const varCount = Object.keys(result.parsed || {}).length;
-      if (IS_DEBUG) console.log(`   ✅ Successfully loaded ${varCount} variables from .env file`);
-
-      // ✅ SECURITY FIX: Removed MONGODB_URI substring logging
+  for (const testPath of possiblePaths) {
+    if (IS_DEBUG) console.log(`   Trying: ${testPath}`);
+    if (fs.existsSync(testPath)) {
+      if (IS_DEBUG) console.log(`   ✅ FOUND at: ${testPath}`);
+      envPath = testPath;
+      break;
+    } else if (IS_DEBUG) {
+      console.log(`   ❌ Not found`);
     }
-  } catch (err) {
-    console.error('   ❌ Error reading .env file:', err.message);
+  }
+
+  if (!envPath) {
+    console.warn('\n⚠️  .env file NOT FOUND in any location!');
+    console.warn('   (This is normal in production environments like Railway)');
+  } else {
+    console.log(`\n🔧 Loading .env from: ${envPath}`);
+    try {
+      const result = dotenv.config({ path: envPath });
+
+      if (result.error) {
+        console.error('   ❌ Error parsing .env file:', result.error.message);
+      } else {
+        const varCount = Object.keys(result.parsed || {}).length;
+        if (IS_DEBUG) console.log(`   ✅ Successfully loaded ${varCount} variables from .env file`);
+      }
+    } catch (err) {
+      console.error('   ❌ Error reading .env file:', err.message);
+    }
   }
 }
 
