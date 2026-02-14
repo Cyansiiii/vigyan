@@ -196,9 +196,21 @@ export const getEnrollmentEmailHtml = (fullName, rollNumber, testSeriesName) => 
  * Generate the exam score report email
  */
 export const getScoreReportEmailHtml = (data) => {
-    const { name, examYear, sectionScores, meritScore, totalScore, totalCorrect, totalWrong, totalQuestions } = data;
+    const { name, examYear, examType, sectionScores, meritScore, totalScore, totalCorrect, totalWrong, totalQuestions } = data;
     const safeName = escapeHtml(formatDisplayName(name));
     const safeYear = escapeHtml(examYear);
+    const safeType = (examType || 'NISER').toUpperCase();
+
+    // Logic for score labeling
+    const isIISER = safeType === 'IISER';
+    const scoreTitle = isIISER ? 'Total Score (All Subjects)' : 'Merit Score (Best 3 Subjects)';
+    const maxScore = isIISER ? 240 : 180;
+    const secondaryLabel = isIISER ? 'Official Result' : `Total (All 4): ${totalScore}`;
+    const primaryDisplayScore = isIISER ? totalScore : meritScore;
+
+    // Promotional Text Logic
+    const promoTitle = `Get the Complete ${safeType} Test Series`;
+    const promoDesc = `10+ Full-Length Mock Tests with Detailed Solutions for ${safeType} 2025.`;
 
     // Build section rows with premium styling
     const sections = ['Biology', 'Chemistry', 'Physics', 'Mathematics'];
@@ -237,26 +249,35 @@ export const getScoreReportEmailHtml = (data) => {
         
         <!-- HEADER -->
         <tr>
-            <td style="padding: 35px 0; text-align: center; background: #000000;">
-                <div style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; font-size: 28px; letter-spacing: 2px; text-transform: uppercase;">
-                    <span style="color: ${GOLD_TEXT};">Vigyan</span><span style="color: rgba(255,255,255,0.4);">.</span><span style="color: rgba(255,255,255,0.3); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; font-style: normal;">prep</span>
+            <td style="padding: 40px; text-align: center; background: #000000; color: #ffffff;">
+                <div style="display: inline-block;">
+                    <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                        <tr>
+                            <td style="padding: 0;">
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; font-size: 32px; letter-spacing: 2px; color: ${GOLD_TEXT}; text-transform: uppercase;">VIGYAN</span>
+                            </td>
+                            <td style="padding-left: 8px; vertical-align: baseline; padding-bottom: 5px;">
+                                <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; color: #94a3b8; letter-spacing: 2px; text-transform: lowercase;">. prep</span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </td>
         </tr>
 
         <!-- HERO SECTION -->
         <tr>
-            <td style="padding: 40px; text-align: center; background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);" class="content-box">
-                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 24px; color: ${GOLD_TEXT};">Dear ${safeName},</p>
-                <h1 style="margin: 15px 0; font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #1e293b;" class="text-main">Your NISER ${safeYear} <br><span style="color: ${GOLD_TEXT};">Score Report</span></h1>
+            <td style="padding: 40px; text-align: center; background: #ffffff;" class="content-box">
+                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 26px; color: ${GOLD_TEXT};">Hello, ${safeName}!</p>
+                <h1 style="margin: 15px 0; font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #1e293b;" class="text-main">Your ${safeType} ${safeYear} <br><span style="color: ${GOLD_TEXT};">Score Report</span></h1>
                 
                 <!-- TOTAL SCORE CARD -->
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background: #000000; border-radius: 12px; margin: 20px 0;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background: #fef3c7; border: 2px solid ${GOLD_TEXT}; border-radius: 12px; margin: 20px 0;">
                     <tr>
-                        <td style="padding: 25px; text-align: center;">
-                            <p style="margin: 0 0 5px 0; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase;">Merit Proficiency Score</p>
-                            <div style="font-size: 48px; font-weight: 800; color: ${GOLD_TEXT};">${meritScore}</div>
-                            <p style="margin: 10px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.4);">Verified Performance Index</p>
+                        <td style="padding: 30px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; font-size: 11px; font-weight: 700; color: ${BRAND_GOLD}; letter-spacing: 1px; text-transform: uppercase;">⭐ ${scoreTitle}</p>
+                            <div style="font-size: 54px; font-weight: 800; color: #854d0e;">${primaryDisplayScore}<span style="font-size: 24px; color: #b45309; opacity: 0.6;">/${maxScore}</span></div>
+                            <p style="margin: 10px 0 0 0; font-size: 12px; color: #92400e; font-weight: 500;">${secondaryLabel}</p>
                         </td>
                     </tr>
                 </table>
@@ -276,9 +297,19 @@ export const getScoreReportEmailHtml = (data) => {
                     ${sectionRows}
                 </table>
 
-                <div style="margin-top: 30px; text-align: center;">
-                    <a href="https://vigyanprep.com" style="display: inline-block; background: ${GOLD_TEXT}; color: #ffffff; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;">Analyze Full Mock</a>
-                </div>
+        <!-- FOOTER PROMO -->
+        <tr>
+            <td style="padding: 0 40px 40px;" class="content-box">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background: #312e81; border-radius: 12px; overflow: hidden;">
+                    <tr>
+                        <td style="padding: 30px; text-align: center;">
+                            <p style="margin: 0; color: #e0e7ff; font-size: 12px; font-weight: 600;">🚀 Want to improve?</p>
+                            <h2 style="margin: 10px 0; color: #ffffff; font-size: 20px; font-family: 'Cormorant Garamond', serif;">${promoTitle}</h2>
+                            <p style="margin: 0 0 20px 0; color: #c7d2fe; font-size: 13px;">${promoDesc}</p>
+                            <a href="https://vigyanprep.com" style="display: inline-block; background: ${GOLD_TEXT}; color: #1e1b4b; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-weight: 700; font-size: 12px; text-transform: uppercase;">Upgrade Now</a>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
 

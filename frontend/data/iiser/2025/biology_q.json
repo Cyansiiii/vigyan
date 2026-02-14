@@ -63,10 +63,10 @@
         "id": 7,
         "text": "Which condition will favour maximum dissociation of oxygen from the oxyhaemoglobin in the tissues?",
         "options": [
-            "higher [H+] lower temperature",
-            "lower [H+] higher temperature",
-            "higher [H+] higher temperature",
-            "lower [H+] lower temperature"
+            "higher \\([H^{+}]\\) lower temperature",
+            "lower \\([H^{+}]\\) higher temperature",
+            "higher \\([H^{+}]\\) higher temperature",
+            "lower \\([H^{+}]\\) lower temperature"
         ]
     },
     {

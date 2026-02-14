@@ -11,7 +11,7 @@
     },
     {
         "id": 2,
-        "text": "Which processes are associated with increasing bond order but no change in magnetic behavior[cite: 233]? (i) N2 → N2+ (ii) O2 → O2+ (iii) O2 → O2-.",
+        "text": "Which processes are associated with increasing bond order but no change in magnetic behavior? (i) \\(N_2 \\rightarrow N_2^+\\) (ii) \\(O_2 \\rightarrow O_2^+\\) (iii) \\(O_2 \\rightarrow O_2^-\\).",
         "options": [
             "(ii) only",
             "(i) and (ii)",
@@ -21,7 +21,7 @@
     },
     {
         "id": 3,
-        "text": "What is the value of E°(Fe3+/Fe0) given E°(Fe3+/Fe2+) = 0.77 V and E°(Fe2+/Fe0) = -0.44 V[cite: 247, 248]?",
+        "text": "What is the value of \\(E^\\circ(Fe^{3+}/Fe^0)\\) given \\(E^\\circ(Fe^{3+}/Fe^{2+}) = 0.77\\) V and \\(E^\\circ(Fe^{2+}/Fe^0) = -0.44\\) V?",
         "options": [
             "0.33 V",
             "-0.04 V",
@@ -31,7 +31,7 @@
     },
     {
         "id": 4,
-        "text": "What are the correct orders of stability for VF5, VCl5, CuCl2, and CuI2[cite: 259]?",
+        "text": "What are the correct orders of stability for \\(VF_5\\), \\(VCl_5\\), \\(CuCl_2\\), and \\(CuI_2\\)?",
         "options": [
             "VCl5 > VF5; CuCl2 > CuI2",
             "VF5 > VCl5; CuCl2 > CuI2",
@@ -111,7 +111,7 @@
     },
     {
         "id": 12,
-        "text": "Correct plot for rate constant 5x10^-5 and pre-exponential factor unit mol L^-1 min^-1[cite: 394, 395]? <br><br> 0 for a zero order reaction] ",
+        "text": "Correct plot for rate constant \\(5 \\times 10^{-5}\\) and pre-exponential factor unit mol L\\(^{-1}\\) min\\(^{-1}\\)?",
         "options": [
             "Plot (a)",
             "Plot (b)",
@@ -121,7 +121,7 @@
     },
     {
         "id": 13,
-        "text": "Time period of revolution of electron in the fourth Bohr orbit of He+[cite: 410, 411]?",
+        "text": "Time period of revolution of electron in the fourth Bohr orbit of \\(He^+\\)?",
         "options": [
             "4.8 fs",
             "2.4 fs",

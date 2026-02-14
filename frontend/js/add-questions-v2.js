@@ -274,6 +274,7 @@ function initAddQuestions() {
 
     // Show/hide Paper Type for ISI
     document.getElementById('examType')?.addEventListener('change', function () {
+        localStorage.setItem('admin_last_examType', this.value);
         const paperTypeGroup = document.getElementById('paperTypeGroup');
         if (this.value === 'ISI') {
             paperTypeGroup.style.display = 'block';
@@ -282,20 +283,41 @@ function initAddQuestions() {
             paperTypeGroup.style.display = 'none';
             document.getElementById('paperType').required = false;
             document.getElementById('paperType').value = '';
+            localStorage.removeItem('admin_last_paperType');
         }
         // Generate question ID when exam type changes
         generateQuestionId();
+        updateTestIdPreview();
     });
 
     // Generate question ID when year changes
-    document.getElementById('examYear')?.addEventListener('change', generateQuestionId);
-    document.getElementById('paperType')?.addEventListener('change', generateQuestionId);
+    document.getElementById('examYear')?.addEventListener('change', function () {
+        localStorage.setItem('admin_last_examYear', this.value);
+        generateQuestionId();
+        updateTestIdPreview();
+    });
+
+    document.getElementById('paperType')?.addEventListener('change', function () {
+        localStorage.setItem('admin_last_paperType', this.value);
+        generateQuestionId();
+        updateTestIdPreview();
+    });
+
+    document.getElementById('subject')?.addEventListener('change', function () {
+        localStorage.setItem('admin_last_subject', this.value);
+    });
 
     // Handle reset
     document.getElementById('resetBtn')?.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset the form?')) {
+        if (confirm('Are you sure you want to reset the form? This will also clear your saved exam type and year.')) {
             document.getElementById('addQuestionForm').reset();
-            // Reset year back to 2026
+            // Clear sticky values
+            localStorage.removeItem('admin_last_examType');
+            localStorage.removeItem('admin_last_examYear');
+            localStorage.removeItem('admin_last_paperType');
+            localStorage.removeItem('admin_last_subject');
+
+            // Reset to defaults
             document.getElementById('examYear').value = '2026';
             document.getElementById('testIdPreview').textContent = 'Select exam type';
             document.getElementById('questionNumber').value = '';
@@ -378,23 +400,18 @@ function initAddQuestions() {
                 alert(`✅ Question ${questionNumber} added successfully for ${testId}!`);
             }
 
-            // Reset form but keep year as 2026
-            document.getElementById('addQuestionForm').reset();
-            document.getElementById('examYear').value = '2026';
-            document.getElementById('testIdPreview').textContent = 'Select exam type';
-            document.getElementById('questionNumber').value = '';
-            document.getElementById('paperTypeGroup').style.display = 'none';
+            // ✨ OPTIMIZATION: Reset only question content, keep exam settings
+            document.getElementById('questionText').value = '';
+            document.getElementById('optionA').value = '';
+            document.getElementById('optionB').value = '';
+            document.getElementById('optionC').value = '';
+            document.getElementById('optionD').value = '';
+            document.getElementById('correctAnswer').value = '';
 
-            // Redirect to View/Edit section as requested
-            setTimeout(() => {
-                const viewQuestionsLink = document.querySelector('[data-page="view-questions"]');
-                if (viewQuestionsLink) {
-                    console.log('🔄 Redirecting to View/Edit section...');
-                    viewQuestionsLink.click();
-                } else {
-                    console.warn('⚠️ View/Edit link not found for redirect');
-                }
-            }, 1000);
+            // Generate next random ID for the same test
+            generateQuestionId();
+
+            console.log('✨ Question added. Ready for next question in the same section.');
 
         } catch (error) {
             console.error('❌ Error adding question:', error);
@@ -411,11 +428,25 @@ function initAddQuestions() {
         }
     });
 
-    // Initialize with 2026 year selected and update preview
-    document.getElementById('examYear').value = '2026';
-    updateTestIdPreview();
+    // Load sticky values from localStorage
+    const savedExamType = localStorage.getItem('admin_last_examType');
+    const savedExamYear = localStorage.getItem('admin_last_examYear');
+    const savedPaperType = localStorage.getItem('admin_last_paperType');
+    const savedSubject = localStorage.getItem('admin_last_subject');
 
-    console.log('✅ Add Questions V2 page initialized');
+    if (savedExamType) document.getElementById('examType').value = savedExamType;
+    if (savedExamYear) document.getElementById('examYear').value = savedExamYear;
+    if (savedPaperType) {
+        document.getElementById('paperType').value = savedPaperType;
+        const paperTypeGroup = document.getElementById('paperTypeGroup');
+        if (paperTypeGroup) paperTypeGroup.style.display = savedExamType === 'ISI' ? 'block' : 'none';
+    }
+    if (savedSubject) document.getElementById('subject').value = savedSubject;
+
+    updateTestIdPreview();
+    generateQuestionId();
+
+    console.log('✅ Add Questions V2 page initialized with sticky settings');
 }
 
 // Generate unique question ID in format: EXAM_YEAR_randomnumber
