@@ -131,7 +131,8 @@ router.post('/questions', async (req, res) => {
             difficulty: difficulty || 'Medium',
             marksPositive: marks || 4,
             marksNegative: req.body.marksNegative || -1,
-            type: req.body.type || 'MCQ'
+            type: req.body.type || 'MCQ',
+            imageUrl: req.body.imageUrl || null
         });
 
         const savedQuestion = await newQuestion.save();
@@ -384,7 +385,7 @@ router.put('/questions/:id', async (req, res) => {
     try {
         console.log(`✏️ [QUESTIONS] Updating question ${req.params.id}`);
 
-        const { questionText, options, correctAnswer, section, marks } = req.body;
+        const { questionText, options, correctAnswer, section, marks, imageUrl } = req.body;
 
         const updatedQuestion = await QuestionModel.findByIdAndUpdate(
             req.params.id,
@@ -393,7 +394,8 @@ router.put('/questions/:id', async (req, res) => {
                 options,
                 correctAnswer,
                 section,
-                marks
+                marks,
+                imageUrl
             },
             { new: true }
         );
@@ -480,6 +482,35 @@ router.get('/questions-v2', async (req, res) => {
             error: error.message,
             questions: []
         });
+    }
+});
+
+// ===================================
+// 🔐 GATEWAY SIGNING (For Hostinger Uploads)
+// ===================================
+import crypto from 'crypto';
+
+/**
+ * GET /api/admin/gateway/sign-upload
+ * Returns HMAC signature for Hostinger upload gateway
+ */
+router.get('/gateway/sign-upload', (req, res) => {
+    try {
+        const secret = process.env.EMAIL_GATEWAY_SECRET;
+        if (!secret) {
+            return res.status(500).json({ success: false, error: 'Gateway secret not configured' });
+        }
+
+        const timestamp = Math.floor(Date.now() / 1000).toString();
+        const signature = crypto.createHmac('sha256', secret).update(timestamp).digest('hex');
+
+        res.json({
+            success: true,
+            timestamp,
+            signature
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 

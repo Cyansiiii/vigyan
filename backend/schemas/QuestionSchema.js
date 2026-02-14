@@ -23,7 +23,7 @@ const QuestionSchema = new mongoose.Schema(
             type: [String],
             required: [true, 'Options are required'],
             validate: {
-                validator: function(v) {
+                validator: function (v) {
                     return Array.isArray(v) && v.length >= 2 && v.length <= 6;
                 },
                 message: 'Question must have 2-6 options'
@@ -65,6 +65,10 @@ const QuestionSchema = new mongoose.Schema(
             type: String,
             enum: ['MCQ', 'Numerical', 'TrueFalse'],
             default: 'MCQ'
+        },
+        imageUrl: {
+            type: String,
+            default: null
         }
     },
     {
@@ -79,7 +83,7 @@ QuestionSchema.index({ section: 1, difficulty: 1 });
 QuestionSchema.index({ createdAt: -1 });
 
 // Virtual for backward compatibility with frontend
-QuestionSchema.virtual('id').get(function() {
+QuestionSchema.virtual('id').get(function () {
     return this._id.toString();
 });
 

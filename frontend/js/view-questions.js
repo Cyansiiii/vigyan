@@ -224,9 +224,15 @@ function viewQuestionDetails(id) {
                 <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
             </div>
             <div style="padding: 24px;">
-                <div style="margin-bottom: 16px;">
                     <strong style="color: #64748b; font-size: 12px;">QUESTION #${question.id}</strong>
                     <p style="font-size: 16px; margin-top: 8px; line-height: 1.6;">${question.question}</p>
+                    
+                    ${question.imageUrl ? `
+                        <div style="margin-top: 16px; padding: 12px; background: #f1f5f9; border-radius: 8px; text-align: center;">
+                            <img src="${question.imageUrl}" alt="Diagram" style="max-width: 100%; max-height: 300px; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                            <p style="margin-top: 8px; font-size: 11px; color: #64748b;">Question Diagram Attached</p>
+                        </div>
+                    ` : ''}
                 </div>
                 
                 <div style="margin-bottom: 16px;">

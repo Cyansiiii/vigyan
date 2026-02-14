@@ -37,6 +37,9 @@ export class Question {
         // Type (for future expansion: MCQ, Numerical, etc.)
         this.type = data.type || 'MCQ';
 
+        // Optional image URL
+        this.imageUrl = data.image_url || data.imageUrl || null;
+
         // Timestamps
         this.createdAt = data.created_at || data.createdAt || null;
         this.updatedAt = data.updated_at || data.updatedAt || null;
@@ -200,7 +203,8 @@ export class Question {
             difficulty: this.difficulty,
             marks_positive: this.marks,
             marks_negative: this.negativeMarks,
-            type: this.type
+            type: this.type,
+            image_url: this.imageUrl
         };
     }
 
@@ -220,7 +224,8 @@ export class Question {
             negativeMarks: this.negativeMarks,
             type: this.type,
             testId: this.testId,
-            questionNumber: this.questionNumber
+            questionNumber: this.questionNumber,
+            imageUrl: this.imageUrl
         };
     }
 
@@ -238,7 +243,8 @@ export class Question {
             marks: this.marks,
             negativeMarks: this.negativeMarks,
             type: this.type,
-            questionNumber: this.questionNumber
+            questionNumber: this.questionNumber,
+            imageUrl: this.imageUrl
         };
     }
 
@@ -270,7 +276,8 @@ export class Question {
             marks: data.marks,
             negativeMarks: data.negativeMarks,
             testId: data.testId,
-            type: data.type
+            type: data.type,
+            imageUrl: data.imageUrl || data.image_url
         });
     }
 }

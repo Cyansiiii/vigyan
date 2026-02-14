@@ -139,10 +139,20 @@
 
         document.getElementById('questionNumberDisplay').textContent = index + 1;
         document.getElementById('sectionTitle').textContent = currentSection;
-
-        const content = document.getElementById('questionContent');
-        // Support both 'text' (2025 format) and 'question' (2024 format)
-        content.innerHTML = question.text || question.question;
+        // Set Question Text
+        const questionTextElement = document.getElementById('questionContent'); // Changed from 'questionText' to 'questionContent' to match existing ID
+        if (questionTextElement) {
+            // Build inner HTML with image if present
+            let htmlContent = question.text || question.question || '';
+            if (question.imageUrl) {
+                htmlContent += `
+                    <div class="test-diagram-container" style="margin: 20px 0; text-align: center;">
+                        <img src="${question.imageUrl}" alt="Question Diagram" style="max-width: 100%; max-height: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>
+                `;
+            }
+            questionTextElement.innerHTML = htmlContent;
+        }
 
         const optionsContainer = document.getElementById('optionsContainer');
         optionsContainer.innerHTML = '';

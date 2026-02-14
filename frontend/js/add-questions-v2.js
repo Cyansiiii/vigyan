@@ -110,21 +110,23 @@ function initAddQuestions() {
                     </div>
                 </div>
                 
-                <!-- Question Text -->
-                <div class="form-section" style="margin-top: 24px;">
-                    <h3 style="margin-bottom: 20px; color: #0f172a; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-question-circle" style="color: #f59e0b;"></i> 
-                        Question Text
-                    </h3>
-                    
-                    <div class="form-group">
-                        <label for="questionText">Question *</label>
-                        <textarea id="questionText" required class="form-input" rows="5" 
-                            placeholder="Enter your question here. You can use LaTeX for math expressions (e.g., $$x^2 + y^2 = z^2$$)"></textarea>
-                        <small style="color: #64748b;">
-                            <i class="fas fa-lightbulb"></i> 
-                            Tip: Use $$....$$ for LaTeX math expressions
-                        </small>
+                    </div>
+
+                    <!-- Question Diagram Upload -->
+                    <div class="form-group" style="margin-top: 16px; padding: 16px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                        <label for="questionImage" style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-image" style="color: #6366f1;"></i> 
+                            Question Diagram (Optional)
+                        </label>
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <input type="file" id="questionImage" class="form-input" accept="image/*" style="flex: 1;" onchange="handleImageUpload(this)">
+                            <div id="imagePreviewContainer" style="display: none; position: relative;">
+                                <img id="imagePreview" src="" alt="Preview" style="max-height: 80px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <button type="button" onclick="clearImageUpload()" style="position: absolute; -top: 8px; -right: 8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; cursor: pointer;">&times;</button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="imageUrl" value="">
+                        <small id="uploadStatus" style="color: #64748b; margin-top: 8px; display: block;">Upload a diagram if this question needs one</small>
                     </div>
                 </div>
                 
@@ -344,6 +346,7 @@ function initAddQuestions() {
             const marks = parseInt(document.getElementById('marks').value);
             const questionText = document.getElementById('questionText').value.trim();
             const correctAnswer = document.getElementById('correctAnswer').value;
+            const imageUrl = document.getElementById('imageUrl').value;
 
             // Build options array
             const options = [
@@ -367,9 +370,14 @@ function initAddQuestions() {
                 testId += `_${paperType}`;
             }
 
-            // Prepare payload matching backend expectations
+            // Preparing payload matching backend expectations
             // Extract the numeric part from the generated ID (e.g., NEST_2026_123456 -> 123456)
-            const numericId = parseInt(questionNumber.split('_').pop());
+            const parts = questionNumber.split('_');
+            const numericId = parseInt(parts[parts.length - 1]);
+
+            if (isNaN(numericId)) {
+                throw new Error('Failed to generate a valid numeric Question ID. Please try re-selecting the exam settings.');
+            }
 
             const payload = {
                 testId: testId,
@@ -383,7 +391,8 @@ function initAddQuestions() {
                 section: subject,
                 marks: marks,
                 topic: "General", // Default topic
-                difficulty: "Medium" // Default difficulty
+                difficulty: "Medium", // Default difficulty
+                imageUrl: imageUrl || null
             };
 
             console.log('📤 Sending question to backend:', payload);
@@ -407,6 +416,7 @@ function initAddQuestions() {
             document.getElementById('optionC').value = '';
             document.getElementById('optionD').value = '';
             document.getElementById('correctAnswer').value = '';
+            clearImageUpload();
 
             // Generate next random ID for the same test
             generateQuestionId();
@@ -502,10 +512,73 @@ window.updateTestIdPreview = function () {
     preview.style.color = '#0284c7';
 };
 
-// Auto-initialize if container exists
-if (document.getElementById('add-questions-page')) {
-    initAddQuestions();
-}
+// --- IMAGE UPLOAD LOGIC ---
+
+window.handleImageUpload = async function (input) {
+    if (!input.files || !input.files[0]) return;
+
+    const file = input.files[0];
+    const status = document.getElementById('uploadStatus');
+    const preview = document.getElementById('imagePreview');
+    const container = document.getElementById('imagePreviewContainer');
+    const urlField = document.getElementById('imageUrl');
+
+    try {
+        status.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Getting secure signature...`;
+
+        // 1. Get HMAC signature from Railway backend
+        const auth = await window.AdminAPI.request('/api/admin/gateway/sign-upload');
+        if (!auth.success) throw new Error('Failed to get upload signature');
+
+        status.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading to Hostinger...`;
+
+        // 2. Upload to Hostinger PHP Gateway
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const uploadResponse = await fetch('https://vigyanprep.com/api/upload-question-image.php', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Upload-Signature': auth.signature,
+                'X-Upload-Timestamp': auth.timestamp
+            }
+        });
+
+        const result = await uploadResponse.json();
+        if (!result.success) throw new Error(result.error || 'Upload failed');
+
+        // 3. Success! Set URL and preview
+        urlField.value = result.url;
+        preview.src = result.url;
+        container.style.display = 'block';
+        status.innerHTML = `<i class="fas fa-check-circle" style="color: #10b981;"></i> Uploaded successfully!`;
+
+        console.log('📸 Diagram uploaded to Hostinger:', result.url);
+
+        if (window.AdminUtils) window.AdminUtils.showToast('Diagram uploaded successfully', 'success');
+
+    } catch (error) {
+        console.error('❌ Image upload failed:', error);
+        status.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #ef4444;"></i> ${error.message}`;
+        if (window.AdminUtils) window.AdminUtils.showToast(error.message, 'error');
+        input.value = ''; // clear file input
+    }
+};
+
+window.clearImageUpload = function () {
+    const input = document.getElementById('questionImage');
+    const status = document.getElementById('uploadStatus');
+    const preview = document.getElementById('imagePreview');
+    const container = document.getElementById('imagePreviewContainer');
+    const urlField = document.getElementById('imageUrl');
+
+    if (input) input.value = '';
+    if (urlField) urlField.value = '';
+    if (preview) preview.src = '';
+    if (container) container.style.display = 'none';
+    if (status) status.innerHTML = 'Upload a diagram if this question needs one';
+};
 
 // Export for module usage
 if (typeof window !== 'undefined') {
