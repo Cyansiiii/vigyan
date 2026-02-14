@@ -16,6 +16,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { apiLimiter, adminLimiter, loginLimiter, paymentLimiter } from './middlewares/rateLimiter.js';
 import { validateEnv } from './config/envValidator.js';
 
@@ -209,6 +210,7 @@ console.log('✅ Environment injection middleware ready');
 console.log('🔵 Setting up body parsers (2mb limit)...');
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
+app.use(cookieParser());
 
 // Razorpay is initialized in config/razorpay.js
 // This prevents circular dependencies

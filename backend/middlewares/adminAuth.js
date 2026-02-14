@@ -15,24 +15,10 @@ const JWT_EXPIRES_IN = '24h'; // Admin sessions last 24 hours
  */
 export async function verifyAdminAuth(req, res, next) {
     try {
-        // Extract token from multiple sources
-        let token = null;
-
-        // 1. Check Authorization header (Bearer token)
-        const authHeader = req.headers.authorization;
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-            token = authHeader.replace('Bearer ', '');
-        }
-
-        // 2. Check cookies (HTTP-only cookie - most secure)
-        if (!token && req.cookies?.admin_token) {
-            token = req.cookies.admin_token;
-        }
-
-        // 3. Check body (for backward compatibility)
-        if (!token && req.body?.adminToken) {
-            token = req.body.adminToken;
-        }
+        // Hybrid Auth: Support secure Cookie (for UX) and Bearer Header (for compatibility)
+        const token = req.cookies?.admin_token ||
+            req.headers.authorization?.replace('Bearer ', '') ||
+            req.body?.adminToken;
 
         if (!token) {
             console.warn('⚠️ Admin auth failed: No token provided');
