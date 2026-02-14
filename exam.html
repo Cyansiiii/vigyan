@@ -686,7 +686,15 @@
             document.getElementById('qNumDisplay').innerText = `Question No. ${q.questionNumber}`;
             document.getElementById('questionText').innerHTML = q.questionText;
 
-            document.getElementById('questionImageContainer').innerHTML = '';
+            const imgContainer = document.getElementById('questionImageContainer');
+            imgContainer.innerHTML = '';
+            if (q.imageUrl) {
+                const img = document.createElement('img');
+                img.src = q.imageUrl;
+                img.className = 'q-img';
+                img.alt = 'Question Diagram';
+                imgContainer.appendChild(img);
+            }
 
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';

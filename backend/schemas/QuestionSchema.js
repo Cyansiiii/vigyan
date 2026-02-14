@@ -1,97 +1,161 @@
-// Mongoose Schema for Questions
-// Replaces SQL questions table with MongoDB collection
-
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const QuestionSchema = new mongoose.Schema(
     {
         testId: {
             type: String,
-            required: [true, 'Test ID is required'],
-            index: true
+            required: [true, "Test ID is required"],
+            index: true,
         },
-        questionNumber: {
-            type: Number,
-            default: 0
-        },
-        questionText: {
+        status: {
             type: String,
-            required: [true, 'Question text is required'],
-            minlength: [5, 'Question text must be at least 5 characters']
+            enum: ["draft", "approved", "archived"],
+            default: "draft",
+            index: true,
         },
-        options: {
-            type: [String],
-            required: [true, 'Options are required'],
-            validate: {
-                validator: function (v) {
-                    return Array.isArray(v) && v.length >= 2 && v.length <= 6;
-                },
-                message: 'Question must have 2-6 options'
-            }
-        },
-        correctAnswer: {
-            type: String,
-            required: [true, 'Correct answer is required']
-        },
+        approvedAt: { type: Date, default: null },
+        archivedAt: { type: Date, default: null },
+
+        // Auto numbering (backend should set this)
+        questionNumber: { type: Number, default: 0 },
+
+        // You need Physics/Chem/Math filters
         section: {
             type: String,
             required: true,
-            enum: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'General'],
-            default: 'Physics',
-            index: true
+            enum: ["Physics", "Chemistry", "Mathematics", "Biology", "General"],
+            index: true,
         },
-        topic: {
+
+        // ✅ IMPORTANT: No default MCQ
+        // Backend must set this based on paper/test config while creating draft.
+        questionType: {
             type: String,
-            default: 'General'
+            enum: ["MCQ", "Numerical", "TrueFalse", "Descriptive"],
+            required: true,
+            index: true,
         },
-        difficulty: {
+
+        questionText: {
             type: String,
-            enum: ['Easy', 'Medium', 'Hard'],
-            default: 'Medium',
-            index: true
+            required: function () {
+                return this.status === "approved";
+            },
+            default: "",
+            minlength: [5, "Question text must be at least 5 characters"],
         },
-        marksPositive: {
+
+        // Image URL (store file separately, store link here)
+        imageUrl: { type: String, default: "" },
+
+        // MCQ/TrueFalse options (required only when approved + type requires it)
+        options: {
+            type: [String],
+            default: [],
+            validate: {
+                validator: function (v) {
+                    if (this.status !== "approved") return true;
+
+                    if (this.questionType === "MCQ") {
+                        return Array.isArray(v) && v.length === 4;
+                    }
+
+                    if (this.questionType === "TrueFalse") {
+                        // Can auto-fill ["True","False"] from backend, but validate anyway:
+                        return Array.isArray(v) && v.length === 2;
+                    }
+
+                    // Numerical/Descriptive do not require options
+                    return true;
+                },
+                message: "Options are invalid for the selected question type",
+            },
+        },
+
+        // For MCQ/TrueFalse: store correct option index (0..3 or 0..1)
+        correctOptionIndex: {
             type: Number,
-            default: 4,
-            min: [1, 'Marks must be at least 1'],
-            max: [10, 'Marks cannot exceed 10']
+            default: null,
+            validate: {
+                validator: function (v) {
+                    if (this.status !== "approved") return true;
+
+                    if (this.questionType === "MCQ") return v !== null && v >= 0 && v <= 3;
+                    if (this.questionType === "TrueFalse") return v !== null && v >= 0 && v <= 1;
+
+                    // Numerical/Descriptive do not use option index
+                    return v === null;
+                },
+                message: "Correct option index invalid for the selected question type",
+            },
         },
-        marksNegative: {
+
+        // Legacy support for plain string answer (used in migrations or single-answer types)
+        correctAnswer: {
+            type: String,
+            required: function () {
+                return this.status === 'approved' && (this.questionType === 'MCQ' || this.questionType === 'TrueFalse');
+            }
+        },
+
+        // For Numerical: correct numeric answer (+ optional tolerance)
+        correctNumericAnswer: {
             type: Number,
-            default: -1,
-            max: [0, 'Negative marks should be negative or zero']
+            default: null,
+            validate: {
+                validator: function (v) {
+                    if (this.status !== "approved") return true;
+                    if (this.questionType === "Numerical") return typeof v === "number";
+                    return v === null;
+                },
+                message: "Correct numeric answer required for Numerical questions",
+            },
         },
-        type: {
-            type: String,
-            enum: ['MCQ', 'Numerical', 'TrueFalse'],
-            default: 'MCQ'
+        numericTolerance: {
+            type: Number,
+            default: 0, // allow exact match by default
+            min: 0,
         },
-        imageUrl: {
+
+        // For Descriptive: model answer / key (manual checking or rubric-based later)
+        modelAnswer: {
             type: String,
-            default: null
-        }
+            default: "",
+            validate: {
+                validator: function (v) {
+                    if (this.status !== "approved") return true;
+                    if (this.questionType === "Descriptive") return typeof v === "string" && v.length >= 0;
+                    return true;
+                },
+                message: "Model answer invalid",
+            },
+        },
+
+        // Marks can remain here or be overridden by paper-level scheme
+        marksPositive: { type: Number, default: 4, min: 0 },
+        marksNegative: { type: Number, default: -1, max: 0 },
     },
-    {
-        timestamps: true, // Automatically adds createdAt and updatedAt
-        collection: 'questions'
-    }
+    { timestamps: true, collection: "questions" }
 );
 
-// Indexes for better query performance
-QuestionSchema.index({ testId: 1, questionNumber: 1 });
-QuestionSchema.index({ section: 1, difficulty: 1 });
-QuestionSchema.index({ createdAt: -1 });
-
-// Virtual for backward compatibility with frontend
-QuestionSchema.virtual('id').get(function () {
-    return this._id.toString();
+// Timestamp updates when status changes
+QuestionSchema.pre("save", function (next) {
+    if (this.isModified("status") && this.status === "approved" && !this.approvedAt) {
+        this.approvedAt = new Date();
+    }
+    if (this.isModified("status") && this.status === "archived" && !this.archivedAt) {
+        this.archivedAt = new Date();
+    }
+    next();
 });
 
-// Ensure virtuals are included in JSON
-QuestionSchema.set('toJSON', { virtuals: true });
-QuestionSchema.set('toObject', { virtuals: true });
+QuestionSchema.index({ testId: 1, status: 1, section: 1 });
+QuestionSchema.index({ testId: 1, questionNumber: 1 });
 
-// Create and export model
-const QuestionModel = mongoose.model('Question', QuestionSchema);
+QuestionSchema.virtual("id").get(function () {
+    return this._id.toString();
+});
+QuestionSchema.set("toJSON", { virtuals: true });
+QuestionSchema.set("toObject", { virtuals: true });
 
-export default QuestionModel;
+export default mongoose.model("Question", QuestionSchema);

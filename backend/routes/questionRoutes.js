@@ -154,7 +154,8 @@ router.post('/questions', async (req, res) => {
                 paperType,
                 questionNumber,
                 section,
-                marks: marks || 4,
+                marksPositive: savedQuestion.marksPositive,
+                marksNegative: savedQuestion.marksNegative,
                 difficulty: difficulty || 'Medium',
                 topic
             }
@@ -167,6 +168,38 @@ router.post('/questions', async (req, res) => {
             error: error.message,
             details: 'Failed to add question. Please check server logs.'
         });
+    }
+});
+
+/**
+ * POST /api/admin/questions/draft
+ * Creates a minimal draft question to provide an instant ID
+ */
+router.post('/questions/draft', async (req, res) => {
+    try {
+        const { testId, section, questionType } = req.body;
+
+        if (!testId || !section) {
+            return res.status(400).json({ success: false, error: 'testId and section are required for drafts' });
+        }
+
+        const draft = new QuestionModel({
+            testId,
+            section,
+            questionType: questionType || 'MCQ',
+            status: 'draft',
+            questionNumber: 0 // Will be set properly during final approval
+        });
+
+        const savedDraft = await draft.save();
+
+        res.status(201).json({
+            success: true,
+            id: savedDraft._id,
+            message: 'Draft created successfully'
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
@@ -196,7 +229,8 @@ router.get('/exam/questions', async (req, res) => {
 
         // Fetch all questions for this test, sorted by question number
         const questions = await QuestionModel.find({
-            testId: testId
+            testId: testId,
+            status: 'approved'
         }).sort({ questionNumber: 1 });
 
         if (questions.length === 0) {
@@ -207,30 +241,19 @@ router.get('/exam/questions', async (req, res) => {
             });
         }
 
-        // Parse options JSON for each question
-        const parsedQuestions = questions.map(q => {
-            let options = [];
-            try {
-                options = Array.isArray(q.options) ? q.options : (typeof q.options === 'string' ? JSON.parse(q.options) : []);
-            } catch (e) {
-                console.error(`⚠️ Failed to parse options for question ${q._id}:`, e);
-                options = [];
-            }
-
-            return {
-                _id: q._id,
-                testId: q.testId,
-                questionNumber: q.questionNumber || 0,
-                questionText: q.questionText,
-                options: options,
-                correctAnswer: q.correctAnswer,
-                section: q.section,
-                optionA: options[0] || '',
-                optionB: options[1] || '',
-                optionC: options[2] || '',
-                optionD: options[3] || ''
-            };
-        });
+        const parsedQuestions = questions.map(q => ({
+            _id: q._id,
+            testId: q.testId,
+            questionNumber: q.questionNumber || 0,
+            questionText: q.questionText,
+            options: q.options || [],
+            correctAnswer: q.correctAnswer,
+            section: q.section,
+            optionA: q.options?.[0] || '',
+            optionB: q.options?.[1] || '',
+            optionC: q.options?.[2] || '',
+            optionD: q.options?.[3] || ''
+        }));
 
         console.log(`✅ [STUDENT] Returning ${parsedQuestions.length} questions for ${testId}`);
 
@@ -286,32 +309,20 @@ router.get('/questions', async (req, res) => {
         console.log(`📊 [QUESTIONS] Found ${questions.length} questions`);
 
         const formattedQuestions = questions.map((q) => {
-            let options = [];
-
-            try {
-                if (q.options) {
-                    if (typeof q.options === 'string') {
-                        options = JSON.parse(q.options);
-                    } else if (Array.isArray(q.options)) {
-                        options = q.options;
-                    }
-                }
-            } catch (parseError) {
-                console.error(`❌ Question ${q._id}: Failed to parse options:`, parseError.message);
-                options = [];
-            }
-
             return {
                 id: q._id,
                 section: q.section || 'Physics',
                 topic: q.topic || 'General',
                 difficulty: q.difficulty || 'Medium',
-                marks: q.marks || 4,
+                marksPositive: q.marksPositive,
+                marksNegative: q.marksNegative,
                 question: q.questionText || '',
-                type: 'MCQ',
-                options: options,
+                type: q.questionType || 'MCQ',
+                status: q.status || 'approved',
+                options: q.options || [],
                 answer: q.correctAnswer || '',
-                testId: q.testId || 'UNKNOWN'
+                testId: q.testId || 'UNKNOWN',
+                imageUrl: q.imageUrl || ''
             };
         });
 
@@ -342,32 +353,23 @@ router.get('/questions/:id', async (req, res) => {
             });
         }
 
-        let options = [];
-        try {
-            if (question.options) {
-                if (typeof question.options === 'string') {
-                    options = JSON.parse(question.options);
-                } else if (Array.isArray(question.options)) {
-                    options = question.options;
-                }
-            }
-        } catch (parseError) {
-            console.error(`❌ Question ${question._id}: Failed to parse options:`, parseError.message);
-        }
-
         res.json({
             success: true,
             question: {
                 id: question._id,
-                section: question.section || 'Physics',
-                topic: question.topic || 'General',
-                difficulty: question.difficulty || 'Medium',
-                marks: question.marks || 4,
-                question: question.questionText || '',
-                type: 'MCQ',
-                options: options,
-                answer: question.correctAnswer || '',
-                testId: question.testId || 'UNKNOWN'
+                testId: question.testId,
+                questionNumber: question.questionNumber,
+                questionText: question.questionText,
+                options: question.options || [],
+                correctAnswer: question.correctAnswer,
+                section: question.section,
+                topic: question.topic,
+                difficulty: question.difficulty,
+                marksPositive: question.marksPositive,
+                marksNegative: question.marksNegative,
+                imageUrl: question.imageUrl,
+                status: question.status,
+                type: question.questionType
             }
         });
 
@@ -385,7 +387,17 @@ router.put('/questions/:id', async (req, res) => {
     try {
         console.log(`✏️ [QUESTIONS] Updating question ${req.params.id}`);
 
-        const { questionText, options, correctAnswer, section, marks, imageUrl } = req.body;
+        const {
+            questionText,
+            options,
+            correctAnswer,
+            section,
+            marksPositive,
+            marksNegative,
+            imageUrl,
+            questionType,
+            status
+        } = req.body;
 
         const updatedQuestion = await QuestionModel.findByIdAndUpdate(
             req.params.id,
@@ -394,8 +406,11 @@ router.put('/questions/:id', async (req, res) => {
                 options,
                 correctAnswer,
                 section,
-                marks,
-                imageUrl
+                marksPositive,
+                marksNegative,
+                imageUrl,
+                questionType,
+                status
             },
             { new: true }
         );

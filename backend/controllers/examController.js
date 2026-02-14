@@ -211,7 +211,8 @@ export const submitExam = async (req, res) => {
 
     // Get correct answers from questions collection
     const questions = await QuestionModel.find({
-      testId: testId
+      testId: testId,
+      status: 'approved'
     }).sort({ questionNumber: 1 });
 
     if (questions.length === 0) {
@@ -322,7 +323,8 @@ export const getQuestions = async (req, res) => {
 
     // Get questions from MongoDB
     const questions = await QuestionModel.find({
-      testId: testId
+      testId: testId,
+      status: 'approved'
     }).sort({ questionNumber: 1 });
 
     if (questions.length === 0) {
@@ -334,13 +336,17 @@ export const getQuestions = async (req, res) => {
 
     // Format response (remove correct answers for security)
     const formattedQuestions = questions.map(q => ({
-      _id: q._id,
-      testId: q.testId,
-      questionNumber: q.questionNumber || q._id.toString().charCodeAt(0) % 100,
-      questionText: q.questionText,
-      options: Array.isArray(q.options) ? q.options : safeJsonParse(q.options, [])
-      // ⚠️ correctAnswer NOT sent to client for security
+      id: q._id,
+      questionNumber: q.questionNumber,
+      question: q.questionText || "",
+      options: Array.isArray(q.options) ? q.options : [],
+      subject: q.section || "",
+      imageUrl: q.imageUrl || "",
+      marksPositive: q.marksPositive,
+      marksNegative: q.marksNegative,
+      questionType: q.questionType || 'MCQ'
     }));
+    // ⚠️ correctAnswer NOT sent to client for security
 
     res.status(200).json({
       success: true,
