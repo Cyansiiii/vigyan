@@ -4,6 +4,15 @@
  * Secure endpoint to proxy email requests from Railway (Node.js) to Hostinger (SMTP).
  */
 
+// Load .env variables if vendor/autoload.php exists
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+    if (class_exists('Dotenv\Dotenv')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->safeLoad();
+    }
+}
+
 header('Content-Type: application/json');
 
 // 1. CONFIGURATION
