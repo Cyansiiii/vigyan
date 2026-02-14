@@ -264,9 +264,20 @@ function handleTypeChange() {
         if (type === 'TrueFalse') {
             document.getElementById('optionA').value = 'True';
             document.getElementById('optionB').value = 'False';
-            document.getElementById('optionC').parentElement.style.display = 'none';
-            document.getElementById('optionD').parentElement.style.display = 'none';
+
+            const optC = document.getElementById('optionC');
+            const optD = document.getElementById('optionD');
+
+            optC.required = false;
+            optD.required = false;
+            optC.value = '';
+            optD.value = '';
+
+            optC.parentElement.style.display = 'none';
+            optD.parentElement.style.display = 'none';
         } else {
+            document.getElementById('optionC').required = true;
+            document.getElementById('optionD').required = true;
             document.getElementById('optionC').parentElement.style.display = 'block';
             document.getElementById('optionD').parentElement.style.display = 'block';
         }

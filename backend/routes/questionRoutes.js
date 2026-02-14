@@ -195,6 +195,7 @@ router.get('/questions', async (req, res) => {
                 status: q.status || 'approved',
                 options: q.options || [],
                 answer: q.correctAnswer || '',
+                correctOptionIndex: q.correctOptionIndex,
                 testId: q.testId || 'UNKNOWN',
                 imageUrl: q.imageUrl || ''
             };
@@ -273,19 +274,31 @@ router.put('/questions/:id', async (req, res) => {
             status
         } = req.body;
 
+        const updateData = {
+            questionText,
+            options,
+            correctAnswer,
+            section,
+            marksPositive,
+            marksNegative,
+            imageUrl,
+            questionType,
+            status
+        };
+
+        // Re-map correctOptionIndex if necessary
+        const qType = questionType || (await QuestionModel.findById(req.params.id))?.questionType || 'MCQ';
+        if ((qType === 'MCQ' || qType === 'TrueFalse') && correctAnswer && options) {
+            const mapping = { 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+            const index = mapping[correctAnswer.toUpperCase()];
+            if (index !== undefined) {
+                updateData.correctOptionIndex = index;
+            }
+        }
+
         const updatedQuestion = await QuestionModel.findByIdAndUpdate(
             req.params.id,
-            {
-                questionText,
-                options,
-                correctAnswer,
-                section,
-                marksPositive,
-                marksNegative,
-                imageUrl,
-                questionType,
-                status
-            },
+            updateData,
             { new: true }
         );
 

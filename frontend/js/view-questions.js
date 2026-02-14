@@ -188,7 +188,7 @@ function displayQuestions(questions) {
             <td><span class="badge badge-${(q.section || q.subject || 'General').toLowerCase()}">${q.section || q.subject || 'General'}</span></td>
             <td>${q.topic || 'N/A'}</td>
             <td><span class="difficulty-${(q.difficulty || 'Medium').toLowerCase()}">${q.difficulty || 'Medium'}</span></td>
-            <td><strong>${q.marks}</strong></td>
+            <td><span style="color: #10b981;">+${q.marksPositive || 4}</span> / <span style="color: #ef4444;">${q.marksNegative || -1}</span></td>
             <td style="max-width: 400px;">
                 <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${q.question}">
                     ${q.question}
@@ -238,12 +238,15 @@ function viewQuestionDetails(id) {
                 <div style="margin-bottom: 16px;">
                     <strong style="color: #64748b; font-size: 12px;">OPTIONS</strong>
                     <div style="margin-top: 8px;">
-                        ${question.options ? question.options.map((opt, idx) => `
-                            <div style="padding: 8px; background: ${question.answer === opt ? '#d1fae5' : '#f8fafc'}; border-radius: 6px; margin-bottom: 4px;">
-                                <strong>${String.fromCharCode(65 + idx)}.</strong> ${opt}
-                                ${question.answer === opt ? '<i class="fas fa-check" style="color: #10b981; float: right;"></i>' : ''}
-                            </div>
-                        `).join('') : '<p style="color: #94a3b8;">No options available</p>'}
+                        ${question.options ? question.options.map((opt, idx) => {
+        const isCorrect = (question.correctOptionIndex !== undefined && question.correctOptionIndex === idx) || (question.answer === opt);
+        return `
+                                <div style="padding: 8px; background: ${isCorrect ? '#d1fae5' : '#f8fafc'}; border-radius: 6px; margin-bottom: 4px;">
+                                    <strong>${String.fromCharCode(65 + idx)}.</strong> ${opt}
+                                    ${isCorrect ? '<i class="fas fa-check" style="color: #10b981; float: right;"></i>' : ''}
+                                </div>
+                            `;
+    }).join('') : '<p style="color: #94a3b8;">No options available</p>'}
                     </div>
                 </div>
                 
@@ -262,7 +265,7 @@ function viewQuestionDetails(id) {
                     </div>
                     <div>
                         <strong style="color: #64748b; font-size: 12px;">MARKS</strong>
-                        <p><strong>${question.marks}</strong></p>
+                        <p><span style="color: #10b981;">+${question.marksPositive || 4}</span> / <span style="color: #ef4444;">${question.marksNegative || -1}</span></p>
                     </div>
                     <div>
                         <strong style="color: #64748b; font-size: 12px;">TYPE</strong>
@@ -295,9 +298,10 @@ function editQuestionModal(id) {
         { key: 'section', label: 'Subject', type: 'select', options: ['Physics', 'Chemistry', 'Mathematics', 'Biology'], value: question.section },
         { key: 'topic', label: 'Topic', type: 'text', value: question.topic || '' },
         { key: 'difficulty', label: 'Difficulty', type: 'select', options: ['Easy', 'Medium', 'Hard'], value: question.difficulty },
-        { key: 'marks', label: 'Marks', type: 'number', value: question.marks },
+        { key: 'marksPositive', label: 'Marks (+)', type: 'number', value: question.marksPositive || 4 },
+        { key: 'marksNegative', label: 'Marks (-)', type: 'number', value: question.marksNegative || -1 },
         { key: 'questionText', label: 'Question Text', type: 'textarea', value: question.question || question.questionText },
-        { key: 'correctAnswer', label: 'Correct Answer', type: 'select', options: ['A', 'B', 'C', 'D'], value: question.answer || question.correctAnswer }
+        { key: 'correctAnswer', label: 'Correct Answer (A/B/C/D)', type: 'select', options: ['A', 'B', 'C', 'D'], value: question.answer || question.correctAnswer }
     ];
 
     // Handle options specifically if they exist
@@ -321,7 +325,8 @@ function editQuestionModal(id) {
                 section: updatedData.section,
                 topic: updatedData.topic,
                 difficulty: updatedData.difficulty,
-                marks: parseInt(updatedData.marks),
+                marksPositive: parseInt(updatedData.marksPositive),
+                marksNegative: parseInt(updatedData.marksNegative),
                 questionText: updatedData.questionText,
                 correctAnswer: updatedData.correctAnswer,
                 options: [

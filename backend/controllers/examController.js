@@ -29,6 +29,13 @@ const evaluateQuestionScore = (q, userAnswer) => {
     const targetNum = correctNumericAnswer;
     const tolerance = numericTolerance || 0;
     isCorrect = !isNaN(userNum) && Math.abs(userNum - targetNum) <= tolerance;
+  } else if (qType === 'Descriptive') {
+    return {
+      isCorrect: false,
+      status: 'pending_manual',
+      marks: 0,
+      correctAnswerText: q.modelAnswer || ''
+    };
   }
 
   const marks = isCorrect ? (marksPositive || 4) : (marksNegative || -1);
@@ -296,7 +303,8 @@ export const submitExam = async (req, res) => {
         correctAnswer: result.correctAnswerText,
         isCorrect: result.isCorrect,
         status: result.status,
-        marks: result.marks
+        marks: result.marks,
+        section: q.section
       });
     });
 
