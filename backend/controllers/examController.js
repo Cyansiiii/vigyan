@@ -33,7 +33,7 @@ const evaluateQuestionScore = (q, userAnswer) => {
     return {
       isCorrect: false,
       status: 'pending_manual',
-      marks: 0,
+      marks: 0, // No automatic negative marks for Descriptive
       correctAnswerText: q.modelAnswer || ''
     };
   }
