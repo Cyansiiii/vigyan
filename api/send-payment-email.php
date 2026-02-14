@@ -13,6 +13,12 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     }
 }
 
+// Disable error display to prevent JSON corruption
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/php_error.log');
+
 header('Content-Type: application/json');
 
 // 1. CONFIGURATION
@@ -36,7 +42,11 @@ if (!$GATEWAY_SECRET || !$SMTP_CONFIG['pass']) {
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if (file_exists(__DIR__ . '/PHPMailer/src/Exception.php')) {
+if (file_exists(__DIR__ . '/PHPMailer/Exception.php')) {
+    require __DIR__ . '/PHPMailer/Exception.php';
+    require __DIR__ . '/PHPMailer/PHPMailer.php';
+    require __DIR__ . '/PHPMailer/SMTP.php';
+} else if (file_exists(__DIR__ . '/PHPMailer/src/Exception.php')) {
     require __DIR__ . '/PHPMailer/src/Exception.php';
     require __DIR__ . '/PHPMailer/src/PHPMailer.php';
     require __DIR__ . '/PHPMailer/src/SMTP.php';
