@@ -16,17 +16,17 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 header('Content-Type: application/json');
 
 // 1. CONFIGURATION
-$GATEWAY_SECRET = getenv('EMAIL_GATEWAY_SECRET');
+$GATEWAY_SECRET = $_ENV['EMAIL_GATEWAY_SECRET'] ?? getenv('EMAIL_GATEWAY_SECRET');
 $SMTP_CONFIG = [
-    'host' => getenv('EMAIL_HOST') ?: 'smtp.hostinger.com',
-    'port' => getenv('EMAIL_PORT') ?: 465,
-    'user' => getenv('EMAIL_USER') ?: 'noreply@vigyanprep.com',
-    'pass' => getenv('EMAIL_PASSWORD'),
+    'host' => ($_ENV['EMAIL_HOST'] ?? getenv('EMAIL_HOST')) ?: 'smtp.hostinger.com',
+    'port' => ($_ENV['EMAIL_PORT'] ?? getenv('EMAIL_PORT')) ?: 465,
+    'user' => ($_ENV['EMAIL_USER'] ?? getenv('EMAIL_USER')) ?: 'noreply@vigyanprep.com',
+    'pass' => $_ENV['EMAIL_PASSWORD'] ?? getenv('EMAIL_PASSWORD'),
 ];
 
 if (!$GATEWAY_SECRET || !$SMTP_CONFIG['pass']) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Critical server configuration missing.']);
+    echo json_encode(['success' => false, 'error' => 'Critical server configuration missing.', 'debug_env' => count($_ENV)]);
     exit;
 }
 
