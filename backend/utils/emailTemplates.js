@@ -103,29 +103,29 @@ export const getEnrollmentEmailHtml = (fullName, rollNumber, testSeriesName) => 
         <!-- HEADER / BRAND IDENTITY -->
         <tr>
             <td style="padding: 60px 40px; text-align: center; background: #000000; color: #ffffff;">
-                <!-- Golden Box Logo Style -->
-                <div style="display: inline-block; padding-bottom: 5px;">
+                <!-- Exact Website Logo Style -->
+                <div style="display: inline-block;">
                     <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
                         <tr>
-                            <td style="background-color: ${GOLD_TEXT}; padding: 10px 24px; border-radius: 4px;">
-                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; font-size: 32px; letter-spacing: 2px; color: #000000; text-transform: uppercase;">VIGYAN</span>
+                            <td style="padding: 0;">
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; font-size: 38px; letter-spacing: 2px; color: ${GOLD_TEXT}; text-transform: uppercase;">VIGYAN</span>
                             </td>
-                            <td style="padding-left: 12px;">
-                                <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 18px; color: #ffffff; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase;">. PREP</span>
+                            <td style="padding-left: 8px; vertical-align: baseline; padding-bottom: 5px;">
+                                <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; color: #94a3b8; letter-spacing: 2px; text-transform: lowercase;">. prep</span>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <!-- Golden Divider -->
-                <div style="height: 1px; width: 140px; background: linear-gradient(90deg, transparent, ${GOLD_TEXT}, transparent); margin: 30px auto 0;"></div>
+                <!-- Premium Decorative Underline -->
+                <div style="height: 1px; width: 160px; background: linear-gradient(90deg, transparent, ${GOLD_TEXT}, transparent); margin: 20px auto 0;"></div>
             </td>
         </tr>
 
         <!-- MAIN CONTENT AREA -->
         <tr>
             <td style="padding: 50px 50px;" class="content-box padding-mobile">
-                <!-- Greeting -->
-                <p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 28px; color: ${GOLD_TEXT};" class="gold-text-fix">Dear ${safeName},</p>
+                <!-- Greeting - Cursive & Title Case -->
+                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 34px; color: ${GOLD_TEXT};" class="gold-text-fix">Dear ${safeName},</p>
                 
                 <h1 style="margin: 25px 0; font-family: 'Cormorant Garamond', serif; font-size: 44px; line-height: 1.1; color: #000000; font-weight: 700;" class="text-main">
                     Your scientific journey <br>
