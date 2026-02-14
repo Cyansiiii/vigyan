@@ -12,12 +12,12 @@ const GOLD_TEXT = "#D4AF37";
  * 🛡️ XSS Protection: Escape HTML special characters
  */
 export const escapeHtml = (s = '') =>
-    String(s).replace(/[&<>"']/g, c => ({
+    String(s).replace(/[&<>"']/g, (c) => ({
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
         '"': '&quot;',
-        "'": '&#39;'
+        "'": '&#39;',
     }[c]));
 
 /**

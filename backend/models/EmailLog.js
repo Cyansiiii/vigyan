@@ -8,11 +8,19 @@ const emailLogSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['enrollment', 'score_report', 'other'],
+        enum: ['enrollment', 'score_report', 'PAYMENT_CONFIRMATION', 'other'],
         default: 'enrollment'
     },
     testId: String,
     rollNumber: String,
+    paymentId: {
+        type: String,
+        index: true
+    },
+    attempts: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: String,
         enum: ['sent', 'failed'],

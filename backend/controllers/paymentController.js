@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import razorpayInstance from "../config/razorpay.js";
-import nodemailer from "nodemailer";
 import { StudentPayment } from "../models/StudentPayment.js";
 import { PurchasedTest } from "../models/PurchasedTest.js";
 import { PaymentTransaction } from "../models/PaymentTransaction.js";
@@ -11,37 +10,52 @@ import mongoose from "mongoose";
 import { getEnrollmentEmailHtml } from "../utils/emailTemplates.js";
 import { generateAuthToken } from '../middlewares/auth.js';
 
-// Create Nodemailer transporter with Hostinger SMTP
-// ✅ FIXED: Using smart port detection for Railway/Hostinger compatibility
-const emailPort = parseInt(process.env.EMAIL_PORT) || 587;
-export const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
-  port: emailPort,
-  secure: emailPort === 465, // true for 465 (SSL), false for 587 (STARTTLS)
-  auth: {
-    user: process.env.EMAIL_USER || 'noreply@vigyanprep.com',
-    pass: process.env.EMAIL_PASSWORD || 'Buddy700@@@@',
-  },
-  tls: {
-    rejectUnauthorized: false,
-    minVersion: 'TLSv1.2'
-  },
-  connectionTimeout: 10000, // 10 seconds
-  greetingTimeout: 10000,    // 10 seconds
-  socketTimeout: 15000       // 15 seconds
-});
+// 🚀 NEW: PHP Email Gateway Configuration
+const gatewayUrl = process.env.EMAIL_GATEWAY_URL;
+const gatewaySecret = process.env.EMAIL_GATEWAY_SECRET;
 
-// Verify transporter configuration
-if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
-  transporter.verify((error, success) => {
-    if (error) {
-      console.error('❌ Email transporter verification failed:', error);
-    } else {
-      console.log('✅ Email server is ready to send messages');
+/**
+ * 📧 Send email via secure PHP gateway on Hostinger
+ */
+async function sendGatewayEmail(payload, attempts = 0) {
+  try {
+    const timestamp = Math.floor(Date.now() / 1000);
+    const body = JSON.stringify({ ...payload, timestamp });
+
+    // Compute HMAC signature for gateway validation
+    const signature = crypto
+      .createHmac('sha256', gatewaySecret)
+      .update(body)
+      .digest('hex');
+
+    console.log(`📡 Sending email to gateway: ${payload.to} (${payload.paymentId})`);
+
+    const response = await fetch(gatewayUrl, {
+      method: 'POST',
+      headers: {
+        'X-Vigyan-Timestamp': timestamp.toString(),
+        'X-Vigyan-Signature': signature,
+        'Content-Type': 'application/json'
+      },
+      body
+    });
+
+    const result = await response.json();
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || `Gateway returned ${response.status}`);
     }
-  });
-} else {
-  console.warn('⚠️ Email credentials not configured - email functionality disabled');
+
+    return { success: true, result };
+  } catch (error) {
+    if (attempts < 2) {
+      const delay = Math.pow(2, attempts + 1) * 1000;
+      console.warn(`⚠️ Gateway attempt ${attempts + 1} failed, retrying in ${delay}ms...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return sendGatewayEmail(payload, attempts + 1);
+    }
+    console.error('❌ Gateway Email Final Failure:', error.message);
+    return { success: false, error: error.message };
+  }
 }
 
 // Helper function to safely extract first name from email
@@ -473,67 +487,64 @@ export const paymentVerification = async (req, res) => {
 
     console.log("✅ VERIFIED: Student record exists in database (Immediate Verification)");
 
-    // ✨ SEND EMAIL
-    console.log("📧 Attempting to send email via Nodemailer...");
+    // 📧 SEND EMAIL VIA SECURE PHP GATEWAY
+    console.log("📧 Initiating secure email delivery via Hostinger Gateway...");
 
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+    if (gatewayUrl && gatewaySecret) {
+      const testSeriesName = testId.toUpperCase();
+      const emailHtml = getEnrollmentEmailHtml(fullName.trim(), rollNumber, testSeriesName);
+
+      const payload = {
+        to: normalizedEmail,
+        subject: `✅ Registration Confirmed - ${testSeriesName} Test Series`,
+        html: emailHtml,
+        paymentId: razorpay_payment_id
+      };
+
       try {
-        const testSeriesName = testId.toUpperCase();
+        // Idempotency: Check if email already sent for this payment
+        const existingLog = await EmailLog.findOne({
+          paymentId: razorpay_payment_id,
+          type: 'PAYMENT_CONFIRMATION',
+          status: 'sent'
+        });
 
-        // Branded HTML Email Template
-        const emailHtml = getEnrollmentEmailHtml(fullName.trim(), rollNumber, testSeriesName);
+        if (existingLog) {
+          console.log(`⏭️ Email already sent for payment ${razorpay_payment_id}. Skipping.`);
+          emailWarning = null;
+        } else {
+          // Fire-and-forget delivery to avoid blocking the critical payment response
+          // Internal retries and logging will still occur in the background
+          sendGatewayEmail(payload)
+            .then(async (deliveryResult) => {
+              await EmailLog.findOneAndUpdate(
+                { paymentId: razorpay_payment_id, type: 'PAYMENT_CONFIRMATION' },
+                {
+                  email: normalizedEmail,
+                  type: 'PAYMENT_CONFIRMATION',
+                  testId,
+                  rollNumber,
+                  paymentId: razorpay_payment_id,
+                  status: deliveryResult.success ? 'sent' : 'failed',
+                  error: deliveryResult.error || null,
+                  $inc: { attempts: 1 },
+                  sentAt: deliveryResult.success ? new Date() : undefined
+                },
+                { upsert: true }
+              );
+              console.log(`✅ Background email processed for ${razorpay_payment_id}: ${deliveryResult.success ? 'SENT' : 'FAILED'}`);
+            })
+            .catch(err => console.error(`❌ Background email crash for ${razorpay_payment_id}:`, err.message));
 
-        const mailOptions = {
-          from: `"Vigyan.prep Exams" <${process.env.EMAIL_USER || 'noreply@vigyanprep.com'}>`,
-          to: normalizedEmail,
-          subject: `✅ Registration Confirmed - ${testSeriesName} Test Series`,
-          html: emailHtml,
-        };
-
-        // Send email asynchronously (do not await)
-        transporter.sendMail(mailOptions)
-          .then(async (info) => {
-            console.log(`✅ Email sent successfully to ${normalizedEmail}`);
-            // Log success
-            try {
-              await EmailLog.create({
-                email: normalizedEmail,
-                type: 'enrollment',
-                testId,
-                rollNumber,
-                status: 'sent',
-                messageId: info.messageId
-              });
-            } catch (logErr) {
-              console.error("❌ Failed to create EmailLog:", logErr.message);
-            }
-          })
-          .catch(async (emailError) => {
-            console.error("❌ Email Error:", emailError.message);
-            // Log failure
-            try {
-              await EmailLog.create({
-                email: normalizedEmail,
-                type: 'enrollment',
-                testId,
-                rollNumber,
-                status: 'failed',
-                error: emailError.message
-              });
-            } catch (logErr) {
-              console.error("❌ Failed to create EmailLog (Failure Case):", logErr.message);
-            }
-          });
-
-        emailWarning = null; // We already processed the intent to send
-
-      } catch (templateError) {
-        console.error("❌ Email Template/Options Error:", templateError.message);
-        emailWarning = "Email generation failed";
+          emailWarning = null;
+        }
+      } catch (logOrGatewayErr) {
+        console.error("❌ Email Delivery/Logging Error:", logOrGatewayErr.message);
+        emailWarning = "Email delivery encountered a system error.";
       }
     } else {
-      console.warn('⚠️ Email credentials not configured');
-      emailWarning = "Email notifications are currently disabled";
+      console.warn('⚠️ Email Gateway not configured correctly');
+      emailWarning = "Email notifications are temporarily unavailable";
     }
 
     // 🔐 GENERATE JWT TOKEN FOR AUTHENTICATION
