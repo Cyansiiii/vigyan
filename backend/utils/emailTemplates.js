@@ -3,10 +3,11 @@
  * Featuring: Golden Aesthetics, Roman/Cursive Typography, Dark Mode Support
  */
 
-const GOLDEN_GRADIENT = "linear-gradient(135deg, #fdfcf0 0%, #D4AF37 50%, #996515 100%)";
-const DARK_BG = "#0a0a0f";
+const GOLDEN_GRADIENT = "linear-gradient(135deg, #fef3c7 0%, #D4AF37 50%, #996515 100%)";
+const DARK_BG = "#050508";
 const LIGHT_BG = "#ffffff";
-const GOLD_TEXT = "#D4AF37";
+const GOLD_TEXT = "#fcd34d"; // Amber-400 for better contrast
+const BRAND_GOLD = "#f59e0b"; // True Brand Gold
 
 /**
  * 🛡️ XSS Protection: Escape HTML special characters
@@ -73,13 +74,21 @@ export const getEnrollmentEmailHtml = (fullName, rollNumber, testSeriesName) => 
         /* DARK MODE STYLES */
         @media (prefers-color-scheme: dark) {
             .body-bg { background-color: #050508 !important; }
-            .email-container { background-color: #0d0d14 !important; }
+            .email-container { background-color: #0d0d14 !important; border-color: #1a1a25 !important; }
             .content-box { background-color: #0d0d14 !important; border-color: #1a1a25 !important; }
             .text-main { color: #f8fafc !important; }
             .text-muted { color: #94a3b8 !important; }
             .roll-number-box { background: #161622 !important; border-color: #2a2a38 !important; }
             .footer { background-color: #050508 !important; border-top-color: #1a1a25 !important; }
+            h1, h2, h3, p, span, td { color: inherit !important; }
+            .gold-text-fix { color: #fcd34d !important; }
         }
+
+        /* GMAIL DARK MODE HACKS */
+        [data-ogsc] .body-bg { background-color: #050508 !important; }
+        [data-ogsc] .email-container { background-color: #0d0d14 !important; }
+        [data-ogsc] .text-main { color: #f8fafc !important; }
+        [data-ogsc] .gold-text-fix { color: #fcd34d !important; }
 
         /* Responsive */
         @media only screen and (max-width: 600px) {
@@ -98,17 +107,17 @@ export const getEnrollmentEmailHtml = (fullName, rollNumber, testSeriesName) => 
                 <div style="display: inline-block; padding-bottom: 5px;">
                     <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
                         <tr>
-                            <td style="background-color: ${GOLD_TEXT}; padding: 8px 20px; border-radius: 4px;">
-                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; font-size: 28px; letter-spacing: 2px; color: #000000; text-transform: uppercase;">VIGYAN</span>
+                            <td style="background-color: ${GOLD_TEXT}; padding: 10px 24px; border-radius: 4px;">
+                                <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: italic; font-size: 32px; letter-spacing: 2px; color: #000000; text-transform: uppercase;">VIGYAN</span>
                             </td>
-                            <td style="padding-left: 10px;">
-                                <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase;">. PREP</span>
+                            <td style="padding-left: 12px;">
+                                <span style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 18px; color: #ffffff; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase;">. PREP</span>
                             </td>
                         </tr>
                     </table>
                 </div>
                 <!-- Golden Divider -->
-                <div style="height: 1px; width: 120px; background: linear-gradient(90deg, transparent, ${GOLD_TEXT}, transparent); margin: 25px auto 0;"></div>
+                <div style="height: 1px; width: 140px; background: linear-gradient(90deg, transparent, ${GOLD_TEXT}, transparent); margin: 30px auto 0;"></div>
             </td>
         </tr>
 
@@ -116,11 +125,11 @@ export const getEnrollmentEmailHtml = (fullName, rollNumber, testSeriesName) => 
         <tr>
             <td style="padding: 50px 50px;" class="content-box padding-mobile">
                 <!-- Greeting -->
-                <p style="margin: 0; font-family: 'Dancing Script', cursive; font-size: 32px; color: ${GOLD_TEXT};">Dear ${safeName},</p>
+                <p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 28px; color: ${GOLD_TEXT};" class="gold-text-fix">Dear ${safeName},</p>
                 
                 <h1 style="margin: 25px 0; font-family: 'Cormorant Garamond', serif; font-size: 44px; line-height: 1.1; color: #000000; font-weight: 700;" class="text-main">
                     Your scientific journey <br>
-                    <span style="color: ${GOLD_TEXT};">begins here.</span>
+                    <span style="color: ${GOLD_TEXT};" class="gold-text-fix">begins here.</span>
                 </h1>
 
                 <p style="margin: 0 0 35px 0; font-size: 17px; color: #374151; line-height: 1.7;" class="text-muted">
