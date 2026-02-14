@@ -18,9 +18,10 @@ const ADMIN_CREDENTIALS = {
 };
 
 // Startup diagnostic check (safe logging)
-if (ADMIN_CREDENTIALS.username && ADMIN_CREDENTIALS.passwordHash) {
+const IS_DEBUG = String(process.env.DEBUG || '').toLowerCase() === 'true';
+if (IS_DEBUG && ADMIN_CREDENTIALS.username && ADMIN_CREDENTIALS.passwordHash) {
     console.log(`🔐 Admin credentials found: User='${ADMIN_CREDENTIALS.username}', HashLength=${ADMIN_CREDENTIALS.passwordHash.length}`);
-} else {
+} else if (!ADMIN_CREDENTIALS.username || !ADMIN_CREDENTIALS.passwordHash) {
     console.error('❌ CRITICAL: Admin credentials missing in environment!');
 }
 

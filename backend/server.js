@@ -41,9 +41,14 @@ function logStartup(message) {
 logStartup('🚀 STARTING BACKEND SERVER.JS');
 logStartup(`Running on Node ${process.version}`);
 logStartup(`Env PORT: ${process.env.PORT}`);
-// 🔍 DEBUG: Log ALL Environment Keys
-const envKeys = Object.keys(process.env).sort();
-logStartup(`Available Env Keys: ${envKeys.join(', ')}`);
+// 🛡️ Debug Helpers
+const IS_DEBUG = String(process.env.DEBUG || '').toLowerCase() === 'true';
+
+// 🔍 DEBUG: Log ALL Environment Keys (Only in Debug mode)
+if (IS_DEBUG) {
+    const envKeys = Object.keys(process.env).sort();
+    logStartup(`Available Env Keys: ${envKeys.join(', ')}`);
+}
 
 // Load environment variables
 console.log('🔵 Loading environment variables...');

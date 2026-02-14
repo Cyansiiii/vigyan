@@ -20,9 +20,12 @@ const REQUIRED_SECRETS = [
 
 export function validateEnv() {
     const isProduction = process.env.NODE_ENV === 'production';
+    const isDebug = String(process.env.DEBUG || '').toLowerCase() === 'true';
     const missing = [];
 
-    console.log(`🛡️  Validating environment variables (${process.env.NODE_ENV || 'development'})...`);
+    if (isDebug) {
+        console.log(`🛡️  Validating environment variables (${process.env.NODE_ENV || 'development'})...`);
+    }
 
     REQUIRED_SECRETS.forEach(secret => {
         if (!process.env[secret]) {
@@ -48,7 +51,7 @@ export function validateEnv() {
             console.warn('Some features may not work correctly without these variables.');
             console.warn('?'.repeat(50) + '\n');
         }
-    } else {
+    } else if (isDebug) {
         console.log('✅ All required environment variables are present.');
     }
 }
