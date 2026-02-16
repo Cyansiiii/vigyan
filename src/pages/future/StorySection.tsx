@@ -4,10 +4,10 @@ const StorySection = ({ id, title, desc, children }) => {
     return (
         <motion.section
             id={id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.2, once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ amount: 0.3, once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="scroll-mt-32 pb-24 group"
         >
             <div className="mb-8">

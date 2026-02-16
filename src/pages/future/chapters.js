@@ -3,6 +3,7 @@ export const CHAPTERS = [
         id: "intro",
         title: "Strategic Vanguard",
         desc: "Pipeline Directive // v2025.1",
+        image: "/images/future/intro.png",
         summary: "Engage with the high-performance architecture of Indian science. From IAT qualification to global research leadership.",
         stats: [
             { label: "Grant Allocation", value: "₹4.2B", color: "text-blue-400" },
@@ -13,6 +14,7 @@ export const CHAPTERS = [
         id: "trajectory",
         title: "The Trajectory",
         desc: "Mapping your research journey from Phase I to Global Leadership.",
+        image: "/images/future/trajectory.png",
         phases: [
             {
                 id: "phase1",
@@ -44,6 +46,7 @@ export const CHAPTERS = [
         id: "sectors",
         title: "Sector Intel",
         desc: "Deep dives into specialized research horizons.",
+        image: "/images/future/sectors.png",
         items: [
             {
                 id: "quantum",
@@ -69,6 +72,7 @@ export const CHAPTERS = [
         id: "feedback",
         title: "System Feedback",
         desc: "Upload analytical data to improve the pipeline architecture.",
+        image: "/images/future/feedback.png",
         isForm: true
     }
 ];

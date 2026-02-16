@@ -15,7 +15,7 @@ export const useScrollSpy = (ids, offset = 100) => {
         };
 
         const observerOptions = {
-            rootMargin: `-${offset}px 0px -40% 0px`,
+            rootMargin: `-40% 0px -40% 0px`, // Targets the center 20% of the viewport
             threshold: 0,
         };
 

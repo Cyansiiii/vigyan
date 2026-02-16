@@ -6,6 +6,7 @@ import { useScrollSpy } from "./useScrollSpy";
 import TOC from "./TOC";
 import StorySection from "./StorySection";
 import SearchPalette from "./SearchPalette";
+import StickyMedia from "./StickyMedia";
 
 const FutureStory = () => {
     const activeId = useScrollSpy(CHAPTERS.map((c) => c.id), 100);
@@ -33,8 +34,8 @@ const FutureStory = () => {
             </div>
 
             {/* Navigation Header */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-white/5">
-                <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+            <header className="fixed top-0 left-0 right-0 z-[60] bg-[#020617]/80 backdrop-blur-xl border-b border-white/5">
+                <div className="max-w-[1600px] mx-auto px-10 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-bold tracking-tighter italic">Vigyan.prep</span>
                         <div className="h-4 w-px bg-white/10 mx-2" />
@@ -55,13 +56,16 @@ const FutureStory = () => {
                 </div>
             </header>
 
-            <main className="max-w-[1400px] mx-auto px-6 pt-40 pb-32">
-                <div className="flex gap-16 xl:gap-24 items-start">
-                    {/* Sticky TOC */}
-                    <TOC chapters={CHAPTERS} activeId={activeId} />
+            <main className="max-w-[1600px] mx-auto px-10 pt-40 pb-32">
+                <div className="flex flex-col lg:flex-row gap-16 xl:gap-24 items-start">
 
-                    {/* Content Sections */}
-                    <div className="flex-1 max-w-4xl">
+                    {/* Column 1: Sticky TOC (Left) */}
+                    <div className="hidden lg:block w-64 shrink-0">
+                        <TOC chapters={CHAPTERS} activeId={activeId} />
+                    </div>
+
+                    {/* Column 2: Scrolling Content (Middle) */}
+                    <div className="flex-1 lg:max-w-xl xl:max-w-2xl">
                         {CHAPTERS.map((chapter) => (
                             <StorySection
                                 key={chapter.id}
@@ -74,7 +78,7 @@ const FutureStory = () => {
                                         <p className="text-xl text-gray-300 leading-relaxed font-light">
                                             {chapter.summary}
                                         </p>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {chapter.stats.map((stat, i) => (
                                                 <div key={i} className="p-6 bg-white/[0.03] border border-white/5 rounded-2xl">
                                                     <div className={`text-4xl font-bold mb-1 ${stat.color}`}>{stat.value}</div>
@@ -86,26 +90,25 @@ const FutureStory = () => {
                                 )}
 
                                 {chapter.id === "trajectory" && (
-                                    <div className="relative pl-12 space-y-16">
-                                        {/* Vertical line for trajectory */}
-                                        <div className="absolute left-6 top-2 bottom-2 w-px bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 opacity-20" />
+                                    <div className="relative pl-10 space-y-16">
+                                        <div className="absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 opacity-20" />
 
                                         {chapter.phases.map((phase, i) => (
-                                            <div key={i} className="relative">
-                                                <div className="absolute -left-[30px] top-1 w-3 h-3 rounded-full bg-gray-900 border-2 border-white/20 group-hover:border-blue-500 transition-colors z-10" />
+                                            <div key={i} className="relative group/phase">
+                                                <div className="absolute -left-[25px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-900 border-2 border-white/20 group-hover/phase:border-blue-500 transition-colors z-10" />
                                                 <div className="mb-2 flex items-center gap-3">
                                                     <span className={`text-[10px] font-bold uppercase tracking-widest ${phase.tagColor}`}>{phase.tag}</span>
                                                     <span className="text-xs text-gray-500">[{phase.years}]</span>
                                                 </div>
-                                                <h4 className="text-2xl font-bold text-white mb-2">{phase.title}</h4>
-                                                <p className="text-gray-400">{phase.content}</p>
+                                                <h4 className="text-xl font-bold text-white mb-2">{phase.title}</h4>
+                                                <p className="text-sm text-gray-400 leading-relaxed">{phase.content}</p>
                                             </div>
                                         ))}
                                     </div>
                                 )}
 
                                 {chapter.id === "sectors" && (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-1 gap-6">
                                         {chapter.items.map((item, i) => (
                                             <div key={i} className="group/card p-6 bg-white/[0.03] border border-white/5 rounded-2xl hover:border-blue-500/30 transition-all duration-500">
                                                 <div className="flex items-center justify-between mb-4">
@@ -116,29 +119,22 @@ const FutureStory = () => {
                                                 </div>
                                                 <h4 className="text-xl font-bold text-white mb-2 group-hover/card:text-blue-400 transition-colors">{item.title}</h4>
                                                 <p className="text-sm text-gray-400 leading-relaxed">{item.content}</p>
-                                                <div className="mt-4 flex items-center gap-2 text-[10px] font-bold text-gray-500 opacity-0 group-hover/card:opacity-100 transition-opacity">
-                                                    READ INTEL <ArrowRight className="w-3 h-3" />
-                                                </div>
                                             </div>
                                         ))}
                                     </div>
                                 )}
 
                                 {chapter.id === "feedback" && (
-                                    <div className="space-y-8">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-6">
+                                        <div className="space-y-4">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Email Identity</label>
-                                                <input type="email" placeholder="scientist@vigyan.prep" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/50 transition-colors mt-2" />
+                                                <input type="email" placeholder="scientist@vigyan.prep" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/50 transition-colors" />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Roll Sequence</label>
-                                                <input type="text" placeholder="00-0000" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/50 transition-colors mt-2" />
+                                                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Log Entry</label>
+                                                <textarea placeholder="Enter system analysis..." className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm h-32 focus:outline-none focus:border-blue-500/50 transition-colors resize-none" />
                                             </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Log Entry</label>
-                                            <textarea placeholder="Enter system analysis..." className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm h-32 focus:outline-none focus:border-blue-500/50 transition-colors mt-2 resize-none" />
                                         </div>
                                         <button className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]">
                                             Upload Feedback Data
@@ -148,6 +144,12 @@ const FutureStory = () => {
                             </StorySection>
                         ))}
                     </div>
+
+                    {/* Column 3: Sticky Media (Right) */}
+                    <div className="hidden lg:block flex-1 sticky top-32">
+                        <StickyMedia chapters={CHAPTERS} activeId={activeId} />
+                    </div>
+
                 </div>
             </main>
 
