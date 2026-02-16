@@ -7,10 +7,6 @@ const SearchPalette = ({ chapters, isOpen, onClose }) => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                onClose(); // Toggle logic should be in parent, but for now we follow simple open/close
-            }
             if (e.key === 'Escape') onClose();
         };
         window.addEventListener('keydown', handleKeyDown);

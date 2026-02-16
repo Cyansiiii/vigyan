@@ -1,7 +1,12 @@
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const StickyMedia = ({ chapters, activeId }) => {
     const activeChapter = chapters.find((c) => c.id === activeId) || chapters[0];
+
+    const coordSet = useMemo(() =>
+        Math.random().toString(36).substring(7).toUpperCase(),
+        []);
 
     return (
         <div className="sticky top-32 w-full aspect-[16/10] overflow-hidden rounded-3xl border border-white/5 bg-white/[0.02] shadow-2xl">
@@ -15,7 +20,7 @@ const StickyMedia = ({ chapters, activeId }) => {
                 </div>
                 <div className="absolute bottom-4 right-4 flex items-center gap-2">
                     <div className="text-[10px] font-mono text-white/20 uppercase">
-                        Coord_Set::{Math.random().toString(36).substring(7).toUpperCase()}
+                        Coord_Set::{coordSet}
                     </div>
                 </div>
             </div>

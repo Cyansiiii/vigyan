@@ -16,7 +16,7 @@ const FutureStory = () => {
         const handleKeyDown = (e) => {
             if ((e.metaKey || e.ctrlKey) && e.key === "k") {
                 e.preventDefault();
-                setIsSearchOpen(true);
+                setIsSearchOpen(prev => !prev);
             }
         };
         window.addEventListener("keydown", handleKeyDown);
