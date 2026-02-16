@@ -26,6 +26,7 @@ export default defineConfig({
                 niser: path.resolve(__dirname, 'niser-pyq.html'),
                 iiser: path.resolve(__dirname, 'iiserpyqhome.html'),
                 subtittle: path.resolve(__dirname, 'subtittlepyq.html'),
+                future: path.resolve(__dirname, 'future-react.html'),
                 niser_matrix: path.resolve(__dirname, 'frontend/index-niser-pyq/index.html'),
             }
         }
