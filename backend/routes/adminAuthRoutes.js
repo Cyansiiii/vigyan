@@ -26,8 +26,8 @@ const escapeHtml = (unsafe) => {
 const router = express.Router();
 
 // PHP Email Gateway Configuration
-const gatewayUrl = process.env.EMAIL_GATEWAY_URL;
-const gatewaySecret = process.env.EMAIL_GATEWAY_SECRET;
+const gatewayUrl = process.env.EMAIL_GATEWAY_URL || 'https://vigyanprep.com/api/send-auth-email.php';
+const gatewaySecret = process.env.EMAIL_GATEWAY_SECRET || 'b4f84ea5e4b6c310243e8d2dbcd17fcd567845ba012b1cc1694f54e17de9c924';
 
 /**
  * 📧 Send email via secure PHP gateway on Hostinger
