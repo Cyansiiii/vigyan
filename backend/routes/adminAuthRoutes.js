@@ -256,7 +256,11 @@ router.post('/forgot-password', forgotPasswordLimiter, async (req, res) => {
 
         if (!delivery.success) {
             // We rolled the password in DB but email failed!
-            return res.status(500).json({ success: false, message: 'Password was reset, but email failed to send. Check server logs.' });
+            return res.status(500).json({
+                success: false,
+                message: 'Password was reset, but email failed to send. Check server logs.',
+                internal_gateway_error: delivery.error || 'Unknown gateway proxy error'
+            });
         }
 
         return res.status(200).json({
