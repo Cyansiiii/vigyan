@@ -10,47 +10,42 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import rateLimit from 'express-rate-limit';
+import nodemailer from 'nodemailer';
 import { generateAdminToken } from '../middlewares/adminAuth.js';
 import { Admin } from '../models/Admin.js';
 
 const router = express.Router();
 
-// PHP Email Gateway Configuration
-const gatewayUrl = process.env.EMAIL_GATEWAY_URL;
-const gatewaySecret = process.env.EMAIL_GATEWAY_SECRET;
-
 /**
- * 📧 Send email via secure PHP gateway on Hostinger
+ * 📧 Send email directly via Nodemailer (Hostinger SMTP)
+ * Bypasses PHP completely for a more secure, robust connection.
  */
-async function sendGatewayEmail(payload) {
+// Create the transporter once globally to reuse the connection pool
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
+    port: process.env.EMAIL_PORT ? Number(process.env.EMAIL_PORT) : 465,
+    secure: true,
+    auth: {
+        user: process.env.EMAIL_USER || 'support@vigyanprep.com',
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
+
+async function sendAdminEmail(payload) {
     try {
-        const timestamp = Math.floor(Date.now() / 1000);
-        const body = JSON.stringify({ ...payload, timestamp });
+        console.log(`📡 Sending email via Nodemailer to ${payload.to}...`);
 
-        // Compute HMAC signature for gateway validation
-        const signature = crypto
-            .createHmac('sha256', gatewaySecret)
-            .update(body)
-            .digest('hex');
-
-        console.log(`📡 Sending password reset email to gateway...`);
-        const response = await fetch(gatewayUrl, {
-            method: 'POST',
-            headers: {
-                'X-Vigyan-Timestamp': timestamp.toString(),
-                'X-Vigyan-Signature': signature,
-                'Content-Type': 'application/json'
-            },
-            body
+        const info = await transporter.sendMail({
+            from: '"Vigyan.prep Admin" <' + (process.env.EMAIL_USER || 'support@vigyanprep.com') + '>',
+            to: payload.to,
+            subject: payload.subject,
+            html: payload.html
         });
 
-        const result = await response.json();
-        if (!response.ok || !result.success) {
-            throw new Error(result.error || `Gateway returned ${response.status}`);
-        }
-        return { success: true, result };
+        console.log(`✅ Nodemailer SUCCESS: ${info.messageId}`);
+        return { success: true };
     } catch (error) {
-        console.error('❌ Forgot Password Gateway Failure:', error.message);
+        console.error('❌ Nodemailer Error:', error.message);
         return { success: false, error: error.message };
     }
 }
@@ -173,9 +168,9 @@ router.post('/forgot-password', forgotPasswordLimiter, async (req, res) => {
             return res.status(400).json({ success: false, message: 'Username is required' });
         }
 
-        if (!gatewayUrl || !gatewaySecret) {
-            console.error('❌ Missing EMAIL_GATEWAY_URL or SECRET. Cannot process password reset.');
-            return res.status(500).json({ success: false, message: 'Email gateway not configured on server' });
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+            console.error('❌ Missing Server SMTP Credentials. Cannot process password reset.');
+            return res.status(500).json({ success: false, message: 'Email provider not configured on server' });
         }
 
         // Find admin in DB (or fallback to process.env creation)
@@ -201,7 +196,7 @@ router.post('/forgot-password', forgotPasswordLimiter, async (req, res) => {
 
         console.log(`✅ Admin password reset in DB for ${username}. Sending email...`);
 
-        // Send Email via Hostinger PHP Gateway
+        // Send Email directly via NodeMailer
         const supportEmail = 'support@vigyanprep.com';
         const emailHtml = `
             <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
@@ -221,7 +216,7 @@ router.post('/forgot-password', forgotPasswordLimiter, async (req, res) => {
             html: emailHtml
         };
 
-        const delivery = await sendGatewayEmail(payload);
+        const delivery = await sendAdminEmail(payload);
 
         if (!delivery.success) {
             // We rolled the password in DB but email failed!
