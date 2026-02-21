@@ -22,8 +22,8 @@ window.APP_CONFIG = {
             return 'http://localhost:3000';
         }
 
-        // 3. PRODUCTION: Railway backend
-        return 'https://vigyan-production.up.railway.app';
+        // 3. PRODUCTION: Secure API Subdomain
+        return 'https://api.vigyanprep.com';
     })(),
 
     // Feature flags

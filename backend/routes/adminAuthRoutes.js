@@ -9,6 +9,7 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import rateLimit from 'express-rate-limit';
 import { generateAdminToken } from '../middlewares/adminAuth.js';
 import { Admin } from '../models/Admin.js';
 
@@ -122,14 +123,12 @@ router.post('/login', async (req, res) => {
         const adminToken = generateAdminToken(username);
 
         // Set HTTP-only cookie (cross-origin enabled)
-        // ⚠️ TEMPORARY: sameSite: 'none' for cross-domain auth
-        // TODO: Move to api.vigyanprep.com subdomain and change to 'lax'
-        // 🔐 SECURITY TRADE-OFF: SameSite=None required for cross-domain auth (Hostinger -> Railway)
-        // Must move to a unified domain (e.g. api.vigyanprep.com) to enable SameSite=Lax.
+        // ✅ SECURITY FIX: Moved to custom subdomain API to enable SameSite=Lax
+        // This fully secures the authentication session from cross-domain attacks.
         res.cookie('admin_token', adminToken, {
             httpOnly: true,
-            secure: true, // Specific requirement for SameSite=None
-            sameSite: 'none',
+            secure: true,
+            sameSite: 'lax',
             maxAge: 24 * 60 * 60 * 1000 // 24 hours
         });
 
@@ -157,7 +156,15 @@ router.post('/login', async (req, res) => {
  * POST /api/admin/auth/forgot-password
  * Email a newly generated random password to support@vigyanprep.com
  */
-router.post('/forgot-password', async (req, res) => {
+const forgotPasswordLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 3, // Limit each IP to 3 requests per hour
+    message: { success: false, message: 'Too many password reset attempts from this IP, please try again after an hour' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+router.post('/forgot-password', forgotPasswordLimiter, async (req, res) => {
     try {
         const { username } = req.body;
 

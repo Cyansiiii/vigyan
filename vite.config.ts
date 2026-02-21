@@ -6,8 +6,9 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// Base path is set to "/" because the app is deployed to the domain root (e.g., vigyanprep.com/)
 export default defineConfig({
-    base: "/dist/",
+    base: "/",
     plugins: [
 
         react(),
