@@ -87,6 +87,7 @@ const allowedOrigins = [
 
     // Production domains - ALL VARIATIONS
     'https://vigyanprep.com',
+    'https://api.vigyanprep.com',
     'http://vigyanprep.com',
     'https://www.vigyanprep.com',
     'http://www.vigyanprep.com',
