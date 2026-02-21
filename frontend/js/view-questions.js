@@ -239,7 +239,7 @@ function viewQuestionDetails(id) {
                     <strong style="color: #64748b; font-size: 12px;">OPTIONS</strong>
                     <div style="margin-top: 8px;">
                         ${question.options ? question.options.map((opt, idx) => {
-        const isCorrect = (question.correctOptionIndex !== undefined && question.correctOptionIndex === idx) || (question.answer === opt);
+        const isCorrect = (question.correctOptionIndex !== undefined && question.correctOptionIndex !== null && question.correctOptionIndex === idx);
         return `
                                 <div style="padding: 8px; background: ${isCorrect ? '#d1fae5' : '#f8fafc'}; border-radius: 6px; margin-bottom: 4px;">
                                     <strong>${String.fromCharCode(65 + idx)}.</strong> ${opt}

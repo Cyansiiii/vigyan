@@ -22,7 +22,7 @@ export class Question {
         this.testId = data.testId || data.test_id || null;
         this.questionNumber = data.questionNumber || data.question_number || 0;
         this.status = data.status || 'draft';
-        this.questionType = data.questionType || data.type || 'MCQ'; // Safe fallback for model instance
+        this.questionType = data.questionType || 'MCQ'; // Strictly use questionType
 
         // Content
         this.text = data.questionText || data.text || data.question || '';

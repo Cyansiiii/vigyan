@@ -60,7 +60,7 @@ router.post('/questions', async (req, res) => {
         } = req.body;
 
         // ===== VALIDATION =====
-        const qType = questionType || req.body.type;
+        const qType = questionType;
         if (!testId || !section || !questionText || !qType) {
             return res.status(400).json({ success: false, error: 'testId, section, questionText, and questionType are required' });
         }
@@ -244,7 +244,7 @@ router.get('/questions/:id', async (req, res) => {
                 marksNegative: question.marksNegative,
                 imageUrl: question.imageUrl,
                 status: question.status,
-                type: question.questionType
+                questionType: question.questionType
             }
         });
 
