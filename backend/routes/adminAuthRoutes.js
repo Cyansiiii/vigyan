@@ -23,11 +23,14 @@ const router = express.Router();
 // Create the transporter once globally to reuse the connection pool
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
-    port: process.env.EMAIL_PORT ? Number(process.env.EMAIL_PORT) : 465,
-    secure: true,
+    port: process.env.EMAIL_PORT ? Number(process.env.EMAIL_PORT) : 587,
+    secure: false, // true for 465, false for other ports (enables STARTTLS)
     auth: {
         user: process.env.EMAIL_USER || 'support@vigyanprep.com',
         pass: process.env.EMAIL_PASSWORD
+    },
+    tls: {
+        rejectUnauthorized: false // Helps bypass strict cert checks on shared hosts
     }
 });
 
