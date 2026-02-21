@@ -69,7 +69,8 @@ async function sendGatewayEmail(payload) {
             result = JSON.parse(textResponse);
         } catch (e) {
             console.error("Failed to parse gateway JSON. Raw text:", textResponse);
-            throw new Error("Gateway returned invalid JSON format.");
+            let summary = textResponse.substring(0, 200); // Send first 200 chars to frontend
+            throw new Error("Gateway returned invalid JSON format. Raw output: " + summary);
         }
 
         if (!response.ok || !result.success) {
