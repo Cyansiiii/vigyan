@@ -315,7 +315,7 @@
                         <input type="checkbox" id="rememberMe">
                         <span>Remember me</span>
                     </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <a href="#" class="forgot-password" id="forgotPasswordBtn">Forgot Password?</a>
                 </div>
 
                 <button type="submit" class="login-btn" id="loginBtn">
@@ -468,6 +468,65 @@
             btnText.textContent = 'Sign In';
             spinner.style.display = 'none';
         }
+
+        // ==========================================
+        // FORGOT PASSWORD LOGIC
+        // ==========================================
+        document.getElementById('forgotPasswordBtn').addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Hide previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            if (!username) {
+                showError('Please enter your username first to reset your password.');
+                document.getElementById('username').focus();
+                return;
+            }
+
+            const confirmReset = confirm(`Are you sure you want to reset the password for '${username}'? \\nThe new password will be emailed to support@vigyanprep.com.`);
+            if (!confirmReset) return;
+
+            // Show loading state on login button just for UI feedback
+            const loginBtn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+
+            loginBtn.disabled = true;
+            btnText.textContent = 'Sending Email...';
+            spinner.style.display = 'inline-block';
+
+            try {
+                console.log('📧 Requesting password reset for:', username);
+
+                const response = await fetch(`${API_URL}/api/admin/auth/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Show success
+                    successMessage.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
+                    successMessage.style.display = 'block';
+                    document.getElementById('password').value = ''; // clear old password
+                } else {
+                    showError(data.message || 'Failed to reset password');
+                }
+            } catch (error) {
+                console.error('❌ Forgot Password Error:', error);
+                showError('Unable to connect to server. Please try again later.');
+            } finally {
+                resetButton();
+            }
+        });
 
         // Pre-fill username if "Remember me" was used
         window.addEventListener('DOMContentLoaded', function () {
