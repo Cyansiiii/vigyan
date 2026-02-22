@@ -291,7 +291,9 @@ let LTPPreviewState = {
     currentSubjectIdx: 0,
     currentQuestionIdx: 0,
     statusMap: {}, // { questionId: 'not-visited' | 'answered' | 'marked' | 'marked-answered' }
-    answersMap: {}  // { questionId: selectedOptionId }
+    answersMap: {}, // { questionId: selectedOptionId }
+    lastRenderedQuestionId: null, // used to optimize MathJax
+    cachedSanitizedText: '' // used to optimize DOMPurify
 };
 
 // Open Perspective Preview (Student View)
@@ -338,6 +340,9 @@ function renderStudentPerspective() {
     const currentSection = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
     const currentQuestion = currentSection?.questions[LTPPreviewState.currentQuestionIdx];
 
+    // Abstract security evaluation to helper
+    const safeText = getLTPQuestionSafeText(currentQuestion);
+
     // Update status to visited if not answered
     if (currentQuestion && LTPPreviewState.statusMap[currentQuestion._id] === 'not-visited') {
         LTPPreviewState.statusMap[currentQuestion._id] = 'not-answered';
@@ -363,7 +368,7 @@ function renderStudentPerspective() {
                 
                 <div class="q-content">
                     <div style="font-size:16px; line-height:1.6; margin-bottom:25px;">
-                        ${currentQuestion?.questionText || 'No question content found.'}
+                        ${safeText}
                     </div>
 
                     <div class="options-grid" style="display:flex; flex-direction:column; gap:12px; margin-top:30px;">
@@ -453,6 +458,38 @@ function renderStudentPerspective() {
             </div>
         </div>
     `;
+
+    triggerLTPMathJax(currentQuestion?._id);
+}
+
+// --- Helper Modules for Clean Architecture ---
+
+function getLTPQuestionSafeText(question) {
+    if (!question || !question.questionText) return "No question content found.";
+
+    // Used cached string to prevent DOMPurify blocking UI thread on simple interactions
+    if (question._id === LTPPreviewState.lastRenderedQuestionId && LTPPreviewState.cachedSanitizedText) {
+        return LTPPreviewState.cachedSanitizedText;
+    }
+
+    let safeText = "";
+    if (window.DOMPurify) {
+        safeText = window.DOMPurify.sanitize(question.questionText);
+    } else {
+        // [CRITICAL] Prevent conditional XSS bypass
+        console.error("DOMPurify not loaded! Blocking question render for security.");
+        safeText = "<div style='color:red;'>[Security Alert] DOMPurify module missing. Cannot render input safely.</div>";
+    }
+
+    LTPPreviewState.cachedSanitizedText = safeText;
+    return safeText;
+}
+
+function triggerLTPMathJax(questionId) {
+    if (window.MathJax && questionId && questionId !== LTPPreviewState.lastRenderedQuestionId) {
+        LTPPreviewState.lastRenderedQuestionId = questionId;
+        setTimeout(() => MathJax.typesetPromise(), 50);
+    }
 }
 
 // --- Interactive Navigation Handlers ---

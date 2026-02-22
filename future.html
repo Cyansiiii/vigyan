@@ -4,859 +4,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Future Career in Science Research | Strategizing your Journey | Vigyan.prep</title>
-    <meta name="description"
-        content="Explore career trajectories in high-performance research. From IISER fellowship to global leadership at CERN, Max Planck, and beyond. Plan your scientific future with Vigyan.prep.">
-    <meta name="keywords"
-        content="career in research, IISER career path, scientist salary India, physics research careers, genomics research opportunities, cosmos science career, NEST career prospects">
-    <link rel="canonical" href="https://vigyanprep.com/future.html">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vigyanprep.com/future.html">
-    <meta property="og:title" content="Strategic Vanguard | Future Career in Science">
-    <meta property="og:description"
-        content="Engage with the high-performance architecture of Indian science. Map your trajectory from IAT to global research leadership.">
-    <meta property="og:image" content="https://vigyanprep.com/frontend/images/og-future.jpg">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link rel="stylesheet" href="frontend/css/global.css">
-    <link rel="stylesheet" href="frontend/css/user-panel.css">
-    <link rel="stylesheet" href="frontend/css/shared-nav-dropdown.css">
-    <link rel="stylesheet" href="frontend/css/future-hero.css">
-    <link rel="stylesheet" href="frontend/css/mobile-nav.css">
+    <title>Theoretical Physics & Astrophysics | Vigyan.prep</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- KaTeX for beautiful Math formatting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
 
     <style>
-        :root {
-            --accent: #3b82f6;
-            --purple: #8b5cf6;
-            --pink: #ec4899;
-            --navy: #020617;
-        }
-
-        * {
+        body,
+        html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--navy);
-            color: #f8fafc;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- ADVANCED NAVBAR --- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.25rem 3rem;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .math-header {
+            font-family: 'Cormorant Garamond', serif;
         }
 
-        .navbar.hidden-nav {
-            transform: translateY(-100%);
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: baseline;
-            cursor: pointer;
-            padding: 8px 0;
-            position: relative;
-        }
-
-        .logo .logo-vigyan {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 700;
-            font-style: italic;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 15%, #f59e0b 30%, #ffffff 50%, #fcd34d 70%, #f59e0b 85%, #fef3c7 100%);
-            background-size: 300% 300%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
-            animation: vigyanShimmer 4s ease-in-out infinite;
-        }
-
-        @keyframes vigyanShimmer {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .logo .logo-dot {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 1rem;
-            color: rgba(148, 163, 184, 0.5);
-            margin-left: 2px;
-        }
-
-        .logo .logo-prep {
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-            text-transform: lowercase;
-            color: rgba(148, 163, 184, 0.4);
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.5), transparent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #64748b;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: white;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
-
-        .btn-login {
-            background: white;
-            color: black;
-            padding: 0.75rem 2rem;
-            border-radius: 4px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            transition: 0.3s;
-        }
-
-        .btn-login:hover {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 0 30px var(--accent);
-        }
-
-
-        /* --- CYBERPUNK BACKGROUND --- */
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
-            background-size: 40px 40px;
-            z-index: -1;
-        }
-
-        .glow-spot {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            filter: blur(80px);
-            z-index: -1;
-            animation: floatBlob 10s infinite alternate;
-        }
-
-        @keyframes floatBlob {
-            0% {
-                transform: translate(0, 0);
-            }
-
-            100% {
-                transform: translate(100px, 50px);
-            }
-        }
-
-
-        /* --- TYPOGRAPHY & HERO --- */
-        .hero-title {
-            font-size: clamp(3.5rem, 10vw, 8rem);
-            font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: -3px;
-            color: white;
-            margin-bottom: 2rem;
-        }
-
-        .gradient-text {
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hud-text {
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            color: var(--accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .hud-text::before {
-            content: '';
-            width: 20px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-
-        /* --- ADVANCED TIMELINE (DRAW ON SCROLL) --- */
-        .timeline-container {
-            position: relative;
-            max-width: 1000px;
-            margin-top: 5rem;
-        }
-
-        /* The gray background line */
-        .timeline-track {
-            position: absolute;
-            left: 80px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(255, 255, 255, 0.05);
-            z-index: 0;
-        }
-
-        /* The colored line that fills up */
-        .timeline-progress {
-            position: absolute;
-            left: 80px;
-            top: 0;
-            width: 2px;
-            height: 0%;
-            background: linear-gradient(to bottom, var(--accent), var(--purple), var(--pink));
-            z-index: 1;
-            box-shadow: 0 0 20px var(--accent);
-        }
-
-
-        .timeline-item {
+        /* 50/50 Split Layout */
+        .layout-grid {
             display: grid;
-            grid-template-columns: 160px 1fr;
-            gap: 60px;
-            margin-bottom: 100px;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        /* Left: Scrolling Content */
+        .content-pane {
+            padding: 8rem 4rem 4rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
             position: relative;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(50px);
+            z-index: 10;
         }
 
-        .timeline-dot {
-            width: 12px;
-            height: 12px;
-            background: #020617;
-            border: 2px solid #334155;
-            border-radius: 50%;
-            position: absolute;
-            left: 75px;
-            top: 0;
-            transition: 0.3s;
-            z-index: 3;
+        .scroll-section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0.2;
+            transition: opacity 0.5s ease;
+            margin-bottom: 25vh;
         }
 
-        /* Active state for dot when line passes it */
-        .timeline-item.active .timeline-dot {
-            background: var(--accent);
-            border-color: var(--accent);
-            box-shadow: 0 0 30px var(--accent);
-            transform: scale(1.5);
+        .scroll-section.is-active {
+            opacity: 1;
         }
 
-
-        .timeline-content {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .equation-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
             padding: 2.5rem;
-            border-radius: 1rem;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 2.5rem 0;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .timeline-content:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.05);
+        /* Right: Sticky Canvas */
+        .canvas-pane {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background: #f1f5f9;
+            border-left: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 5;
         }
 
-
-        /* --- 3D TILT CARDS --- */
-        .sector-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            perspective: 1000px;
-        }
-
-        .tilt-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1.5rem;
-            padding: 3rem 2rem;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease;
-            cursor: pointer;
-        }
-
-        .tilt-content {
-            transform: translateZ(30px);
-        }
-
-        /* Elements pop out */
-        .tilt-card h3 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .tilt-card p {
-            color: #94a3b8;
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        .tilt-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 20px 50px -20px rgba(59, 130, 246, 0.3);
-        }
-
-
-        /* --- FEEDBACK FORM --- */
-        .glass-form {
-            background: rgba(10, 10, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2rem;
-            padding: 4rem;
-            backdrop-filter: blur(20px);
-        }
-
-        .input-field {
+        #physics-canvas {
             width: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
-            padding: 1.2rem;
-            color: white;
-            border-radius: 0.5rem;
-            margin-top: 0.5rem;
-            transition: 0.3s;
-        }
-
-        .input-field:focus {
-            border-color: var(--accent);
+            height: 100%;
             outline: none;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
         }
 
-        .rating-stars i {
-            font-size: 1.5rem;
-            color: #334155;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-right: 5px;
-        }
-
-        .rating-stars i.active {
-            color: #fbbf24;
-            text-shadow: 0 0 10px #fbbf24;
-        }
-
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3.5rem;
-            }
-
-            .timeline-track,
-            .timeline-progress {
-                left: 20px;
-            }
-
-            .timeline-dot {
-                left: 15px;
-            }
-
-            .timeline-item {
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .layout-grid {
                 grid-template-columns: 1fr;
-                padding-left: 50px;
-                gap: 20px;
             }
 
-            .navbar {
-                padding: 1rem 1.5rem;
+            .canvas-pane {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 50vh;
+                z-index: 1;
+                border-left: none;
+                border-bottom: 1px solid #e2e8f0;
             }
 
-            .nav-links {
-                display: none;
+            .content-pane {
+                margin-top: 50vh;
+                padding: 3rem 1.5rem;
+                background: white;
+                /* Ensure text is readable over scrolling if any overlap */
             }
 
-            /* Hide on mobile for simplicity or use hamburger */
+            .scroll-section {
+                min-height: 60vh;
+            }
         }
     </style>
 </head>
 
-<body>
-
-
-    <div class="grid-bg"></div>
-    <div class="glow-spot" style="top: -20%; left: -10%;"></div>
-    <div class="glow-spot"
-        style="bottom: -20%; right: -10%; background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);">
-    </div>
-
-
-    <div id="userDashboardContainer"></div>
-
-
-    <nav class="navbar" id="navbar">
-        <div class="logo"><span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
-                class="logo-prep">prep</span></div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="aboutpage.html">About</a>
-            <a href="subtittlepyq.html">PYQ</a>
-            <a href="testfirstpage.html">Tests</a>
-            <div class="nav-dropdown">
-                <a href="#" class="dropdown-trigger active">Future Career <i class="fas fa-chevron-down"></i></a>
-                <div class="dropdown-menu">
-                    <a href="future.html" style="color:#3b82f6">Future Career</a>
-                    <a href="sciencenews.html">Science News</a>
-                </div>
+<body class="bg-white text-slate-900">
+    <!-- Navbar (Simplified Academic) -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="frontend/assets/logo.svg" alt="Vigyan.prep" class="h-8"
+                    onerror="this.src='https://placehold.co/100x40?text=Vigyan';">
+                <span class="font-bold text-xl tracking-tight text-slate-800">vigyan<span
+                        class="text-blue-600">.prep</span></span>
+            </a>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+                <a href="#section-telescope" class="hover:text-blue-600 transition tracking-wide">Radio Astronomy</a>
+                <a href="#section-pulsar" class="hover:text-blue-600 transition tracking-wide">Pulsar Kinetics</a>
+                <a href="#section-noether" class="hover:text-blue-600 transition tracking-wide">Theoretical Symmetry</a>
             </div>
-            <div id="navLoginPlaceholder">
-                <a href="signinpage.html" class="btn-login">LOGIN</a>
-            </div>
-        </div>
-        <div class="hamburger">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+            <a href="testfirstpage.html"
+                class="px-5 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-slate-800 transition shadow-sm">
+                Access Labs
+            </a>
         </div>
     </nav>
 
+    <main class="layout-grid">
+        <!-- LEFT: Scrolling Text -->
+        <article class="content-pane" id="scroll-container">
 
-    <main class="max-w-7xl mx-auto px-6 pt-40 pb-40">
+            <section class="scroll-section" id="section-intro">
+                <span class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-3 block">Foundations of the
+                    Universe</span>
+                <h1 class="text-6xl md:text-7xl font-bold mb-6 text-slate-900 leading-tight">Physics & Astrophysics
+                    Formulation</h1>
+                <p class="text-xl text-slate-600 leading-relaxed mb-8 font-light">
+                    Vigyan.prep presents rigorous, mathematically grounded models of the universe's most profound
+                    mechanics. Scroll to analyze exact structures, stripping away abstract artistic interpretations to
+                    reveal pure, testable science.
+                </p>
+                <div class="h-px bg-slate-200 w-1/3 mt-4"></div>
+            </section>
 
-        <!-- Abstract Hero Canvas Section -->
-        <section class="future-hero-section">
-            <canvas id="future-canvas"></canvas>
-
-            <div class="future-hero-content">
-                <section class="mb-20">
-                    <div class="hud-text">PIPELINE DIRECTIVE // v2025.1</div>
-                    <h1 class="hero-title" id="typewriter"></h1>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 opacity-0" id="hero-content">
-                        <p class="text-slate-400 text-lg leading-relaxed border-l-2 border-blue-500/50 pl-6">
-                            Engage with the high-performance architecture of Indian science. From IAT qualification to
-                            global
-                            research leadership.
-                        </p>
-                        <div class="flex gap-12 items-center">
-                            <div>
-                                <div class="text-4xl font-black text-white">₹4.2B</div>
-                                <div class="text-xs text-blue-400 font-bold uppercase tracking-widest mt-1">Grant
-                                    Allocation
-                                </div>
-                            </div>
-                            <div>
-                                <div class="text-4xl font-black text-white">2026</div>
-                                <div class="text-xs text-purple-400 font-bold uppercase tracking-widest mt-1">Projection
-                                    Era
-                                </div>
-                            </div>
-                        </div>
+            <section class="scroll-section" id="section-telescope">
+                <span class="text-slate-500 font-bold uppercase tracking-widest text-xs mb-3 block">Module I //
+                    Informational Influx</span>
+                <h2 class="text-5xl font-bold mb-6 text-slate-900 leading-tight">Radio Astronomy & Signal Geometry</h2>
+                <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                    A radio telescope operates by collecting extremely faint, low-frequency electromagnetic radiation
+                    originating from deep space sources. Information transverses the cosmos as planar wavefronts.
+                </p>
+                <div class="equation-box">
+                    <p class="m-0 text-sm text-slate-500 uppercase font-bold tracking-wider">Antenna Theorem (Effective
+                        Area)</p>
+                    <div class="text-center w-full my-2">
+                        $$ A_e = \frac{\lambda^2}{4\pi} G $$
                     </div>
-                </section>
+                </div>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    The massive parabolic dish acts as a primary reflector, rigorously reflecting the incoming parallel
+                    planar waves vectors down to a single focal point—a sub-reflector housing the feed horn.
+                </p>
+            </section>
+
+            <section class="scroll-section" id="section-pulsar">
+                <span class="text-slate-500 font-bold uppercase tracking-widest text-xs mb-3 block">Module II // Extreme
+                    Stellar Remnants</span>
+                <h2 class="text-5xl font-bold mb-6 text-slate-900 leading-tight">Pulsar Rotational Kinetics</h2>
+                <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                    Following supernova core collapse, conservation of angular momentum forces the resulting neutron
+                    star to spin at extreme velocities. This forms a Pulsar—a highly magnetized, rigid body rotating in
+                    a vacuum.
+                </p>
+                <div class="equation-box">
+                    <p class="m-0 text-sm text-slate-500 uppercase font-bold tracking-wider">Rotational Kinetic Energy
+                    </p>
+                    <div class="text-center w-full my-2">
+                        $$ K_{rot} = \frac{1}{2} I \omega^2 $$
+                    </div>
+                </div>
+                <div class="equation-box mt-4">
+                    <p class="m-0 text-sm text-slate-500 uppercase font-bold tracking-wider">Magnetic Dipole Radiation
+                        Power</p>
+                    <div class="text-center w-full my-2">
+                        $$ P = \frac{\mu_0 m^2 \omega^4}{6\pi c^3} \sin^2\alpha $$
+                    </div>
+                </div>
+                <p class="text-lg text-slate-600 leading-relaxed mt-6">
+                    The misalignment angle $\alpha$ between the rotation axis and the magnetic dipole axis emits beams
+                    of electromagnetic radiation.
+                </p>
+            </section>
+
+            <section class="scroll-section" id="section-noether">
+                <span class="text-slate-500 font-bold uppercase tracking-widest text-xs mb-3 block">Module III //
+                    Theoretical Symmetries</span>
+                <h2 class="text-5xl font-bold mb-6 text-slate-900 leading-tight">Noether's Theorem & Conservation Laws
+                </h2>
+                <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                    Emmy Noether's profound theorem states that every differentiable symmetry of the action of a
+                    physical system generates a corresponding conservation law.
+                </p>
+                <div class="equation-box">
+                    <p class="m-0 text-sm text-slate-500 uppercase font-bold tracking-wider">Angular Momentum
+                        Conservation</p>
+                    <div class="text-center w-full my-2 space-y-4">
+                        $$ \text{If } \frac{\partial \mathcal{L}}{\partial \theta} = 0, \text{ then }
+                        \frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{\theta}}\right) = 0 $$
+                        $$ \implies \mathbf{L} = \mathbf{r} \times \mathbf{p} = \text{constant} $$
+                    </div>
+                </div>
+                <p class="text-lg text-slate-600 leading-relaxed mt-6">
+                    A continuous spatial rotational symmetry analytically proves that a system's angular momentum
+                    $\mathbf{L}$ remains strictly conserved over time independently of specific internal forces.
+                </p>
+            </section>
+
+            <div style="height: 40vh;"></div>
+        </article>
+
+        <!-- RIGHT: Sticky 3D Physics Modules -->
+        <aside class="canvas-pane">
+            <canvas id="physics-canvas"></canvas>
+
+            <!-- Contextual Overlay for Equations directly in 3D view -->
+            <div id="canvas-overlay"
+                class="absolute bottom-12 right-12 bg-white/95 backdrop-blur-md px-8 py-6 rounded-2xl border border-slate-200 shadow-2xl opacity-0 transition-opacity duration-300 pointer-events-none max-w-sm">
+                <h3 id="overlay-title" class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3"
+                    style="font-family: 'Inter', sans-serif;"></h3>
+                <div id="overlay-formula" class="text-slate-800 text-xl font-bold"
+                    style="font-family: 'Cormorant Garamond', serif;"></div>
             </div>
-        </section>
-
-
-        <section class="mb-40">
-            <h2 class="text-4xl font-black text-white mb-20 uppercase tracking-tight">The Trajectory</h2>
-
-            <div class="timeline-container">
-                <div class="timeline-track"></div>
-                <div class="timeline-progress" id="progressLine"></div>
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="text-right">
-                        <div class="text-blue-500 font-bold text-xs uppercase tracking-widest mb-1">Phase I</div>
-                        <div class="text-2xl font-black text-white">Years 1-5</div>
-                    </div>
-                    <div class="timeline-content">
-                        <h3 class="text-2xl font-bold text-white mb-2">Foundation at IISER</h3>
-                        <p class="text-slate-400 text-sm mb-4">Access to high-energy physics labs and genomic units.</p>
-                        <span class="text-xs font-bold bg-white/10 px-2 py-1 rounded text-blue-300">INSPIRE</span>
-                    </div>
-                </div>
-
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="text-right">
-                        <div class="text-purple-500 font-bold text-xs uppercase tracking-widest mb-1">Phase II</div>
-                        <div class="text-2xl font-black text-white">Years 6-10</div>
-                    </div>
-                    <div class="timeline-content">
-                        <h3 class="text-2xl font-bold text-white mb-2">Doctoral Research</h3>
-                        <p class="text-slate-400 text-sm mb-4">Leading specialized projects. Monthly stipends ₹37k+.</p>
-                        <span class="text-xs font-bold bg-white/10 px-2 py-1 rounded text-purple-300">JRF / SRF</span>
-                    </div>
-                </div>
-
-
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="text-right">
-                        <div class="text-pink-500 font-bold text-xs uppercase tracking-widest mb-1">Phase III</div>
-                        <div class="text-2xl font-black text-white">Leadership</div>
-                    </div>
-                    <div class="timeline-content">
-                        <h3 class="text-2xl font-bold text-white mb-2">Global Integration</h3>
-                        <p class="text-slate-400 text-sm mb-4">Positions at CERN, Max Planck, or Fermilab.</p>
-                        <span class="text-xs font-bold bg-white/10 px-2 py-1 rounded text-pink-300">POST-DOC</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="mb-40">
-            <h2 class="text-4xl font-black text-white mb-12 uppercase tracking-tight">Sector Intel</h2>
-            <div class="sector-grid">
-
-                <div class="tilt-card">
-                    <div class="tilt-content">
-                        <div class="hud-text">SECTOR A</div>
-                        <h3>Quantum</h3>
-                        <p>Focus on weak nuclear force simulations and CKM Matrix optimizations at TIFR.</p>
-                    </div>
-                </div>
-
-
-                <div class="tilt-card">
-                    <div class="tilt-content">
-                        <div class="hud-text">SECTOR B</div>
-                        <h3>Cosmos</h3>
-                        <p>Gravitational wave analysis (LIGO-India) and dark matter detection protocols.</p>
-                    </div>
-                </div>
-
-
-                <div class="tilt-card">
-                    <div class="tilt-content">
-                        <div class="hud-text">SECTOR C</div>
-                        <h3>Genomics</h3>
-                        <p>CRISPR-Cas9 applications in tropical disease vectors. Structural biology at NCBS.</p>
-                    </div>
-                </div>
-
-
-            </div>
-        </section>
-
-
-        <section class="glass-form">
-            <h2 class="text-5xl font-black text-white mb-8 text-center uppercase">System Feedback</h2>
-            <form id="feedbackForm" class="max-w-2xl mx-auto space-y-6">
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase">Email Identity</label>
-                        <input type="email" id="feedbackEmail" class="input-field" placeholder="scientist@iin.edu"
-                            required>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase">Roll Sequence</label>
-                        <input type="text" id="feedbackRoll" class="input-field" placeholder="00-0000" required>
-                    </div>
-                </div>
-
-
-                <div>
-                    <label class="text-xs font-bold text-slate-400 uppercase">Select Module</label>
-                    <select id="feedbackTest" class="input-field" required>
-                        <option value="">-- Choose Module --</option>
-                        <option value="iat">IAT Series</option>
-                        <option value="nest">NEST Series</option>
-                        <option value="isi">ISI Series</option>
-                    </select>
-                </div>
-
-
-                <div class="grid grid-cols-2 gap-8 py-4">
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase block mb-2">Login Experience</label>
-                        <div class="rating-stars" data-cat="login">
-                            <i class="fas fa-star" data-val="1"></i><i class="fas fa-star" data-val="2"></i><i
-                                class="fas fa-star" data-val="3"></i><i class="fas fa-star" data-val="4"></i><i
-                                class="fas fa-star" data-val="5"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase block mb-2">Interface Rating</label>
-                        <div class="rating-stars" data-cat="interface">
-                            <i class="fas fa-star" data-val="1"></i><i class="fas fa-star" data-val="2"></i><i
-                                class="fas fa-star" data-val="3"></i><i class="fas fa-star" data-val="4"></i><i
-                                class="fas fa-star" data-val="5"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-8 py-4">
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase block mb-2">Content Quality</label>
-                        <div class="rating-stars" data-cat="quality">
-                            <i class="fas fa-star" data-val="1"></i><i class="fas fa-star" data-val="2"></i><i
-                                class="fas fa-star" data-val="3"></i><i class="fas fa-star" data-val="4"></i><i
-                                class="fas fa-star" data-val="5"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase block mb-2">Server Latency</label>
-                        <div class="rating-stars" data-cat="server">
-                            <i class="fas fa-star" data-val="1"></i><i class="fas fa-star" data-val="2"></i><i
-                                class="fas fa-star" data-val="3"></i><i class="fas fa-star" data-val="4"></i><i
-                                class="fas fa-star" data-val="5"></i>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div>
-                    <label class="text-xs font-bold text-slate-400 uppercase">Log Entry</label>
-                    <textarea id="feedbackComment" class="input-field h-32" placeholder="Enter system analysis..."
-                        required></textarea>
-                </div>
-
-
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white font-black uppercase py-4 rounded hover:bg-blue-500 transition tracking-widest text-sm">
-                    Upload Feedback Data
-                </button>
-            </form>
-        </section>
-
-
+        </aside>
     </main>
 
-
-    <script src="frontend/js/config.js"></script>
-    <script src="frontend/js/auth.js"></script>
-    <script src="frontend/js/user-panel.js?v=GHOST_FIX_FINAL_V6"></script>
-    <script src="frontend/js/mobile-nav.js"></script>
-
-    <!-- Three.js Import Map -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
-    <script type="module" src="frontend/js/future-canvas.js"></script>
-
+    <!-- Scripts -->
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Custom Engine -->
+    <script type="module" src="frontend/js/academic-physics-engine.js"></script>
 
     <script>
-        // 1. TYPEWRITER EFFECT
-        const text = "STRATEGIC VANGUARD.";
-        const typeEl = document.getElementById('typewriter');
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                typeEl.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                // Fade in content after typing
-                document.getElementById('hero-content').style.transition = 'opacity 1s';
-                document.getElementById('hero-content').style.opacity = '1';
-            }
-        }
-        window.addEventListener('load', typeWriter);
-
-
-        // 2. SCROLL-LINKED TIMELINE DRAWING
+        // Simple GSAP activation for scroll sections
         gsap.registerPlugin(ScrollTrigger);
 
-
-        // Animate Line
-        gsap.to("#progressLine", {
-            height: "100%",
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".timeline-container",
-                start: "top center",
-                end: "bottom center",
-                scrub: 0.5
-            }
-        });
-
-
-        // Animate Items appearing
-        const items = document.querySelectorAll('.timeline-item');
-        items.forEach(item => {
-            gsap.to(item, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 80%",
-                    toggleClass: "active"
-                }
+        gsap.utils.toArray('.scroll-section').forEach(section => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top 60%", // Activate when top of section hits 60% of viewport height
+                end: "bottom 40%",
+                toggleClass: "is-active",
             });
         });
-
-
-        // 3. 3D TILT EFFECT
-        const cards = document.querySelectorAll('.tilt-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-            });
-        });
-
-
-        // 4. STAR RATINGS - NOW WITH ALL 4 CATEGORIES
-        const ratings = { login: 0, interface: 0, quality: 0, server: 0 };
-        document.querySelectorAll('.rating-stars').forEach(wrapper => {
-            const cat = wrapper.dataset.cat;
-            const stars = wrapper.querySelectorAll('i');
-
-            stars.forEach(star => {
-                star.addEventListener('click', () => {
-                    const val = parseInt(star.dataset.val);
-                    ratings[cat] = val;
-                    stars.forEach((s, idx) => {
-                        if (idx < val) s.classList.add('active');
-                        else s.classList.remove('active');
-                    });
-                });
-            });
-        });
-
-
-        // 5. FEEDBACK SUBMISSION
-        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Validate all ratings are filled
-            if (!ratings.login || !ratings.interface || !ratings.quality || !ratings.server) {
-                alert('⚠️ Please provide all 4 ratings before submitting!');
-                return;
-            }
-
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = "TRANSMITTING...";
-            btn.disabled = true;
-
-            try {
-                const data = {
-                    email: document.getElementById('feedbackEmail').value,
-                    rollNumber: document.getElementById('feedbackRoll').value,
-                    testId: document.getElementById('feedbackTest').value,
-                    comment: document.getElementById('feedbackComment').value,
-                    ratings: ratings
-                };
-
-                console.log('📤 Sending feedback:', data);
-
-                const res = await axios.post(`${API_BASE_URL}/api/feedback`, data);
-
-                console.log('✅ Response:', res.data);
-
-                if (res.data.success) {
-                    alert('✅ Feedback transmitted successfully! Check your email for confirmation.');
-                    e.target.reset();
-                    document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
-                    // Reset ratings
-                    ratings.login = 0;
-                    ratings.interface = 0;
-                    ratings.quality = 0;
-                    ratings.server = 0;
-                } else {
-                    alert('❌ Transmission Error: ' + (res.data.message || 'Unknown error'));
-                }
-            } catch (err) {
-                console.error('❌ Error:', err);
-                if (err.response) {
-                    console.error('❌ Response data:', err.response.data);
-                    alert('❌ Server Error: ' + (err.response.data.message || 'Please try again'));
-                } else if (err.request) {
-                    console.error('❌ No response from server');
-                    alert('❌ Server Downlink Failed. Please check if the backend is running.');
-                } else {
-                    alert('❌ Error: ' + err.message);
-                }
-            } finally {
-                btn.innerText = originalText;
-                btn.disabled = false;
-            }
-        });
-
-
-        // 6. INIT DASHBOARD
-        window.onload = function () {
-            typeWriter(); // Ensure typing starts
-            if (window.refreshUserDashboard) window.refreshUserDashboard();
-        };
     </script>
 </body>
 
