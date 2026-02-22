@@ -367,7 +367,7 @@ function renderStudentPerspective() {
                 </div>
                 
                 <div class="q-content">
-                    <div style="font-size:16px; line-height:1.6; margin-bottom:25px;">
+                    <div class="tex2jax_process" style="font-size:16px; line-height:1.6; margin-bottom:25px; color: #f8fafc;">
                         ${safeText}
                     </div>
 
@@ -486,9 +486,12 @@ function getLTPQuestionSafeText(question) {
 }
 
 function triggerLTPMathJax(questionId) {
-    if (window.MathJax && questionId && questionId !== LTPPreviewState.lastRenderedQuestionId) {
-        LTPPreviewState.lastRenderedQuestionId = questionId;
-        setTimeout(() => MathJax.typesetPromise(), 50);
+    // Always try to typeset, just debounce it to prevent freezing
+    if (window.MathJax) {
+        if (LTPPreviewState.typesetTimeout) clearTimeout(LTPPreviewState.typesetTimeout);
+        LTPPreviewState.typesetTimeout = setTimeout(() => {
+            MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+        }, 100);
     }
 }
 
