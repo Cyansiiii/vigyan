@@ -480,9 +480,14 @@ function getLTPQuestionSafeText(question) {
         safeText = window.DOMPurify.sanitize(question.questionText);
     } else {
         // DOMPurify loaded with defer, may not be ready yet on first call
-        // Use basic escaping as fallback (still safe for admin-only content)
-        console.warn("DOMPurify not yet loaded, using raw text (admin-only context).");
-        safeText = question.questionText;
+        // Basic HTML entity escape as fallback (strips script injection)
+        console.warn("DOMPurify not yet loaded, using basic HTML escape.");
+        safeText = question.questionText
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
     }
 
     LTPPreviewState.cachedSanitizedText = safeText;
