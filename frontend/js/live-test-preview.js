@@ -354,8 +354,30 @@ function renderStudentPerspective() {
     const content = document.getElementById('ltpPreviewContent');
     if (!LTPPreviewData) return;
 
+    if (!LTPPreviewData.sections || LTPPreviewData.sections.length === 0) {
+        content.innerHTML = `
+            <div style="padding:100px; text-align:center; color:white; background: #0f172a; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h3 style="margin-bottom: 20px;">No Sections Found</h3>
+                <p style="color: #94a3b8; margin-bottom: 30px;">This test does not have any questions or sections assigned to it yet.</p>
+                <button class="btn btn-primary" onclick="closeLTPPreview()">Close Preview</button>
+            </div>
+        `;
+        return;
+    }
+
     const currentSection = LTPPreviewData.sections[LTPPreviewState.currentSubjectIdx];
-    const currentQuestion = currentSection?.questions[LTPPreviewState.currentQuestionIdx];
+    const currentQuestion = currentSection?.questions ? currentSection.questions[LTPPreviewState.currentQuestionIdx] : null;
+
+    if (!currentQuestion) {
+        content.innerHTML = `
+            <div style="padding:100px; text-align:center; color:white; background: #0f172a; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h3 style="margin-bottom: 20px;">No Questions in Section</h3>
+                <p style="color: #94a3b8; margin-bottom: 30px;">This section is currently empty.</p>
+                <button class="btn btn-primary" onclick="closeLTPPreview()">Close Preview</button>
+            </div>
+        `;
+        return;
+    }
 
     // Abstract security evaluation to helper
     const safeText = getLTPQuestionSafeText(currentQuestion);
@@ -368,7 +390,7 @@ function renderStudentPerspective() {
     content.innerHTML = `
         <div class="student-view-header">
             <div>
-                <h4 style="margin:0">${LTPPreviewData.test_name}</h4>
+                <h4 style="margin:0">${LTPPreviewData.test_name || 'Test Preview'}</h4>
                 <div style="font-size:12px; opacity:0.8;">Admin Preview Mode</div>
             </div>
             <div style="text-align:right;">
