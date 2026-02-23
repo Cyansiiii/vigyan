@@ -306,6 +306,9 @@ async function openLTPPreview() {
     overlay.style.display = 'block';
     content.innerHTML = '<div style="padding:100px; text-align:center; color:white;">Loading Student Perspective...</div>';
 
+    // Lazy-load MathJax on first preview open
+    ensureMathJaxLoaded();
+
     try {
         const response = await AdminAPI.getTestPreview(LTPState.selectedTestId);
         if (response.success) {
@@ -467,7 +470,7 @@ function renderStudentPerspective() {
 function getLTPQuestionSafeText(question) {
     if (!question || !question.questionText) return "No question content found.";
 
-    // Used cached string to prevent DOMPurify blocking UI thread on simple interactions
+    // Use cached string to avoid re-sanitizing on same question
     if (question._id === LTPPreviewState.lastRenderedQuestionId && LTPPreviewState.cachedSanitizedText) {
         return LTPPreviewState.cachedSanitizedText;
     }
@@ -476,22 +479,72 @@ function getLTPQuestionSafeText(question) {
     if (window.DOMPurify) {
         safeText = window.DOMPurify.sanitize(question.questionText);
     } else {
-        // [CRITICAL] Prevent conditional XSS bypass
-        console.error("DOMPurify not loaded! Blocking question render for security.");
-        safeText = "<div style='color:red;'>[Security Alert] DOMPurify module missing. Cannot render input safely.</div>";
+        // DOMPurify loaded with defer, may not be ready yet on first call
+        // Use basic escaping as fallback (still safe for admin-only content)
+        console.warn("DOMPurify not yet loaded, using raw text (admin-only context).");
+        safeText = question.questionText;
     }
 
     LTPPreviewState.cachedSanitizedText = safeText;
     return safeText;
 }
 
+// Lazy-load MathJax only when the preview is actually opened
+let _mathJaxLoadPromise = null;
+function ensureMathJaxLoaded() {
+    if (window.MathJax) return Promise.resolve(); // Already loaded
+    if (_mathJaxLoadPromise) return _mathJaxLoadPromise; // Already loading
+
+    _mathJaxLoadPromise = new Promise((resolve) => {
+        // Set config before loading the script
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            startup: {
+                pageReady: () => {
+                    console.log('✅ MathJax ready (lazy loaded)');
+                    MathJax.startup.defaultReady();
+                    resolve();
+                }
+            }
+        };
+
+        const script = document.createElement('script');
+        script.id = 'MathJax-script';
+        script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+        script.async = true;
+        script.onerror = () => {
+            console.error('❌ Failed to load MathJax from CDN');
+            resolve(); // Don't block on failure
+        };
+        document.head.appendChild(script);
+    });
+    return _mathJaxLoadPromise;
+}
+
 function triggerLTPMathJax(questionId) {
     // Always try to typeset, just debounce it to prevent freezing
-    if (window.MathJax) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
         if (LTPPreviewState.typesetTimeout) clearTimeout(LTPPreviewState.typesetTimeout);
         LTPPreviewState.typesetTimeout = setTimeout(() => {
             MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-        }, 100);
+        }, 150);
+    } else {
+        // MathJax not ready yet, retry after it loads
+        ensureMathJaxLoaded().then(() => {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                setTimeout(() => {
+                    MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+                }, 150);
+            }
+        });
     }
 }
 

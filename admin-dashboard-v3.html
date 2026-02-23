@@ -16,45 +16,28 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Chart.js (defer = non-blocking, executes after DOM parsed) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-    <!-- DOMPurify (XSS Protection for Math/HTML content) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <!-- DOMPurify (defer = non-blocking, only needed for preview) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 
     <!-- ✅ API Configuration - Managed by config.js -->
 
-    <!-- MathJax config (runs before script loads) -->
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
-            },
-            options: {
-                ignoreHtmlClass: 'tex2jax_ignore',
-                processHtmlClass: 'tex2jax_process'
-            },
-            startup: {
-                pageReady: () => {
-                    console.log('MathJax ready');
-                    MathJax.startup.defaultReady();
-                }
-            }
-        };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+    <!-- MathJax: Loaded lazily by live-test-preview.js when the preview opens -->
 
-    <link rel="stylesheet" href="frontend/css/admin-dashboard-v3.css?v=vGHOST_FIX_FINAL_V17">
-    <link rel="stylesheet" href="frontend/css/live-test-preview.css?v=vGHOST_FIX_FINAL_V17">
+    <link rel="stylesheet" href="frontend/css/admin-dashboard-v3.css?v=MATHJAX_FIX_3">
+    <link rel="stylesheet" href="frontend/css/live-test-preview.css?v=MATHJAX_FIX_3">
 
     <style>
-        .mjx-chtml {
-            color: white !important;
+        /* MathJax dark-mode visibility */
+        .mjx-chtml,
+        .MathJax {
+            color: #f1f5f9 !important;
         }
 
-        svg {
+        .mjx-chtml svg,
+        .MathJax svg {
             fill: currentColor !important;
         }
     </style>
@@ -309,21 +292,21 @@
         <div class="content-area" id="live-test-preview-page" style="display: none;"></div>
     </main>
     <!-- Scripts -->
-    <script src="frontend/js/config.js?v=MATHJAX_FIX_2"></script>
-    <script src="frontend/js/live-test-preview.js?v=MATHJAX_FIX_2"></script>
-    <script src="frontend/js/admin-api-service.js?v=FINAL_1"></script>
-    <script src="frontend/js/admin-dashboard-v3.js?v=FINAL_1"></script>
-    <script src="frontend/js/admin-utils.js?v=FINAL_1"></script>
-    <script src="frontend/js/create-test.js?v=FINAL_1"></script>
-    <script src="frontend/js/add-questions-v2.js?v=FINAL_1"></script>
-    <script src="frontend/js/view-questions.js?v=FINAL_1"></script>
-    <script src="frontend/js/students.js?v=FINAL_1"></script>
-    <script src="frontend/js/transactions.js?v=FINAL_1"></script>
-    <script src="frontend/js/results.js?v=FINAL_1"></script>
-    <script src="frontend/js/test-calendar.js?v=vGHOST_FIX_FINAL_V20"></script>
-    <script src="frontend/js/scheduled-tests.js?v=vGHOST_FIX_FINAL_V20"></script>
-    <script src="frontend/js/past-tests.js?v=vGHOST_FIX_FINAL_V20"></script>
-    <script src="frontend/js/upload-pdf.js?v=vGHOST_FIX_FINAL_V20"></script>
+    <script src="frontend/js/config.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/live-test-preview.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/admin-api-service.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/admin-dashboard-v3.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/admin-utils.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/create-test.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/add-questions-v2.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/view-questions.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/students.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/transactions.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/results.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/test-calendar.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/scheduled-tests.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/past-tests.js?v=MATHJAX_FIX_3"></script>
+    <script src="frontend/js/upload-pdf.js?v=MATHJAX_FIX_3"></script>
 </body>
 
 </html>
