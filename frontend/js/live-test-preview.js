@@ -310,6 +310,11 @@ async function openLTPPreview() {
     ensureMathJaxLoaded();
 
     try {
+        if (!LTPState.selectedTestId) {
+            content.innerHTML = '<div style="padding:100px; text-align:center; color:white;">Error: No test selected! Please select a test first.</div>';
+            return;
+        }
+
         const response = await AdminAPI.getTestPreview(LTPState.selectedTestId);
         if (response.success) {
             LTPPreviewData = response.data;
@@ -322,17 +327,26 @@ async function openLTPPreview() {
             LTPPreviewState.answersMap = {};
 
             // Default all questions to not-visited
-            LTPPreviewData.sections.forEach(sec => {
-                sec.questions.forEach(q => {
-                    LTPPreviewState.statusMap[q._id] = 'not-visited';
+            if (LTPPreviewData.sections) {
+                LTPPreviewData.sections.forEach(sec => {
+                    if (sec.questions) {
+                        sec.questions.forEach(q => {
+                            LTPPreviewState.statusMap[q._id] = 'not-visited';
+                        });
+                    }
                 });
-            });
+            }
 
             renderStudentPerspective();
+        } else {
+            console.error('Preview response success is false:', response);
+            const msg = (response.message || 'Unknown error').toString().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            content.innerHTML = `<div style="padding:100px; text-align:center; color:white;">Failed to load view: ${msg}</div>`;
         }
     } catch (error) {
         console.error('Preview Error:', error);
-        content.innerHTML = '<div style="padding:100px; text-align:center; color:white;">Error loading student view.</div>';
+        const msg = (error.message || 'Unknown error').toString().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        content.innerHTML = `<div style="padding:100px; text-align:center; color:white;">Error loading student view: ${msg}</div>`;
     }
 }
 
