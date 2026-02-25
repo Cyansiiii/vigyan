@@ -28,7 +28,10 @@ export default defineConfig({
                 iiser: path.resolve(__dirname, 'iiserpyqhome.html'),
                 subtittle: path.resolve(__dirname, 'subtittlepyq.html'),
                 future: path.resolve(__dirname, 'future-react.html'),
-                niser_matrix: path.resolve(__dirname, 'frontend/index-niser-pyq/index.html'),
+                niser_matrix: path.resolve(__dirname, 'niser-instructions.html'),
+                iiser_matrix: path.resolve(__dirname, 'iiser-instructions.html'),
+                instructions: path.resolve(__dirname, 'instructions.html'),
+                exam: path.resolve(__dirname, 'exam.html')
             }
         }
     }
