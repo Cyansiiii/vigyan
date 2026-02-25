@@ -23,6 +23,7 @@
     let timerInterval;
     let userName = '';
     let userEmail = '';
+    let examActive = false;
 
     // Detect Year from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -184,8 +185,10 @@
 
             document.getElementById('instructionPage').style.display = 'none';
             document.getElementById('examInterface').style.display = 'block';
+            examActive = true;
 
-            // updateSectionCounts(); // Badges removed
+            // --- Fullscreen Exit Warning System ---
+            setupFullscreenWarning();
             loadQuestion(0);
             startTimer();
             renderPalette();
@@ -419,6 +422,7 @@
 
     async function submitExam(auto = false) {
         clearInterval(timerInterval);
+        examActive = false;
 
         // Exit fullscreen when exam is done
         try {
@@ -552,6 +556,141 @@
         } catch (err) {
             console.error('❌ Error sending score report:', err);
         }
+    }
+
+    // --- FULLSCREEN EXIT WARNING SYSTEM ---
+    function setupFullscreenWarning() {
+        // Create the warning modal dynamically
+        const overlay = document.createElement('div');
+        overlay.id = 'fsWarningOverlay';
+        overlay.style.cssText = `
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            animation: fsFadeIn 0.3s ease;
+        `;
+
+        overlay.innerHTML = `
+            <style>
+                @keyframes fsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes fsSlideUp { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+                @keyframes fsPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+                #fsWarningCard {
+                    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                    border: 1px solid rgba(212, 175, 55, 0.3);
+                    border-radius: 20px;
+                    padding: 45px 40px;
+                    max-width: 480px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 175, 55, 0.1);
+                    animation: fsSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+                #fsWarningCard .fs-icon {
+                    font-size: 3.5rem;
+                    margin-bottom: 20px;
+                    display: block;
+                    animation: fsPulse 2s ease-in-out infinite;
+                }
+                #fsWarningCard h2 {
+                    color: #d4af37;
+                    font-family: 'Inter', 'Space Grotesk', sans-serif;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin: 0 0 12px 0;
+                    letter-spacing: 0.5px;
+                }
+                #fsWarningCard p {
+                    color: #94a3b8;
+                    font-size: 0.95rem;
+                    line-height: 1.7;
+                    margin: 0 0 30px 0;
+                }
+                #fsWarningCard p strong {
+                    color: #e2e8f0;
+                }
+                #fsReturnBtn {
+                    background: linear-gradient(135deg, #d4af37 0%, #f59e0b 100%);
+                    color: #0f172a;
+                    border: none;
+                    padding: 14px 36px;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                #fsReturnBtn:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+                }
+                #fsDismissLink {
+                    display: block;
+                    margin-top: 18px;
+                    color: #64748b;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: color 0.2s;
+                }
+                #fsDismissLink:hover {
+                    color: #94a3b8;
+                }
+            </style>
+            <div id="fsWarningCard">
+                <span class="fs-icon">🖥️</span>
+                <h2>Fullscreen Mode Recommended</h2>
+                <p>
+                    For the <strong>best exam experience</strong>, we recommend staying in
+                    fullscreen mode. It minimizes distractions, prevents accidental navigation,
+                    and ensures all questions and options are <strong>perfectly visible</strong>.
+                </p>
+                <button id="fsReturnBtn">↗ Return to Fullscreen</button>
+                <a id="fsDismissLink">Continue without fullscreen</a>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Return to fullscreen button handler
+        document.getElementById('fsReturnBtn').onclick = async function () {
+            overlay.style.display = 'none';
+            try {
+                const docEl = document.documentElement;
+                if (docEl.requestFullscreen) {
+                    await docEl.requestFullscreen();
+                } else if (docEl.webkitRequestFullscreen) {
+                    docEl.webkitRequestFullscreen();
+                }
+            } catch (e) {
+                console.warn('Could not re-enter fullscreen:', e.message);
+            }
+        };
+
+        // Dismiss link handler
+        document.getElementById('fsDismissLink').onclick = function () {
+            overlay.style.display = 'none';
+        };
+
+        // Listen for fullscreen exit
+        const onFsChange = () => {
+            const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+            if (!isFullscreen && examActive) {
+                overlay.style.display = 'flex';
+            }
+        };
+
+        document.addEventListener('fullscreenchange', onFsChange);
+        document.addEventListener('webkitfullscreenchange', onFsChange);
     }
 
     function setupEventListeners() {
