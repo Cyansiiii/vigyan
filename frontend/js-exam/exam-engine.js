@@ -167,6 +167,21 @@
                 }
             }
 
+            // Request fullscreen for immersive exam experience
+            try {
+                const docEl = document.documentElement;
+                if (docEl.requestFullscreen) {
+                    await docEl.requestFullscreen();
+                } else if (docEl.webkitRequestFullscreen) {
+                    docEl.webkitRequestFullscreen(); // Safari
+                } else if (docEl.msRequestFullscreen) {
+                    docEl.msRequestFullscreen(); // IE/Edge legacy
+                }
+            } catch (fsErr) {
+                // Fullscreen denied or not supported — continue normally
+                console.warn('Fullscreen request denied:', fsErr.message);
+            }
+
             document.getElementById('instructionPage').style.display = 'none';
             document.getElementById('examInterface').style.display = 'block';
 
@@ -404,6 +419,15 @@
 
     async function submitExam(auto = false) {
         clearInterval(timerInterval);
+
+        // Exit fullscreen when exam is done
+        try {
+            if (document.fullscreenElement) {
+                await document.exitFullscreen();
+            } else if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            }
+        } catch (e) { /* ignore */ }
 
         document.getElementById('submitModal').style.display = 'none';
 
