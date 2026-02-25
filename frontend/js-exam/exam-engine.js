@@ -47,7 +47,8 @@
     });
 
     const SCRIPT_BASE = new URL('.', document.currentScript?.src || window.location.href);
-    const DATA_ROOT = new URL(`../data/${EXAM_TYPE}/${TEST_YEAR}/`, SCRIPT_BASE).toString();
+    const CLOUD_BASE = 'https://pub-651a326ea8494f02894fbd07e97363ea.r2.dev';
+    const DATA_ROOT = `${CLOUD_BASE}/frontend/data/${EXAM_TYPE}/${TEST_YEAR}/`;
 
     function rewriteImagePaths(html) {
         if (!html || typeof html !== 'string') return html;
