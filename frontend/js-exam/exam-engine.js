@@ -37,9 +37,21 @@
         }
     }
 
-    // Allow alphanumeric (e.g., 2024_s1) but sanitize strictly to safe chars
     const TEST_YEAR = yearParam.replace(/[^a-zA-Z0-9_]/g, '');
     const EXAM_TYPE = examType.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase(); // niser or iiser
+
+    // Update Titles Immediately on Load
+    document.addEventListener('DOMContentLoaded', () => {
+        const examTitleHeader = document.getElementById('examTitleHeader');
+        if (examTitleHeader) {
+            examTitleHeader.textContent = `Vigyan.prep ${EXAM_TYPE.toUpperCase()} PYQ ${TEST_YEAR}`;
+        }
+        const instTitle = document.getElementById('examTitle');
+        if (instTitle) {
+            instTitle.textContent = `Vigyan.prep ${EXAM_TYPE.toUpperCase()} PYQ ${TEST_YEAR}`;
+        }
+        document.title = `Vigyan.prep ${EXAM_TYPE.toUpperCase()} PYQ ${TEST_YEAR} - Assessment Center`;
+    });
 
     const SCRIPT_BASE = new URL('.', document.currentScript?.src || window.location.href);
     const DATA_ROOT = new URL(`../data/${EXAM_TYPE}/${TEST_YEAR}/`, SCRIPT_BASE).toString();
