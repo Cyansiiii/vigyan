@@ -1,0 +1,9 @@
+#!/usr/bin/expect -f
+set password "Buddy700@"
+set timeout -1
+
+spawn rsync -avz --exclude 'node_modules' --exclude '.git' -e "ssh -p 65002 -o StrictHostKeyChecking=no" /Users/harshanand/vigyan/niser-pyq.html /Users/harshanand/vigyan/iiserpyqhome.html /Users/harshanand/vigyan/instructions.html /Users/harshanand/vigyan/niser-instructions.html /Users/harshanand/vigyan/iiser-instructions.html /Users/harshanand/vigyan/frontend u255161845@31.97.101.169:domains/vigyanprep.com/public_html/
+
+expect "password:"
+send "$password\r"
+expect eof
