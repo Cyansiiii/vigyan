@@ -1,0 +1,682 @@
+{
+  "questions": {
+    "Biology": [
+      {
+        "id": 1,
+        "text": "Match the entries in column I and column II regarding animal classifications. <br><br> [Image of the classification of Chordata and Hemichordata characteristics] <br><br> Column I: P. Notochord and hollow nerve cord present; Q. Ectoparasite with 6-15 pairs of gills and closed circulation; R. Marine animals with persistent notochord and placoid scales; S. Animals with open circulatory systems, and stomochord. Column II: i. Cyclostomata; ii. Chondrichthyes; iii. Hemichordata; iv. Chordata.",
+        "options": [
+          "P-iv Q-ii R-i; S-iii",
+          "P-iv Q-i R-ii S-iii",
+          "P-i; Qiii; R-ii; S-iv",
+          "P-iii Qi R-ii Siv"
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Chromosomes are classified as metacentric, sub-metacentric, acrocentric and telocentric based on the position of which structure?",
+        "options": [
+          "Centriole",
+          "Centrosome",
+          "Centromere",
+          "Telomere"
+        ]
+      },
+      {
+        "id": 3,
+        "text": "Which one of the following options describes a triglyceride?",
+        "options": [
+          "Three glycerol molecules linked to a fatty acid chain",
+          "Three fatty acid chains linked to a molecule of glycerol",
+          "Three saturated fatty acid chains linked to a molecule of cholesterol",
+          "Three glyceride molecules linked to a molecule of phospholipid"
+        ]
+      },
+      {
+        "id": 4,
+        "text": "Which one of the following statements about a plant carotenoid is FALSE?",
+        "options": [
+          "It provides precursor for the synthesis of stress hormone in plants.",
+          "It protects chlorophyll a from photo-oxidation.",
+          "It accumulates in chromoplasts during fruit ripening.",
+          "It is an accessory pigment which absorbs light at 600-700 nm."
+        ]
+      },
+      {
+        "id": 5,
+        "text": "Relative number of ATP synthesized in mitochondria when treated with chemical X (inhibits Complex I to ubiquinone) or chemical Y (inhibits Complex III to cytochrome C)?",
+        "options": [
+          "Experiment 1 < Experiment 2 < Experiment 3",
+          "Experiment 2 < Experiment 1 < Experiment 3",
+          "Experiment 1 = Experiment 2 = Experiment 3",
+          "Experiment 2 < Experiment 1 = Experiment 3"
+        ]
+      },
+      {
+        "id": 6,
+        "text": "Which autoregulatory mechanism is employed by the kidney when glomerular filtration rate is reduced?",
+        "options": [
+          "Levels of renin, angiotensin I and II and aldosterone are increased.",
+          "Levels of renin and aldosterone are reduced.",
+          "Levels of renin are increased, while those of angiotensin I and II and aldosterone are reduced.",
+          "Levels of angiotensin I and II are increased, while that of aldosterone are reduced."
+        ]
+      },
+      {
+        "id": 7,
+        "text": "Which condition will favour maximum dissociation of oxygen from the oxyhaemoglobin in the tissues?",
+        "options": [
+          "higher \\([H^{+}]\\) lower temperature",
+          "lower \\([H^{+}]\\) higher temperature",
+          "higher \\([H^{+}]\\) higher temperature",
+          "lower \\([H^{+}]\\) lower temperature"
+        ]
+      },
+      {
+        "id": 8,
+        "text": "Which one of the following statements is correct regarding muscle fibres?",
+        "options": [
+          "Mitochondria are more in white than in red muscle fibres.",
+          "Red muscle fibres produce ATP aerobically under normal oxygen conditions.",
+          "Lactic acid accumulates more in red than in white muscle fibres.",
+          "All muscle fibres primarily produce ATP anaerobically."
+        ]
+      },
+      {
+        "id": 9,
+        "text": "Which one of the following organisms produces the female gamete by mitosis of haploid cells?",
+        "options": [
+          "Garden pea",
+          "Fruit fly",
+          "Chicken",
+          "Honey bee"
+        ]
+      },
+      {
+        "id": 10,
+        "text": "Which amino acid will be charged on the tRNA with anticodon 5'-GUU-3'?",
+        "options": [
+          "Valine (codon GUU)",
+          "Leucine (codon UUG)",
+          "Asparagine (codon AAC)",
+          "Glutamine (codon CAA)"
+        ]
+      },
+      {
+        "id": 11,
+        "text": "Genotype of parents R1 through R4 based on double heterozygous (PpQq) gamete proportions?",
+        "options": [
+          "R1=PPQQ R2=ppqq; R3=ppQQ R4=PPqq",
+          "R1=ppQQ R2=PPqq R3=PPQQ R4=ppqq",
+          "R1=ppQQ R2=PPqq R3=PPqq R4=ppQQ",
+          "R1=PPQQ R2=ppqq; R3=R4=PPQQ"
+        ]
+      },
+      {
+        "id": 12,
+        "text": "What are retroviruses?",
+        "options": [
+          "Viruses with DNA genome and no reverse transcriptase",
+          "Viruses with RNA genome and reverse transcriptase activity",
+          "Viruses with DNA genome and reverse transcriptase activity",
+          "Viruses with RNA genome and no reverse transcriptase"
+        ]
+      },
+      {
+        "id": 13,
+        "text": "Which diagram correctly represents restriction enzyme sites (X, Y) on the 10,000 bp plasmid? <br><br> <div style='text-align:center;'><img src='images/2025_bio_q13.png' alt='Agarose Gel Electrophoresis result for plasmid digestion' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "Diagram (a)",
+          "Diagram (b)",
+          "Diagram (c)",
+          "Diagram (d)"
+        ]
+      },
+      {
+        "id": 14,
+        "text": "Which one of the following statements is INCORRECT about honey bees?",
+        "options": [
+          "Honey bee males are produced from unfertilized eggs and females from fertilized eggs.",
+          "Honey bee males cannot have daughters but can have sons.",
+          "A honey bee male does not have a father but has a grandfather.",
+          "Honey bee males form gametes by mitosis and females form gametes by meiosis."
+        ]
+      },
+      {
+        "id": 15,
+        "text": "Which one of the following statements is FALSE regarding ecological energetics?",
+        "options": [
+          "Only 10% of energy is transferred to each of the higher trophic levels.",
+          "All organisms of a trophic level should be included for estimation of energy content.",
+          "More than 80% of the solar energy incident on earth is captured by plants.",
+          "The movement of energy is unidirectional in the ecological pyramid of energy."
+        ]
+      }
+    ],
+    "Chemistry": [
+      {
+        "id": 1,
+        "text": "Which statement best describes the nature of ZnO and CaO[cite: 221]?",
+        "options": [
+          "Both ZnO and CaO are amphoteric.",
+          "ZnO is amphoteric, while CaO is basic.",
+          "ZnO is basic, while CaO is amphoteric.",
+          "ZnO is acidic, while CaO is basic."
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Which processes are associated with increasing bond order but no change in magnetic behavior? (i) \\(N_2 \\rightarrow N_2^+\\) (ii) \\(O_2 \\rightarrow O_2^+\\) (iii) \\(O_2 \\rightarrow O_2^-\\).",
+        "options": [
+          "(ii) only",
+          "(i) and (ii)",
+          "(ii) and (iii)",
+          "(iii) only"
+        ]
+      },
+      {
+        "id": 3,
+        "text": "What is the value of \\(E^\\circ(Fe^{3+}/Fe^0)\\) given \\(E^\\circ(Fe^{3+}/Fe^{2+}) = 0.77\\) V and \\(E^\\circ(Fe^{2+}/Fe^0) = -0.44\\) V?",
+        "options": [
+          "0.33 V",
+          "-0.04 V",
+          "0.11 V",
+          "-0.11 V"
+        ]
+      },
+      {
+        "id": 4,
+        "text": "What are the correct orders of stability for \\(VF_5\\), \\(VCl_5\\), \\(CuCl_2\\), and \\(CuI_2\\)?",
+        "options": [
+          "VCl5 > VF5; CuCl2 > CuI2",
+          "VF5 > VCl5; CuCl2 > CuI2",
+          "VCl5 > VF5; CuI2 > CuCl2",
+          "VF5 > VCl5; CuI2 > CuCl2"
+        ]
+      },
+      {
+        "id": 5,
+        "text": "Based on the coordination chemistry reaction scheme for P and Q, which is correct[cite: 269, 280]? <br><br> <div style='text-align:center;'><img src='images/2025_chem_q5.png' alt='Chemical reaction scheme of CrCl3.6H2O reacting with ammonia and silver nitrate' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "P shows geometrical isomerism and absorbs light of higher wavelength than Q.",
+          "Both P and Q show geometrical isomerism.",
+          "Q shows geometrical isomerism and absorbs light of higher wavelength than P.",
+          "P shows geometrical isomerism and absorbs light of lower wavelength than Q."
+        ]
+      },
+      {
+        "id": 6,
+        "text": "How many 3-hydrogen atoms are present in 2-methyl-3-phenyl-pentan-1-al[cite: 291]?",
+        "options": [
+          "1",
+          "3",
+          "4",
+          "2"
+        ]
+      },
+      {
+        "id": 7,
+        "text": "Which reaction does NOT provide an aldehyde as a product[cite: 302]?",
+        "options": [
+          "Reaction with (C6H5CH2)2Cd",
+          "Pd-BaSO4/H2 with acid chloride",
+          "Nitrile with SnCl2, HCl",
+          "Toluene with CrO2Cl2, CS2"
+        ]
+      },
+      {
+        "id": 8,
+        "text": "What are the major products formed in the ozonolysis followed by Grignard sequence[cite: 316, 317]?",
+        "options": [
+          "Option (a)",
+          "Option (b)",
+          "Option (c)",
+          "Option (d)"
+        ]
+      },
+      {
+        "id": 9,
+        "text": "What is the major product in the reaction sequence given below? <br><br> <div style='text-align:center;'><img src='images/iat/2025/2025_chem_q9.png' alt='Chemical Reaction Sequence' style='max-width:500px; width:100%;'></div>",
+        "options": [
+          "Structure (a)",
+          "Structure (b)",
+          "Structure (c)",
+          "Structure (d)"
+        ]
+      },
+      {
+        "id": 10,
+        "text": "Which structure of I produces 2,3-dimethyl-cyclohexanone after hydroboration-oxidation and CrO3 treatment[cite: 367, 368]?",
+        "options": [
+          "Diagram (a)",
+          "Diagram (b)",
+          "Diagram (c)",
+          "Diagram (d)"
+        ]
+      },
+      {
+        "id": 11,
+        "text": "Ideal gas expansion from V to 2V. If work in two steps is 7/12 RT, how much more work in three equal steps[cite: 382]?",
+        "options": [
+          "3/8 RT",
+          "1/30 RT",
+          "RT",
+          "-RTln(2)"
+        ]
+      },
+      {
+        "id": 12,
+        "text": "Correct plot for rate constant \\(5 \\times 10^{-5}\\) and pre-exponential factor unit mol L\\(^{-1}\\) min\\(^{-1}\\)?",
+        "options": [
+          "Plot (a)",
+          "Plot (b)",
+          "Plot (c)",
+          "Plot (d)"
+        ]
+      },
+      {
+        "id": 13,
+        "text": "Time period of revolution of electron in the fourth Bohr orbit of \\(He^+\\)?",
+        "options": [
+          "4.8 fs",
+          "2.4 fs",
+          "24 fs",
+          "0.24 fs"
+        ]
+      },
+      {
+        "id": 14,
+        "text": "Dipole moments I (0.0 D), II (0.2 D), III (1.5 D). Identity[cite: 422, 423, 424]?",
+        "options": [
+          "I: BF3 II: NF3 III: NH3",
+          "I: BF3 II: NH3 III: NF3",
+          "I: ClF3 II: NF3 III: NH3",
+          "I: BCl3 II: NH3 III: NF3"
+        ]
+      },
+      {
+        "id": 15,
+        "text": "Which reaction does NOT occur in a lead-acid battery[cite: 434, 435]?",
+        "options": [
+          "Pb4+ + 4e- → Pb",
+          "Pb2+ → Pb4+ + 2e-",
+          "Pb → Pb2+ + 2e-",
+          "2Pb2+ → Pb4+ + Pb"
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "id": 1,
+        "text": "Numbers of 3-digit integers divisible by 5 with no repeated digits[cite: 446, 447]?",
+        "options": [
+          "128",
+          "144",
+          "136",
+          "162"
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Number of x values for which matrix A is symmetric[cite: 457, 460]? <br><br> $$A=[\\begin{matrix}4&-1&cos~x\\\\ -1&5x&25\\\\ x^{2}+1&25&7\\end{matrix}]$$",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "infinitely many"
+        ]
+      },
+      {
+        "id": 3,
+        "text": "Divisibility of sum n = sum(r=0 to 100) (-1)^r * ...[cite: 469, 473, 474]?",
+        "options": [
+          "divisible by 6",
+          "divisible by 5",
+          "divisible by 8",
+          "divisible by 9"
+        ]
+      },
+      {
+        "id": 4,
+        "text": "True statement for f(x) = cos(tan^-1 x)[cite: 487, 488]?",
+        "options": [
+          "decreasing for x > 0",
+          "decreasing for x < 0",
+          "decreasing on R",
+          "decreasing on (-1, 1)"
+        ]
+      },
+      {
+        "id": 5,
+        "text": "Set A = {x | -31 < det[...] <= 29}[cite: 498, 500, 501]?",
+        "options": [
+          "A = (-2, 2)",
+          "A = [-2, 2)",
+          "A = (-2, 2]",
+          "A = [-2, 2]"
+        ]
+      },
+      {
+        "id": 6,
+        "text": "Value of |4z1 + z2 + z3| given complex number conditions[cite: 507, 510, 511]?",
+        "options": [
+          "4",
+          "1/4",
+          "8",
+          "1/8"
+        ]
+      },
+      {
+        "id": 7,
+        "text": "Continuity of f(x) = |x^3 - 3x|[x][cite: 520, 521, 522]?",
+        "options": [
+          "Non-zero integers are points of discontinuity",
+          "Continuous at every real number",
+          "Every integer is a point of discontinuity",
+          "Continuous except for 0, +/- sqrt(3)"
+        ]
+      },
+      {
+        "id": 8,
+        "text": "Line perpendicular to tangent of ellipse at (1, sqrt(3)/4) passing through (2, 0)[cite: 531, 532, 534]?",
+        "options": [
+          "y = 4sqrt(3)(x-2)",
+          "y = sqrt(3)(x-2)",
+          "y = 2sqrt(3)(x-2)",
+          "4sqrt(3)y = (x-2)"
+        ]
+      },
+      {
+        "id": 9,
+        "text": "Value of |(a+b).(2i+3j+k)| based on vector properties[cite: 543, 544, 545, 546]?",
+        "options": [
+          "0",
+          "sqrt(2)",
+          "3/sqrt(2)",
+          "3"
+        ]
+      },
+      {
+        "id": 10,
+        "text": "Derivative of log(sin^2 x) w.r.t sin x[cite: 555, 556]?",
+        "options": [
+          "sin 2x",
+          "2 cosec x",
+          "4 cosec x",
+          "cot x cosec x"
+        ]
+      },
+      {
+        "id": 11,
+        "text": "Value of a13 - a10 given Sn+3 - Sn = 13n+7[cite: 566, 567]?",
+        "options": [
+          "13",
+          "137",
+          "46",
+          "12"
+        ]
+      },
+      {
+        "id": 12,
+        "text": "Probability of at least two heads in five coin tosses[cite: 577, 578]?",
+        "options": [
+          "13/16",
+          "7/16",
+          "5/16",
+          "11/16"
+        ]
+      },
+      {
+        "id": 13,
+        "text": "Is piecewise f(x) one-one or onto[cite: 588, 589, 591]?",
+        "options": [
+          "one-one but not onto",
+          "onto but not one-one",
+          "one-one and onto",
+          "neither"
+        ]
+      },
+      {
+        "id": 14,
+        "text": "Solution to x^2(dy/dx) + 9xy = x^4[cite: 601, 602, 603]?",
+        "options": [
+          "12y = x^9 - 1/x^3",
+          "12y = x^3 - 1/x^9",
+          "9y = x^21 - 1/x^3",
+          "9y = x^3 - 1/x^21"
+        ]
+      },
+      {
+        "id": 15,
+        "text": "Value of integral x cos x sin x dx from 0 to pi/2[cite: 610, 611]?",
+        "options": [
+          "pi/4",
+          "pi/8",
+          "pi/6",
+          "1/2"
+        ]
+      }
+    ],
+    "Physics": [
+      {
+        "id": 1,
+        "text": "Consider an elastic collision between two particles A and B of same mass, moving in the same direction. Particle A is moving at speed vA and particle B is moving at speed vB. Which of the following describes the motion most accurately?<br><br><div style='text-align:center;'><img src='images/2025_phys_q1.png' alt='Elastic Collision' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "Graph (b)",
+          "Graph (c)",
+          "Graph (a)",
+          "Graph (d)"
+        ]
+      },
+      {
+        "id": 2,
+        "text": "A block of mass M lies at rest connected to a massless spring of spring constant k. A bullet of mass m hits the block horizontally with speed v and sticks to it. What is the maximum compression?<br><br><div style='text-align:center;'><img src='images/2025_phys_q2.png' alt='Spring Compression' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "\\(\\sqrt{\\frac{mv^{2}}{k}}\\)",
+          "\\(\\sqrt{\\frac{m^{2}v^{2}}{k(M+m)}}\\)",
+          "\\(\\sqrt{\\frac{Mv^{2}}{k}}\\)",
+          "\\(\\sqrt{\\frac{mMv^{2}}{k(M+m)}}\\)"
+        ]
+      },
+      {
+        "id": 3,
+        "text": "A cart of mass M is released from point A of a frictionless track and enters a semicircular arc of radius R. Which quantity does not play a role in ensuring the cart does not leave the track?<br><br><div style='text-align:center;'><img src='images/2025_phys_q3.png' alt='Track Loop' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "h1",
+          "h2",
+          "M",
+          "R"
+        ]
+      },
+      {
+        "id": 4,
+        "text": "A circular disk of mass M and radius R rotates with angular velocity w. A torque T is applied to oppose rotation. What is the angular displacement attained before it reverses direction?",
+        "options": [
+          "\\(\\theta = \\frac{\\omega^{2}MR^{2}}{4T}\\)",
+          "\\(\\theta = -\\frac{\\omega^{2}MR^{2}}{4T}\\)",
+          "\\(\\theta = \\frac{\\omega^{2}MR^{2}}{8T}\\)",
+          "\\(\\theta = -\\frac{\\omega^{2}MR^{2}}{8T}\\)"
+        ]
+      },
+      {
+        "id": 5,
+        "text": "A metallic cube emitting black body radiation at T shows a 4.5% power increase when T increases by 1%. What is the approximate percentage increase in volume?",
+        "options": [
+          "0.50%",
+          "0.75%",
+          "1.56 x 10^-6%",
+          "6.25 x 10^-6%"
+        ]
+      },
+      {
+        "id": 6,
+        "text": "Two pipes A (one end closed) and B (both open) have matching sound frequencies for their nA-th and nB-th harmonics. What is the relation between TA and TB?",
+        "options": [
+          "\\(T_{A}=(\\frac{4n_{A}^{2}}{n_{B}^{2}})T_{B}\\)",
+          "\\(T_{A}=(\\frac{4n_{B}^{2}}{n_{A}^{2}})T_{B}\\)",
+          "\\(T_{A}=(\\frac{n_{A}^{2}}{4n_{B}^{2}})T_{B}\\)",
+          "\\(T_{A}=(\\frac{n_{B}^{2}}{4n_{A}^{2}})T_{B}\\)"
+        ]
+      },
+      {
+        "id": 7,
+        "text": "Consider two waves y1 and y2 = sqrt(3)A cos(kx - wt). What are the resultant amplitude As and phase difference phi with y1?",
+        "options": [
+          "As = 2A and phi = pi/6",
+          "As = 2A and phi = pi/3",
+          "As = A/2 and phi = pi/3",
+          "As = A/2 and phi = pi/6"
+        ]
+      },
+      {
+        "id": 8,
+        "text": "A particle of charge q and mass m enters an electric field between parallel plates of length l and separation d. What is the minimum kinetic energy K (in eV) to not hit the plates?<br><br><div style='text-align:center;'><img src='images/2025_phys_q8.png' alt='Deflection' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "\\(\\frac{l^{2}}{2d^{2}}\\)",
+          "\\(\\frac{d^{2}}{2l^{2}}\\)",
+          "\\(\\frac{l^{2}}{d^{2}}\\)",
+          "\\(\\frac{d^{2}}{l^{2}}\\)"
+        ]
+      },
+      {
+        "id": 9,
+        "text": "What is the potential difference between points P and Q in the capacitor circuit once fully charged?<br><br><div style='text-align:center;'><img src='images/2025_phys_q9.png' alt='Capacitor Bridge' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "0 V",
+          "8 V",
+          "4 V",
+          "12 V"
+        ]
+      },
+      {
+        "id": 10,
+        "text": "A particle (q, m) with velocity v = v0(i+j-k) is in a magnetic field B = B0(i+j+k). Which option is correct for radius r and pitch p?",
+        "options": [
+          "\\(r = \\frac{2\\sqrt{2}mv_{0}}{3qB_{0}}, p = \\frac{2\\pi mv_{0}}{3qB_{0}}\\)",
+          "\\(r = \\frac{mv_{0}}{3qB_{0}}, p = \\frac{2\\pi mv_{0}}{3qB_{0}}\\)",
+          "\\(r = \\frac{2\\sqrt{2}mv_{0}}{3qB_{0}}, p = \\frac{4\\sqrt{2}\\pi mv_{0}}{3qB_{0}}\\)",
+          "\\(r = \\frac{2\\pi mv_{0}}{3qB_{0}}, p = \\frac{2\\sqrt{2}mv_{0}}{3qB_{0}}\\)"
+        ]
+      },
+      {
+        "id": 11,
+        "text": "A charged particle in a circular orbit is enclosed in a metallic frame. What happens to the trajectory as the frame radius is gradually decreased?",
+        "options": [
+          "Radius increases and frequency decreases",
+          "Radius decreases and frequency increases",
+          "Radius remains same but frequency increases",
+          "Both remain unchanged"
+        ]
+      },
+      {
+        "id": 12,
+        "text": "An equilateral prism and a parallelepiped block are arranged as shown. What is the angle of emergence theta?<br><br><div style='text-align:center;'><img src='images/2025_phys_q12.png' alt='Refraction Combination' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "sin^-1(1/3)",
+          "sin^-1(1/2)",
+          "sin^-1(3/4)",
+          "sin^-1(sqrt(3)/2)"
+        ]
+      },
+      {
+        "id": 13,
+        "text": "Intensity after P1 is 3I0/16 when P2 is inserted between source and P1. What is a possible value of angle theta?<br><br><div style='text-align:center;'><img src='images/2025_phys_q13.png' alt='Polarization' style='max-width:350px; width:100%;'></div>",
+        "options": [
+          "15°",
+          "45°",
+          "60°",
+          "75°"
+        ]
+      },
+      {
+        "id": 14,
+        "text": "An electron in ground state E1 absorbs photon Ea. What is the value of the principal quantum number n?",
+        "options": [
+          "\\(\\sqrt{\\frac{E_{1}}{E_{1}-E_{a}}}\\)",
+          "\\(\\sqrt{\\frac{E_{1}}{E_{1}+E_{a}}}\\)",
+          "\\(\\sqrt{\\frac{E_{a}}{E_{1}-E_{a}}}\\)",
+          "\\(\\sqrt{\\frac{E_{a}}{E_{1}+E_{a}}}\\)"
+        ]
+      },
+      {
+        "id": 15,
+        "text": "Two particles (m, q) and (M, q) are accelerated through d1 and d2 respectively. If they have the same de Broglie wavelength, what is d2/d1?",
+        "options": [
+          "M/m",
+          "m/M",
+          "sqrt(m/M)",
+          "sqrt(M/m)"
+        ]
+      }
+    ]
+  },
+  "keys": {
+    "Biology": {
+      "0": "Yg==",
+      "1": "Yw==",
+      "2": "Yg==",
+      "3": "ZA==",
+      "4": "Yg==",
+      "5": "YQ==",
+      "6": "Yw==",
+      "7": "Yg==",
+      "8": "ZA==",
+      "9": "Yw==",
+      "10": "Yg==",
+      "11": "Yg==",
+      "12": "YQ==",
+      "13": "Yg==",
+      "14": "Yw=="
+    },
+    "Chemistry": {
+      "0": "Yg==",
+      "1": "YQ==",
+      "2": "Yg==",
+      "3": "Yg==",
+      "4": "YQ==",
+      "5": "Yw==",
+      "6": "YQ==",
+      "7": "YQ==",
+      "8": "Yw==",
+      "9": "YQ==",
+      "10": "Yg==",
+      "11": "YQ==",
+      "12": "Yg==",
+      "13": "YQ==",
+      "14": "YQ=="
+    },
+    "Mathematics": {
+      "0": "Yw==",
+      "1": "YQ==",
+      "2": "Yg==",
+      "3": "YQ==",
+      "4": "Yw==",
+      "5": "Yw==",
+      "6": "YQ==",
+      "7": "YQ==",
+      "8": "Yw==",
+      "9": "Yg==",
+      "10": "YQ==",
+      "11": "YQ==",
+      "12": "Yg==",
+      "13": "Yg==",
+      "14": "Yg=="
+    },
+    "Physics": {
+      "0": "Yw==",
+      "1": "Yg==",
+      "2": "Yw==",
+      "3": "YQ==",
+      "4": "Yg==",
+      "5": "Yw==",
+      "6": "Yg==",
+      "7": "YQ==",
+      "8": "Yw==",
+      "9": "YQ==",
+      "10": "Yg==",
+      "11": "Yw==",
+      "12": "Yw==",
+      "13": "Yg==",
+      "14": "Yg=="
+    }
+  }
+}

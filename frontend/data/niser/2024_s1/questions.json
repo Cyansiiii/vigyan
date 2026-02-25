@@ -1,0 +1,902 @@
+{
+  "questions": {
+    "Biology": [
+      {
+        "id": 0,
+        "question": "Analyze the images and deduce the correct structural description of the molecules.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q1.png' alt='Molecules' style='max-width:550px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) DNA: primary; Protein: secondary; Antibody: tertiary",
+          "(B) DNA: primary; Protein: tertiary; Antibody: quaternary",
+          "(C) DNA: quaternary; Protein: primary; Antibody: secondary",
+          "(D) DNA - secondary; Protein - secondary; Antibody - quaternary"
+        ]
+      },
+      {
+        "id": 1,
+        "question": "The effects of elevated \\( CO_2 \\) supply, presence of legumes and phosphorus availability on non-legume plant growth biomass (gm) in grassland community is depicted in the graph.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q2.png' alt='Graph' style='max-width:600px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Based on the information, the correct option is:",
+        "options": [
+          "(A) Nitrogen deprived plant grow better under elevated \\( CO_2 \\) conditions.",
+          "(B) Plant growth is enhanced under elevated \\( CO_2 \\) in the presence of legume",
+          "(C) In the absence of phosphorus, legumes provide no growth benefit to the plants.",
+          "(D) In the presence of legumes, there is no growth benefits on addition of phosphorus under elevated \\( CO_2 \\) conditions."
+        ]
+      },
+      {
+        "id": 2,
+        "question": "In a given plant, the flower colour is governed by a single gene locus. The flower can be either white, red, blue or purple colour. However, a single flower will never have different coloured petals. Multiple crosses were carried out between plants with different flower colours (white, red, blue or purple) and the observations on the progeny phenotype are tabulated.<br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q3.png' alt='Crosses Table' style='max-width:600px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Based on this information, the correct option is:",
+        "options": [
+          "(A) There are two alleles governing flower colour.",
+          "(B) Purple allele is dominant over Red allele, and Red allele is dominant over Blue allele.",
+          "(C) Red and Blue alleles show incomplete dominance",
+          "(D) White allele is dominant over purple allele."
+        ]
+      },
+      {
+        "id": 3,
+        "question": "In the given pedigree, circles represent females and squares represent males. Filled shapes indicate affected individuals, while unfilled shapes indicate unaffected individuals. Based on the pedigree analysis, consider the statements (i) to (iv).<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q4.png' alt='Pedigree' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>(i) If the inheritance pattern is autosomal recessive, then the individual III-8 is a carrier of the disease.<br>(ii) If the inheritance pattern is X-linked recessive, then the individuals II-6 and III-7 are carriers of the disease.<br>(iii) Individuals I-1 and I-2 are homozygous for the allele under study.<br>(iv) If the inheritance pattern is autosomal recessive, then individuals III-2 and IV-1 must be carriers of the disease.<br>The correct combination of statements is:",
+        "options": [
+          "(A) i, ii and iv",
+          "(B) Statements i and ii are correct",
+          "(C) ii, iii, iv",
+          "(D) ii, iv"
+        ]
+      },
+      {
+        "id": 4,
+        "question": "Katalin Karikó and Drew Weissman were awarded the Nobel Prize in Physiology or Medicine for the year 2023 for their observation that pseudo-uridine (\\(\\psi\\)) incorporated mRNA (but not mRNA with normal bases A, U, G, and C) is better for RNA vaccine production. These observations paved the way for developing the RNA vaccine against SARS-CoV-2. The reason that pseudo-uridine incorporated mRNA worked as a better vaccine candidate is:",
+        "options": [
+          "(A) Innate immune system doesn't recognize pseudo-uridine incorporated mRNA",
+          "(B) Unmodified mRNA encoding spike protein cannot be translated by the ribosome.",
+          "(C) Antigen-presenting cells can translate only pseudo-uridine incorporated mRNA.",
+          "(D) Spike protein from unmodified mRNA cannot induce immune response."
+        ]
+      },
+      {
+        "id": 5,
+        "question": "An unknown organism that can utilise \\( NH_4Cl \\) as nitrogen source was grown for several generations under four different conditions as given below:<br>(i) medium containing \\( ^{15}NH_4Cl \\)<br>(ii) medium containing \\( ^{14}NH_4Cl \\)<br>(iii) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for one generation<br>(iv) medium containing \\( ^{15}NH_4Cl \\) followed by culturing in medium containing \\( ^{14}NH_4Cl \\) for two generations<br>DNA isolated from the organism was analysed by density gradient centrifugation. Assuming the mode of DNA replication is dispersive, the option representing the correct band pattern is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q6.png' alt='DNA Replication' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) [Pattern A]",
+          "(B) [The band pattern representing dispersive replication]",
+          "(C) [Pattern C]",
+          "(D) [Pattern D]"
+        ]
+      },
+      {
+        "id": 6,
+        "question": "Consider the following statements about photorespiration in plants:<br>(i) Photorespiration produces one molecule of 3-phosphoglycerate from ribulose bisphosphate.<br>(ii) Photorespiration is a wasteful process because neither ATP nor NADPH is produced.<br>(iii) Phosphoglycolate is converted to glycolate in chloroplast.<br>(iv) Photorespiration in C3 plants is more compared to C4 plants.<br>The correct combination of statements is:",
+        "options": [
+          "(A) i and ii",
+          "(B) ii and iv",
+          "(C) iii and iv",
+          "(D) Statements ii and iii are correct"
+        ]
+      },
+      {
+        "id": 7,
+        "question": "In order to generate a crop variety with C4 carbon fixation, a researcher expressed PEPcase enzyme from C4 pathway in leaves of the C3 plant. However, the modified C3 plant did not show carbon fixation efficiency as expected. The most likely reason is:",
+        "options": [
+          "(A) Improper compartmentalization of C4 PEPcase in C3 leaves",
+          "(B) C3 plants lack the enzyme Rubisco, which is essential for C4 pathway.",
+          "(C) C4 plants use mitochondrial ATP for carbon fixation, while C3 plants use chloroplast ATP.",
+          "(D) PEPcase enzyme is active only at very low \\( CO_2 \\) concentrations."
+        ]
+      },
+      {
+        "id": 8,
+        "question": "An experimenter was analysing homogenized leaf tissue (containing both plant and bacterial ribosomes) for the presence of ribosomal RNA (rRNA) using an agarose gel.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q9.png' alt='Agarose Gel' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct statement about the observed band pattern is:",
+        "options": [
+          "(A) I, III, and V are from the plant ribosome",
+          "(B) I, III and V are from the bacterial ribosome.",
+          "(C) II, III and VI are from the bacterial ribosome.",
+          "(D) IV and VI are absent in plant ribosome."
+        ]
+      },
+      {
+        "id": 9,
+        "question": "A researcher incubated algal cells with a fluorescently-labeled cytidine analogue. The cells were lysed and different membrane-bound organelles were isolated. The organelle fractions that show incorporation of the fluorescence signal are:",
+        "options": [
+          "(A) Mitochondria and chloroplast",
+          "(B) chloroplast and endoplasmic reticulum.",
+          "(C) mitochondria and endoplasmic reticulum.",
+          "(D) endoplasmic reticulum but not nucleus."
+        ]
+      },
+      {
+        "id": 10,
+        "question": "In the vector map, GFP denotes green fluorescent protein, \\( Tet^R \\) is tetracycline resistance and \\( Amp^R \\) is ampicillin resistance. A DNA fragment containing the gene of interest was generated using \\(SalI\\) and ligated with the vector. The recombinants will grow on media containing:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q11.png' alt='Vector Map' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) ampicillin and are GFP positive",
+          "(B) Tetracycline positive and GFP negative",
+          "(C) ampicillin and are GFP negative",
+          "(D) tetracycline and are GFP positive"
+        ]
+      },
+      {
+        "id": 11,
+        "question": "In an ecological interaction between wild plants (\\(\\mathbf{X1}\\), \\(\\mathbf{X2}\\)) and a crop plant (\\(\\mathbf{Y}\\)), wild plants compete with crop plants. Wild plants \\(\\mathbf{X1}\\) support insects (\\(\\mathbf{T1}\\)) that feast on pests (\\(\\mathbf{P}\\)). Wild plants \\(\\mathbf{X2}\\) support pollinators (\\(\\mathbf{T2}\\)). The correct statement is:",
+        "options": [
+          "(A) Direct negative interaction of Y with X1 and X2",
+          "(B) The interaction between \\(\\mathbf{T1}\\) and \\(\\mathbf{T2}\\) insects is commensalism.",
+          "(C) Removing \\(\\mathbf{X1}\\) and \\(\\mathbf{X2}\\) will improve overall crop productivity.",
+          "(D) The interaction between \\(\\mathbf{T1}\\) and crop plants \\(\\mathbf{Y}\\) is parasitism."
+        ]
+      },
+      {
+        "id": 12,
+        "question": "The forelimbs of whales, bats, cheetahs and humans share similar anatomical structures. The most appropriate option that captures the evolution of these forelimb bones is:",
+        "options": [
+          "(A) Divergent and orthologous",
+          "(B) Convergent and homologous",
+          "(C) Divergent and paralogous",
+          "(D) Convergent and orthologous"
+        ]
+      },
+      {
+        "id": 13,
+        "question": "In the Tree of Life, viruses are not included. The reason for this is:",
+        "options": [
+          "(A) Viruses lack a cellular structure",
+          "(B) Viruses do not evolve from their ancestors.",
+          "(C) Evolution of viruses do not follow Darwinian principles.",
+          "(D) Viruses infect all domains of life."
+        ]
+      },
+      {
+        "id": 14,
+        "question": "Chloroplasts of Euglenophyta are surrounded by three membranes. Assuming gain-of-function and gene addition, the most likely evolutionary scenario is:",
+        "options": [
+          "(A) Euglenophyta evolved from an independent secondary endosymbiont",
+          "(B) Heterokontophyta and Cryptophyta evolved from Euglenophyta.",
+          "(C) Euglenophyta evolved from Heterokontophyta and Cryptophyta.",
+          "(D) They evolved from a common ancestor through a single event."
+        ]
+      },
+      {
+        "id": 15,
+        "question": "Bleeding into internal organs occurs when the platelet count is very low. This is because:",
+        "options": [
+          "(A) Blood becomes thin and flows out easily.",
+          "(B) Clotting factors from platelets stop internal bleeding",
+          "(C) Red blood cells cannot bind to each other.",
+          "(D) White blood cells cannot reach the site."
+        ]
+      },
+      {
+        "id": 16,
+        "question": "Lokiarchaeon co-cultured with Methanobacterium and a proteobacterium. The interactions between Lokiarchaeon with Methanobacterium and Lokiarchaeon/Methanobacterium with proteobacterium, respectively, are:",
+        "options": [
+          "(A) Mutualism and commensalism",
+          "(B) Mutualism and parasitism",
+          "(C) Commensalism and mutualism",
+          "(D) Mutualism and amensalism"
+        ]
+      },
+      {
+        "id": 17,
+        "question": "Identify the non-reducing disaccharide:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q18.png' alt='Non-reducing Disaccharide' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) Cellobiose",
+          "(B) Trehalose (non-reducing disaccharide)",
+          "(C) Lactose",
+          "(D) Maltose"
+        ]
+      },
+      {
+        "id": 18,
+        "question": "A researcher found a cottony growth on plant tissue. Microscopic examination showed branched, thread-like structures with linearly arranged cells and cross walls. Each cell has a nucleus. Staining revealed complex polysaccharides in cell walls. The organism belongs to:",
+        "options": [
+          "(A) Kingdom: Protista, Phylum: Amoebozoa",
+          "(B) Kingdom: Fungi; Phylum: Ascomycota",
+          "(C) Kingdom: Monera; Phylum: Actinomycetota",
+          "(D) Kingdom: Plantae; Phylum: Charophyta"
+        ]
+      },
+      {
+        "id": 19,
+        "question": "The graph depicts an energy diagram (potential energy \\( vs \\) progress of reaction) of an uncatalyzed and enzyme-catalysed reaction.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/bio_q20.png' alt='Energy Diagram' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Which of the following statement/s about enzyme catalysis is/are CORRECT:",
+        "options": [
+          "(A) Statements i and ii are correct",
+          "(B) i and iii",
+          "(C) i, ii and iv",
+          "(D) ii and iv"
+        ]
+      }
+    ],
+    "Chemistry": [
+      {
+        "id": 0,
+        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q1.png' alt='Chemical Reactions' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>In this context, the correct statement is",
+        "options": [
+          "(a) Q is a ketone and T is an ether.",
+          "(b) R is an acid and S is a ketal",
+          "(c) R is an aldehyde and S is a ketal.",
+          "(d) Q is an acid and T is an ester."
+        ]
+      },
+      {
+        "id": 1,
+        "question": "Aqueous solution of sodium salt of 2-methylbutanoic acid on Kolbe electrolysis yields **P** (major product). **P** is<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q2.png' alt='Kolbe Electrolysis Products' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(a)",
+          "(b)",
+          "(c)",
+          "(d)"
+        ]
+      },
+      {
+        "id": 2,
+        "question": "Consider the following reactions:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q3.png' alt='Reactions of P' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>**R** and **S**, respectively, are",
+        "options": [
+          "(a) Methoxybenzene and 2-Hydroxybenzoic acid",
+          "(b) Methylbenzene and Benzoic acid",
+          "(c) Methoxybenzene and Benzoic acid",
+          "(d) 2-Hydroxy-methylbenzene and 2-Hydroxybenzoic acid"
+        ]
+      },
+      {
+        "id": 3,
+        "question": "Glucose on treatment with bromine water yields **X**. **X** upon treatment with excess of acetic anhydride yields **Y**. The structure of **Y** is<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q4.png' alt='Structures' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(a)",
+          "(b)",
+          "(c)",
+          "(d)"
+        ]
+      },
+      {
+        "id": 4,
+        "question": "An intramolecular aldol reaction of **P** in the presence of dilute NaOH yields a mixture of aldol reaction products.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q5_structure.png' alt='Compound P' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>One of the products that can be formed is<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q5_options.png' alt='Options' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(a)",
+          "(b)",
+          "(c)",
+          "(d)"
+        ]
+      },
+      {
+        "id": 5,
+        "question": "Consider the following compounds.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q6.png' alt='Compounds' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the compounds that show aromaticity are",
+        "options": [
+          "(a) I and IV",
+          "(b) II and III",
+          "(c) III and IV",
+          "(d) I and III (Thiophene and Naphthalene)"
+        ]
+      },
+      {
+        "id": 6,
+        "question": "Consider the following ethers.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q7.png' alt='Ethers' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Among them, the ethers that can be synthesized under mild conditions using Williamson's ether synthesis are",
+        "options": [
+          "(a) I and II",
+          "(b) II and III",
+          "(c) II and IV",
+          "(d) III and IV"
+        ]
+      },
+      {
+        "id": 7,
+        "question": "Consider the following reaction:<br>\\(x MnO_4^- + y I^- + z H^+ \\rightarrow p Mn^{2+} + q IO_3^- + r H_2O\\)<br>The correct ratio \\(x : y\\) in the balanced equation is",
+        "options": [
+          "(a) 6:5",
+          "(b) 6 : 4",
+          "(c) 5 : 6",
+          "(d) 4 : 6"
+        ]
+      },
+      {
+        "id": 8,
+        "question": "The spin only magnetic moment of a manganese (atomic number 25) amine complex is 2.83 BM. The oxidation state of Mn in the complex is",
+        "options": [
+          "(a) +2",
+          "(b) +3",
+          "(c) +4",
+          "(d) +5"
+        ]
+      },
+      {
+        "id": 9,
+        "question": "Consider the radioactive decay, \\(X \text{ (radioactive)} \rightarrow Y \text{ (stable)}\\). At time \\(t = 0\\), \\(X\\) is present in the pure form and at \\(t = 2\\) h, the ratio of amounts of \\(X\\) and \\(Y\\) is 1:3. The duration required for the ratio to become 1:15 is",
+        "options": [
+          "(a) 10 h",
+          "(b) 8 h",
+          "(c) 6 h",
+          "(d) 4 h"
+        ]
+      },
+      {
+        "id": 10,
+        "question": "The correct statement regarding chromate and dichromate is",
+        "options": [
+          "(a) Oxidation states are +4 and +6",
+          "(b) Dichromate with \\(H_2SO_4\\) gives chromate",
+          "(c) All bond distances are equal",
+          "(d) Six electrons involved in reduction"
+        ]
+      },
+      {
+        "id": 11,
+        "question": "Among the elements Cr, Mn, Cu, and Zn, the one having the highest second ionization energy is",
+        "options": [
+          "(a) Cr",
+          "(b) Mn",
+          "(c) Cu",
+          "(d) Zn"
+        ]
+      },
+      {
+        "id": 12,
+        "question": "The compound having highest covalent character in the metal-chlorine bond is",
+        "options": [
+          "(a) \\(NaCl\\)",
+          "(b) \\(MgCl_2\\)",
+          "(c) AlCl3",
+          "(d) \\(TiCl_4\\)"
+        ]
+      },
+      {
+        "id": 13,
+        "question": "The correct order of basicity is",
+        "options": [
+          "(a) \\(Al(OH)_3 > Ca(OH)_2 > Lu(OH)_3 > La(OH)_3\\)",
+          "(b) Ca(OH)2>La(OH)3>Lu(OH)3>Al(OH)3",
+          "(c) \\(Lu(OH)_3 > La(OH)_3 > Ca(OH)_2 > Al(OH)_3\\)",
+          "(d) \\(La(OH)_3 > Ca(OH)_2 > Al(OH)_3 > Lu(OH)_3\\)"
+        ]
+      },
+      {
+        "id": 14,
+        "question": "Certain amount (say, n moles) of a monoatomic ideal gas (\\(C_V = \frac{3}{2}R\\)) of volume \\(V_1\\), temperature \\(T_1\\), and pressure \\(P_1\\) is expanded against a constant external pressure \\(P_2\\) until the pressure of the gas becomes \\(P_2\\). The correct statement is",
+        "options": [
+          "(a) If expanded adiabatically, work is \\(\frac{3}{2} V_1(P_2 - P_1)\\)",
+          "(b) If expanded adiabatically, entropy change is zero",
+          "(c) If expanded isothermally, work is \\(-nRT_1 \\ln(P_1/P_2)\\)",
+          "(d) All of the above are true"
+        ]
+      },
+      {
+        "id": 15,
+        "question": "Consider the reaction equilibrium \\(X(g) \rightleftharpoons Y(g) + Z(g)\\) at a constant temperature \\(T\\). Starting with 1 mole of \\(X\\), the equilibrium is reached at a given pressure \\(P\\). A plot of \\(PV/RT\\) vs \\(P/P^0\\) will look like:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q16.png' alt='PV/RT Plot' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(a)",
+          "(b)",
+          "(c)",
+          "(d)"
+        ]
+      },
+      {
+        "id": 16,
+        "question": "Consider two mutually soluble solids **PQ** and **RS\\(_2\\)**. [Complex solubility problem statement]. The ratio of solubility products of **PQ** and **RS\\(_2\\)** at \\(T_3\\) is given by",
+        "options": [
+          "(a) 1",
+          "(b) 9/8",
+          "(c) 9/32",
+          "(d) 3/2"
+        ]
+      },
+      {
+        "id": 17,
+        "question": "Consider the following molecular orbitals that are formed by sidewise overlap of adjacent 2p atomic orbitals.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/chem_q18.png' alt='Molecular Orbitals' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>The correct order of energies of the molecular orbitals is",
+        "options": [
+          "(a) IV<II=III<I",
+          "(b) III < IV < II < I",
+          "(c) I < II < IV < III",
+          "(d) IV = II = III < I"
+        ]
+      },
+      {
+        "id": 18,
+        "question": "The quantity \\(\\sum_{i=1}^{\\infty} \\nu_{min}^{(i)}\\) expressed in terms of the ground state energy of hydrogen atom, \\(E_H\\) and the Planck's constant \\(h\\) is",
+        "options": [
+          "(a) \\(-(E_H/h) \\sum_{n=1}^{\\infty} \\frac{1}{n^2}\\)",
+          "(b) −EH/h",
+          "(c) \\(-E_H\\)",
+          "(d) Infinity"
+        ]
+      },
+      {
+        "id": 19,
+        "question": "Consider the first order reaction \\(X(g) \rightarrow 2Y(g) + 2Z(g)\\). [Pressure change problem statement]. The fraction of unreacted **X** at \\(t = 1\\) h is",
+        "options": [
+          "(a) 12.5%",
+          "(b) 25%",
+          "(c) 50%",
+          "(d) 75%"
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "id": 0,
+        "question": "For positive real numbers \\(a\\) and \\(b\\), the number of solutions of \\(ax^{887} - b = 0\\) in \\(\\mathbb{R}\\) is",
+        "options": [
+          "A. 887",
+          "B. 443",
+          "C. 1",
+          "D. 0"
+        ]
+      },
+      {
+        "id": 1,
+        "question": "The number of pairs \\((x, y)\\) of rational numbers such that \\(x + y = xy\\) is",
+        "options": [
+          "A. 2",
+          "B. 1",
+          "C. 0",
+          "D. ∞"
+        ]
+      },
+      {
+        "id": 2,
+        "question": "The number of positive integers \\(n\\) such that the equation \\(n^2 X^2 + 2024 X + (n^2 + 1) = 0\\) has a solution in \\(\\mathbb{R}\\) is",
+        "options": [
+          "A. 31",
+          "B. 5",
+          "C. 1012",
+          "D. Between 1012 and 2024"
+        ]
+      },
+      {
+        "id": 3,
+        "question": "Consider the closed interval \\([0, 1]\\) and label it as \\(C_0\\).<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q4.png' alt='Cantor Set Construction' style='max-width:500px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the sum of the lengths of the intervals in \\(C_4\\) is",
+        "options": [
+          "A. 1/81",
+          "B. 2/81",
+          "C. 14/81",
+          "D. 16/81"
+        ]
+      },
+      {
+        "id": 4,
+        "question": "Let \\(S\\) be the set of all functions \\(f : \\mathbb{Z} \\to \\mathbb{C}\\) such that \\(f(m + n) = f(m)f(n)\\) and \\(f(0) = 1\\). Then",
+        "options": [
+          "A. there exists \\(f \\in S\\) such that \\(f(-1) = 0\\)",
+          "B. There exists f∈S such that f(1)=2+3i",
+          "C. there exists \\(f \\in S\\) such that \\(f(1) = 0\\)",
+          "D. \\(f(1) = 1\\) for every \\(f\\) in \\(S\\)"
+        ]
+      },
+      {
+        "id": 5,
+        "question": "The number of points \\(x\\) in \\(\\mathbb{R}\\) where the function \\(f(x) = \\cos x + \\cos(\\sqrt{11} x)\\) attains its maximum is",
+        "options": [
+          "A. 0",
+          "B. 2",
+          "C. 1",
+          "D. ∞"
+        ]
+      },
+      {
+        "id": 6,
+        "question": "Let \\(P\\) and \\(Q\\) be the points of intersection of the circles \\(C_1: x^2 + y^2 + 2x - y = 0\\) and \\(C_2: x^2 + y^2 + 3x + 2y - 3 = 0\\). The distance between \\(R(1, 2)\\) and the line \\(PQ\\) is",
+        "options": [
+          "A. \\(\\sqrt{2}\\)",
+          "B. \\(5/\\sqrt{3}\\)",
+          "C. \\(8/\\sqrt{3}\\)",
+          "D. 4/10"
+        ]
+      },
+      {
+        "id": 7,
+        "question": "Let \\(n \\in \\mathbb{N}\\) and let \\(f(x) = x^n\\). Then \\(f(1) + \\frac{f^{(1)}(1)}{1!} + \\dots + \\frac{f^{(n)}(1)}{n!}\\) is equal to",
+        "options": [
+          "A. 1",
+          "B. \\(2^{n-1}\\)",
+          "C. \\((n+1)2^n\\)",
+          "D. 2n"
+        ]
+      },
+      {
+        "id": 8,
+        "question": "Let \\(ABCD\\) be a square. \\(P\\) and \\(Q\\) are points such that \\(ABP\\) and \\(CDQ\\) are equilateral triangles.<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q9.png' alt='Square and Triangles' style='max-width:350px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the area of the intersection is",
+        "options": [
+          "A. \\(\\frac{2}{\\sqrt{3}} - 1\\)",
+          "B. less than \\(1/8\\)",
+          "C. 15/112",
+          "D. 1−1/3"
+        ]
+      },
+      {
+        "id": 9,
+        "question": "Let \\(AB\\) be the diameter of a circle with radius 1. \\(\\Sigma\\) is a circle tangent to \\(AB\\) at \\(O\\), and intersects the larger circle. [Geometry problem].<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q10.png' alt='Geometry Problem' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the radius of the circle \\(\\Sigma\\) is",
+        "options": [
+          "A. \\(\\sqrt{3} - (3/2)\\)",
+          "B. \\(\\sqrt{3}/8\\)",
+          "C. \\((2 + \\sqrt{3})/16\\)",
+          "D. (3−1)/3"
+        ]
+      },
+      {
+        "id": 10,
+        "question": "Let \\(I = \\int_{0}^{1} \\frac{x^7}{\\sqrt[3]{1 + x^8}} dx\\). Then",
+        "options": [
+          "A. \\(-1/4 < I < 0\\)",
+          "B. 0<I<1/8",
+          "C. \\(1/8 < I < 1/4\\)",
+          "D. \\(1/4 < I < 3/8\\)"
+        ]
+      },
+      {
+        "id": 11,
+        "question": "Let \\(A\\) and \\(B\\) be two \\(3 \\times 3\\) matrices such that \\(AB = BA\\) and \\(A^2 - 5AB + 4B^2 = 0\\). Then",
+        "options": [
+          "A. \\(A = B\\) or \\(A = 4B\\)",
+          "B. \\(A - B\\) is singular",
+          "C. \\(A - 4B\\) is singular",
+          "D. A and B are nonsingular if any one of A−B or A−4B is nonsingular"
+        ]
+      },
+      {
+        "id": 12,
+        "question": "The ordinary differential equation \\(y'' - y = 0\\) has",
+        "options": [
+          "A. a unique solution",
+          "B. Two distinct solutions",
+          "C. a non-zero decreasing solution",
+          "D. A non-zero periodic solution"
+        ]
+      },
+      {
+        "id": 13,
+        "question": "Let \\(f : [0, 2\\pi] \\to \\mathbb{R}\\) be strictly increasing and \\(f(0) < 0 < f(2\\pi)\\). Let \\(F(t) = \\int_0^t f(x) dx\\). Then",
+        "options": [
+          "A. F is increasing",
+          "B. F is decreasing",
+          "C. F has a minimum in the interval (0,2π)",
+          "D. F has a maximum"
+        ]
+      },
+      {
+        "id": 14,
+        "question": "Let \\(a > 0\\) and \\(f, g\\) be continuous on \\([0, a]\\) such that \\(f(x) = f(a - x)\\) and \\(g(x) + g(a - x) = 3\\). Then \\(\\int_0^a f(x) g(x) dx\\) is",
+        "options": [
+          "A. 3a",
+          "B. \\(\\int_0^a g(x) dx\\)",
+          "C. \\(\\int_0^a f(x) dx\\)",
+          "D. 23∫0af(x)dx"
+        ]
+      },
+      {
+        "id": 15,
+        "question": "Let \\(A, B, C\\) be non-collinear. \\(MN\\) parallel to \\(BC\\). [Geometry scaling problem].<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/math_q16.png' alt='Triangle Geometry' style='max-width:450px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div><br>Then the length of \\(AX\\) is",
+        "options": [
+          "A. \\(1 + \\sqrt{2}\\)",
+          "B. \\(5\\sqrt{15}/8\\)",
+          "C. \\(4/\\sqrt{3}\\)",
+          "D. (5+6)/2"
+        ]
+      },
+      {
+        "id": 17,
+        "question": "Let \\(N\\) be the number of integer solutions to \\(X_1 + X_2 + X_3 = 30\\) where each \\(X_i\\) is non-negative and not divisible by 3. Then \\(N\\) is",
+        "options": [
+          "A. 100",
+          "B. 244",
+          "C. 331",
+          "D. 402"
+        ]
+      },
+      {
+        "id": 18,
+        "question": "Let \\(R\\) be the equivalence relation on \\(\\mathbb{R}\\) defined by \\(x - y = m\\) for some \\(m \\in \\mathbb{Q}\\). Then",
+        "options": [
+          "A. each class has at most one non-rational",
+          "B. infinitely many classes with non-zero integer",
+          "C. There exists an equivalence class containing ≥1000 elements",
+          "D. classes with infinitely many elements"
+        ]
+      },
+      {
+        "id": 19,
+        "question": "Let \\(f' = f, f(0) = 1\\) and \\(f(x) + g(x) = x^3\\). Then \\(\\int_0^1 f(x)g(x) dx\\) is",
+        "options": [
+          "(1) 13/2−e+e2/2",
+          "(2) \\(13/2 - 2e - e^2/2\\)",
+          "(3) \\(e^2/2\\)",
+          "(4) \\(e + e^2/2\\)"
+        ]
+      },
+      {
+        "id": 20,
+        "question": "A traveler moves between city A and B with given probabilities. [Markov chain-like probability problem]. Probability of being in B on Thursday morning is",
+        "options": [
+          "A. 35/216",
+          "B. 37/216",
+          "C. 41/216",
+          "D. 43/216"
+        ]
+      }
+    ],
+    "Physics": [
+      {
+        "id": 0,
+        "question": "A particle of unit mass is released from origin with a velocity \\(\\mathbf{v} = v_0 \\hat{i}\\) inside a potential well \\(\\phi(x) = ax^2 \\exp(-bx^2)\\). The minimum value of \\(v_0\\) to cross the potential well is closest to",
+        "options": [
+          "(A) 0.85",
+          "(B) 0.75",
+          "(C) 0.95",
+          "(D) 0.65"
+        ]
+      },
+      {
+        "id": 1,
+        "question": "A body of mass \\(m\\) is subjected to a position dependent force \\(F = -k_1 x - k_3 x^3\\). The most appropriate condition for neglecting the cubic term is:",
+        "options": [
+          "(A) \\(k_3 \\ll 1\\)",
+          "(B) \\(k_3 A / k_1 \\ll 1\\)",
+          "(C) \\(k_3 \\ll k_1\\)",
+          "(D) k3A2/k1≪1"
+        ]
+      },
+      {
+        "id": 2,
+        "question": "A rigid body is rotating with a constant angular speed of 3 rad s\\({}^{-1}\\) about an axis through \\(A(0, -1, 1)\\) and \\(B(1, 1, 3)\\). The instantaneous speed of point \\(P(4, 6, 7)\\) is",
+        "options": [
+          "(A) 3",
+          "(B) 2",
+          "(C) 6",
+          "(D) 4"
+        ]
+      },
+      {
+        "id": 3,
+        "question": "A planet is in uniform circular motion about a star. We define a vector \\(\\vec{A} = \\vec{v} \\times \\vec{L}\\). Then",
+        "options": [
+          "(A) \\(\\vec{A}\\) is a zero vector.",
+          "(B) the magnitude of \\(\\vec{A}\\) is \\(GM^2/m\\).",
+          "(C) \\(\\vec{A}\\) is in a plane perpendicular to orbit.",
+          "(D) A is along r"
+        ]
+      },
+      {
+        "id": 4,
+        "question": "A particle of mass \\(M\\) is oscillating inside a potential energy well \\(\\phi(x) = k|x|\\). The time period of oscillation is",
+        "options": [
+          "(A) 32Mx0/k",
+          "(B) \\(\\sqrt{\\frac{16Mx_0}{k}}\\)",
+          "(C) \\(\\sqrt{\\frac{8Mx_0}{k}}\\)",
+          "(D) \\(\\sqrt{\\frac{4Mx_0}{k}}\\)"
+        ]
+      },
+      {
+        "id": 5,
+        "question": "A solid object is dropped under gravity with drag force proportional to \\(v^2\\). The rise in temperature just before ground is proportional to",
+        "options": [
+          "(A) \\(H\\)",
+          "(B) H2",
+          "(C) \\(H^3\\)",
+          "(D) \\(H^{3/2}\\)"
+        ]
+      },
+      {
+        "id": 6,
+        "question": "Rise in temperature of a wire of radius \\(r\\) per unit time is found to be proportional to \\(r^n\\). Here \\(n\\) is",
+        "options": [
+          "(A) 0",
+          "(B) -2",
+          "(C) -4",
+          "(D) -6"
+        ]
+      },
+      {
+        "id": 7,
+        "question": "An ideal gas inside a container is heated at constant rate \\(K\\). Due to a leak, density decreases at constant rate \\(\\Gamma\\). The rate of change of pressure will",
+        "options": [
+          "(A) depend only on \\(\\Gamma\\).",
+          "(B) Depend only on K",
+          "(C) depend on both \\(K\\) and \\(\\Gamma\\).",
+          "(D) be zero."
+        ]
+      },
+      {
+        "id": 8,
+        "question": "In an adiabatic compression of a monoatomic ideal gas, pressure increases to \\(k\\) times. If ratio \\(d_1/d_2 = k^\\alpha\\), then \\(\\alpha\\) is",
+        "options": [
+          "(A) 0.22",
+          "(B) 0.20",
+          "(C) 0.26",
+          "(D) 0.24"
+        ]
+      },
+      {
+        "id": 9,
+        "question": "A solid sphere of radius \\(R\\) cools radiatively with time constant \\(\\tau\\). Then,",
+        "options": [
+          "(A) τ∝R2",
+          "(B) \\(\\tau \\propto R\\)",
+          "(C) \\(\\tau \\propto R^3\\)",
+          "(D) \\(\\tau \\propto R^0\\)"
+        ]
+      },
+      {
+        "id": 10,
+        "question": "A conducting slab is between capacitor plates. Net surface charge density is \\(+\\sigma/2\\). Induced charge density facing positive terminal is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/phys_q11.png' alt='Capacitor Diagram' style='max-width:300px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) \\(-\\sigma\\)",
+          "(B) \\(-5\\sigma/4\\)",
+          "(C) \\(-\\sigma/4\\)",
+          "(D) −3σ/4"
+        ]
+      },
+      {
+        "id": 11,
+        "question": "A quarter circular loop in the \\(xz\\)-plane carries current \\(I\\). The \\(y\\)-component of magnetic field at \\((0, R, 0)\\) is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/phys_q12.png' alt='Magnetic Field Loop' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) μ0I/(162R)",
+          "(B) \\(\\mu_0 I / (4\\sqrt{2}R)\\)",
+          "(C) \\(\\mu_0 I / (8\\sqrt{2}R)\\)",
+          "(D) 0"
+        ]
+      },
+      {
+        "id": 12,
+        "question": "Balmer transitions for \\(Z=24\\) and \\(Z=25\\). Largest possible wavelength. Energy difference \\(|E_1 - E_0|\\) is closest to",
+        "options": [
+          "(A) 9",
+          "(B) 27",
+          "(C) 54",
+          "(D) 90"
+        ]
+      },
+      {
+        "id": 13,
+        "question": "A muon decays in \\(2 \\times 10^{-6}\\) s. Number of revolutions in innermost orbit of muonic hydrogen before decay is",
+        "options": [
+          "(A) 1012",
+          "(B) \\(10^{15}\\)",
+          "(C) \\(10^{16}\\)",
+          "(D) \\(10^{18}\\)"
+        ]
+      },
+      {
+        "id": 14,
+        "question": "Select the correct statement regarding Thompson and Rutherford models.",
+        "options": [
+          "(A) Thompson model is stable.",
+          "(B) Rutherford model is stable.",
+          "(C) Thompson model cannot estimate atomic size",
+          "(D) Rutherford model can estimate atomic size."
+        ]
+      },
+      {
+        "id": 15,
+        "question": "Convex lens shifts towards screen by \\(d=6\\) cm. Heights \\(h_1=4\\), \\(h_2=9\\). Ratio \\(h/f\\) is",
+        "options": [
+          "(A) 3.00",
+          "(B) 3.75",
+          "(C) 4.00",
+          "(D) 4.50"
+        ]
+      },
+      {
+        "id": 16,
+        "question": "Point light source at bottom of 5m pool. Refractive index 1.33. Illuminated area viewed from top is closest to",
+        "options": [
+          "(A) 30",
+          "(B) 100",
+          "(C) 60",
+          "(D) 120"
+        ]
+      },
+      {
+        "id": 17,
+        "question": "Minimum distance between an object and its real image through a convex lens of \\(f=10\\) cm is",
+        "options": [
+          "(A) 10",
+          "(B) 15",
+          "(C) 20",
+          "(D) 40"
+        ]
+      },
+      {
+        "id": 18,
+        "question": "Wave nature of atoms can be ignored if:",
+        "options": [
+          "(A) \\(h / \\sqrt{m k_B T} \\ll 1\\)",
+          "(B) \\(n h / \\sqrt{m k_B T} \\ll 1\\)",
+          "(C) n1/3h/mkBT≪1",
+          "(D) \\(n^{1/2} h / \\sqrt{m k_B T} \\ll 1\\)"
+        ]
+      },
+      {
+        "id": 19,
+        "question": "Two semi-infinite wires. Square loop of side \\(a\\) at \\(2a\\). Induced emf is:<br><br><div style='text-align:center;'><img src='../data/niser/2024_s1/images/phys_q20.png' alt='Induced EMF' style='max-width:400px; width:100%; border-radius:8px; border:1px solid rgba(255,255,255,0.1);'></div>",
+        "options": [
+          "(A) \\(\\mu_0 k a / 4\\pi\\)",
+          "(B) μ0kaln(5/3)/4π",
+          "(C) 0",
+          "(D) \\(\\mu_0 k a \\ln(3/2) / 2\\pi\\)"
+        ]
+      }
+    ]
+  },
+  "keys": {
+    "Biology": {
+      "0": "RA==",
+      "1": "Qg==",
+      "2": "Qw==",
+      "3": "Qg==",
+      "4": "QQ==",
+      "5": "Qg==",
+      "6": "RA==",
+      "7": "QQ==",
+      "8": "QQ==",
+      "9": "QQ==",
+      "10": "Qg==",
+      "11": "QQ==",
+      "12": "QQ==",
+      "13": "QQ==",
+      "14": "QQ==",
+      "15": "Qg==",
+      "16": "QQ==",
+      "17": "Qg==",
+      "18": "Qg==",
+      "19": "QQ=="
+    },
+    "Chemistry": {
+      "0": "Qg==",
+      "1": "Qg==",
+      "2": "QQ==",
+      "3": "Qw==",
+      "4": "Qg==",
+      "5": "RA==",
+      "6": "Qw==",
+      "7": "QQ==",
+      "8": "Qg==",
+      "9": "RA==",
+      "10": "RA==",
+      "11": "Qw==",
+      "12": "Qw==",
+      "13": "Qg==",
+      "14": "QQ==",
+      "15": "Qw==",
+      "16": "Qg==",
+      "17": "QQ==",
+      "18": "Qg==",
+      "19": "Qg=="
+    },
+    "Mathematics": {
+      "0": "Qw==",
+      "1": "RA==",
+      "2": "RA==",
+      "3": "RA==",
+      "4": "Qg==",
+      "5": "Qw==",
+      "6": "RA==",
+      "7": "RA==",
+      "8": "RA==",
+      "9": "RA==",
+      "10": "Qg==",
+      "11": "RA==",
+      "12": "Qg==",
+      "13": "Qw==",
+      "14": "RA==",
+      "15": "RA==",
+      "16": "Qg==",
+      "17": "Qw==",
+      "18": "MQ==",
+      "19": "RA=="
+    },
+    "Physics": {
+      "0": "QQ==",
+      "1": "RA==",
+      "2": "QQ==",
+      "3": "RA==",
+      "4": "QQ==",
+      "5": "Qg==",
+      "6": "Qw==",
+      "7": "Qg==",
+      "8": "Qg==",
+      "9": "QQ==",
+      "10": "RA==",
+      "11": "QQ==",
+      "12": "RA==",
+      "13": "QQ==",
+      "14": "Qw==",
+      "15": "Qg==",
+      "16": "Qg==",
+      "17": "RA==",
+      "18": "Qw==",
+      "19": "Qg=="
+    }
+  }
+}

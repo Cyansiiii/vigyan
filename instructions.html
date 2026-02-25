@@ -596,7 +596,9 @@
         function proceedToExam() {
             const urlParams = new URLSearchParams(window.location.search);
             const testId = urlParams.get("test") || "iat";
-            window.location.href = `exam.html?test=${testId}`;
+            const year = urlParams.get("year") || "2025";
+            const type = urlParams.get("type") || "niser";
+            window.location.href = `exam.html?type=${type}&year=${year}&test=${testId}`;
         }
 
         function goBack() {
