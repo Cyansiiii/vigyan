@@ -42,14 +42,6 @@
 
     // Update Titles Immediately on Load
     document.addEventListener('DOMContentLoaded', () => {
-        const examTitleHeader = document.getElementById('examTitleHeader');
-        if (examTitleHeader) {
-            examTitleHeader.textContent = `Vigyan.prep ${EXAM_TYPE.toUpperCase()} PYQ ${TEST_YEAR}`;
-        }
-        const instTitle = document.getElementById('examTitle');
-        if (instTitle) {
-            instTitle.textContent = `Vigyan.prep ${EXAM_TYPE.toUpperCase()} PYQ ${TEST_YEAR}`;
-        }
         document.title = `Vigyan.prep ${EXAM_TYPE.toUpperCase()} PYQ ${TEST_YEAR} - Assessment Center`;
     });
 
@@ -104,18 +96,12 @@
         });
 
         const examTitle = EXAM_TYPE.toUpperCase();
-        const headerTitle = document.getElementById('examTitleHeader');
-        if (headerTitle) headerTitle.textContent = `${examTitle} PYQ ${TEST_YEAR}`;
 
         // Update marking display if elements exist
         const correctEl = document.querySelector('.q-marks .green-text');
         const incorrectEl = document.querySelector('.q-marks .red-text');
         if (correctEl) correctEl.textContent = MARKING.correct;
         if (incorrectEl) incorrectEl.textContent = Math.abs(MARKING.incorrect);
-
-        // Also update instruction page title if present
-        const instTitle = document.getElementById('examTitle');
-        if (instTitle) instTitle.textContent = `Vigyan.prep ${examTitle} PYQ ${TEST_YEAR}`;
 
         try {
             await ensureDataLoaded();
