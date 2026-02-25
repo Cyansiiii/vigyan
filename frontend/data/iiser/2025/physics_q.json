@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "text": "Consider an elastic collision between two particles A and B of same mass, moving in the same direction. Particle A is moving at speed vA and particle B is moving at speed vB. Which of the following describes the motion most accurately?<br><br><div style='text-align:center;'><img src='images/2025_phys_q1.png' alt='Elastic Collision' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "Graph (b)",
+            "Graph (c)",
+            "Graph (a)",
+            "Graph (d)"
+        ]
+    },
+    {
+        "id": 2,
+        "text": "A block of mass M lies at rest connected to a massless spring of spring constant k. A bullet of mass m hits the block horizontally with speed v and sticks to it. What is the maximum compression?<br><br><div style='text-align:center;'><img src='images/2025_phys_q2.png' alt='Spring Compression' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "\\(\\sqrt{\\frac{mv^{2}}{k}}\\)",
+            "\\(\\sqrt{\\frac{m^{2}v^{2}}{k(M+m)}}\\)",
+            "\\(\\sqrt{\\frac{Mv^{2}}{k}}\\)",
+            "\\(\\sqrt{\\frac{mMv^{2}}{k(M+m)}}\\)"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "A cart of mass M is released from point A of a frictionless track and enters a semicircular arc of radius R. Which quantity does not play a role in ensuring the cart does not leave the track?<br><br><div style='text-align:center;'><img src='images/2025_phys_q3.png' alt='Track Loop' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "h1",
+            "h2",
+            "M",
+            "R"
+        ]
+    },
+    {
+        "id": 4,
+        "text": "A circular disk of mass M and radius R rotates with angular velocity w. A torque T is applied to oppose rotation. What is the angular displacement attained before it reverses direction?",
+        "options": [
+            "\\(\\theta = \\frac{\\omega^{2}MR^{2}}{4T}\\)",
+            "\\(\\theta = -\\frac{\\omega^{2}MR^{2}}{4T}\\)",
+            "\\(\\theta = \\frac{\\omega^{2}MR^{2}}{8T}\\)",
+            "\\(\\theta = -\\frac{\\omega^{2}MR^{2}}{8T}\\)"
+        ]
+    },
+    {
+        "id": 5,
+        "text": "A metallic cube emitting black body radiation at T shows a 4.5% power increase when T increases by 1%. What is the approximate percentage increase in volume?",
+        "options": [
+            "0.50%",
+            "0.75%",
+            "1.56 x 10^-6%",
+            "6.25 x 10^-6%"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "Two pipes A (one end closed) and B (both open) have matching sound frequencies for their nA-th and nB-th harmonics. What is the relation between TA and TB?",
+        "options": [
+            "\\(T_{A}=(\\frac{4n_{A}^{2}}{n_{B}^{2}})T_{B}\\)",
+            "\\(T_{A}=(\\frac{4n_{B}^{2}}{n_{A}^{2}})T_{B}\\)",
+            "\\(T_{A}=(\\frac{n_{A}^{2}}{4n_{B}^{2}})T_{B}\\)",
+            "\\(T_{A}=(\\frac{n_{B}^{2}}{4n_{A}^{2}})T_{B}\\)"
+        ]
+    },
+    {
+        "id": 7,
+        "text": "Consider two waves y1 and y2 = sqrt(3)A cos(kx - wt). What are the resultant amplitude As and phase difference phi with y1?",
+        "options": [
+            "As = 2A and phi = pi/6",
+            "As = 2A and phi = pi/3",
+            "As = A/2 and phi = pi/3",
+            "As = A/2 and phi = pi/6"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "A particle of charge q and mass m enters an electric field between parallel plates of length l and separation d. What is the minimum kinetic energy K (in eV) to not hit the plates?<br><br><div style='text-align:center;'><img src='images/2025_phys_q8.png' alt='Deflection' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "\\(\\frac{l^{2}}{2d^{2}}\\)",
+            "\\(\\frac{d^{2}}{2l^{2}}\\)",
+            "\\(\\frac{l^{2}}{d^{2}}\\)",
+            "\\(\\frac{d^{2}}{l^{2}}\\)"
+        ]
+    },
+    {
+        "id": 9,
+        "text": "What is the potential difference between points P and Q in the capacitor circuit once fully charged?<br><br><div style='text-align:center;'><img src='images/2025_phys_q9.png' alt='Capacitor Bridge' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "0 V",
+            "8 V",
+            "4 V",
+            "12 V"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "A particle (q, m) with velocity v = v0(i+j-k) is in a magnetic field B = B0(i+j+k). Which option is correct for radius r and pitch p?",
+        "options": [
+            "\\(r = \\frac{2\\sqrt{2}mv_{0}}{3qB_{0}}, p = \\frac{2\\pi mv_{0}}{3qB_{0}}\\)",
+            "\\(r = \\frac{mv_{0}}{3qB_{0}}, p = \\frac{2\\pi mv_{0}}{3qB_{0}}\\)",
+            "\\(r = \\frac{2\\sqrt{2}mv_{0}}{3qB_{0}}, p = \\frac{4\\sqrt{2}\\pi mv_{0}}{3qB_{0}}\\)",
+            "\\(r = \\frac{2\\pi mv_{0}}{3qB_{0}}, p = \\frac{2\\sqrt{2}mv_{0}}{3qB_{0}}\\)"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "A charged particle in a circular orbit is enclosed in a metallic frame. What happens to the trajectory as the frame radius is gradually decreased?",
+        "options": [
+            "Radius increases and frequency decreases",
+            "Radius decreases and frequency increases",
+            "Radius remains same but frequency increases",
+            "Both remain unchanged"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "An equilateral prism and a parallelepiped block are arranged as shown. What is the angle of emergence theta?<br><br><div style='text-align:center;'><img src='images/2025_phys_q12.png' alt='Refraction Combination' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "sin^-1(1/3)",
+            "sin^-1(1/2)",
+            "sin^-1(3/4)",
+            "sin^-1(sqrt(3)/2)"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "Intensity after P1 is 3I0/16 when P2 is inserted between source and P1. What is a possible value of angle theta?<br><br><div style='text-align:center;'><img src='images/2025_phys_q13.png' alt='Polarization' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "15°",
+            "45°",
+            "60°",
+            "75°"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "An electron in ground state E1 absorbs photon Ea. What is the value of the principal quantum number n?",
+        "options": [
+            "\\(\\sqrt{\\frac{E_{1}}{E_{1}-E_{a}}}\\)",
+            "\\(\\sqrt{\\frac{E_{1}}{E_{1}+E_{a}}}\\)",
+            "\\(\\sqrt{\\frac{E_{a}}{E_{1}-E_{a}}}\\)",
+            "\\(\\sqrt{\\frac{E_{a}}{E_{1}+E_{a}}}\\)"
+        ]
+    },
+    {
+        "id": 15,
+        "text": "Two particles (m, q) and (M, q) are accelerated through d1 and d2 respectively. If they have the same de Broglie wavelength, what is d2/d1?",
+        "options": [
+            "M/m",
+            "m/M",
+            "sqrt(m/M)",
+            "sqrt(M/m)"
+        ]
+    }
+]

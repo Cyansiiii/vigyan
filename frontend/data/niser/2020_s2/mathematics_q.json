@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "text": "How many three digit numbers divisible by 5 (no repetition)?",
+        "options": [
+            "128",
+            "144",
+            "162",
+            "136"
+        ]
+    },
+    {
+        "id": 2,
+        "text": "Matrix A (3x3) symmetric. How many values of x?",
+        "options": [
+            "2",
+            "Infinitely many",
+            "1",
+            "4"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "Sum series n. Which statement is TRUE?",
+        "options": [
+            "n is divisible by 5",
+            "n is divisible by 6",
+            "n is divisible by 8",
+            "n is divisible by 9"
+        ]
+    },
+    {
+        "id": 4,
+        "text": "f(x) = cos(tan^-1 x). Which is TRUE?",
+        "options": [
+            "Decreasing on R",
+            "Decreasing x < 0",
+            "Decreasing x > 0",
+            "Decreasing (-1, 1)"
+        ]
+    },
+    {
+        "id": 5,
+        "text": "Set A where -31 < det < 29?",
+        "options": [
+            "A = (-2, 2]",
+            "A = (-2, 2)",
+            "A = [-2, 2)",
+            "A = [-2, 2]"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "Complex numbers z1, z2, z3. Value of |4z1 + z2 + z3|?",
+        "options": [
+            "4",
+            "8",
+            "1/4",
+            "1/8"
+        ]
+    },
+    {
+        "id": 7,
+        "text": "f(x) = |x^3 - 3x|[x]. Continuity?",
+        "options": [
+            "Continuous everywhere",
+            "Integer discontinuity",
+            "Non-zero integer discontinuity",
+            "Continuous except 0, sqrt(3)"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "Line perpendicular to tangent of ellipse x^2 + 16y^2 = 4?",
+        "options": [
+            "y = 2sqrt(3)(x-2)",
+            "y = 4sqrt(3)(x-2)",
+            "y = sqrt(3)(x-2)",
+            "4sqrt(3)y = (x-2)"
+        ]
+    },
+    {
+        "id": 9,
+        "text": "Value of |(a + b).(2i + 3j + k)|?",
+        "options": [
+            "0",
+            "sqrt(2)",
+            "3",
+            "3/sqrt(2)"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "Derivative of log(sin^2 x) w.r.t sin x?",
+        "options": [
+            "sin 2x",
+            "2 cosec x",
+            "4 cosec x",
+            "cot x cosec 2x"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "Sequence sum difference. a13 - a10?",
+        "options": [
+            "13",
+            "137",
+            "46",
+            "12"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "Five coins tossed. Prob at least two heads?",
+        "options": [
+            "7/16",
+            "5/16",
+            "13/16",
+            "11/16"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "Function f(x) defined piecewise. Properties?",
+        "options": [
+            "One-one not onto",
+            "Neither",
+            "One-one and onto",
+            "Onto not one-one"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "Solution of x^2 dy/dx + 9xy = x^4?",
+        "options": [
+            "12y = x^9 - 1/x^3",
+            "9y = x^21 - 1/x^3",
+            "12y = x^3 - 1/x^9",
+            "9y = x^3 - 1/x^21"
+        ]
+    },
+    {
+        "id": 15,
+        "text": "Integral x cos x sin x dx?",
+        "options": [
+            "pi/2",
+            "pi/4",
+            "12",
+            "pi/6"
+        ]
+    }
+]

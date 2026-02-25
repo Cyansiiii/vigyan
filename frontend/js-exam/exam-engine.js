@@ -119,6 +119,21 @@
 
         try {
             await ensureDataLoaded();
+
+            // Check if data is actually populated or empty
+            let totalQCount = 0;
+            if (loadedQuestions) {
+                Object.values(loadedQuestions).forEach(arr => {
+                    if (arr && arr.length > 0) totalQCount += arr.length;
+                });
+            }
+
+            if (totalQCount === 0) {
+                // Show Coming Soon message instead of starting exam
+                showComingSoonMessage(examTitle, TEST_YEAR);
+                return;
+            }
+
             document.getElementById('instructionPage').style.display = 'none';
             document.getElementById('examInterface').style.display = 'block';
 
@@ -131,18 +146,48 @@
             if (window.MathJax) MathJax.typeset();
         } catch (err) {
             console.error(err);
-            alert('Error loading exam data. Please check your connection or try another year.');
+            if (err.message === 'NO_DATA') {
+                showComingSoonMessage(examTitle, TEST_YEAR);
+            } else {
+                alert('Error loading exam data. Please check your connection or try another year.');
+            }
+        }
+    }
+
+    function showComingSoonMessage(examTitle, year) {
+        // Create an overlay or replace the content
+        const instContainer = document.querySelector('.instruction-content-wrapper');
+        if (instContainer) {
+            instContainer.innerHTML = `
+                <div style="width: 100%; padding: 60px 20px; text-align: center; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); border-radius: 12px; border: 2px solid #d4af37; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🚧</div>
+                    <h2 style="color: #d4af37; font-size: 2rem; margin-bottom: 15px;">Coming Soon!</h2>
+                    <p style="color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">
+                        We are currently preparing the <strong>${examTitle} ${year}</strong> previous year questions.
+                        The content will be available shortly. Thank you for your patience!
+                    </p>
+                    <button onclick="window.history.back()" style="background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%); color: #1e3a5f; padding: 12px 30px; font-weight: bold; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: transform 0.2s;">
+                        Go Back
+                    </button>
+                </div>
+            `;
         }
     }
 
     async function ensureDataLoaded() {
         if (Object.keys(loadedQuestions).length > 0) return;
         // Dynamically fetch unified questions.json based on EXAM_TYPE and TEST_YEAR
-        const response = await fetch(`../data/${EXAM_TYPE}/${TEST_YEAR}/questions.json?v=${Date.now()}`);
-        if (!response.ok) throw new Error(`Failed to fetch questions for ${EXAM_TYPE} ${TEST_YEAR}`);
-        const data = await response.json();
-        loadedQuestions = data.questions || {};
-        loadedKeys = data.keys || {};
+        try {
+            const response = await fetch(`../data/${EXAM_TYPE}/${TEST_YEAR}/questions.json?v=${Date.now()}`);
+            if (!response.ok) throw new Error(`Failed to fetch questions for ${EXAM_TYPE} ${TEST_YEAR}`);
+            const data = await response.json();
+
+            loadedQuestions = data.questions || {};
+            loadedKeys = data.keys || {};
+        } catch (e) {
+            // If the file doesn't exist at all (404), treat as NO_DATA so it shows coming soon
+            throw new Error('NO_DATA');
+        }
     }
 
     function loadQuestion(index) {

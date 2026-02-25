@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "text": "Match the entries in column I and column II regarding animal classifications. <br><br> [Image of the classification of Chordata and Hemichordata characteristics] <br><br> Column I: P. Notochord and hollow nerve cord present; Q. Ectoparasite with 6-15 pairs of gills and closed circulation; R. Marine animals with persistent notochord and placoid scales; S. Animals with open circulatory systems, and stomochord. Column II: i. Cyclostomata; ii. Chondrichthyes; iii. Hemichordata; iv. Chordata.",
+        "options": [
+            "P-iv Q-ii R-i; S-iii",
+            "P-iv Q-i R-ii S-iii",
+            "P-i; Qiii; R-ii; S-iv",
+            "P-iii Qi R-ii Siv"
+        ]
+    },
+    {
+        "id": 2,
+        "text": "Chromosomes are classified as metacentric, sub-metacentric, acrocentric and telocentric based on the position of which structure?",
+        "options": [
+            "Centriole",
+            "Centrosome",
+            "Centromere",
+            "Telomere"
+        ]
+    },
+    {
+        "id": 3,
+        "text": "Which one of the following options describes a triglyceride?",
+        "options": [
+            "Three glycerol molecules linked to a fatty acid chain",
+            "Three fatty acid chains linked to a molecule of glycerol",
+            "Three saturated fatty acid chains linked to a molecule of cholesterol",
+            "Three glyceride molecules linked to a molecule of phospholipid"
+        ]
+    },
+    {
+        "id": 4,
+        "text": "Which one of the following statements about a plant carotenoid is FALSE?",
+        "options": [
+            "It provides precursor for the synthesis of stress hormone in plants.",
+            "It protects chlorophyll a from photo-oxidation.",
+            "It accumulates in chromoplasts during fruit ripening.",
+            "It is an accessory pigment which absorbs light at 600-700 nm."
+        ]
+    },
+    {
+        "id": 5,
+        "text": "Relative number of ATP synthesized in mitochondria when treated with chemical X (inhibits Complex I to ubiquinone) or chemical Y (inhibits Complex III to cytochrome C)?",
+        "options": [
+            "Experiment 1 < Experiment 2 < Experiment 3",
+            "Experiment 2 < Experiment 1 < Experiment 3",
+            "Experiment 1 = Experiment 2 = Experiment 3",
+            "Experiment 2 < Experiment 1 = Experiment 3"
+        ]
+    },
+    {
+        "id": 6,
+        "text": "Which autoregulatory mechanism is employed by the kidney when glomerular filtration rate is reduced?",
+        "options": [
+            "Levels of renin, angiotensin I and II and aldosterone are increased.",
+            "Levels of renin and aldosterone are reduced.",
+            "Levels of renin are increased, while those of angiotensin I and II and aldosterone are reduced.",
+            "Levels of angiotensin I and II are increased, while that of aldosterone are reduced."
+        ]
+    },
+    {
+        "id": 7,
+        "text": "Which condition will favour maximum dissociation of oxygen from the oxyhaemoglobin in the tissues?",
+        "options": [
+            "higher \\([H^{+}]\\) lower temperature",
+            "lower \\([H^{+}]\\) higher temperature",
+            "higher \\([H^{+}]\\) higher temperature",
+            "lower \\([H^{+}]\\) lower temperature"
+        ]
+    },
+    {
+        "id": 8,
+        "text": "Which one of the following statements is correct regarding muscle fibres?",
+        "options": [
+            "Mitochondria are more in white than in red muscle fibres.",
+            "Red muscle fibres produce ATP aerobically under normal oxygen conditions.",
+            "Lactic acid accumulates more in red than in white muscle fibres.",
+            "All muscle fibres primarily produce ATP anaerobically."
+        ]
+    },
+    {
+        "id": 9,
+        "text": "Which one of the following organisms produces the female gamete by mitosis of haploid cells?",
+        "options": [
+            "Garden pea",
+            "Fruit fly",
+            "Chicken",
+            "Honey bee"
+        ]
+    },
+    {
+        "id": 10,
+        "text": "Which amino acid will be charged on the tRNA with anticodon 5'-GUU-3'?",
+        "options": [
+            "Valine (codon GUU)",
+            "Leucine (codon UUG)",
+            "Asparagine (codon AAC)",
+            "Glutamine (codon CAA)"
+        ]
+    },
+    {
+        "id": 11,
+        "text": "Genotype of parents R1 through R4 based on double heterozygous (PpQq) gamete proportions?",
+        "options": [
+            "R1=PPQQ R2=ppqq; R3=ppQQ R4=PPqq",
+            "R1=ppQQ R2=PPqq R3=PPQQ R4=ppqq",
+            "R1=ppQQ R2=PPqq R3=PPqq R4=ppQQ",
+            "R1=PPQQ R2=ppqq; R3=R4=PPQQ"
+        ]
+    },
+    {
+        "id": 12,
+        "text": "What are retroviruses?",
+        "options": [
+            "Viruses with DNA genome and no reverse transcriptase",
+            "Viruses with RNA genome and reverse transcriptase activity",
+            "Viruses with DNA genome and reverse transcriptase activity",
+            "Viruses with RNA genome and no reverse transcriptase"
+        ]
+    },
+    {
+        "id": 13,
+        "text": "Which diagram correctly represents restriction enzyme sites (X, Y) on the 10,000 bp plasmid? <br><br> <div style='text-align:center;'><img src='images/2025_bio_q13.png' alt='Agarose Gel Electrophoresis result for plasmid digestion' style='max-width:350px; width:100%;'></div>",
+        "options": [
+            "Diagram (a)",
+            "Diagram (b)",
+            "Diagram (c)",
+            "Diagram (d)"
+        ]
+    },
+    {
+        "id": 14,
+        "text": "Which one of the following statements is INCORRECT about honey bees?",
+        "options": [
+            "Honey bee males are produced from unfertilized eggs and females from fertilized eggs.",
+            "Honey bee males cannot have daughters but can have sons.",
+            "A honey bee male does not have a father but has a grandfather.",
+            "Honey bee males form gametes by mitosis and females form gametes by meiosis."
+        ]
+    },
+    {
+        "id": 15,
+        "text": "Which one of the following statements is FALSE regarding ecological energetics?",
+        "options": [
+            "Only 10% of energy is transferred to each of the higher trophic levels.",
+            "All organisms of a trophic level should be included for estimation of energy content.",
+            "More than 80% of the solar energy incident on earth is captured by plants.",
+            "The movement of energy is unidirectional in the ecological pyramid of energy."
+        ]
+    }
+]
