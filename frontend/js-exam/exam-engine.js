@@ -104,13 +104,39 @@
         if (incorrectEl) incorrectEl.textContent = Math.abs(MARKING.incorrect);
 
         try {
+            const btn = document.querySelector('.btn-primary');
+            const originalBtnText = btn ? btn.textContent : 'I am ready to begin';
+            if (btn) {
+                btn.textContent = 'Preparing Environment...';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+                btn.style.cursor = 'not-allowed';
+            }
+
             await ensureDataLoaded();
 
-            // Check if data is actually populated or empty
+            // Check if data is actually populated or empty, and collect preloads
             let totalQCount = 0;
+            const imageUrls = new Set();
             if (loadedQuestions) {
                 Object.values(loadedQuestions).forEach(arr => {
-                    if (arr && arr.length > 0) totalQCount += arr.length;
+                    if (arr && arr.length > 0) {
+                        totalQCount += arr.length;
+                        arr.forEach(q => {
+                            let content = q.text || q.question || '';
+                            if (q.imageUrl) {
+                                const raw = q.imageUrl;
+                                imageUrls.add(raw.startsWith('images/') ? DATA_ROOT + raw : raw);
+                            }
+                            // Regex find any embedded image src
+                            const imgRegex = /<img[^>]+src="([^">]+)"/gi;
+                            let match;
+                            while ((match = imgRegex.exec(content)) !== null) {
+                                const raw = match[1];
+                                imageUrls.add(raw.startsWith('images/') ? DATA_ROOT + raw : raw);
+                            }
+                        });
+                    }
                 });
             }
 
@@ -118,6 +144,27 @@
                 // Show Coming Soon message instead of starting exam
                 showComingSoonMessage(examTitle, TEST_YEAR);
                 return;
+            }
+
+            // Preload images if any exist, waiting up to a few seconds
+            if (imageUrls.size > 0 && btn) {
+                btn.textContent = `Loading ${imageUrls.size} Diagrams...`;
+                const startTime = Date.now();
+                await Promise.race([
+                    Promise.all(Array.from(imageUrls).map(url => {
+                        return new Promise(resolve => {
+                            const img = new Image();
+                            img.onload = resolve;
+                            img.onerror = resolve; // resolve anyway so we don't break
+                            img.src = url;
+                        });
+                    })),
+                    new Promise(resolve => setTimeout(resolve, 4000)) // Max 4 seconds wait
+                ]);
+                const loadTime = Date.now() - startTime;
+                if (loadTime < 1000) {
+                    await new Promise(resolve => setTimeout(resolve, 1000 - loadTime)); // Minimum 1s visual feedback
+                }
             }
 
             document.getElementById('instructionPage').style.display = 'none';
@@ -136,6 +183,13 @@
                 showComingSoonMessage(examTitle, TEST_YEAR);
             } else {
                 alert('Error loading exam data. Please check your connection or try another year.');
+                const btn = document.querySelector('.btn-primary');
+                if (btn) {
+                    btn.textContent = 'I am ready to begin';
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.style.cursor = 'pointer';
+                }
             }
         }
     }
@@ -164,7 +218,7 @@
         if (Object.keys(loadedQuestions).length > 0) return;
         // Dynamically fetch unified questions.json based on EXAM_TYPE and TEST_YEAR
         try {
-            const response = await fetch(`../data/${EXAM_TYPE}/${TEST_YEAR}/questions.json?v=${Date.now()}`);
+            const response = await fetch(`frontend/data/${EXAM_TYPE}/${TEST_YEAR}/questions.json?v=${Date.now()}`);
             if (!response.ok) throw new Error(`Failed to fetch questions for ${EXAM_TYPE} ${TEST_YEAR}`);
             const data = await response.json();
 
