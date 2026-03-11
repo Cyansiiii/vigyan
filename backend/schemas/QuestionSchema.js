@@ -50,7 +50,7 @@ const QuestionSchema = new mongoose.Schema(
 
         // MCQ/TrueFalse options (required only when approved + type requires it)
         options: {
-            type: [String],
+            type: [mongoose.Schema.Types.Mixed],
             default: [],
             validate: {
                 validator: function (v) {
