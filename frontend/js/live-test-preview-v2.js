@@ -313,7 +313,7 @@ async function openLTPPreview() {
         if (!LTPState.selectedTestId) throw new Error('No test selected');
 
         // Fire MathJax in background - never block
-        // MathJax completely removed for diagnostic
+        ensureMathJaxLoaded().catch(() => {});
 
         // Get token directly from sessionStorage
         let token = null;
@@ -575,13 +575,6 @@ function ensureMathJaxLoaded() {
             options: {
                 ignoreHtmlClass: 'tex2jax_ignore',
                 processHtmlClass: 'tex2jax_process'
-            },
-            startup: {
-                pageReady: () => {
-                    console.log('✅ MathJax ready (lazy loaded)');
-                    MathJax.startup.defaultReady();
-                    resolve();
-                }
             }
         };
 
@@ -589,6 +582,12 @@ function ensureMathJaxLoaded() {
         script.id = 'MathJax-script';
         script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
         script.async = true;
+        
+        script.onload = () => {
+            console.log('✅ MathJax ready (script onload)');
+            resolve();
+        };
+        
         script.onerror = () => {
             console.error('❌ Failed to load MathJax from CDN');
             resolve(); // Don't block on failure
