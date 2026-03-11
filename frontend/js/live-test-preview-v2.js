@@ -1,5 +1,7 @@
-** The server may need to be upgraded. See https://openssh.com/pq.html
-u255161845@31.97.101.169's password: 
+** The server may need to be upgraded. See https://openssh.com/pq.html
+
+
+u255161845@31.97.101.169's password: 
 /**
  * Live Test Preview Module
  * Handles test configuration, question selection, and student simulation
@@ -137,7 +139,8 @@ function renderLTPTestList() {
 
     if (LTPState.upcomingTests.length === 0) {
         list.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">No draft tests found</div>';
-        return;
+        return;
+
     }
 
     list.innerHTML = LTPState.upcomingTests.map(test => `
@@ -303,93 +306,79 @@ async function openLTPPreview() {
     const modal = document.getElementById('ltpPreviewModal');
     const overlay = document.getElementById('ltpPreviewOverlay');
     const content = document.getElementById('ltpPreviewContent');
-
     modal.style.display = 'flex';
     overlay.style.display = 'block';
-    
-    // Add debugging overlay
-    content.innerHTML = `
-        <div style="padding:100px; text-align:center; color:white; font-family:monospace;">
-            <h2 id="ltp-loading-text">Loading Student Perspective...</h2>
-            <div id="ltp-debug-log" style="margin-top:20px; text-align:left; background:#1e293b; padding:15px; border-radius:8px; font-size:12px; height:150px; overflow-y:auto;">
-                > Starting preview sequence...<br>
-            </div>
-            <button onclick="closeLTPPreview()" style="margin-top:20px; padding:8px 16px; background:#ef4444; border:none; border-radius:4px; color:white; cursor:pointer;">Cancel & Close</button>
-        </div>
-    `;
 
-    const logDebug = (msg) => {
-        console.log("ð ️ LTP Debug:", msg);
-        const log = document.getElementById('ltp-debug-log');
-        if (log) {
-            log.innerHTML += `> ${msg}<br>`;
-            log.scrollTop = log.scrollHeight;
-        }
-    };
+    content.innerHTML = '<div style="padding:60px; text-align:center; color:white; font-family:monospace;"><h2 id="ltp-loading-text">Loading Student Perspective...</h2><div id="ltp-debug-log" style="margin-top:20px; text-align:left; background:#1e293b; padding:15px; border-radius:8px; font-size:12px; height:200px; overflow-y:auto;">&gt; Starting preview...</div><button onclick="closeLTPPreview()" style="margin-top:20px; padding:8px 16px; background:#ef4444; border:none; border-radius:4px; color:white; cursor:pointer;">Cancel &amp; Close</button></div>';
+
+    const log = (m) => { console.log('LTP:', m); const el = document.getElementById('ltp-debug-log'); if(el) { el.innerHTML += '&gt; ' + m + '<br>'; el.scrollTop = el.scrollHeight; } };
 
     try {
-        if (!LTPState.selectedTestId) {
-            throw new Error("No test selected! Please select a test first.");
+        if (!LTPState.selectedTestId) throw new Error('No test selected');
+
+        // Fire MathJax in background - never block
+        ensureMathJaxLoaded().catch(() => {});
+
+        // Get token directly from sessionStorage
+        let token = null;
+        try {
+            const ad = sessionStorage.getItem('adminAuth');
+            if (ad) token = JSON.parse(ad).token;
+        } catch(e) {}
+        if (!token) throw new Error('No auth token found. Please re-login.');
+
+        // Build URL directly - bypass AdminAPI completely
+        const baseURL = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || window.API_BASE_URL || 'https://api.vigyanprep.com';
+        const url = baseURL + '/api/admin/live-preview/tests/' + LTPState.selectedTestId + '/preview';
+        log('URL: ' + url);
+
+        // AbortController for hard 10s timeout
+        const controller = new AbortController();
+        const timer = setTimeout(() => { log('TIMEOUT: Aborting after 10s...'); controller.abort(); }, 10000);
+
+        log('Sending fetch...');
+        const rawResp = await fetch(url, {
+            method: 'GET',
+            headers: { 'Authorization': 'Bearer ' + token.trim(), 'Content-Type': 'application/json' },
+            signal: controller.signal
+        });
+        clearTimeout(timer);
+
+        log('Status: ' + rawResp.status + ' ' + rawResp.statusText);
+        if (!rawResp.ok) {
+            const errText = await rawResp.text();
+            throw new Error('HTTP ' + rawResp.status + ': ' + errText.substring(0, 200));
         }
 
-        logDebug("MathJax loading in background (non-blocking)...");
-        // Lazy-load MathJax on first preview open (we await it to ensure no race conditions)
-        ensureMathJaxLoaded().catch(e => logDebug("MathJax load failed (continuing anyway): " + e));
-        logDebug("Proceeding to fetch preview data...");
+        const data = await rawResp.json();
+        log('JSON parsed. success=' + data.success);
 
-        logDebug(`Fetching preview data for Test ID: ${LTPState.selectedTestId}`);
+        if (!data.success || !data.data || !data.data.sections) {
+            throw new Error('Bad response: ' + JSON.stringify(data).substring(0, 200));
+        }
 
-        // Custom timeout logic just in case fetch API hangs in the browser
-        const fetchPromise = AdminAPI.getTestPreview(LTPState.selectedTestId);
-        const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('API Request Timed Out after 10 seconds.')), 10000);
+        LTPPreviewData = data.data;
+        LTPPreviewState.currentSubjectIdx = 0;
+        LTPPreviewState.currentQuestionIdx = 0;
+        LTPPreviewState.statusMap = {};
+        LTPPreviewState.answersMap = {};
+
+        LTPPreviewData.sections.forEach(sec => {
+            if (sec.questions) sec.questions.forEach(q => { LTPPreviewState.statusMap[q._id] = 'not-visited'; });
         });
 
-        const response = await Promise.race([fetchPromise, timeoutPromise]);
-        logDebug("✅ Preview Data Received from Server.");
+        log('Sections: ' + LTPPreviewData.sections.length + '. Rendering...');
+        setTimeout(() => renderStudentPerspective(), 100);
 
-        if (response && response.success) {
-            LTPPreviewData = response.data;
-            if (!LTPPreviewData || !LTPPreviewData.sections) {
-                throw new Error('Invalid test data structure received from server');
-            }
-            logDebug("Parsing sections and questions...");
-
-            // Initialize State
-            LTPPreviewState.currentSubjectIdx = 0;
-            LTPPreviewState.currentQuestionIdx = 0;
-            LTPPreviewState.statusMap = {};
-            LTPPreviewState.answersMap = {};
-
-            // Default all questions to not-visited
-            if (LTPPreviewData.sections) {
-                LTPPreviewData.sections.forEach(sec => {
-                    if (sec.questions) {
-                        sec.questions.forEach(q => {
-                            LTPPreviewState.statusMap[q._id] = 'not-visited';
-                        });
-                    }
-                });
-            }
-
-            logDebug("Rendering student perspective UI...");
-            setTimeout(() => renderStudentPerspective(), 100);
-        } else {
-            const msg = response?.message || response?.error || 'Server returned success: false';
-            throw new Error(msg);
+    } catch (err) {
+        console.error('Preview Error:', err);
+        const msg = err.name === 'AbortError' ? 'Request timed out after 10 seconds. Backend may be down.' : err.message;
+        log('ERROR: ' + msg);
+        const el = document.getElementById('ltp-loading-text');
+        if (el) {
+            el.innerText = 'Failed to load \u274c';
+            el.insertAdjacentHTML('afterend', '<br><button onclick="openLTPPreview()" style="margin-top:10px;padding:8px 16px;background:#3b82f6;border:none;border-radius:4px;color:white;cursor:pointer">Retry</button> <button onclick="closeLTPPreview()" style="margin-top:10px;padding:8px 16px;background:#ef4444;border:none;border-radius:4px;color:white;cursor:pointer">Close</button>');
         }
-    } catch (error) {
-        console.error('❌ Preview Error:', error);
-        logDebug(`<span style="color:#ef4444">ERROR: ${error.message}</span>`);
-        
-        document.getElementById('ltp-loading-text').innerText = 'Failed to load student view ❌';
-        
-        const html = `
-            <p style="font-size: 14px; opacity: 0.7;">Check the debug logs above for details.</p>
-            <button onclick="openLTPPreview()" style="margin-top:20px; margin-right: 10px; padding:8px 16px; background:#3b82f6; border:none; border-radius:4px; color:white; cursor:pointer;">Retry</button>
-            <button onclick="closeLTPPreview()" style="margin-top:20px; padding:8px 16px; background:#ef4444; border:none; border-radius:4px; color:white; cursor:pointer;">Close</button>
-        `;
-        document.getElementById('ltp-loading-text').insertAdjacentHTML('afterend', html);
     }
 }
 
@@ -748,3 +737,4 @@ window.saveAndNextLTP = saveAndNextLTP;
 window.markForReviewLTP = markForReviewLTP;
 window.clearResponseLTP = clearResponseLTP;
 window.jumpToLTPQuestion = jumpToLTPQuestion;
+window.switchLTPPreviewSubject = switchLTPPreviewSubject;
