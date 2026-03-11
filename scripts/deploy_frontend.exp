@@ -7,7 +7,7 @@ set remote_path [lindex $argv 4]
 set exclude_file [lindex $argv 5]
 
 set timeout 1800
-spawn rsync -avz --exclude-from=$exclude_file -e "ssh -p $port" $local_path $user_host:$remote_path
+spawn rsync -avz --delete --exclude-from=$exclude_file -e "ssh -p $port" $local_path $user_host:$remote_path
 expect {
     "yes/no" {
         send "yes\r"

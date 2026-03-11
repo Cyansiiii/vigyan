@@ -1,24 +1,32 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Command } from 'lucide-react';
+import { Command, ArrowRight } from 'lucide-react';
+import { Chapter } from "./types";
 
-const SearchPalette = ({ chapters, isOpen, onClose }) => {
+interface SearchPaletteProps {
+    chapters: Chapter[];
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const SearchPalette = ({ chapters, isOpen, onClose }: SearchPaletteProps) => {
     const [query, setQuery] = useState("");
 
     useEffect(() => {
-        const handleKeyDown = (e) => {
+        const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [onClose]);
 
-    const filteredChapters = chapters.filter(c =>
+    const filteredChapters = chapters.filter((c: Chapter) =>
         c.title.toLowerCase().includes(query.toLowerCase()) ||
-        (c.desc && c.desc.toLowerCase().includes(query.toLowerCase()))
+        (c.desc && c.desc.toLowerCase().includes(query.toLowerCase())) ||
+        (c.summary && c.summary.toLowerCase().includes(query.toLowerCase()))
     );
 
-    const scrollTo = (id) => {
+    const scrollTo = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
             const offset = 100;
@@ -39,52 +47,78 @@ const SearchPalette = ({ chapters, isOpen, onClose }) => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[10000]"
+                        className="fixed inset-0 bg-[#030712]/80 backdrop-blur-md z-[10000]"
                     />
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                        initial={{ opacity: 0, scale: 0.98, y: -10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                        className="fixed left-1/2 top-1/4 -translate-x-1/2 w-full max-w-2xl bg-gray-900 border border-white/10 rounded-2xl shadow-2xl z-[10001] overflow-hidden"
+                        exit={{ opacity: 0, scale: 0.98, y: -10 }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        className="fixed left-1/2 top-1/4 -translate-x-1/2 w-full max-w-2xl bg-[#030712] border border-cyan-500/20 rounded-sm shadow-[0_0_50px_rgba(0,0,0,0.5)] z-[10001] overflow-hidden font-mono"
                     >
-                        <div className="p-4 border-b border-white/5 flex items-center gap-3">
-                            <Search className="w-5 h-5 text-gray-500" />
+                        {/* Technical Grid Overlay */}
+                        <div className="absolute inset-0 pointer-events-none opacity-[0.05]"
+                            style={{
+                                backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                                                linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+                                backgroundSize: '20px 20px'
+                            }}
+                        />
+
+                        <div className="relative p-6 border-b border-white/5 flex items-center gap-4 bg-white/5">
+                            <span className="text-cyan-500 font-bold">$</span>
                             <input
                                 autoFocus
                                 type="text"
-                                placeholder="Search chapters, trajectories, sectors..."
-                                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-600 font-medium"
+                                placeholder="execute query_pipeline..."
+                                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-white/20 text-md"
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                             />
-                            <div className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded-md border border-white/10 text-[10px] text-gray-500 font-mono">
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-sm text-[9px] text-white/40 tracking-widest">
                                 <Command className="w-3 h-3" />
                                 <span>K / ESC</span>
                             </div>
                         </div>
 
-                        <div className="max-h-[400px] overflow-y-auto p-2">
+                        <div className="relative max-h-[450px] overflow-y-auto p-4 custom-scrollbar">
                             {filteredChapters.length > 0 ? (
-                                filteredChapters.map(chapter => (
-                                    <button
-                                        key={chapter.id}
-                                        onClick={() => scrollTo(chapter.id)}
-                                        className="w-full text-left p-4 hover:bg-white/5 rounded-xl transition-all flex items-start gap-4 group"
-                                    >
-                                        <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                                            <Search className="w-5 h-5" />
-                                        </div>
-                                        <div>
-                                            <h4 className="font-bold text-white mb-0.5">{chapter.title}</h4>
-                                            <p className="text-xs text-gray-500 line-clamp-1">{chapter.desc || chapter.summary}</p>
-                                        </div>
-                                    </button>
-                                ))
+                                <div className="space-y-1">
+                                    {filteredChapters.map((chapter, index) => (
+                                        <button
+                                            key={chapter.id}
+                                            onClick={() => scrollTo(chapter.id)}
+                                            className="w-full text-left p-4 hover:bg-cyan-500/5 rounded-sm transition-all flex items-start gap-6 group relative border border-transparent hover:border-cyan-500/20"
+                                        >
+                                            <div className="text-[10px] text-cyan-500/30 pt-1 w-6">
+                                                {String(index + 1).padStart(2, '0')}
+                                            </div>
+                                            <div className="flex-1">
+                                                <h4 className="font-bold text-white mb-1 tracking-tight group-hover:text-cyan-400 transition-colors uppercase text-xs">
+                                                    {chapter.title}
+                                                </h4>
+                                                <p className="text-[10px] text-white/30 leading-relaxed font-mono truncate">
+                                                    {chapter.desc || chapter.summary}
+                                                </p>
+                                            </div>
+                                            <ArrowRight className="w-4 h-4 text-white/10 group-hover:text-cyan-400 transition-all group-hover:translate-x-1" />
+                                        </button>
+                                    ))}
+                                </div>
                             ) : (
-                                <div className="p-8 text-center text-gray-500">
-                                    No results found for "{query}"
+                                <div className="p-12 text-center text-white/20 font-mono text-xs italic">
+                                    No records found for trace: "{query}"
                                 </div>
                             )}
+                        </div>
+
+                        {/* Status Bar */}
+                        <div className="px-4 py-2 bg-white/5 border-t border-white/5 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse" />
+                                <span className="text-[8px] text-white/30 uppercase tracking-widest">System::Ready</span>
+                            </div>
+                            <span className="text-[8px] text-white/20 uppercase">Hydrogen_Search_v1.0</span>
                         </div>
                     </motion.div>
                 </>
