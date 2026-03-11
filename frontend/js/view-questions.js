@@ -240,10 +240,19 @@ function viewQuestionDetails(id) {
                     <div style="margin-top: 8px;">
                         ${question.options ? question.options.map((opt, idx) => {
         const isCorrect = (question.correctOptionIndex !== undefined && question.correctOptionIndex !== null && question.correctOptionIndex === idx);
+        let optText = '';
+        let optImage = null;
+        if (typeof opt === 'string') { optText = opt; }
+        else if (typeof opt === 'object' && opt !== null) {
+            optText = opt.text || opt.optionText || opt.content || '';
+            optImage = opt.imageUrl || null;
+        }
+
         return `
                                 <div style="padding: 8px; background: ${isCorrect ? '#d1fae5' : '#f8fafc'}; border-radius: 6px; margin-bottom: 4px;">
-                                    <strong>${String.fromCharCode(65 + idx)}.</strong> ${opt}
+                                    <strong>${String.fromCharCode(65 + idx)}.</strong> ${optText}
                                     ${isCorrect ? '<i class="fas fa-check" style="color: #10b981; float: right;"></i>' : ''}
+                                    ${optImage ? `<div style="margin-top: 8px;"><img src="${optImage}" style="max-height: 100px; border-radius: 4px;"></div>` : ''}
                                 </div>
                             `;
     }).join('') : '<p style="color: #94a3b8;">No options available</p>'}
@@ -308,11 +317,26 @@ function editQuestionModal(id) {
     const options = Array.isArray(question.options) ? question.options : [];
     const optionLabels = ['A', 'B', 'C', 'D'];
     optionLabels.forEach((label, idx) => {
+        let optText = '';
+        let optImage = '';
+        const opt = options[idx];
+        if (typeof opt === 'string') { optText = opt; }
+        else if (typeof opt === 'object' && opt !== null) {
+            optText = opt.text || opt.optionText || opt.content || '';
+            optImage = opt.imageUrl || '';
+        }
+        
         fields.push({
             key: `option${label}`,
-            label: `Option ${label}`,
+            label: `Option ${label} Text`,
             type: 'text',
-            value: options[idx] || ''
+            value: optText
+        });
+        fields.push({
+            key: `option${label}Url`,
+            label: `Option ${label} Image URL (Optional)`,
+            type: 'text',
+            value: optImage
         });
     });
 
@@ -330,10 +354,10 @@ function editQuestionModal(id) {
                 questionText: updatedData.questionText,
                 correctAnswer: updatedData.correctAnswer,
                 options: [
-                    updatedData.optionA,
-                    updatedData.optionB,
-                    updatedData.optionC,
-                    updatedData.optionD
+                    { text: updatedData.optionA, imageUrl: updatedData.optionAUrl || null },
+                    { text: updatedData.optionB, imageUrl: updatedData.optionBUrl || null },
+                    { text: updatedData.optionC, imageUrl: updatedData.optionCUrl || null },
+                    { text: updatedData.optionD, imageUrl: updatedData.optionDUrl || null }
                 ]
             };
 

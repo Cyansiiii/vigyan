@@ -286,9 +286,32 @@
             if (userAnswers[currentSection] && userAnswers[currentSection][index] === i) {
                 item.classList.add('selected');
             }
+            
+            let text = '';
+            let imageUrl = null;
+            
+            if (typeof opt === 'string') {
+                text = opt;
+            } else if (typeof opt === 'object' && opt !== null) {
+                text = opt.text || opt.optionText || opt.content || '';
+                imageUrl = opt.imageUrl || null;
+            }
+            
+            if (imageUrl) {
+                if (imageUrl.startsWith('/uploads')) {
+                    const baseURL = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || window.API_BASE_URL || 'https://api.vigyanprep.com';
+                    imageUrl = baseURL + imageUrl;
+                } else if (imageUrl.startsWith('images/') && EXAM_TYPE && TEST_YEAR) {
+                    imageUrl = DATA_ROOT + imageUrl;
+                }
+            }
+
             item.innerHTML = `
-                <input type="radio" name="temp_radio" class="opt-radio" ${userAnswers[currentSection] && userAnswers[currentSection][index] === i ? 'checked' : ''}>
-                <span class="opt-text">${opt}</span>
+                <div style="display:flex; gap:10px; align-items:flex-start;">
+                    <input type="radio" name="temp_radio" class="opt-radio" style="margin-top: 4px;" ${userAnswers[currentSection] && userAnswers[currentSection][index] === i ? 'checked' : ''}>
+                    <span class="opt-text">${text}</span>
+                </div>
+                ${imageUrl ? `<div style="padding-left: 28px; margin-top: 8px;"><img src="${imageUrl}" style="max-width:250px; max-height:150px; border-radius:4px; box-shadow: 0 1px 3px rgba(0,0,0,0.5);"></div>` : ''}
             `;
             item.onclick = () => selectOption(i);
             optionsContainer.appendChild(item);

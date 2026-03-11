@@ -443,24 +443,43 @@ function renderStudentPerspective() {
         const id = String.fromCharCode(65 + i);
         const isSelected = LTPPreviewState.answersMap[currentQuestion._id] === id;
         let text = 'Option Text Missing';
+        let imageUrl = null;
 
         if (typeof opt === 'string') {
             text = opt;
         } else if (typeof opt === 'object' && opt !== null) {
             text = opt.optionText || opt.text || opt.content || 'Check Data';
+            imageUrl = opt.imageUrl || null;
+        }
+
+        if (imageUrl) {
+            if (imageUrl.startsWith('/uploads')) {
+                const baseURL = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || window.API_BASE_URL || 'https://api.vigyanprep.com';
+                imageUrl = baseURL + imageUrl;
+            } else if (imageUrl.startsWith('images/') && currentQuestion.testId) {
+                const parts = currentQuestion.testId.split('_');
+                const examType = (parts[0] || 'niser').toLowerCase();
+                const testYear = parts[1] || '2025';
+                const CLOUD_BASE = 'https://pub-651a326ea8494f02894fbd07e97363ea.r2.dev';
+                const DATA_ROOT = `${CLOUD_BASE}/frontend/data/${examType}/${testYear}/`;
+                imageUrl = DATA_ROOT + imageUrl;
+            }
         }
 
         return `
                                 <div onclick="selectLTPOption('${id}')" 
                                      style="padding:15px; border:1px solid ${isSelected ? '#3b82f6' : 'rgba(255,255,255,0.1)'}; 
                                             background: ${isSelected ? 'rgba(59, 130, 246, 0.1)' : 'transparent'};
-                                            border-radius:8px; display:flex; gap:15px; cursor:pointer;"
+                                            border-radius:8px; display:flex; flex-direction:column; gap:10px; cursor:pointer;"
                                      class="preview-opt-row">
-                                    <div style="width:24px; height:24px; border-radius:50%; border:2px solid ${isSelected ? '#3b82f6' : '#64748b'}; 
-                                                display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold;">
-                                        ${id}
+                                    <div style="display:flex; gap:15px; align-items:center;">
+                                        <div style="width:24px; min-width:24px; height:24px; border-radius:50%; border:2px solid ${isSelected ? '#3b82f6' : '#64748b'}; 
+                                                    display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold;">
+                                            ${id}
+                                        </div>
+                                        <span>${text}</span>
                                     </div>
-                                    <span>${text}</span>
+                                    ${imageUrl ? `<div style="padding-left: 39px;"><img src="${imageUrl}" alt="Option ${id} Image" style="max-width:250px; max-height:150px; border-radius:4px; box-shadow: 0 1px 3px rgba(0,0,0,0.5);"></div>` : ''}
                                 </div>
                             `;
     }).join('')}

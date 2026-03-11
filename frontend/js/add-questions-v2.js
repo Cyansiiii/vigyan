@@ -163,22 +163,24 @@ function initAddQuestions() {
                     </h3>
                     
                     <div style="display: grid; gap: 16px;">
-                        <div class="form-group">
-                            <label for="optionA">Option A *</label>
-                            <input type="text" id="optionA" required class="form-input">
+                        ${['A', 'B', 'C', 'D'].map(opt => `
+                        <div class="form-group" style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;" id="option${opt}Container">
+                            <label for="option${opt}">Option ${opt} *</label>
+                            <input type="text" id="option${opt}" class="form-input" style="margin-bottom: 12px;">
+                            <label for="option${opt}Image" style="display: flex; align-items: center; gap: 8px; font-weight: normal; font-size: 13px;">
+                                <i class="fas fa-image" style="color: #6366f1;"></i> Option ${opt} Image (Optional)
+                            </label>
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <input type="file" id="option${opt}Image" class="form-input" accept="image/*" style="flex: 1; padding: 6px; font-size: 13px;" onchange="handleOptionImageUpload(event, '${opt}')">
+                                <div id="option${opt}PreviewContainer" style="display: none; position: relative;">
+                                    <img id="option${opt}Preview" src="" alt="Preview" style="max-height: 40px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <button type="button" onclick="clearOptionImageUpload('${opt}')" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 18px; height: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px;">&times;</button>
+                                </div>
+                            </div>
+                            <input type="hidden" id="option${opt}Url" value="">
+                            <small id="option${opt}UploadStatus" style="color: #64748b; margin-top: 4px; display: block; font-size: 11px;"></small>
                         </div>
-                        <div class="form-group">
-                            <label for="optionB">Option B *</label>
-                            <input type="text" id="optionB" required class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="optionC">Option C *</label>
-                            <input type="text" id="optionC" required class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="optionD">Option D *</label>
-                            <input type="text" id="optionD" required class="form-input">
-                        </div>
+                        `).join('')}
                     </div>
                     
                     <div class="form-group" style="margin-top: 20px;">
@@ -273,13 +275,13 @@ function handleTypeChange() {
             optC.value = '';
             optD.value = '';
 
-            optC.parentElement.style.display = 'none';
-            optD.parentElement.style.display = 'none';
+            document.getElementById('optionCContainer').style.display = 'none';
+            document.getElementById('optionDContainer').style.display = 'none';
         } else {
             document.getElementById('optionC').required = true;
             document.getElementById('optionD').required = true;
-            document.getElementById('optionC').parentElement.style.display = 'block';
-            document.getElementById('optionD').parentElement.style.display = 'block';
+            document.getElementById('optionCContainer').style.display = 'block';
+            document.getElementById('optionDContainer').style.display = 'block';
         }
     } else {
         mcqOptionsGroup.style.display = 'none';
@@ -378,13 +380,17 @@ function buildQuestionPayload() {
     };
 
     if (type === 'MCQ' || type === 'TrueFalse') {
-        payload.options = [
-            document.getElementById('optionA').value.trim(),
-            document.getElementById('optionB').value.trim(),
-        ];
+        const buildOpt = (letter) => {
+            const text = document.getElementById('option' + letter).value.trim();
+            const url = document.getElementById('option' + letter + 'Url').value.trim();
+            // Provide consistent object format for questions
+            return { text: text, imageUrl: url || null };
+        };
+
+        payload.options = [ buildOpt('A'), buildOpt('B') ];
         if (type === 'MCQ') {
-            payload.options.push(document.getElementById('optionC').value.trim());
-            payload.options.push(document.getElementById('optionD').value.trim());
+            payload.options.push(buildOpt('C'));
+            payload.options.push(buildOpt('D'));
         }
         payload.correctAnswer = document.getElementById('correctAnswer').value;
     } else if (type === 'Numerical') {
@@ -421,6 +427,8 @@ async function handleFormSubmit(e) {
                 const el = document.getElementById(id);
                 if (el) el.value = '';
             });
+            ['A', 'B', 'C', 'D'].forEach(letter => clearOptionImageUpload(letter));
+            
             clearImageUpload();
             updateTestIdPreview(); // Refresh to remove "Draft ID:" text
             // Increment question number
@@ -483,12 +491,65 @@ window.handleImageUpload = async function (event) {
     }
 };
 
+window.handleOptionImageUpload = async function (event, optionLetter) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const statusText = document.getElementById(`option${optionLetter}UploadStatus`);
+    const preview = document.getElementById(`option${optionLetter}Preview`);
+    const container = document.getElementById(`option${optionLetter}PreviewContainer`);
+    const urlField = document.getElementById(`option${optionLetter}Url`);
+
+    try {
+        statusText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> signing...';
+        const auth = await window.AdminAPI.request('/api/admin/gateway/sign-upload');
+        if (!auth.success) throw new Error('Sign failed');
+
+        statusText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> uploading...';
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const response = await fetch('https://vigyanprep.com/api/upload-question-image.php', {
+            method: 'POST',
+            headers: {
+                'X-Upload-Signature': auth.signature,
+                'X-Upload-Timestamp': auth.timestamp
+            },
+            body: formData
+        });
+
+        const res = await response.json();
+        if (res.success) {
+            urlField.value = res.url;
+            preview.src = res.url;
+            container.style.display = 'block';
+            statusText.innerHTML = '<i class="fas fa-check" style="color:green"></i> Uploaded';
+        } else throw new Error(res.error);
+    } catch (err) {
+        statusText.innerHTML = '<i class="fas fa-times" style="color:red"></i> ' + err.message;
+    }
+};
+
 window.clearImageUpload = function () {
     document.getElementById('questionImage').value = '';
     document.getElementById('imageUrl').value = '';
     document.getElementById('imagePreview').src = '';
     document.getElementById('imagePreviewContainer').style.display = 'none';
     document.getElementById('uploadStatus').textContent = 'Upload a diagram if needed';
+};
+
+window.clearOptionImageUpload = function(optionLetter) {
+    const fileInput = document.getElementById(`option${optionLetter}Image`);
+    const urlField = document.getElementById(`option${optionLetter}Url`);
+    const preview = document.getElementById(`option${optionLetter}Preview`);
+    const container = document.getElementById(`option${optionLetter}PreviewContainer`);
+    const statusText = document.getElementById(`option${optionLetter}UploadStatus`);
+    
+    if (fileInput) fileInput.value = '';
+    if (urlField) urlField.value = '';
+    if (preview) preview.src = '';
+    if (container) container.style.display = 'none';
+    if (statusText) statusText.textContent = '';
 };
 
 window.resetForm = function () {
@@ -498,6 +559,8 @@ window.resetForm = function () {
             if (el) el.value = '';
         });
         clearImageUpload();
+        ['A', 'B', 'C', 'D'].forEach(letter => clearOptionImageUpload(letter));
+        
         if (confirm('Also clear Sticky Config?')) {
             STICKY_KEYS.forEach(k => localStorage.removeItem(`sticky_${k}`));
             location.reload();
