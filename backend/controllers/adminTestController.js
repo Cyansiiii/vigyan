@@ -370,6 +370,8 @@ export const getTestPreview = async (req, res) => {
                     }
                     return { optionId: String.fromCharCode(65 + i), optionText: typeof o === 'string' ? o : JSON.stringify(o) };
                 }),
+                imageUrl: tq.questionId.imageUrl || null,
+                testId: tq.questionId.testId || null,
                 images: tq.questionId.images || []
             });
         });

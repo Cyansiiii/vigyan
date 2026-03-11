@@ -554,6 +554,39 @@ function getLTPQuestionSafeText(question) {
             .replace(/'/g, '&#039;');
     }
 
+    // --- NEW: REWRITE IMAGE PATHS TO CLOUDFLARE R2 ---
+    if (question.testId) {
+        // Extract examType and testYear from something like "IISER_2025" or "NEST_2024"
+        const parts = question.testId.split('_');
+        const examType = (parts[0] || 'niser').toLowerCase();
+        const testYear = parts[1] || '2025';
+        
+        const CLOUD_BASE = 'https://pub-651a326ea8494f02894fbd07e97363ea.r2.dev';
+        const DATA_ROOT = `${CLOUD_BASE}/frontend/data/${examType}/${testYear}/`;
+        
+        safeText = safeText.replace(
+            /(<img[^>]+src=['"])(images\/[^'"]+)(['"])/gi,
+            `$1${DATA_ROOT}$2$3`
+        );
+    }
+
+    // --- NEW: APPEND UPLOADED IMAGE URL IF PRESENT ---
+    if (question.imageUrl) {
+        // Build an absolute URL if it is a relative path starting with /uploads
+        let finalImageUrl = question.imageUrl;
+        if (finalImageUrl.startsWith('/uploads')) {
+            const baseURL = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || window.API_BASE_URL || 'https://api.vigyanprep.com';
+            finalImageUrl = baseURL + finalImageUrl;
+        }
+        
+        safeText += `
+            <div class="test-diagram-container" style="margin: 20px 0; text-align: center;">
+                <img src="${finalImageUrl}" alt="Question Diagram" style="max-width: 100%; max-height: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            </div>
+        `;
+    }
+
+    LTPPreviewState.lastRenderedQuestionId = question._id;
     LTPPreviewState.cachedSanitizedText = safeText;
     return safeText;
 }
