@@ -1,3 +1,5 @@
+** The server may need to be upgraded. See https://openssh.com/pq.html
+u255161845@31.97.101.169's password: 
 /**
  * Live Test Preview Module
  * Handles test configuration, question selection, and student simulation
@@ -15,7 +17,7 @@ const LTPState = {
 
 // Initialize the module
 async function initLiveTestPreview() {
-    console.log('🚀 Initializing Live Test Preview Module...');
+    console.log('ð Initializing Live Test Preview Module...');
 
     // ✅ CRITICAL FIX: Inject Modal into body ONLY if not already present
     // This MUST be done first because it needs top-level stacking context
@@ -107,7 +109,7 @@ function renderLTPContainer() {
 
                 <!-- Empty State -->
                 <div class="ltp-main" id="ltpEmptyState" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#94a3b8;">
-                    <div style="font-size:48px; margin-bottom:20px;">🗓️</div>
+                    <div style="font-size:48px; margin-bottom:20px;">ð️</div>
                     <h3 style="color:#475569">No Test Selected</h3>
                     <p>Select an upcoming test from the sidebar to begin question selection.</p>
                 </div>
@@ -135,7 +137,7 @@ function renderLTPTestList() {
 
     if (LTPState.upcomingTests.length === 0) {
         list.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">No draft tests found</div>';
-        return;
+        return;
     }
 
     list.innerHTML = LTPState.upcomingTests.map(test => `
@@ -317,7 +319,7 @@ async function openLTPPreview() {
     `;
 
     const logDebug = (msg) => {
-        console.log("🛠️ LTP Debug:", msg);
+        console.log("ð ️ LTP Debug:", msg);
         const log = document.getElementById('ltp-debug-log');
         if (log) {
             log.innerHTML += `> ${msg}<br>`;
@@ -330,10 +332,10 @@ async function openLTPPreview() {
             throw new Error("No test selected! Please select a test first.");
         }
 
-        logDebug("Triggering MathJax load...");
+        logDebug("MathJax loading in background (non-blocking)...");
         // Lazy-load MathJax on first preview open (we await it to ensure no race conditions)
-        await ensureMathJaxLoaded().catch(e => logDebug("MathJax load failed (continuing anyway): " + e));
-        logDebug("MathJax load requirement satisfied.");
+        ensureMathJaxLoaded().catch(e => logDebug("MathJax load failed (continuing anyway): " + e));
+        logDebug("Proceeding to fetch preview data...");
 
         logDebug(`Fetching preview data for Test ID: ${LTPState.selectedTestId}`);
 
@@ -746,4 +748,3 @@ window.saveAndNextLTP = saveAndNextLTP;
 window.markForReviewLTP = markForReviewLTP;
 window.clearResponseLTP = clearResponseLTP;
 window.jumpToLTPQuestion = jumpToLTPQuestion;
-window.switchLTPPreviewSubject = switchLTPPreviewSubject;
