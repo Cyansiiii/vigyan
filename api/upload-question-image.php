@@ -4,16 +4,25 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, X-Upload-Signature, X-Upload-Timestamp");
 header("Content-Type: application/json");
 
-// Load Environment Variables (for Secret)
-require __DIR__ . '/vendor/autoload.php';
-use Dotenv\Dotenv;
-
-if (file_exists(__DIR__ . '/.env')) {
-    $dotenv = Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
+// Load Environment Variables (Native PHP parse_ini_file style)
+$envPath = __DIR__ . '/../.env';
+$envKeys = [];
+if (file_exists($envPath)) {
+    $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        if (strpos($line, '=') !== false) {
+            list($name, $value) = explode('=', $line, 2);
+            $name = trim($name);
+            $value = trim(trim($value), '"\'');
+            if (!empty($name)) {
+                $envKeys[$name] = $value;
+            }
+        }
+    }
 }
 
-$GATEWAY_SECRET = $_ENV['UPLOAD_GATEWAY_SECRET'] ?? null;
+$GATEWAY_SECRET = $envKeys['UPLOAD_GATEWAY_SECRET'] ?? $_ENV['UPLOAD_GATEWAY_SECRET'] ?? null;
 if (!$GATEWAY_SECRET) {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Upload gateway secret not configured or missing in .env']);
