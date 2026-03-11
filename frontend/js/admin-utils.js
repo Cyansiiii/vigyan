@@ -3,6 +3,26 @@
  */
 
 const AdminUtils = {
+    injectModalStyles() {
+        if (document.getElementById('admin-utils-modal-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'admin-utils-modal-styles';
+        style.textContent = `
+            .confirm-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10001; animation: fadeIn 0.2s; }
+            .confirm-modal { background: white; border-radius: 16px; padding: 32px; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: scaleIn 0.3s; }
+            .confirm-modal-header { text-align: center; margin-bottom: 24px; }
+            .confirm-modal-body h3 { font-size: 20px; color: #0f172a; margin-bottom: 12px; text-align: center; }
+            .confirm-modal-body p { color: #64748b; text-align: center; line-height: 1.6; }
+            .confirm-modal-footer { display: flex; gap: 12px; margin-top: 24px; }
+            .confirm-modal-footer button { flex: 1; }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+            @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+            @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        `;
+        document.head.appendChild(style);
+    },
+
     // Format date
     formatDate(dateString, format = 'long') {
         const date = new Date(dateString);
@@ -81,21 +101,7 @@ const AdminUtils = {
         `;
 
         // Add styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .confirm-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10001; animation: fadeIn 0.2s; }
-            .confirm-modal { background: white; border-radius: 16px; padding: 32px; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: scaleIn 0.3s; }
-            .confirm-modal-header { text-align: center; margin-bottom: 24px; }
-            .confirm-modal-body h3 { font-size: 20px; color: #0f172a; margin-bottom: 12px; text-align: center; }
-            .confirm-modal-body p { color: #64748b; text-align: center; line-height: 1.6; }
-            .confirm-modal-footer { display: flex; gap: 12px; margin-top: 24px; }
-            .confirm-modal-footer button { flex: 1; }
-            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-            @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-            @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-            @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-        `;
-        document.head.appendChild(style);
+        this.injectModalStyles();
         document.body.appendChild(modal);
 
         // Event listeners
@@ -151,6 +157,8 @@ const AdminUtils = {
     },
 
     showEditModal(title, fields, onSave) {
+        this.injectModalStyles();
+        
         const modal = document.createElement('div');
         modal.className = 'confirm-modal-overlay';
 
