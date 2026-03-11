@@ -395,10 +395,10 @@ function exportQuestions() {
             q.subject,
             q.topic || '',
             q.difficulty,
-            q.marks,
-            `"${q.question.replace(/"/g, '""')}"`,
+            q.marksPositive || 4,
+            `"${(q.question || q.questionText || '').replace(/"/g, '""')}"`,
             q.type,
-            q.answer
+            q.answer || q.correctAnswer || ''
         ])
     ].map(row => row.join(',')).join('\n');
 
