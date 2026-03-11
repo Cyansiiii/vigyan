@@ -316,8 +316,13 @@ async function openLTPPreview() {
         }
 
         const response = await AdminAPI.getTestPreview(LTPState.selectedTestId);
-        if (response.success) {
+        console.log('📦 Preview Data Received:', response);
+
+        if (response && response.success) {
             LTPPreviewData = response.data;
+            if (!LTPPreviewData || !LTPPreviewData.sections) {
+                throw new Error('Invalid test data structure received from server');
+            }
             console.log('DEBUG: LTPPreviewData Loaded:', JSON.parse(JSON.stringify(LTPPreviewData)));
 
             // Initialize State
@@ -339,14 +344,20 @@ async function openLTPPreview() {
 
             renderStudentPerspective();
         } else {
-            console.error('Preview response success is false:', response);
-            const msg = (response.message || 'Unknown error').toString().replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            content.innerHTML = `<div style="padding:100px; text-align:center; color:white;">Failed to load view: ${msg}</div>`;
+            const msg = response?.message || response?.error || 'Server returned success: false';
+            console.error('❌ Preview Fetch Failed:', msg);
+            content.innerHTML = `<div style="padding:100px; text-align:center; color:white;">
+                <p>Failed to load student view.</p>
+                <p style="font-size: 14px; opacity: 0.7;">Error: ${msg}</p>
+            </div>`;
         }
     } catch (error) {
-        console.error('Preview Error:', error);
-        const msg = (error.message || 'Unknown error').toString().replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        content.innerHTML = `<div style="padding:100px; text-align:center; color:white;">Error loading student view: ${msg}</div>`;
+        console.error('❌ Preview Error:', error);
+        content.innerHTML = `<div style="padding:100px; text-align:center; color:white;">
+            <p>Error loading student view.</p>
+            <p style="font-size: 14px; opacity: 0.7;">${error.message}</p>
+            <button onclick="openLTPPreview()" style="margin-top:20px; padding:8px 16px; background:#3b82f6; border:none; border-radius:4px; color:white; cursor:pointer;">Retry</button>
+        </div>`;
     }
 }
 
