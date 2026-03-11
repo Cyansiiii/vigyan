@@ -62,10 +62,20 @@ export const listScheduledTests = async (req, res) => {
   try {
     console.log('📋 Fetching scheduled tests...');
     const { status, type } = req.query;
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
 
     // Build filter
     const filter = {};
-    if (status) filter.status = status;
+    
+    // Default to 'scheduled' and today/future if no status provided (student view)
+    if (!status) {
+      filter.status = 'scheduled';
+      filter.exam_date = { $gte: currentDate };
+    } else {
+      filter.status = status;
+    }
+    
     if (type) filter.test_type = type;
 
     const tests = await ScheduledTest.find(filter).sort({ exam_date: 1 });

@@ -184,6 +184,25 @@ export async function verifyTestAccess(req, res, next) {
       });
     }
 
+    // ✅ NEW: Verify test status is 'scheduled' (finalized) and NOT 'draft'
+    // This prevents students from accessing unfinalized tests even if they have the ID
+    const { ScheduledTest } = await import('../models/ScheduledTest.js');
+    const test = await ScheduledTest.findOne({
+      $or: [
+        { _id: normalizedTestId.match(/^[0-9a-fA-F]{24}$/) ? normalizedTestId : null },
+        { test_id: normalizedTestId }
+      ]
+    });
+
+    if (!test || (test.status !== 'scheduled' && test.status !== 'completed')) {
+      console.warn(`⚠️ Access denied: Student ${req.user.email} tried to access ${test?.status || 'unknown'} test ${normalizedTestId}`);
+      return res.status(403).json({
+        success: false,
+        message: 'This test is not yet finalized or is currently unavailable.',
+        code: 'TEST_NOT_FINALIZED'
+      });
+    }
+
     console.log(`✅ Test access granted: ${req.user.email} → ${normalizedTestId}`);
 
     // Attach testId to request for controller use
