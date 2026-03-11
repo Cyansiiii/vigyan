@@ -245,9 +245,13 @@ export const getScheduledTests = async (req, res) => {
   try {
     console.log('🔹 Getting scheduled tests...');
     const { status, type } = req.query;
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
 
     // Build filter
-    const filter = {};
+    const filter = {
+      exam_date: { $gte: currentDate }
+    };
     if (status) filter.status = status;
     if (type) filter.test_type = type;
 
@@ -273,11 +277,15 @@ export const getPastTests = async (req, res) => {
   try {
     console.log('🔹 Getting past tests...');
 
-    // Find tests that are completed OR exam date is in the past
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    // Find tests that are completed, archived, OR exam date is in the past
     const tests = await ScheduledTest.find({
       $or: [
         { status: 'completed' },
-        { status: 'archived' }
+        { status: 'archived' },
+        { exam_date: { $lt: currentDate } }
       ]
     }).sort({ exam_date: -1 });
 

@@ -7,10 +7,12 @@ import mongoose from 'mongoose';
 export const getUpcomingTests = async (req, res) => {
     try {
         const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0); // Start of today
 
-        // Fetch tests that are in 'draft' or 'scheduled' status
+        // Fetch tests that are in 'draft' or 'scheduled' status AND date is today or future
         const tests = await ScheduledTest.find({
-            status: { $in: ['draft', 'scheduled'] }
+            status: { $in: ['draft', 'scheduled'] },
+            exam_date: { $gte: currentDate }
         })
             .sort({ exam_date: 1 })
             .lean();
