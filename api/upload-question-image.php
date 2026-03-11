@@ -5,7 +5,7 @@ header("Access-Control-Allow-Headers: Content-Type, X-Upload-Signature, X-Upload
 header("Content-Type: application/json");
 
 // Load Environment Variables (Native PHP parse_ini_file style)
-$envPath = __DIR__ . '/../.env';
+$envPath = __DIR__ . '/.env';
 $envKeys = [];
 if (file_exists($envPath)) {
     $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
