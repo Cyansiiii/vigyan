@@ -313,7 +313,7 @@ async function openLTPPreview() {
         if (!LTPState.selectedTestId) throw new Error('No test selected');
 
         // Fire MathJax in background - never block
-        ensureMathJaxLoaded().catch(() => {});
+        // MathJax completely removed for diagnostic
 
         // Get token directly from sessionStorage
         let token = null;
