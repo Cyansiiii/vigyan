@@ -92,6 +92,10 @@ const allowedOrigins = [
     'https://www.vigyanprep.com',
     'http://www.vigyanprep.com',
 
+    // Custom Subdomains
+    'https://api.vigyanprep.com',
+    'http://api.vigyanprep.com',
+
     // Backend domain (Railway)
     'https://vigyan-production.up.railway.app',
 
@@ -173,7 +177,7 @@ app.use((req, res, next) => {
                 const envScript = `
     <script>
       window.__ENV__ = {
-        API_URL: "${process.env.API_URL || 'https://vigyan-production.up.railway.app'}",
+        API_URL: "${process.env.API_URL || 'https://api.vigyanprep.com'}",
         ENVIRONMENT: "${process.env.NODE_ENV || 'production'}",
         DEBUG: ${process.env.DEBUG_MODE === 'true' ? 'true' : 'false'}
       };
@@ -232,7 +236,7 @@ app.get('/api/config', (req, res) => {
     res.json({
         RAZORPAY_KEY_ID: process.env.RAZORPAY_API_KEY || '',
         NODE_ENV: process.env.NODE_ENV || 'production',
-        API_URL: process.env.API_URL || 'https://vigyan-production.up.railway.app',
+        API_URL: process.env.API_URL || 'https://api.vigyanprep.com',
         FRONTEND_URL: process.env.FRONTEND_URL || 'https://vigyanprep.com'
     });
 });

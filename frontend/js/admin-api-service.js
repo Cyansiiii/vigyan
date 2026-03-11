@@ -17,7 +17,7 @@ const AdminAPI = {
         }
 
         // Fallback (should not happen if config.js is loaded)
-        return 'https://vigyan-production.up.railway.app';
+        return 'https://api.vigyanprep.com';
     },
 
     // ✅ NEW: Get JWT token from sessionStorage

@@ -22,7 +22,7 @@ window.APP_CONFIG = {
             return 'http://localhost:3000';
         }
 
-        // 3. PRODUCTION: Secure API Subdomain
+        // 3. PRODUCTION: Railway backend (Custom Subdomain)
         return 'https://api.vigyanprep.com';
     })(),
 
