@@ -154,43 +154,44 @@ const AdminUtils = {
         const modal = document.createElement('div');
         modal.className = 'confirm-modal-overlay';
 
-        const fieldsHTML = fields.map(field => {
+        const fieldsGridHTML = `<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">` + fields.map(field => {
             const value = field.value !== undefined ? field.value : '';
+            const isFullWidth = field.type === 'textarea' || field.fullWidth ? 'grid-column: 1 / -1;' : '';
             if (field.type === 'select') {
                 return `
-                    <div style="margin-bottom: 16px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155;">${field.label}</label>
-                        <select class="form-input" id="edit_${field.key}" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px;">
+                    <div style="${isFullWidth}">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155; font-size: 13px;">${field.label}</label>
+                        <select class="form-input" id="edit_${field.key}" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
                             ${field.options.map(opt => `<option value="${opt}" ${opt === value ? 'selected' : ''}>${opt}</option>`).join('')}
                         </select>
                     </div>
                 `;
             } else if (field.type === 'textarea') {
                 return `
-                    <div style="margin-bottom: 16px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155;">${field.label}</label>
-                        <textarea class="form-input" id="edit_${field.key}" rows="3" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; resize: vertical;">${value}</textarea>
+                    <div style="${isFullWidth}">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155; font-size: 13px;">${field.label}</label>
+                        <textarea class="form-input" id="edit_${field.key}" rows="4" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; resize: vertical; font-size: 14px; font-family: inherit;">${value}</textarea>
                     </div>
                 `;
             } else {
                 return `
-                    <div style="margin-bottom: 16px;">
-                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155;">${field.label}</label>
-                        <input type="${field.type || 'text'}" class="form-input" id="edit_${field.key}" value="${value}" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px;">
+                    <div style="${isFullWidth}">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155; font-size: 13px;">${field.label}</label>
+                        <input type="${field.type || 'text'}" class="form-input" id="edit_${field.key}" value="${value}" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
                     </div>
                 `;
             }
-        }).join('');
+        }).join('') + `</div>`;
 
         modal.innerHTML = `
-            <div class="confirm-modal" style="max-width: 500px;">
-                <div class="confirm-modal-header">
-                    <h3 style="font-size: 20px; color: #0f172a; margin: 0;">${title}</h3>
+            <div class="confirm-modal" style="max-width: 800px; width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+                <div class="confirm-modal-header" style="padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; margin-bottom: 0;">
+                    <h3 style="font-size: 20px; color: #0f172a; margin: 0; text-align: left;">${title}</h3>
                 </div>
-                <div class="confirm-modal-body" style="text-align: left;">
-                    ${fieldsHTML}
+                <div class="confirm-modal-body" style="text-align: left; padding: 24px 0; overflow-y: auto; flex: 1;">
+                    ${fieldsGridHTML}
                 </div>
-                <div class="confirm-modal-footer">
+                <div class="confirm-modal-footer" style="padding-top: 16px; border-top: 1px solid #e2e8f0; margin-top: 0;">
                     <button class="btn-secondary" id="editCancel">Cancel</button>
                     <button class="btn-primary" id="editSave"><i class="fas fa-save"></i> Save Changes</button>
                 </div>

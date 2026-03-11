@@ -182,9 +182,11 @@ function displayQuestions(questions) {
         return;
     }
 
-    tbody.innerHTML = questions.map(q => `
+    tbody.innerHTML = questions.map(q => {
+        const displayId = q.id && q.id.length > 10 ? q.id.slice(-8) : q.id;
+        return `
         <tr>
-            <td><strong>#${q.id}</strong></td>
+            <td><strong title="#${q.id}">#${displayId}</strong></td>
             <td><span class="badge badge-${(q.section || q.subject || 'General').toLowerCase()}">${q.section || q.subject || 'General'}</span></td>
             <td>${q.topic || 'N/A'}</td>
             <td><span class="difficulty-${(q.difficulty || 'Medium').toLowerCase()}">${q.difficulty || 'Medium'}</span></td>
@@ -204,10 +206,10 @@ function displayQuestions(questions) {
                 </button>
                 <button class="action-btn danger" onclick="deleteQuestionConfirm('${q.id}')" title="Delete Question">
                     <i class="fas fa-trash"></i>
-                </button>
             </td>
         </tr>
-    `).join('');
+        `
+    }).join('');
 }
 
 function viewQuestionDetails(id) {
@@ -309,7 +311,7 @@ function editQuestionModal(id) {
         { key: 'difficulty', label: 'Difficulty', type: 'select', options: ['Easy', 'Medium', 'Hard'], value: question.difficulty },
         { key: 'marksPositive', label: 'Marks (+)', type: 'number', value: question.marksPositive || 4 },
         { key: 'marksNegative', label: 'Marks (-)', type: 'number', value: question.marksNegative || -1 },
-        { key: 'questionText', label: 'Question Text', type: 'textarea', value: question.question || question.questionText },
+        { key: 'questionText', label: 'Question Text', type: 'textarea', value: question.question || question.questionText, fullWidth: true },
         { key: 'correctAnswer', label: 'Correct Answer (A/B/C/D)', type: 'select', options: ['A', 'B', 'C', 'D'], value: question.answer || question.correctAnswer }
     ];
 
