@@ -329,10 +329,28 @@ export const rescheduleTest = async (req, res) => {
 
 // Test preview data
 export const getTestPreview = async (req, res) => {
+    // Set a hard 8-second timeout to prevent hanging
+    const timeout = setTimeout(() => {
+        if (!res.headersSent) {
+            console.error('TIMEOUT: getTestPreview took more than 8 seconds for testId:', req.params.testId);
+            res.status(504).json({ success: false, error: 'Preview request timed out. The database query took too long.' });
+        }
+    }, 8000);
+
     try {
         const { testId } = req.params;
+        console.log('getTestPreview: Starting for testId:', testId);
+
         const test = await ScheduledTest.findById(testId).lean();
+        console.log('getTestPreview: ScheduledTest found:', !!test);
+
+        if (!test) {
+            clearTimeout(timeout);
+            return res.status(404).json({ success: false, error: 'Test not found' });
+        }
+
         const testQuestions = await TestQuestion.find({ testId }).populate('questionId').sort({ questionOrder: 1 }).lean();
+        console.log('getTestPreview: TestQuestions found:', testQuestions.length);
 
         const sections = [];
         const grouped = {};
@@ -358,8 +376,16 @@ export const getTestPreview = async (req, res) => {
             sections.push({ subjectName: subject, questions: grouped[subject] });
         });
 
-        res.json({ success: true, data: { ...test, sections } });
+        clearTimeout(timeout);
+        if (!res.headersSent) {
+            console.log('getTestPreview: Sending response with', sections.length, 'sections');
+            res.json({ success: true, data: { ...test, sections } });
+        }
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        clearTimeout(timeout);
+        console.error('getTestPreview ERROR:', error.message);
+        if (!res.headersSent) {
+            res.status(500).json({ success: false, error: error.message });
+        }
     }
 };

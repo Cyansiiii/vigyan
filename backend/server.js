@@ -165,7 +165,7 @@ if (IS_DEBUG) {
 }
 app.use((req, res, next) => {
     // Only intercept HTML file requests
-    if (req.path.endsWith('.html') || req.path === '/' || !req.path.includes('.')) {
+    if ((req.path.endsWith('.html') || req.path === '/' || !req.path.includes('.')) && !req.path.startsWith('/api/')) {
         const filePath = req.path === '/'
             ? path.join(__dirname, '../index.html')
             : path.join(__dirname, `..${req.path}`);
