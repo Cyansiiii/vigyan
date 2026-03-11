@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Setup navigation
     setupNavigation();
 
+    // ✅ Setup mobile navigation toggle
+    setupMobileNav();
+
     // Setup auto-refresh (every 30 seconds)
     DashboardState.refreshInterval = setInterval(refreshDashboard, 30000);
 
@@ -662,6 +665,14 @@ function navigateTo(page) {
             }
         });
 
+        // ✅ Close sidebar on mobile after navigation
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (window.innerWidth <= 1024 && sidebar && sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+        }
+
         // Update page title
         const pageTitle = document.getElementById('pageTitle');
         if (pageTitle) {
@@ -788,6 +799,35 @@ function formatPageTitle(page) {
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
+}
+
+// ✅ NEW: Setup Mobile Navigation Toggle
+function setupMobileNav() {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            if (sidebarOverlay) sidebarOverlay.classList.add('active');
+        });
+    }
+
+    if (sidebarClose && sidebar) {
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+        });
+    }
+
+    if (sidebarOverlay && sidebar) {
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        });
+    }
 }
 
 // Refresh Dashboard

@@ -52,6 +52,7 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="logo"><i class="fas fa-graduation-cap"></i><span>VIGYAN.PREP</span></div>
+            <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
         </div>
         <nav class="sidebar-nav"><a href="#" class="nav-link active" data-page="dashboard"><i
                     class="fas fa-home"></i><span>Dashboard</span></a>
@@ -94,6 +95,7 @@
         <!-- Top Header -->
         <header class="top-header">
             <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
                 <h1 class="page-title" id="pageTitle">Dashboard</h1>
                 <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search anything..."
                         id="globalSearch"></div>
@@ -291,6 +293,9 @@
         <div class="content-area" id="performance-page" style="display: none;"></div>
         <div class="content-area" id="live-test-preview-page" style="display: none;"></div>
     </main>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <!-- Scripts -->
     <script src="frontend/js/config.js?v=MAR11_V3"></script>
     <script src="frontend/js/live-test-preview-v2.js?v=MAR11_V4"></script>
