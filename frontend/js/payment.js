@@ -24,11 +24,18 @@ async function executePurchase(testId, amount) {
 
 // Handle email modal submission (INTEGRATED VERIFICATION)
 async function handleModalSubmit() {
+    const nameInput = document.getElementById("modalUserName");
     const emailInput = document.getElementById("modalUserEmail");
     const rollInput = document.getElementById("modalRollNumber");
 
+    const cleanName = nameInput ? nameInput.value.trim() : "";
     const cleanEmail = emailInput.value.trim().toLowerCase();
     const rollNo = rollInput ? rollInput.value.trim() : null;
+
+    if (!cleanName || cleanName.length < 2) {
+        alert("Please enter your full name.");
+        return;
+    }
 
     if (!cleanEmail || !cleanEmail.includes("@")) {
         alert("Please enter a valid email address.");
@@ -37,7 +44,7 @@ async function handleModalSubmit() {
 
     try {
         // STEP 1: Deep Verification (Scenario 1, 2, and 3)
-        const verifyRes = await axios.post(`${window.API_BASE_URL}/api/verify-user-full`, {
+        const verifyRes = await axios.post(`${window.API_BASE_URL}/api/payment/verify-user-full`, {
             email: cleanEmail,
             rollNumber: rollNo
         });
@@ -50,8 +57,8 @@ async function handleModalSubmit() {
             if (rollGroup) {
                 rollGroup.classList.remove("hidden");
                 emailInput.disabled = true;
+                if (nameInput) nameInput.disabled = true;
                 document.getElementById("modalActionBtn").innerText = "Verify & Pay";
-                alert("Existing account found! Please enter your Roll Number to link this purchase.");
             }
             return;
         }
@@ -65,25 +72,27 @@ async function handleModalSubmit() {
         // Scenario 1 & 2: New User or Verified Returning User
         if (status === "NEW_USER" || status === "VERIFIED") {
             localStorage.setItem("userEmail", cleanEmail);
+            localStorage.setItem("userName", cleanName);
             document.getElementById("emailModal").style.display = "none";
 
             const testId = localStorage.getItem("tempTestId");
             const amount = localStorage.getItem("tempAmount");
 
-            startPayment(cleanEmail, testId, amount);
+            startPayment(cleanEmail, cleanName, testId, amount);
         }
 
     } catch (err) {
         alert("Verification failed. Please check your connection.");
-        startPayment(cleanEmail, localStorage.getItem("tempTestId"), localStorage.getItem("tempAmount"));
+        // Fallback to start payment even if verify fails (as per existing logic)
+        startPayment(cleanEmail, cleanName, localStorage.getItem("tempTestId"), localStorage.getItem("tempAmount"));
     }
 }
 
 // Start Razorpay payment
-async function startPayment(userEmail, testId, amount) {
+async function startPayment(userEmail, userName, testId, amount) {
     try {
-        const { data: { key } } = await axios.get(`${window.API_BASE_URL}/api/getkey`);
-        const { data: { order } } = await axios.post(`${window.API_BASE_URL}/api/checkout`, { amount, testId });
+        const { data: { key } } = await axios.get(`${window.API_BASE_URL}/api/payment/getkey`);
+        const { data: { order } } = await axios.post(`${window.API_BASE_URL}/api/payment/checkout`, { amount, testId, email: userEmail });
 
         const options = {
             key,
@@ -92,16 +101,17 @@ async function startPayment(userEmail, testId, amount) {
             name: "Vigyan.prep",
             description: `Unlock ${testId.toUpperCase()} Series`,
             order_id: order.id,
-            prefill: { email: userEmail },
+            prefill: { email: userEmail, name: userName },
             handler: async function (response) {
-                // FIXED: Pass testId and amount to backend
-                const verifyRes = await axios.post(`${window.API_BASE_URL}/api/paymentverification`, {
+                // FIXED: Pass testId and amount to backend, including fullName
+                const verifyRes = await axios.post(`${window.API_BASE_URL}/api/payment/paymentverification`, {
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_signature: response.razorpay_signature,
                     email: userEmail,
-                    testId: testId,  // FIXED: Added testId
-                    amount: amount   // FIXED: Added amount
+                    fullName: userName, // Pass collected name
+                    testId: testId,
+                    amount: amount
                 });
 
                 if (verifyRes.data.success) {

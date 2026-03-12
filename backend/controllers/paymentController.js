@@ -617,3 +617,54 @@ export const paymentVerification = async (req, res) => {
     }
   }
 };
+
+/**
+ * 🔍 Verify user identity (Email and Roll Number) before purchase
+ * Handles Scenario 1 (New User), 2 (Verified Returning), and 3 (Existing needing roll)
+ */
+export const verifyUserFull = async (req, res) => {
+  console.log("🔍 ========== VERIFY USER FULL CALLED ==========");
+  try {
+    const { email, rollNumber } = req.body;
+
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return res.status(400).json({
+        success: false,
+        status: 'ERROR',
+        message: 'Valid email is required'
+      });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+    console.log(`🔍 Checking identity for: ${normalizedEmail}`);
+
+    // Check in StudentPayment collection (Source of truth for roll numbers)
+    const student = await StudentPayment.findOne({ email: normalizedEmail });
+
+    if (!student) {
+      console.log("✨ Result: NEW_USER");
+      return res.json({ status: "NEW_USER" });
+    }
+
+    if (!rollNumber) {
+      console.log("🔑 Result: EXISTING_USER_NEED_ROLL");
+      return res.json({ status: "EXISTING_USER_NEED_ROLL" });
+    }
+
+    if (student.roll_number === rollNumber.trim()) {
+      console.log("✅ Result: VERIFIED");
+      return res.json({ status: "VERIFIED" });
+    } else {
+      console.log("❌ Result: WRONG_ROLL");
+      return res.json({ status: "WRONG_ROLL" });
+    }
+
+  } catch (error) {
+    console.error("❌ Verify User Error:", error.message);
+    res.status(500).json({
+      success: false,
+      status: 'ERROR',
+      message: 'Server error during verification'
+    });
+  }
+};

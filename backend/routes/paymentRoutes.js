@@ -1,7 +1,7 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
-// Ensure all three functions are imported correctly
-import { checkout, paymentVerification, getApiKey } from "../controllers/paymentController.js";
+// Ensure all functions are imported correctly
+import { checkout, paymentVerification, getApiKey, verifyUserFull } from "../controllers/paymentController.js";
 import {
   validateCheckout,
   validatePaymentVerification,
@@ -24,6 +24,10 @@ router.route("/checkout")
 // ✅ PRIMARY VERIFICATION ENDPOINT
 router.route("/paymentverification")
   .post(limiter, validatePaymentVerification, paymentVerification);
+
+// ✅ NEW: Identity Verification
+router.route("/verify-user-full")
+  .post(limiter, verifyUserFull);
 
 // ✅ ALIAS ENDPOINTS FOR COMPATIBILITY (all call same function)
 router.route("/payment-verification")

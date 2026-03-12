@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Grip, X, Sparkles, Target, Zap } from "lucide-react";
+import axios from "axios";
 
 declare global {
   interface Window {
@@ -95,6 +96,7 @@ const DraggablePreview = ({ item }: { item: typeof series[0] }) => {
 // --- Main Component ---
 
 export default function TestSeriesExplorer() {
+  const [prices, setPrices] = React.useState<Record<string, number>>({});
   const [activeId, setActiveId] = useState<string>(series[0].id);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -108,12 +110,31 @@ export default function TestSeriesExplorer() {
     [expandedId]
   );
 
+  React.useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+        const res = await axios.get("https://api.vigyanprep.com/api/exam/test-series");
+        if (res.data.success && res.data.tests) {
+          const priceMap: Record<string, number> = {};
+          res.data.tests.forEach((t: any) => {
+            priceMap[t.testId] = t.price;
+          });
+          setPrices(priceMap);
+        }
+      } catch (err) {
+        console.warn("Pricing Protocol Sync Failed");
+      }
+    };
+    fetchPrices();
+  }, []);
+
   const handlePurchase = (id: string, price: number) => {
-    // Call the global function defined in testfirstpage.html
     if (window.executePurchase) {
       window.executePurchase(id, price);
     }
   };
+
+  const getPrice = (item: typeof series[0]) => prices[item.id] || item.price;
 
   return (
     <div className="w-full text-white">
@@ -145,7 +166,7 @@ export default function TestSeriesExplorer() {
                   layoutId={`preview-container-${activeItem.id}`}
                   className="absolute inset-0 flex items-center justify-center p-8"
                 >
-                  <DraggablePreview item={activeItem} />
+                  <DraggablePreview item={{...activeItem, price: getPrice(activeItem)}} />
                 </motion.div>
               </div>
             </div>
@@ -161,6 +182,7 @@ export default function TestSeriesExplorer() {
              <div className="space-y-4 flex-1">
                 {series.map((item) => {
                   const isActive = activeId === item.id;
+                  const itemPrice = getPrice(item);
                   return (
                     <motion.div
                       key={item.id}
@@ -187,7 +209,7 @@ export default function TestSeriesExplorer() {
                           <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-[#8B7E74] font-black mb-2 opacity-60">
                             <span>{item.category}</span>
                             <span>•</span>
-                            <span>₹{item.price}</span>
+                            <span>₹{itemPrice}</span>
                           </div>
                           <h2 className="text-3xl font-['Cormorant_Garamond'] italic font-bold text-[#2C2C2C] tracking-tight">{item.name}</h2>
                         </div>
@@ -199,12 +221,7 @@ export default function TestSeriesExplorer() {
                          </div>
                       </div>
 
-                      {isActive && (
-                        <motion.div
-                          layoutId="active-highlight"
-                          className="absolute inset-0 bg-gradient-to-r from-[#8B7E74]/[0.05] to-transparent pointer-events-none"
-                        />
-                      )}
+                      {/* Removed active-highlight to eliminate visual artifacts in right corners */}
                     </motion.div>
                   );
                 })}
@@ -272,40 +289,50 @@ export default function TestSeriesExplorer() {
                   </div>
 
                   {/* Content Side */}
-                  <div className="flex flex-col h-full overflow-y-auto p-16 sm:p-24">
-                    <div className="mb-12">
-                      <h4 className="text-[11px] uppercase tracking-[0.3em] text-[#8B7E74] font-black mb-8 border-b border-[#EBDCCB] pb-4">
-                        Scientific Purpose
-                      </h4>
-                      <p className="text-3xl font-['Cormorant_Garamond'] leading-snug text-[#2C2C2C] italic mb-10">
-                        {expandedItem.description}
-                      </p>
+                  <div className="flex flex-col h-full overflow-hidden">
+                    {/* Scrollable Area */}
+                    <div className="flex-1 overflow-y-auto p-16 sm:p-24 pb-0">
+                      <div className="mb-12">
+                        <h4 className="text-[11px] uppercase tracking-[0.3em] text-[#8B7E74] font-black mb-8 border-b border-[#EBDCCB] pb-4">
+                          Scientific Purpose
+                        </h4>
+                        <p className="text-3xl font-['Cormorant_Garamond'] leading-snug text-[#2C2C2C] italic mb-10">
+                          {expandedItem.description}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
+                        <div className="p-8 rounded-[2.5rem] bg-white border border-[#EBDCCB] shadow-sm">
+                          <h5 className="text-[10px] uppercase font-black tracking-[0.2em] text-[#8B7E74] mb-4">Focus</h5>
+                          <p className="text-sm text-[#4A4A4A] leading-relaxed">High-yield analytical problem solving and pattern recognition protocols.</p>
+                        </div>
+                        <div className="p-8 rounded-[2.5rem] bg-white border border-[#EBDCCB] shadow-sm">
+                          <h5 className="text-[10px] uppercase font-black tracking-[0.2em] text-[#8B7E74] mb-4">Structure</h5>
+                          <p className="text-sm text-[#4A4A4A] leading-relaxed">Simulated computerized interface mirroring the exact exam environment.</p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-                      <div className="p-8 rounded-[2.5rem] bg-white border border-[#EBDCCB] shadow-sm">
-                        <h5 className="text-[10px] uppercase font-black tracking-[0.2em] text-[#8B7E74] mb-4">Focus</h5>
-                        <p className="text-sm text-[#4A4A4A] leading-relaxed">High-yield analytical problem solving and pattern recognition protocols.</p>
-                      </div>
-                      <div className="p-8 rounded-[2.5rem] bg-white border border-[#EBDCCB] shadow-sm">
-                        <h5 className="text-[10px] uppercase font-black tracking-[0.2em] text-[#8B7E74] mb-4">Structure</h5>
-                        <p className="text-sm text-[#4A4A4A] leading-relaxed">Simulated computerized interface mirroring the exact exam environment.</p>
-                      </div>
+                    {/* Fixed Bottom CTA */}
+                    <div className="p-16 sm:p-24 pt-8 bg-[#FDF8F3] border-t border-[#EBDCCB] flex flex-col items-center gap-6 relative z-10 shadow-[0_-20px_40px_rgba(0,0,0,0.03)]">
+                        <button 
+                            onClick={() => {
+                                handlePurchase(expandedId || "", getPrice(expandedItem));
+                                setExpandedId(null);
+                            }}
+                            className="group relative flex flex-col items-center"
+                        >
+                            <span className="font-['Great_Vibes'] text-[6rem] leading-none text-black hover:scale-105 transition-transform cursor-pointer">
+                                <span className="text-[1.3em] font-bold">B</span>uy <span className="text-[1.3em] font-bold">N</span>ow
+                            </span>
+                        </button>
+                        <div className="font-mono text-[12px] tracking-[0.4em] text-[#8B7E74] uppercase opacity-60">
+                            Protocol Activation // ₹{getPrice(expandedItem)}
+                        </div>
+                        <p className="text-center text-[10px] text-[#8B7E74] font-bold tracking-[0.2em]">
+                          SECURE DIGITAL PURCHASE // VIGYAN.PREP
+                        </p>
                     </div>
-
-                    <button 
-                       onClick={() => {
-                          handlePurchase(expandedItem.id, expandedItem.price);
-                          setExpandedId(null);
-                       }}
-                       className="w-full py-8 rounded-[3rem] bg-black text-white font-black uppercase tracking-[0.3em] text-lg hover:scale-[1.02] transform transition-all active:scale-[0.98] shadow-2xl"
-                    >
-                       Activate Access • ₹{expandedItem.price}
-                    </button>
-                    
-                    <p className="mt-8 text-center text-[10px] text-[#8B7E74] font-bold tracking-[0.2em]">
-                      SECURE DIGITAL PURCHASE // VIGYAN.PREP
-                    </p>
                   </div>
                 </div>
               </motion.div>
