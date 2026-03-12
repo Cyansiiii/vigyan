@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+set port 65002
+set user_host "u255161845@31.97.101.169"
+set password "Buddy700@"
+
+set timeout 30
+spawn ssh -p $port $user_host "ls -la domains/"
+expect {
+    "yes/no" {
+        send "yes\r"
+        exp_continue
+    }
+    "password:" {
+        send "$password\r"
+    }
+}
+expect eof
