@@ -23,7 +23,7 @@ window.APP_CONFIG = {
         }
 
         // 3. PRODUCTION: Railway backend (Custom Subdomain)
-        return 'https://vigyan-production.up.railway.app';
+        return 'https://api.vigyanprep.com';
     })(),
 
     // Feature flags

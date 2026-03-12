@@ -36,7 +36,7 @@ export class Environment {
 
         // API URLs - Automatically switches based on environment
         this.apiUrl = this.isProduction
-            ? (process.env.API_URL || 'https://vigyan-production.up.railway.app')
+            ? (process.env.API_URL || 'https://api.vigyanprep.com')
             : (process.env.API_URL || 'http://localhost:3000');
 
         // Frontend URLs
