@@ -1,7 +1,7 @@
 #!/bin/bash
 expect -c '
 set timeout 60
-spawn bash -c "cd dist && scp -P 65002 -r index.html aboutpage.html testfirstpage.html vp-assets-v2 u255161845@31.97.101.169:domains/vigyanprep.com/public_html/"
+spawn bash -c "cd dist && scp -P 65002 -r *.html vp-assets-v2 ../public/assets u255161845@31.97.101.169:domains/vigyanprep.com/public_html/"
 expect "password:"
 send "Buddy700@\r"
 expect eof
