@@ -19,7 +19,7 @@ export default defineConfig({
         },
     },
     build: {
-        assetsDir: "vp-assets",
+        assetsDir: "assets",
         rollupOptions: {
             input: {
                 main: path.resolve(__dirname, 'index.html'),
