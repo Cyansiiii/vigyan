@@ -12,15 +12,15 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <!-- Local CSS - load immediately (v2.5 = cache bust) -->
-    <link rel="stylesheet" href="styles_v2.css?v=2.5">
-    <link rel="stylesheet" href="calculator.css?v=2.5">
 
-    <!-- Google Fonts - non-blocking load (swap to loaded font when ready) -->
+    <!-- Google Fonts -->
     <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+            rel="stylesheet">
     </noscript>
 
     <!-- MathJax config (runs before script loads) -->
@@ -97,7 +97,67 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* Brand Logo Styles */
+        .brand-logo {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: baseline;
+            width: fit-content;
+            position: relative;
+            padding-bottom: 4px;
+            user-select: none;
+            text-decoration: none;
+        }
+
+        .brand-logo .logo-vigyan {
+            font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 25%, #ffffff 50%, #fcd34d 75%, #fef3c7 100%);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
+            animation: brandShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes brandShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .brand-logo .logo-dot {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: rgba(148, 163, 184, 0.5);
+            margin-left: 2px;
+        }
+
+        .brand-logo .logo-prep {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: lowercase;
+            color: rgba(148, 163, 184, 0.4);
+        }
     </style>
+  <link rel="stylesheet" crossorigin href="/assets/niser_matrix-CeZpetzN.css">
 </head>
 
 <body>
@@ -117,8 +177,9 @@
     </script>
 
     <div id="instructionPage" class="instruction-container">
-        <div class="inst-header">
-            <span id="examTitle">Vigyan.prep NISER PYQ 2025</span>
+        <div class="inst-header" style="align-items: center;">
+            <a href="index.html" class="brand-logo"><span class="logo-vigyan">Vigyan</span><span
+                    class="logo-dot">.</span><span class="logo-prep">prep</span></a>
             <span style="font-size: 0.9rem; opacity: 0.9;">System ID: C101</span>
         </div>
 
@@ -225,6 +286,43 @@
                     </p>
                 </div>
 
+                <style>
+                    .login-form input:focus {
+                        border-color: #d4af37 !important;
+                        outline: none;
+                        box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+                        background: white !important;
+                    }
+
+                    .begin-btn {
+                        width: 100%;
+                        padding: 14px;
+                        background: #64748b;
+                        color: white !important;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        font-weight: 700;
+                        margin-top: 15px;
+                        transition: all 0.3s ease !important;
+                        opacity: 0.5 !important;
+                        cursor: not-allowed !important;
+                    }
+
+                    .begin-btn.active {
+                        opacity: 1 !important;
+                        background: linear-gradient(135deg, #d4af37 0%, #b8962e 100%) !important;
+                        color: #1e3a5f !important;
+                        cursor: pointer !important;
+                        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important;
+                        transform: translateY(-2px);
+                    }
+
+                    .begin-btn.active:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5) !important;
+                    }
+                </style>
                 <div class="login-form"
                     style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
                     <div
@@ -232,17 +330,16 @@
                         📝 Login Details
                     </div>
                     <input type="text" id="candidateName" placeholder="Enter your full name" required
-                        style="margin-bottom: 10px; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s;">
-                    <input type="email" id="candidateEmail" placeholder="Enter your email (for score report)" required
-                        style="padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s;">
+                        style="margin-bottom: 10px; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: all 0.2s;">
+                    <input type="email" id="candidateEmail" placeholder="Enter your email" required
+                        style="padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; transition: all 0.2s;">
                     <label class="agree-box"
-                        style="margin-top: 15px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem; color: #64748b;">
-                        <input type="checkbox" id="agreeTerms" style="margin-top: 3px; accent-color: #d4af37;">
-                        <span>I have read and understood the instructions. I agree that in case of not adhering to the
-                            instructions, my candidature may be cancelled.</span>
+                        style="margin-top: 15px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem; color: #64748b; cursor: pointer;">
+                        <input type="checkbox" id="agreeTerms"
+                            style="margin-top: 3px; accent-color: #d4af37; cursor: pointer;">
+                        <span>I have read and understood the instructions.</span>
                     </label>
-                    <button class="begin-btn" id="beginTestBtn" disabled
-                        style="width: 100%; padding: 14px; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 15px; transition: all 0.3s; opacity: 0.6;">
+                    <button class="begin-btn" id="beginTestBtn" disabled>
                         I am ready to begin
                     </button>
                     <div style="margin-top: 12px; font-size: 0.75rem; color: #94a3b8; text-align: center;">System ID:
@@ -253,9 +350,11 @@
     </div>
 
     <div id="examInterface" class="exam-interface" style="display: none;">
-        <header class="exam-header">
+        <header class="exam-header" style="align-items: center;">
             <div class="header-left">
-                <span class="exam-title-text" id="examTitleHeader">Vigyan.prep NISER PYQ 2025</span>
+                <a href="index.html" class="brand-logo" style="margin-bottom: 0px;"><span
+                        class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
+                        class="logo-prep">prep</span></a>
             </div>
             <div class="header-right">
                 <div class="profile-box">
@@ -395,9 +494,9 @@
         </div>
     </div>
 
-    <script type="module" src="calculator.js"></script>
+    <script src="frontend/index-niser-pyq/calculator.js"></script>
     <!-- Universal NISER Engine (handles all years 2018-2025 via JSON Vault) -->
-    <script type="module" src="../js-exam/niser_exam_engine_v3.js?v=3.3"></script>
+    <script src="frontend/js-exam/exam-engine.js?v=4.2"></script>
 </body>
 
 </html>

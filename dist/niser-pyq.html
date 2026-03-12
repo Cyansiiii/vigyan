@@ -4,7 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IISER Previous Year Questions - Vigyan.prep</title>
+    <title>NISER Previous Year Questions - Vigyan.prep</title>
+    <!-- Google Fonts -->
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+            rel="stylesheet">
+    </noscript>
     <style>
         * {
             margin: 0;
@@ -31,21 +40,63 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
+        /* Brand Logo Styles */
+        .brand-logo {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: baseline;
+            width: fit-content;
+            position: relative;
+            padding-bottom: 4px;
+            user-select: none;
+            text-decoration: none;
         }
 
-        .logo-iin {
-            color: white;
-            font-family: 'Cormorant Garamond', Georgia, serif;
+        .brand-logo .logo-vigyan {
+            font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            font-weight: 700;
             font-style: italic;
-            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 25%, #ffffff 50%, #fcd34d 75%, #fef3c7 100%);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
+            animation: brandShimmer 4s ease-in-out infinite;
         }
 
-        .logo-edu {
-            color: rgba(148, 163, 184, 0.6);
-            font-size: 0.8em;
+        @keyframes brandShimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .brand-logo .logo-dot {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: rgba(148, 163, 184, 0.5);
+            margin-left: 2px;
+        }
+
+        .brand-logo .logo-prep {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: lowercase;
+            color: rgba(148, 163, 184, 0.4);
         }
 
         .nav-links {
@@ -414,9 +465,8 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">
-            <span class="logo-iin">Vigyan</span><span class="logo-edu">.prep</span>
-        </div>
+        <a href="index.html" class="brand-logo" style="margin-bottom: 0px;"><span class="logo-vigyan">Vigyan</span><span
+                class="logo-dot">.</span><span class="logo-prep">prep</span></a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="subtittlepyq.html">Back</a></li>
@@ -622,8 +672,8 @@
 
     <script>
         function startExam(year) {
-            // Navigate to the unified exam interface with year pre-selected
-            window.location.href = `frontend/index-niser-pyq/index.html?year=${year}`;
+            // Navigate to the unified exam interface with explicit type and year
+            window.location.href = `niser-instructions.html?type=niser&year=${year}`;
         }
     </script>
 </body>

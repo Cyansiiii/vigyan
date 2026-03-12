@@ -31,7 +31,8 @@ export default defineConfig({
                 niser_matrix: path.resolve(__dirname, 'niser-instructions.html'),
                 iiser_matrix: path.resolve(__dirname, 'iiser-instructions.html'),
                 instructions: path.resolve(__dirname, 'instructions.html'),
-                exam: path.resolve(__dirname, 'exam.html')
+                exam: path.resolve(__dirname, 'exam.html'),
+                signinpage: path.resolve(__dirname, 'signinpage.html')
             }
         }
     }
