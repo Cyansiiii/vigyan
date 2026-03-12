@@ -10,7 +10,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export default defineConfig({
     base: "/",
     plugins: [
-
         react(),
         tailwindcss(),
     ],
@@ -20,6 +19,7 @@ export default defineConfig({
         },
     },
     build: {
+        assetsDir: "vp-assets",
         rollupOptions: {
             input: {
                 main: path.resolve(__dirname, 'index.html'),
