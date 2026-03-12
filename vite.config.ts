@@ -32,7 +32,8 @@ export default defineConfig({
                 iiser_matrix: path.resolve(__dirname, 'iiser-instructions.html'),
                 instructions: path.resolve(__dirname, 'instructions.html'),
                 exam: path.resolve(__dirname, 'exam.html'),
-                signinpage: path.resolve(__dirname, 'signinpage.html')
+                signinpage: path.resolve(__dirname, 'signinpage.html'),
+                testfirstpage: path.resolve(__dirname, 'testfirstpage.html')
             }
         }
     }

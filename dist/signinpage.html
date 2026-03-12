@@ -1,3 +1,6 @@
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -7,9 +10,9 @@
         }
 
         :root {
-            --primary: #2d5a27;
+            --primary: #2d5a27; /* Premium Branded Green */
             --primary-light: #4a7c44;
-            --accent: #d4e157; /* Vibrant lime accent */
+            --accent: #d4e157; /* Natural Accent */
             --text-main: #1a2e1a;
             --text-muted: #6b7280;
             --white: #ffffff;
@@ -25,16 +28,15 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #f0f4f0; /* Default bg */
+            background: #f0f4f0;
             color: var(--text-main);
         }
 
-        /* Large Background Image with soft dark vignette */
         body::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: url('/assets/login_bg-CRCOOSXl.png') no-repeat center center/cover;
+            background: url('/assets/login_bg-B4jfjAbF.png') no-repeat center center/cover;
             filter: brightness(0.9);
             z-index: 1;
         }
@@ -49,7 +51,7 @@
             border-radius: 48px;
             overflow: hidden;
             display: flex;
-            box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.3);
             animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -58,7 +60,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Left Side - Poster Side */
         .poster-side {
             flex: 1.1;
             position: relative;
@@ -66,27 +67,26 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 50px;
+            padding: 55px;
         }
 
         .poster-bg {
             position: absolute;
             inset: 0;
-            background: url('/assets/login_poster-B0EW0ifH.png') no-repeat center center/cover;
+            background: url('/assets/login_poster-DaQZKAUD.png') no-repeat center center/cover;
             z-index: 1;
-            transition: var(--transition);
+            transition: transform 1.2s cubic-bezier(0.2, 0, 0.2, 1);
         }
 
         .poster-side:hover .poster-bg {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
-        /* Darkening overlay for better text legibility */
         .poster-side::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+            background: linear-gradient(180deg, rgba(26, 58, 95, 0.1) 0%, rgba(13, 29, 48, 0.4) 100%);
             z-index: 2;
         }
 
@@ -94,82 +94,54 @@
             position: relative;
             z-index: 3;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
+            backdrop-filter: blur(12px);
+            padding: 12px 28px;
             border-radius: 100px;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: white;
             font-size: 0.85rem;
-            width: fit-content;
-        }
-
-        .avatars {
-            display: flex;
-            margin-right: -4px;
-        }
-
-        .avatars img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.3);
-            margin-left: -12px;
-        }
-        .avatars img:first-child { margin-left: 0; }
-
-        .avatars span {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--accent);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 800;
-            margin-left: -12px;
-            border: 2px solid rgba(255,255,255,0.3);
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         .poster-content {
             position: relative;
             z-index: 3;
             color: white;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .poster-content h2 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 800;
-            line-height: 1;
-            margin: 0 0 15px;
-            letter-spacing: -1.5px;
+            line-height: 0.95;
+            margin: 0 0 20px;
+            letter-spacing: -2px;
         }
 
         .poster-content p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 400;
-            opacity: 0.8;
+            opacity: 0.95;
             margin: 0;
-            max-width: 80%;
+            max-width: 90%;
+            letter-spacing: 0.3px;
         }
 
-        /* Right Side - Form Side */
         .form-side {
             width: 480px;
-            background: var(--white);
+            background: #f7faf7; /* Soft Sage Green Architecture */
             position: relative;
-            padding: 60px;
+            padding: 70px 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             z-index: 5;
         }
 
-        /* THE SOPHISTICATED CURBS (Multiple Layered SVGs) */
         .curb-container {
             position: absolute;
             top: 0;
@@ -188,25 +160,52 @@
             width: 100%;
         }
 
-        .curb-white { fill: var(--white); z-index: 10; }
-        .curb-accent { fill: var(--accent); opacity: 0.2; z-index: 9; transform: translateX(-20px); }
+        .curb-white { fill: #f7faf7; z-index: 10; }
+        .curb-accent { fill: var(--accent); opacity: 0.15; z-index: 9; transform: translateX(-20px); }
 
+        /* OFFICIAL BRAND LOGO STYLES */
         .brand-logo {
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
+            margin-bottom: 45px;
+            display: inline-flex;
+            align-items: baseline;
+            cursor: pointer;
         }
 
-        .brand-logo svg {
-            width: 36px;
-            height: 36px;
-            fill: var(--primary);
+        .logo-vigyan {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 25%, #1a2e1a 50%, #2d5a27 75%, #1a2e1a 100%);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: brandShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes brandShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-dot {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: rgba(45, 90, 39, 0.4);
+            margin-left: 2px;
+        }
+
+        .logo-prep {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            color: rgba(45, 90, 39, 0.6);
         }
 
         h1 {
@@ -242,8 +241,8 @@
             width: 100%;
             padding: 16px 20px;
             border-radius: 20px;
-            border: 1.5px solid #f0f4f0;
-            background: #fafcfb;
+            border: 1.5px solid #ecefec;
+            background: #ffffff;
             font-size: 1rem;
             color: var(--text-main);
             transition: var(--transition);
@@ -257,26 +256,47 @@
 
         .btn {
             width: 100%;
-            padding: 18px;
-            border-radius: 22px;
+            padding: 20px;
+            border-radius: 24px;
             background: var(--primary);
             color: var(--white);
             border: none;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 15px 35px rgba(45, 90, 39, 0.2);
             margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
         }
 
         .btn:hover {
             background: var(--primary-light);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(45, 90, 39, 0.35);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(45, 90, 39, 0.4);
         }
 
         .btn:disabled {
@@ -320,8 +340,48 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive Mobile - Focus on Form */
+        .back-home {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .back-home:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: translateX(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .back-home svg {
+            width: 18px;
+            height: 18px;
+            transition: var(--transition);
+        }
+
         @media (max-width: 900px) {
+            .back-home {
+                top: 20px;
+                right: 20px;
+                padding: 10px 16px;
+                background: rgba(255, 255, 255, 0.8);
+                color: var(--primary);
+            }
             .login-wrapper {
                 flex-direction: column;
                 height: auto;
@@ -347,46 +407,41 @@
 </head>
 
 <body>
+    <a href="index.html" class="back-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Home</span>
+    </a>
     <div class="login-wrapper">
-        <!-- Left Column: Inspiring Imagery & Social Proof -->
         <div class="poster-side">
             <div class="poster-bg"></div>
             
             <div class="social-proof">
-                <div class="avatars">
-                    <img src="https://ui-avatars.com/api/?name=A&background=random" alt="User">
-                    <img src="https://ui-avatars.com/api/?name=B&background=random" alt="User">
-                    <img src="https://ui-avatars.com/api/?name=C&background=random" alt="User">
-                    <span>12k+</span>
-                </div>
-                JOIN WITH 30K+ USERS!
+                JOIN US ON A JOURNEY TO EXCELLENCE
             </div>
 
             <div class="poster-content">
-                <h2>Empower<br>your Future.</h2>
-                <p>Advanced IIT-JEE/NEET preparation with Vigyan.prep Test Series</p>
+                <h2>Gateway to<br>Future Science.</h2>
+                <p>Advanced Entrance Preparation with Vigyan.prep</p>
             </div>
         </div>
         
-        <!-- Right Column: Clean, Organic Form -->
         <div class="form-side">
-            <!-- SOPHISTICATED LAYERED CURBS -->
             <div class="curb-container">
-                <!-- Accent Shadow Curb -->
                 <svg class="curb curb-accent" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path d="M100 0 C40 5 40 40 100 50 L100 50 C40 60 40 95 100 100 Z" />
                 </svg>
-                <!-- Main White Curb -->
                 <svg class="curb curb-white" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path d="M100 0 C50 10 50 45 100 50 L100 50 C50 55 50 90 100 100 Z" />
                 </svg>
             </div>
 
             <div class="brand-logo">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2L1 21h22L12 2zm0 3.3L19.5 19H4.5L12 5.3z"/>
-                </svg>
-                Vigyan.prep
+                <span class="logo-vigyan">Vigyan</span>
+                <span class="logo-dot">.</span>
+                <span class="logo-prep">prep</span>
             </div>
             
             <h1>Student Login</h1>
@@ -423,14 +478,12 @@
 
             errorDiv.style.display = 'none';
 
-            // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email || !emailRegex.test(email)) {
                 showError("❌ Please enter a valid email address.");
                 return;
             }
 
-            // Roll number validation (8 digits)
             const tokenRegex = /^[0-9]{8}$/;
             if (!tokenRegex.test(token)) {
                 showError("❌ Roll number must be exactly 8 digits.");
@@ -442,7 +495,6 @@
             spinner.style.display = 'block';
 
             try {
-                // Ensure API_BASE_URL is handled via config.js
                 const response = await axios.post(`${API_BASE_URL}/api/exam/start`, {
                     rollNumber: token,
                     email: email
