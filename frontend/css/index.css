@@ -12,30 +12,14 @@ body {
     overflow-x: hidden;
 }
 
-/* Background Animation */
+/* Background Minimal */
 .bg-animation {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -5;
-    pointer-events: none;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+    display: none;
 }
 
-/* Grid Pattern */
+/* No Grid */
 body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
-    background-size: 30px 30px;
-    z-index: -6;
-    pointer-events: none;
+    display: none;
 }
 
 /* Navbar */
@@ -308,31 +292,9 @@ body::before {
     border-color: white;
 }
 
-/* Background Elements */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: -10%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%);
-    filter: blur(80px);
-    z-index: 0;
-    animation: pulseGlow 10s infinite alternate;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: -10%;
-    right: -10%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.15), transparent 70%);
-    filter: blur(80px);
-    z-index: 0;
-    animation: pulseGlow 8s infinite alternate-reverse;
+/* Clean Hero */
+.hero::before, .hero::after {
+    display: none;
 }
 
 @keyframes pulseGlow {

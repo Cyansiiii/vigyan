@@ -23,19 +23,13 @@
     background: transparent;
 }
 
-/* Animated Gradient Background (Subtle, Not Confusing) */
+/* No Gradient Blender */
 .hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
-    animation: gradientMove 20s ease-in-out infinite;
-    z-index: 0;
+    display: none;
+}
+
+.hero {
+    background: #020617;
 }
 
 /* Hide gradient overlay when 3D canvas is active */

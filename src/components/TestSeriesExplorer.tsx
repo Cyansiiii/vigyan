@@ -120,22 +120,27 @@ export default function TestSeriesExplorer() {
       <LayoutGroup>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 min-h-[700px]">
           {/* Section 1: Interactive Preview Canvas */}
-          <section className="flex flex-col rounded-[2.5rem] border border-white/10 bg-white/[0.02] p-6 shadow-2xl backdrop-blur-md">
-            <div className="mb-10">
-              <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-blue-400 font-bold">
-                Elite Protocols // Ready for Launch
+          <section className="flex flex-col rounded-[3rem] border border-[#EBDCCB] bg-[#FDF8F3] p-8 shadow-xl relative overflow-hidden">
+            <div className="absolute inset-0 opacity-10 grayscale pointer-events-none">
+                <img 
+                    src="/assets/botanical_science_illustrations_lineart_1773316021515.png" 
+                    alt="" 
+                    className="w-full h-full object-cover scale-150 rotate-12"
+                />
+            </div>
+            
+            <div className="relative z-10 mb-10">
+              <p className="mb-4 text-[12px] uppercase tracking-[0.4em] text-[#8B7E74] font-black">
+                Botanical Science // Admissions Protocol
               </p>
-              <h1 className="max-w-xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl uppercase leading-[0.9]">
+              <h1 className="max-w-xl text-5xl font-['Cormorant_Garamond'] italic font-bold tracking-tight text-[#2C2C2C] sm:text-6xl lg:text-7xl leading-[0.85] mb-4">
                 Choose Your <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
-                  Entrance Matrix.
-                </span>
+                <span className="text-[#8B7E74]">Admissions Path.</span>
               </h1>
             </div>
 
-            <div className="relative flex-1 group">
-              <div className="absolute inset-0 overflow-hidden rounded-[2rem] border border-white/5 bg-black/40">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.1),transparent_40%)]" />
+            <div className="relative z-10 flex-1 group">
+              <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-[#EBDCCB] bg-white/40 shadow-inner">
                 <motion.div
                   layoutId={`preview-container-${activeItem.id}`}
                   className="absolute inset-0 flex items-center justify-center p-8"
@@ -153,7 +158,7 @@ export default function TestSeriesExplorer() {
                 <p className="mt-2 text-sm text-white/50">Hover to visualize, click to deep dive into clinical importance.</p>
              </div>
 
-             <div className="space-y-3 flex-1">
+             <div className="space-y-4 flex-1">
                 {series.map((item) => {
                   const isActive = activeId === item.id;
                   return (
@@ -165,39 +170,39 @@ export default function TestSeriesExplorer() {
                         setActiveId(item.id);
                         setExpandedId(item.id);
                       }}
-                      className={`group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border px-6 py-6 cursor-pointer transition-all duration-300 ${
+                      className={`group relative flex w-full items-center justify-between overflow-hidden rounded-[2rem] border-2 px-8 py-8 cursor-pointer transition-all duration-500 ${
                         isActive 
-                          ? "border-blue-500/40 bg-blue-500/10" 
-                          : "border-white/5 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]"
+                          ? "border-[#8B7E74] bg-white shadow-lg scale-[1.02]" 
+                          : "border-[#EBDCCB] bg-[#FDF8F3] hover:border-[#8B7E74] hover:bg-white"
                       }`}
                     >
-                      <div className="relative z-10 flex items-center gap-6">
+                      <div className="relative z-10 flex items-center gap-8">
                         <div 
-                          className="w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg"
+                          className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl grayscale contrast-125"
                           style={{ background: item.color }}
                         >
                           {item.icon}
                         </div>
                         <div>
-                          <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold mb-1">
+                          <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-[#8B7E74] font-black mb-2 opacity-60">
                             <span>{item.category}</span>
                             <span>•</span>
-                            <span className="text-blue-400">₹{item.price}</span>
+                            <span>₹{item.price}</span>
                           </div>
-                          <h2 className="text-2xl font-bold text-white tracking-tight">{item.name}</h2>
+                          <h2 className="text-3xl font-['Cormorant_Garamond'] italic font-bold text-[#2C2C2C] tracking-tight">{item.name}</h2>
                         </div>
                       </div>
 
                       <div className="relative z-10 flex flex-col items-end gap-2">
-                         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white/50 transition-all group-hover:rotate-45 group-hover:text-white group-hover:bg-blue-500/20">
-                            <ArrowUpRight className="h-5 w-5" />
+                         <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#EBDCCB] bg-white text-[#8B7E74] transition-all group-hover:bg-black group-hover:text-white group-hover:border-black">
+                            <ArrowUpRight className="h-6 w-6" />
                          </div>
                       </div>
 
                       {isActive && (
                         <motion.div
                           layoutId="active-highlight"
-                          className="absolute inset-0 bg-gradient-to-r from-blue-500/[0.08] to-transparent pointer-events-none"
+                          className="absolute inset-0 bg-gradient-to-r from-[#8B7E74]/[0.05] to-transparent pointer-events-none"
                         />
                       )}
                     </motion.div>
@@ -206,9 +211,9 @@ export default function TestSeriesExplorer() {
              </div>
 
              {/* Simple Legend/Footer */}
-             <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] text-xs text-white/30 flex items-center justify-between">
-                <span>VIGYAN.PREP // MATRIX v3.0</span>
-                <span>SECURE RAZORPAY GATEWAY</span>
+             <div className="p-8 rounded-[2rem] border border-[#EBDCCB] bg-[#FDF8F3] text-[10px] font-black uppercase tracking-[0.3em] text-[#8B7E74]/40 flex items-center justify-between">
+                <span>VIGYAN.PREP // ADMISSIONS v3.0</span>
+                <span>SECURE PAYMENT ENCRYPTED</span>
              </div>
           </section>
         </div>

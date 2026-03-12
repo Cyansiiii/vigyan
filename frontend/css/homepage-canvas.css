@@ -13,7 +13,7 @@
     pointer-events: none;
 }
 
-/* Subtle overlay for text readability */
+/* Minimal Overlay */
 .canvas-overlay {
     position: fixed;
     top: 0;
@@ -22,10 +22,7 @@
     height: 100vh;
     z-index: 1;
     pointer-events: none;
-    background: radial-gradient(ellipse at center,
-            transparent 0%,
-            transparent 50%,
-            rgba(10, 10, 26, 0.4) 100%);
+    background: rgba(2, 6, 23, 0.2);
 }
 
 /* Hero section with canvas - transparent background */
