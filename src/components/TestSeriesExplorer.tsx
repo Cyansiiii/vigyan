@@ -17,7 +17,7 @@ const series = [
     price: 199,
     category: "IISER Aptitude Test",
     year: "2026 Edition",
-    description: "The IISER Aptitude Test requires more than just knowledge; it requires rapid decision-making. Our IAT series is engineered to simulate the high-pressure environment of the real exam, focusing on pattern recognition and speed optimization for PCB/PCM students.",
+    description: "The IAT isn't just a test; it's a high-stakes race of cognitive speed. Our IAT Protocol is meticulously engineered to sharpen your neural responsiveness, transforming complex problem patterns into instinctive reactions. Master the IISER Aptitude Test with the most rigorous speed-training matrix in existence.",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80", // Research/Biology
     accent: "from-purple-500/80 via-indigo-500/70 to-blue-400/50",
     tags: ["IISER", "Speed Mastery", "Real Interface"],
@@ -31,7 +31,7 @@ const series = [
     price: 199,
     category: "NISER CEBS",
     year: "2026 Edition",
-    description: "NEST is famous for its 'deep' questions that test the boundaries of your conceptual understanding. This series provides non-standard problems that challenge your analytical core, making sure you are prepared for the toughest sections of the NISER entrance.",
+    description: "NEST demands a profound analytical depth that standard preparation can't reach. Our NISER Protocol dives into the sub-atomic layers of conceptual physics and chemistry, challenging your core reasoning with non-standard, deep-logic problems. Prepare for NISER/CEBS with a curriculum that tests the boundaries of your scientific intellect.",
     image: "https://images.unsplash.com/photo-1544383175-1e8284699564?auto=format&fit=crop&w=1200&q=80", // Chemistry/Physics
     accent: "from-teal-500/80 via-emerald-500/70 to-green-400/50",
     tags: ["NISER", "CEBS", "Deep Concepts"],
@@ -45,7 +45,7 @@ const series = [
     price: 199,
     category: "Math & Analytics",
     year: "2026 Edition",
-    description: "For those aiming for the elite Indian Statistical Institute, mathematics is the ultimate language. Our ISI series focuses on mathematical proofs, logical deduction, and complex problem-solving strategies required for CMI and ISI entries.",
+    description: "For the mathematical elite aiming for ISI and CMI, logic is the only currency. This Advanced Math Protocol focuses on the architecture of proofs and the elegance of complex problem-solving. It's more than a series; it's a rigorous induction into the highest echelons of Indian mathematical excellence.",
     image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80", // Abstract Math/Data
     accent: "from-red-500/80 via-orange-500/70 to-yellow-400/50",
     tags: ["ISI", "CMI", "Pure Math"],
