@@ -32,7 +32,7 @@ function initAddQuestions() {
                         Exam Configuration
                     </h3>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="examType">Exam Type *</label>
                             <select id="examType" required class="form-input">
@@ -82,7 +82,7 @@ function initAddQuestions() {
                         Question Details
                     </h3>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="subject">Subject *</label>
                             <select id="subject" required class="form-input">
@@ -117,7 +117,7 @@ function initAddQuestions() {
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; display: none;" id="extraFieldsRow">
+                    <div class="form-row" style="display: none;" id="extraFieldsRow">
                         <div class="form-group" id="numericAnswerGroup">
                             <label for="correctNumericAnswer">Correct Numeric Answer *</label>
                             <input type="number" id="correctNumericAnswer" class="form-input" step="any" placeholder="e.g. 10.5">
