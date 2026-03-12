@@ -99,6 +99,7 @@ function initAddQuestions() {
                             <select id="questionType" required class="form-input">
                                 <option value="">Select Type</option>
                                 <option value="MCQ">MCQ (Multiple Choice)</option>
+                                <option value="MSQ">MSQ (Multi-Select)</option>
                                 <option value="Numerical">Numerical (Integer/Decimal)</option>
                                 <option value="TrueFalse">True/False</option>
                                 <option value="Descriptive">Descriptive (ISI Paper B)</option>
@@ -183,15 +184,27 @@ function initAddQuestions() {
                         `).join('')}
                     </div>
                     
-                    <div class="form-group" style="margin-top: 20px;">
+                    <div class="form-group" style="margin-top: 20px;" id="correctAnswerGroup">
                         <label for="correctAnswer">Correct Answer *</label>
-                        <select id="correctAnswer" required class="form-input">
+                        <select id="correctAnswer" class="form-input">
                             <option value="">Select correct answer</option>
                             <option value="A">Option A</option>
                             <option value="B">Option B</option>
                             <option value="C">Option C</option>
                             <option value="D">Option D</option>
                         </select>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px; display: none;" id="msqCorrectAnswersGroup">
+                        <label style="display: block; margin-bottom: 12px; font-weight: 600;">Correct Answers (Select all that apply) *</label>
+                        <div style="display: flex; gap: 20px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            ${['A', 'B', 'C', 'D'].map(opt => `
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500;">
+                                    <input type="checkbox" name="msqCorrect" value="${opt}" style="width: 18px; height: 18px;">
+                                    Option ${opt}
+                                </label>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
                 
@@ -258,11 +271,22 @@ function handleTypeChange() {
     const numericGroup = document.getElementById('numericAnswerGroup');
     const toleranceGroup = document.getElementById('numericToleranceGroup');
 
-    if (type === 'MCQ' || type === 'TrueFalse') {
+    const msqCorrectGroup = document.getElementById('msqCorrectAnswersGroup');
+    const singleCorrectGroup = document.getElementById('correctAnswerGroup');
+
+    if (type === 'MCQ' || type === 'MSQ' || type === 'TrueFalse') {
         mcqOptionsGroup.style.display = 'block';
         extraFieldsRow.style.display = 'none';
 
-        // Adjust for True/False (hide C/D if wanted, but standard 4 is safer for layout)
+        if (type === 'MSQ') {
+            msqCorrectGroup.style.display = 'block';
+            singleCorrectGroup.style.display = 'none';
+        } else {
+            msqCorrectGroup.style.display = 'none';
+            singleCorrectGroup.style.display = 'block';
+        }
+
+        // Adjust for True/False
         if (type === 'TrueFalse') {
             document.getElementById('optionA').value = 'True';
             document.getElementById('optionB').value = 'False';
@@ -379,7 +403,7 @@ function buildQuestionPayload() {
         status: 'approved'
     };
 
-    if (type === 'MCQ' || type === 'TrueFalse') {
+    if (type === 'MCQ' || type === 'MSQ' || type === 'TrueFalse') {
         const buildOpt = (letter) => {
             const text = document.getElementById('option' + letter).value.trim();
             const url = document.getElementById('option' + letter + 'Url').value.trim();
@@ -388,11 +412,17 @@ function buildQuestionPayload() {
         };
 
         payload.options = [ buildOpt('A'), buildOpt('B') ];
-        if (type === 'MCQ') {
+        if (type === 'MCQ' || type === 'MSQ') {
             payload.options.push(buildOpt('C'));
             payload.options.push(buildOpt('D'));
         }
-        payload.correctAnswer = document.getElementById('correctAnswer').value;
+
+        if (type === 'MSQ') {
+            const checked = Array.from(document.querySelectorAll('input[name="msqCorrect"]:checked')).map(cb => cb.value);
+            payload.correctAnswer = checked; // Send as array
+        } else {
+            payload.correctAnswer = document.getElementById('correctAnswer').value;
+        }
     } else if (type === 'Numerical') {
         payload.correctNumericAnswer = parseFloat(document.getElementById('correctNumericAnswer').value);
         payload.numericTolerance = parseFloat(document.getElementById('numericTolerance').value) || 0;

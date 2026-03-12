@@ -280,42 +280,57 @@
         const optionsContainer = document.getElementById('optionsContainer');
         optionsContainer.innerHTML = '';
 
-        question.options.forEach((opt, i) => {
-            const item = document.createElement('div');
-            item.className = 'option-item';
-            if (userAnswers[currentSection] && userAnswers[currentSection][index] === i) {
-                item.classList.add('selected');
-            }
-            
-            let text = '';
-            let imageUrl = null;
-            
-            if (typeof opt === 'string') {
-                text = opt;
-            } else if (typeof opt === 'object' && opt !== null) {
-                text = opt.text || opt.optionText || opt.content || '';
-                imageUrl = opt.imageUrl || null;
-            }
-            
-            if (imageUrl) {
-                if (imageUrl.startsWith('/uploads')) {
-                    const baseURL = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || window.API_BASE_URL || 'https://api.vigyanprep.com';
-                    imageUrl = baseURL + imageUrl;
-                } else if (imageUrl.startsWith('images/') && EXAM_TYPE && TEST_YEAR) {
-                    imageUrl = DATA_ROOT + imageUrl;
-                }
-            }
-
-            item.innerHTML = `
-                <div style="display:flex; gap:10px; align-items:flex-start;">
-                    <input type="radio" name="temp_radio" class="opt-radio" style="margin-top: 4px;" ${userAnswers[currentSection] && userAnswers[currentSection][index] === i ? 'checked' : ''}>
-                    <span class="opt-text">${text}</span>
+        if (question.questionType === 'Numerical') {
+            optionsContainer.innerHTML = `
+                <div class="numerical-input-container" style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <label style="display: block; margin-bottom: 12px; font-weight: 500;">Type your answer:</label>
+                    <input type="number" id="numericAnswer" class="form-input" step="any" 
+                        value="${userAnswers[currentSection] && userAnswers[currentSection][index] !== undefined ? userAnswers[currentSection][index] : ''}" 
+                        style="max-width: 200px; background: rgba(0,0,0,0.2); color: white; border-color: rgba(255,255,255,0.2);"
+                        oninput="saveNumericAnswer(this.value)">
                 </div>
-                ${imageUrl ? `<div style="padding-left: 28px; margin-top: 8px;"><img src="${imageUrl}" style="max-width:250px; max-height:150px; border-radius:4px; box-shadow: 0 1px 3px rgba(0,0,0,0.5);"></div>` : ''}
             `;
-            item.onclick = () => selectOption(i);
-            optionsContainer.appendChild(item);
-        });
+        } else {
+            question.options.forEach((opt, i) => {
+                const item = document.createElement('div');
+                item.className = 'option-item';
+                const isMSQ = question.questionType === 'MSQ';
+                const isSelected = isMSQ 
+                    ? (userAnswers[currentSection] && userAnswers[currentSection][index] && userAnswers[currentSection][index].includes(i))
+                    : (userAnswers[currentSection] && userAnswers[currentSection][index] === i);
+
+                if (isSelected) item.classList.add('selected');
+                
+                let text = '';
+                let imageUrl = null;
+                
+                if (typeof opt === 'string') {
+                    text = opt;
+                } else if (typeof opt === 'object' && opt !== null) {
+                    text = opt.text || opt.optionText || opt.content || '';
+                    imageUrl = opt.imageUrl || null;
+                }
+                
+                if (imageUrl) {
+                    if (imageUrl.startsWith('/uploads')) {
+                        const baseURL = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || window.API_BASE_URL || 'https://api.vigyanprep.com';
+                        imageUrl = baseURL + imageUrl;
+                    } else if (imageUrl.startsWith('images/') && EXAM_TYPE && TEST_YEAR) {
+                        imageUrl = DATA_ROOT + imageUrl;
+                    }
+                }
+
+                item.innerHTML = `
+                    <div style="display:flex; gap:10px; align-items:flex-start;">
+                        <input type="${isMSQ ? 'checkbox' : 'radio'}" name="temp_radio" class="opt-radio" style="margin-top: 4px;" ${isSelected ? 'checked' : ''}>
+                        <span class="opt-text">${text}</span>
+                    </div>
+                    ${imageUrl ? `<div style="padding-left: 28px; margin-top: 8px;"><img src="${imageUrl}" style="max-width:250px; max-height:150px; border-radius:4px; box-shadow: 0 1px 3px rgba(0,0,0,0.5);"></div>` : ''}
+                `;
+                item.onclick = () => isMSQ ? toggleOption(i) : selectOption(i);
+                optionsContainer.appendChild(item);
+            });
+        }
 
         updatePalette();
 
@@ -347,6 +362,50 @@
         });
         updatePalette();
     }
+
+    function toggleOption(index) {
+        if (!userAnswers[currentSection]) userAnswers[currentSection] = {};
+        if (!userAnswers[currentSection][currentQuestionIndex]) userAnswers[currentSection][currentQuestionIndex] = [];
+        
+        let answers = userAnswers[currentSection][currentQuestionIndex];
+        if (answers.includes(index)) {
+            userAnswers[currentSection][currentQuestionIndex] = answers.filter(i => i !== index);
+        } else {
+            answers.push(index);
+        }
+
+        if (userAnswers[currentSection][currentQuestionIndex].length === 0) {
+            delete userAnswers[currentSection][currentQuestionIndex];
+        }
+
+        if (questionStatus[currentSection][currentQuestionIndex] === 'marked') {
+            questionStatus[currentSection][currentQuestionIndex] = null;
+        }
+
+        const items = document.querySelectorAll('.option-item');
+        const isSelected = userAnswers[currentSection][currentQuestionIndex] && userAnswers[currentSection][currentQuestionIndex].includes(index);
+        
+        if (isSelected) {
+            items[index].classList.add('selected');
+            const cb = items[index].querySelector('.opt-radio');
+            if (cb) cb.checked = true;
+        } else {
+            items[index].classList.remove('selected');
+            const cb = items[index].querySelector('.opt-radio');
+            if (cb) cb.checked = false;
+        }
+        updatePalette();
+    }
+
+    window.saveNumericAnswer = function(value) {
+        if (!userAnswers[currentSection]) userAnswers[currentSection] = {};
+        if (value === '') {
+            delete userAnswers[currentSection][currentQuestionIndex];
+        } else {
+            userAnswers[currentSection][currentQuestionIndex] = parseFloat(value);
+        }
+        updatePalette();
+    };
 
     function handleMarkReview() {
         const isAnswered = userAnswers[currentSection] && userAnswers[currentSection][currentQuestionIndex] !== undefined;
@@ -489,16 +548,57 @@
                 questions.forEach((q, i) => {
                     totalQuestions++;
                     if (userAnswers[s] && userAnswers[s][i] !== undefined) {
-                        const correctLetter = decodeKey(keys[i]);
-                        const correctIdx = correctLetter.charCodeAt(0) - 65;
-                        if (userAnswers[s][i] === correctIdx) {
-                            sectionScore += MARKING.correct;
-                            sectionCorrect++;
-                            totalCorrect++;
-                        } else {
-                            sectionScore += MARKING.incorrect;
-                            sectionWrong++;
-                            totalWrong++;
+                        const userAnswer = userAnswers[s][i];
+                        const type = q.questionType || 'MCQ';
+
+                        if (type === 'MCQ' || type === 'TrueFalse') {
+                            const correctLetter = decodeKey(keys[i]);
+                            const correctIdx = correctLetter.charCodeAt(0) - 65;
+                            if (userAnswer === correctIdx) {
+                                sectionScore += MARKING.correct;
+                                sectionCorrect++;
+                                totalCorrect++;
+                            } else {
+                                sectionScore += MARKING.incorrect;
+                                sectionWrong++;
+                                totalWrong++;
+                            }
+                        } else if (type === 'MSQ') {
+                            // MSQ Logic: keys[i] will be decoded as "A,C" or ["A", "C"]
+                            let correctLetters = decodeKey(keys[i]);
+                            if (typeof correctLetters === 'string') {
+                                correctLetters = correctLetters.split(',').map(s => s.trim());
+                            }
+                            const correctIndices = correctLetters.map(l => l.charCodeAt(0) - 65);
+                            
+                            const userIndices = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+                            
+                            // Check if exactly the same
+                            const isCorrect = userIndices.length === correctIndices.length && 
+                                            userIndices.every(idx => correctIndices.includes(idx));
+                            
+                            if (isCorrect) {
+                                sectionScore += MARKING.correct;
+                                sectionCorrect++;
+                                totalCorrect++;
+                            } else {
+                                sectionScore += MARKING.incorrect;
+                                sectionWrong++;
+                                totalWrong++;
+                            }
+                        } else if (type === 'Numerical') {
+                            const correctAnswer = parseFloat(decodeKey(keys[i]));
+                            const tolerance = q.numericTolerance || 0;
+                            
+                            if (Math.abs(userAnswer - correctAnswer) <= tolerance) {
+                                sectionScore += MARKING.correct;
+                                sectionCorrect++;
+                                totalCorrect++;
+                            } else {
+                                sectionScore += MARKING.incorrect;
+                                sectionWrong++;
+                                totalWrong++;
+                            }
                         }
                     }
                 });
