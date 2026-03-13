@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="dSB2IXFoFX9QoMM-cG4EfJ2YNhclk1NxacdI9agw1D4" />
+    <title>Vigyan.prep — Gateway to Future Science | IISER & NISER Preparation</title>
+    <meta name="description"
+        content="India's premier platform for IISER IAT, NISER NEST, and research institute entrance preparation. Join thousands of students on their journey to scientific excellence with Vigyan.prep.">
+    <meta name="keywords"
+        content="IISER preparation, NISER test series, IAT exam prep, IISc admission, NEST exam practice, research institutes India, Vigyan prep, science entrance exams">
+    <link rel="canonical" href="https://vigyanprep.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vigyanprep.com/">
+    <meta property="og:title" content="Vigyan.prep — Gateway to Future Science">
+    <meta property="og:description"
+        content="Premier platform for IISER, NISER, and research institute preparation. Start your journey to scientific excellence today.">
+    <meta property="og:image" content="https://vigyanprep.com/frontend/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vigyanprep.com/">
+    <meta property="twitter:title" content="Vigyan.prep — Gateway to Future Science">
+    <meta property="twitter:description"
+        content="Premier platform for IISER, NISER, and research institute preparation. Join 10K+ students.">
+    <meta property="twitter:image" content="https://vigyanprep.com/frontend/images/og-image.jpg">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Vigyan.prep",
+      "url": "https://vigyanprep.com",
+      "logo": "https://vigyanprep.com/frontend/images/logo.png",
+      "description": "Gateway to Future Science — Preparation for IISER, NISER and other research institutes.",
+      "address": { "@type": "PostalAddress", "addressCountry": "India" },
+      "knowsAbout": ["IISER IAT", "NISER NEST", "IISc Admission", "BS-MS research"]
+    }
+    </script>
+
+    <!-- Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================================================================
+           CRITICAL: Never use smooth scroll — it breaks ScrollTrigger
+           ================================================================ */
+        html {
+            scroll-behavior: auto !important;
+        }
+
+        /* ================================================================
+           CSS CUSTOM PROPERTIES — DESIGN TOKENS
+           ================================================================ */
+        :root {
+            --bg:       #241e12;
+            --bg-deep:  #16120b;
+            --gold:     #d4a520;
+            --saffron:  #e8720a;
+            --ivory:    #f2ead8;
+            --mist:     rgba(242, 234, 216, 0.60);
+            --ghost:    rgba(242, 234, 216, 0.28);
+            --rim:      rgba(255, 255, 255, 0.07);
+
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body:    'DM Sans', -apple-system, sans-serif;
+        }
+
+        /* ================================================================
+           RESET & BASE
+           ================================================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--ivory);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        /* ================================================================
+           PRELOADER
+           ================================================================ */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        visibility 0.8s;
+        }
+        #preloader.done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-style: italic;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ivory);
+        }
+        .preloader-logo .dot {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-style: normal;
+            color: var(--ghost);
+            margin: 0 1px;
+        }
+        .preloader-logo .prep {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-style: normal;
+            font-size: 0.45em;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            color: var(--ghost);
+        }
+
+        .preloader-ring {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .preloader-ring svg {
+            transform: rotate(-90deg);
+        }
+        .preloader-ring circle {
+            fill: none;
+            stroke-width: 3;
+            cx: 50; cy: 50; r: 44;
+        }
+        .preloader-ring .ring-bg {
+            stroke: var(--ghost);
+        }
+        .preloader-ring .ring-fill {
+            stroke: var(--gold);
+            stroke-linecap: round;
+            stroke-dasharray: 276.46;
+            stroke-dashoffset: 276.46;
+            transition: stroke-dashoffset 0.15s ease-out;
+        }
+        .preloader-pct {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--ivory);
+            letter-spacing: 1px;
+        }
+        .preloader-label {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ghost);
+        }
+
+        /* ================================================================
+           NAV
+           ================================================================ */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 40px;
+            transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+            border-bottom: 1px solid transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(22, 18, 11, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom-color: var(--rim);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+        }
+        .nav-logo .logo-gold {
+            background: linear-gradient(135deg, #fef3c7, #fcd34d, #fff, #fcd34d, #fef3c7);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        .nav-logo .logo-dot {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.7em;
+            color: var(--ghost);
+            -webkit-text-fill-color: var(--ghost);
+            margin: 0 1px;
+        }
+        .nav-logo .logo-prep {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 0.5em;
+            letter-spacing: 1.5px;
+            text-transform: lowercase;
+            color: rgba(148, 163, 184, 0.4);
+            -webkit-text-fill-color: rgba(148, 163, 184, 0.4);
+        }
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50%      { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links a {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 0.88rem;
+            letter-spacing: 0.5px;
+            color: var(--mist);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--ivory); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-links .btn-login {
+            padding: 8px 22px;
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            color: var(--gold);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .nav-links .btn-login:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+        .nav-links .btn-login::after { display: none; }
+
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown .dropdown-trigger {
+            display: flex; align-items: center; gap: 6px; cursor: pointer;
+            font-family: var(--font-body); font-weight: 400; font-size: 0.88rem;
+            color: var(--mist); transition: color 0.3s;
+        }
+        .nav-dropdown .dropdown-trigger i { font-size: 0.65rem; transition: transform 0.3s; }
+        .nav-dropdown:hover .dropdown-trigger i { transform: rotate(180deg); }
+        .nav-dropdown:hover .dropdown-trigger { color: var(--ivory); }
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 50%;
+            transform: translateX(-50%);
+            margin-top: 15px;
+            background: rgba(22, 18, 11, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 6px;
+            min-width: 180px;
+            border: 1px solid var(--rim);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1000;
+        }
+        .nav-dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+        .dropdown-menu a {
+            display: block; padding: 10px 14px;
+            color: var(--mist); border-radius: 6px;
+            font-size: 0.85rem; transition: all 0.2s;
+        }
+        .dropdown-menu a:hover {
+            background: rgba(212, 165, 32, 0.1);
+            color: var(--gold); transform: translateX(4px);
+        }
+        .dropdown-menu a::after { display: none; }
+
+        /* Hamburger (mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger .bar {
+            width: 24px; height: 2px;
+            background: var(--ivory);
+            transition: all 0.3s;
+        }
+
+        /* ================================================================
+           SEQUENCE SCROLL — THE HERO CANVAS
+           ================================================================ */
+        #sequence-scroll {
+            position: relative;
+            height: 500vh;   /* scroll distance for animation */
+        }
+
+        #canvas-wrap {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        #seq-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Vignette overlay */
+        #vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(
+                ellipse 90% 80% at 50% 50%,
+                transparent 45%,
+                rgba(36, 30, 18, 0.4) 70%,
+                rgba(36, 30, 18, 0.85) 100%
+            );
+            z-index: 2;
+        }
+
+        /* Progress bar */
+        #progress-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--saffron), var(--gold));
+            box-shadow: 0 0 12px var(--gold), 0 0 4px var(--saffron);
+            z-index: 5;
+            transition: none;
+        }
+
+        /* Scroll cue */
+        .scroll-cue {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 1;
+            transition: opacity 0.6s;
+        }
+        .scroll-cue.hidden { opacity: 0; pointer-events: none; }
+        .scroll-cue-label {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ghost);
+        }
+        .scroll-cue-track {
+            width: 1px;
+            height: 40px;
+            background: var(--ghost);
+            position: relative;
+            overflow: hidden;
+            border-radius: 1px;
+        }
+        .scroll-cue-pip {
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 1px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 1px;
+            animation: pipFall 1.8s ease-in-out infinite;
+        }
+        @keyframes pipFall {
+            0%   { top: -6px; opacity: 0; }
+            15%  { opacity: 1; }
+            85%  { opacity: 1; }
+            100% { top: 40px; opacity: 0; }
+        }
+
+        /* ================================================================
+           TEXT OVERLAYS — 4 SCENES
+           ================================================================ */
+        .overlay {
+            position: absolute;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0;
+            will-change: opacity, transform, filter;
+        }
+
+        /* OV1 — centered hero text */
+        #ov1 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 700px;
+        }
+        #ov1 h1 {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            line-height: 1.15;
+            color: var(--ivory);
+            letter-spacing: 1px;
+            text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+        }
+        #ov1 h1 em {
+            font-weight: 600;
+            font-style: italic;
+            background: linear-gradient(135deg, var(--gold), var(--saffron));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        #ov1 .ov1-sub {
+            margin-top: 16px;
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+            color: var(--mist);
+            letter-spacing: 0.3px;
+            line-height: 1.6;
+        }
+
+        /* OV2 — left side, at-shelf */
+        #ov2 {
+            top: 50%;
+            left: 6%;
+            transform: translateY(-50%);
+            max-width: 380px;
+        }
+        #ov2 .ov-tag {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        #ov2 h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            line-height: 1.2;
+            color: var(--ivory);
+            text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+        }
+        #ov2 .ov-body {
+            margin-top: 12px;
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.88rem;
+            color: var(--mist);
+            line-height: 1.6;
+        }
+
+        /* OV3 — right side, walking */
+        #ov3 {
+            top: 50%;
+            right: 6%;
+            transform: translateY(-50%);
+            text-align: right;
+            max-width: 380px;
+        }
+        #ov3 .ov-tag {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--saffron);
+            margin-bottom: 12px;
+        }
+        #ov3 h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            line-height: 1.2;
+            color: var(--ivory);
+            text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+        }
+        #ov3 .ov-stat {
+            margin-top: 16px;
+            display: flex;
+            gap: 32px;
+            justify-content: flex-end;
+        }
+        #ov3 .stat-item .stat-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--gold);
+        }
+        #ov3 .stat-item .stat-label {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            color: var(--ghost);
+            text-transform: uppercase;
+        }
+
+        /* OV4 — bottom CTA, reading */
+        #ov4 {
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 90%;
+            max-width: 650px;
+        }
+        #ov4 h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-style: italic;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: var(--ivory);
+            margin-bottom: 10px;
+        }
+        #ov4 .ov4-sub {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.88rem;
+            color: var(--mist);
+            margin-bottom: 24px;
+        }
+        #ov4 .cta-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            pointer-events: auto;
+        }
+        #ov4 .cta-row a {
+            pointer-events: auto;
+        }
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--gold), var(--saffron));
+            color: var(--bg-deep);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212, 165, 32, 0.35);
+        }
+        .btn-gold svg {
+            width: 16px; height: 16px;
+        }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--ivory);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            border: 1px solid var(--ghost);
+            cursor: pointer;
+            transition: border-color 0.3s, color 0.3s, background 0.3s;
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 165, 32, 0.06);
+        }
+
+        #ov4 .trust-row {
+            margin-top: 28px;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+        }
+        #ov4 .trust-item .trust-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+        #ov4 .trust-item .trust-label {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--ghost);
+        }
+
+        /* ================================================================
+           BELOW SEQUENCE — INSTITUTES SECTION
+           ================================================================ */
+        .section-institutes {
+            position: relative;
+            background: var(--bg-deep);
+            padding: 100px 40px 80px;
+            z-index: 1;
+        }
+        .section-institutes .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-institutes .section-header h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: var(--ivory);
+            margin-bottom: 8px;
+        }
+        .section-institutes .section-header p {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: var(--ghost);
+        }
+
+        .institute-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .inst-card {
+            position: relative;
+            background: rgba(242, 234, 216, 0.03);
+            border: 1px solid var(--rim);
+            border-radius: 12px;
+            padding: 32px 20px;
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+            cursor: default;
+        }
+        .inst-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--saffron));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .inst-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 165, 32, 0.2);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .inst-card:hover::after { transform: scaleX(1); }
+
+        .inst-card .inst-logo {
+            width: 56px; height: 56px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inst-card .inst-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(0.85);
+        }
+        .inst-card h4 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--ivory);
+            margin-bottom: 4px;
+        }
+        .inst-card p {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.75rem;
+            color: var(--ghost);
+            letter-spacing: 0.5px;
+        }
+
+        /* Category labels above grid groups */
+        .category-label {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .category-label:not(:first-child) {
+            margin-top: 48px;
+        }
+
+        /* ================================================================
+           FOOTER
+           ================================================================ */
+        .site-footer {
+            background: #0c0a06;
+            border-top: 1px solid var(--rim);
+            padding: 40px 40px 28px;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-copy {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.78rem;
+            color: var(--ghost);
+        }
+        .footer-copy .heart { color: #ec4899; }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        .footer-links a {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 0.78rem;
+            color: var(--ghost);
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ================================================================
+           MAGIC UI-INSPIRED: MARQUEE STRIP
+           ================================================================ */
+        .marquee-section {
+            overflow: hidden;
+            background: var(--bg-deep);
+            border-top: 1px solid var(--rim);
+            border-bottom: 1px solid var(--rim);
+            padding: 18px 0;
+            position: relative;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeScroll 30s linear infinite;
+            gap: 48px;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item {
+            flex-shrink: 0;
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: var(--ghost);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .marquee-item .dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.6;
+        }
+        @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* ================================================================
+           MAGIC UI-INSPIRED: FEATURES SECTION
+           ================================================================ */
+        .section-features {
+            position: relative;
+            background: var(--bg);
+            padding: 100px 40px 80px;
+            overflow: hidden;
+        }
+        .section-features .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-features .section-header h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: var(--ivory);
+            margin-bottom: 8px;
+        }
+        .section-features .section-header p {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: var(--ghost);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            position: relative;
+            background: rgba(242, 234, 216, 0.02);
+            border: 1px solid var(--rim);
+            border-radius: 16px;
+            padding: 40px 28px;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.4s;
+        }
+        /* Shimmer border on hover */
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 17px;
+            padding: 1px;
+            background: linear-gradient(135deg,
+                transparent 30%,
+                var(--gold) 50%,
+                transparent 70%);
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                          linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+            animation: shimmerBorder 3s linear infinite paused;
+        }
+        .feature-card:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 165, 32, 0.15);
+        }
+        @keyframes shimmerBorder {
+            0%   { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: rgba(212, 165, 32, 0.08);
+            border: 1px solid rgba(212, 165, 32, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--ivory);
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.85rem;
+            color: var(--mist);
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           MAGIC UI-INSPIRED: NUMBER COUNTER
+           ================================================================ */
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 60px 40px;
+            background: var(--bg-deep);
+            border-top: 1px solid var(--rim);
+            border-bottom: 1px solid var(--rim);
+            flex-wrap: wrap;
+        }
+        .stat-counter {
+            text-align: center;
+        }
+        .stat-counter .counter-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--gold);
+            line-height: 1;
+        }
+        .stat-counter .counter-suffix {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            color: var(--saffron);
+        }
+        .stat-counter .counter-label {
+            margin-top: 4px;
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ghost);
+        }
+
+        /* ================================================================
+           MAGIC UI-INSPIRED: FLOATING PARTICLES
+           ================================================================ */
+        .particles-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* ================================================================
+           BLUR-FADE REVEAL (Magic UI style)
+           ================================================================ */
+        .blur-fade {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .blur-fade.revealed {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .stats-strip { gap: 30px; padding: 40px 20px; }
+        }
+
+        /* ================================================================
+           PREFERS-REDUCED-MOTION
+           ================================================================ */
+        @media (prefers-reduced-motion: reduce) {
+            #sequence-scroll { height: auto !important; }
+            #canvas-wrap { position: relative !important; }
+            .scroll-cue { display: none; }
+            #progress-bar { display: none; }
+            .overlay { opacity: 1 !important; filter: none !important; }
+            #ov1 { position: relative; transform: none; padding: 120px 20px 80px; }
+            #ov4 { position: relative; transform: none; padding: 40px 20px; }
+        }
+
+        /* ================================================================
+           RESPONSIVE
+           ================================================================ */
+        @media (max-width: 900px) {
+            .navbar { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            #ov2, #ov3 {
+                left: 50%; right: auto;
+                transform: translateX(-50%) translateY(-50%);
+                text-align: center;
+                max-width: 85%;
+            }
+            #ov3 .ov-stat { justify-content: center; }
+
+            .section-institutes { padding: 60px 20px 60px; }
+            .institute-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+            .inst-card { padding: 24px 14px; }
+
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            #ov1 h1 { font-size: 2rem; }
+            #ov4 .cta-row { flex-direction: column; align-items: center; }
+            #ov4 .trust-row { gap: 20px; flex-wrap: wrap; }
+        }
+
+        /* Mobile nav overlay */
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(22, 18, 11, 0.97);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s, visibility 0.4s;
+        }
+        .mobile-nav.open { opacity: 1; visibility: visible; }
+        .mobile-nav a {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--ivory);
+            transition: color 0.3s;
+        }
+        .mobile-nav a:hover { color: var(--gold); }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================================================================
+         PRELOADER
+         ================================================================ -->
+    <div id="preloader">
+        <div class="preloader-logo">
+            Vigyan<span class="dot">.</span><span class="prep">prep</span>
+        </div>
+        <div class="preloader-ring">
+            <svg viewBox="0 0 100 100" width="100" height="100">
+                <circle class="ring-bg" />
+                <circle class="ring-fill" id="ring-fill" />
+            </svg>
+            <div class="preloader-pct" id="preloader-pct">0%</div>
+        </div>
+        <div class="preloader-label">Loading sequence</div>
+    </div>
+
+    <!-- ================================================================
+         NAV
+         ================================================================ -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="nav-logo">
+            <span class="logo-gold">Vigyan</span><span class="logo-dot">.</span><span class="logo-prep">prep</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <div class="nav-dropdown">
+                <span class="dropdown-trigger">About <i class="fas fa-chevron-down"></i></span>
+                <div class="dropdown-menu">
+                    <a href="aboutpage.html">About Us</a>
+                    <a href="shoutouts.html">Shoutouts</a>
+                </div>
+            </div>
+            <a href="subtittlepyq.html">PYQ</a>
+            <a href="testfirstpage.html">Tests</a>
+            <div class="nav-dropdown">
+                <span class="dropdown-trigger">Future Career <i class="fas fa-chevron-down"></i></span>
+                <div class="dropdown-menu">
+                    <a href="future.html">Future Career</a>
+                    <a href="sciencenews.html">Science News</a>
+                </div>
+            </div>
+            <a href="signinpage.html" class="btn-login">Login</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="aboutpage.html">About</a>
+        <a href="subtittlepyq.html">PYQ</a>
+        <a href="testfirstpage.html">Tests</a>
+        <a href="future.html">Future Career</a>
+        <a href="sciencenews.html">Science News</a>
+        <a href="signinpage.html">Login</a>
+    </div>
+
+    <!-- ================================================================
+         SEQUENCE SCROLL — THE HERO CANVAS
+         ================================================================ -->
+    <div id="sequence-scroll">
+        <div id="canvas-wrap">
+            <canvas id="seq-canvas"></canvas>
+            <div id="vignette"></div>
+            <div id="progress-bar"></div>
+
+            <!-- Text Overlays -->
+            <div class="overlay" id="ov1">
+                <h1>Gateway to<br><em>Future Science</em></h1>
+                <p class="ov1-sub">
+                    India's premier platform for IISER, NISER, and research institute preparation.
+                    Begin your journey to scientific excellence.
+                </p>
+            </div>
+
+            <div class="overlay" id="ov2">
+                <div class="ov-tag">Explore</div>
+                <h2>Knowledge worth reaching for</h2>
+                <p class="ov-body">
+                    Curated question banks, past-year papers, and expert-crafted test series
+                    for IISER IAT, NISER NEST, IISc, and ISI entrance exams.
+                </p>
+            </div>
+
+            <div class="overlay" id="ov3">
+                <div class="ov-tag">Community</div>
+                <h2>10,000+ students rising</h2>
+                <div class="ov-stat">
+                    <div class="stat-item">
+                        <div class="stat-num">500+</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">7</div>
+                        <div class="stat-label">IISERs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">95%</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overlay" id="ov4">
+                <h2>Your future in science starts here</h2>
+                <p class="ov4-sub">Join thousands of aspirants who chose Vigyan.prep to prepare smarter.</p>
+                <div class="cta-row">
+                    <a href="testfirstpage.html" class="btn-gold">
+                        Start Learning
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="#institutes" class="btn-outline">Explore Institutes</a>
+                </div>
+                <div class="trust-row">
+                    <div class="trust-item">
+                        <div class="trust-num">10K+</div>
+                        <div class="trust-label">Students</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-num">500+</div>
+                        <div class="trust-label">Questions</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-num">7</div>
+                        <div class="trust-label">IISERs</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll cue -->
+            <div class="scroll-cue" id="scroll-cue">
+                <div class="scroll-cue-label">Scroll</div>
+                <div class="scroll-cue-track">
+                    <div class="scroll-cue-pip"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         INSTITUTES SECTION
+         ================================================================ -->
+    <section class="section-institutes" id="institutes">
+        <div class="section-header">
+            <h2>Premier Research Institutes</h2>
+            <p>Prepare for India's finest science education destinations</p>
+        </div>
+
+        <div class="category-label">IISER — Indian Institutes of Science Education & Research</div>
+        <div class="institute-grid" id="iiser-grid">
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/IISER,_PUNE_Logo.svg" alt="IISER Pune"></div>
+                <h4>Pune</h4>
+                <p>Maharashtra</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/IISER-K_Logo.svg" alt="IISER Kolkata"></div>
+                <h4>Kolkata</h4>
+                <p>West Bengal</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/IISER-Mohali_Logo.svg" alt="IISER Mohali"></div>
+                <h4>Mohali</h4>
+                <p>Punjab</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/Indian_Institute_of_Science_Education_and_Research_Berhampur_Logo.svg" alt="IISER Bhopal"></div>
+                <h4>Bhopal</h4>
+                <p>Madhya Pradesh</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/IISER_Thiruvananthapuram_Logo.svg" alt="IISER TVM"></div>
+                <h4>Thiruvananthapuram</h4>
+                <p>Kerala</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/IISER_Tirupati_logo.png" alt="IISER Tirupati"></div>
+                <h4>Tirupati</h4>
+                <p>Andhra Pradesh</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/IISERB_logo.png" alt="IISER Berhampur"></div>
+                <h4>Berhampur</h4>
+                <p>Odisha</p>
+            </div>
+        </div>
+
+        <div class="category-label">PRESTIGE — Institutes of National Importance</div>
+        <div class="institute-grid" id="prestige-grid">
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/Indian_Institute_of_Science_2019_logo.svg" alt="IISc"></div>
+                <h4>IISc</h4>
+                <p>Karnataka</p>
+            </div>
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/Indianstatisticalinstitutelogo.svg" alt="ISI"></div>
+                <h4>ISI</h4>
+                <p>West Bengal</p>
+            </div>
+        </div>
+
+        <div class="category-label">NISER — National Institute of Science Education & Research</div>
+        <div class="institute-grid" id="niser-grid">
+            <div class="inst-card">
+                <div class="inst-logo"><img src="frontend/images/National_Institute_of_Science_Education_and_Research.svg" alt="NISER"></div>
+                <h4>NISER</h4>
+                <p>Bhubaneswar</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         MARQUEE STRIP (Magic UI-inspired)
+         ================================================================ -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <span class="marquee-item">IISER IAT<span class="dot"></span></span>
+            <span class="marquee-item">NISER NEST<span class="dot"></span></span>
+            <span class="marquee-item">IISc Entrance<span class="dot"></span></span>
+            <span class="marquee-item">ISI Admission<span class="dot"></span></span>
+            <span class="marquee-item">Physics &bull; Chemistry &bull; Biology &bull; Maths<span class="dot"></span></span>
+            <span class="marquee-item">500+ PYQ Questions<span class="dot"></span></span>
+            <span class="marquee-item">Test Series<span class="dot"></span></span>
+            <span class="marquee-item">Expert Solutions<span class="dot"></span></span>
+            <!-- Duplicate for seamless loop -->
+            <span class="marquee-item">IISER IAT<span class="dot"></span></span>
+            <span class="marquee-item">NISER NEST<span class="dot"></span></span>
+            <span class="marquee-item">IISc Entrance<span class="dot"></span></span>
+            <span class="marquee-item">ISI Admission<span class="dot"></span></span>
+            <span class="marquee-item">Physics &bull; Chemistry &bull; Biology &bull; Maths<span class="dot"></span></span>
+            <span class="marquee-item">500+ PYQ Questions<span class="dot"></span></span>
+            <span class="marquee-item">Test Series<span class="dot"></span></span>
+            <span class="marquee-item">Expert Solutions<span class="dot"></span></span>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         FEATURES SECTION (Magic UI shimmer cards)
+         ================================================================ -->
+    <section class="section-features" id="features">
+        <div class="particles-container" id="particles-features"></div>
+        <div class="section-header blur-fade">
+            <h2>Why Vigyan.prep?</h2>
+            <p>Everything you need to crack IISER, NISER, and top research institute exams</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card blur-fade">
+                <div class="feature-icon"><i class="fas fa-flask"></i></div>
+                <h3>Curated Question Banks</h3>
+                <p>500+ hand-picked past-year questions with detailed solutions covering Physics, Chemistry, Biology, and Mathematics.</p>
+            </div>
+            <div class="feature-card blur-fade">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Adaptive Test Series</h3>
+                <p>AI-powered mock tests that adapt to your strengths and weaknesses, mirroring the exact exam pattern of IAT and NEST.</p>
+            </div>
+            <div class="feature-card blur-fade">
+                <div class="feature-icon"><i class="fas fa-microscope"></i></div>
+                <h3>Research-Level Depth</h3>
+                <p>Go beyond textbooks. Our content is designed by researchers and alumni from IISER, IISc, and NISER to build real scientific intuition.</p>
+            </div>
+            <div class="feature-card blur-fade">
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                <h3>Peer Community</h3>
+                <p>Join 10,000+ aspirants discussing strategies, sharing notes, and motivating each other in our active student community.</p>
+            </div>
+            <div class="feature-card blur-fade">
+                <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+                <h3>Structured Study Plans</h3>
+                <p>Week-by-week study schedules tailored for IAT, NEST, and IISc entrance exams based on proven strategies of toppers.</p>
+            </div>
+            <div class="feature-card blur-fade">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Instant Doubt Resolution</h3>
+                <p>Get your doubts answered within hours by our expert panel of science graduates and researchers. Never stay stuck.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         STATS COUNTER STRIP (Magic UI number counter)
+         ================================================================ -->
+    <div class="stats-strip" id="stats-strip">
+        <div class="stat-counter blur-fade">
+            <div><span class="counter-num" data-target="10000">0</span><span class="counter-suffix">+</span></div>
+            <div class="counter-label">Students</div>
+        </div>
+        <div class="stat-counter blur-fade">
+            <div><span class="counter-num" data-target="500">0</span><span class="counter-suffix">+</span></div>
+            <div class="counter-label">Questions</div>
+        </div>
+        <div class="stat-counter blur-fade">
+            <div><span class="counter-num" data-target="7">0</span><span class="counter-suffix"></span></div>
+            <div class="counter-label">IISERs Covered</div>
+        </div>
+        <div class="stat-counter blur-fade">
+            <div><span class="counter-num" data-target="95">0</span><span class="counter-suffix">%</span></div>
+            <div class="counter-label">Satisfaction</div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-copy">
+                © 2026 Vigyan.prep — Made with <span class="heart">♥</span> for future scientists
+            </div>
+            <div class="footer-links">
+                <a href="aboutpage.html">About</a>
+                <a href="subtittlepyq.html">PYQ</a>
+                <a href="testfirstpage.html">Tests</a>
+                <a href="signinpage.html">Login</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================================================================
+         GSAP + ScrollTrigger (CDN)
+         ================================================================ -->
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.3.18/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.18/dist/lenis.css">
+
+    <!-- GSAP + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+
+    <script>
+    /* ================================================================
+       GSAP SCROLL-DRIVEN IMAGE SEQUENCE
+       ================================================================ */
+    (function () {
+        'use strict';
+
+        // ─── CONFIG ───────────────────────────────────────────────
+        const TOTAL_FRAMES = 192;
+        const BG_COLOR     = '#241e12';
+        const SEQ_PATH     = '/sequence/';
+
+        // Frame URL: 1-indexed, zero-padded 3 digits
+        const frameURL = (i) =>
+            `${SEQ_PATH}ezgif-frame-${String(i + 1).padStart(3, '0')}.jpg`;
+
+        // ─── DOM REFS ─────────────────────────────────────────────
+        const canvas      = document.getElementById('seq-canvas');
+        const ctx         = canvas.getContext('2d');
+        const canvasWrap  = document.getElementById('canvas-wrap');
+        const progressBar = document.getElementById('progress-bar');
+        const scrollCue   = document.getElementById('scroll-cue');
+        const preloader   = document.getElementById('preloader');
+        const ringFill    = document.getElementById('ring-fill');
+        const pctDisplay  = document.getElementById('preloader-pct');
+        const navbar      = document.getElementById('navbar');
+
+        // Overlay elements
+        const ov1 = document.getElementById('ov1');
+        const ov2 = document.getElementById('ov2');
+        const ov3 = document.getElementById('ov3');
+        const ov4 = document.getElementById('ov4');
+
+        // ─── STATE ────────────────────────────────────────────────
+        const frames      = new Array(TOTAL_FRAMES);  // pre-allocated
+        let currentFrame  = 0;
+        let canvasW, canvasH, dpr;
+
+        // ─── OVERLAY CONFIG ──────────────────────────────────────
+        // { el, frameIn, framePeak, frameOut, dx, dy }
+        const overlays = [
+            { el: ov1, frameIn: -10, framePeak: 0,   frameOut: 30,  dx: 0,   dy: -20 },
+            { el: ov2, frameIn: 40,  framePeak: 65,  frameOut: 95,  dx: -30, dy: 0   },
+            { el: ov3, frameIn: 105, framePeak: 125, frameOut: 155, dx: 30,  dy: 0   },
+            { el: ov4, frameIn: 162, framePeak: 175, frameOut: 191, dx: 0,   dy: 20  },
+        ];
+
+        // ─── PRELOAD ALL FRAMES ──────────────────────────────────
+        const CIRCUMFERENCE = 2 * Math.PI * 44; // ring radius = 44
+
+        function preloadFrames() {
+            return new Promise((resolve) => {
+                let loaded = 0;
+
+                for (let i = 0; i < TOTAL_FRAMES; i++) {
+                    const img = new Image();
+                    img.src = frameURL(i);
+
+                    const onDone = () => {
+                        loaded++;
+                        const pct = loaded / TOTAL_FRAMES;
+                        // Update preloader UI
+                        ringFill.style.strokeDashoffset =
+                            CIRCUMFERENCE - pct * CIRCUMFERENCE;
+                        pctDisplay.textContent = Math.round(pct * 100) + '%';
+
+                        if (loaded === TOTAL_FRAMES) resolve();
+                    };
+
+                    img.onload = () => {
+                        frames[i] = img;
+                        onDone();
+                    };
+                    img.onerror = () => {
+                        // Still count errors so loader doesn't hang
+                        frames[i] = null;
+                        onDone();
+                    };
+                }
+            });
+        }
+
+        // ─── CANVAS: SIZE + DPR ──────────────────────────────────
+        function sizeCanvas() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvasW = canvasWrap.clientWidth;
+            canvasH = canvasWrap.clientHeight;
+            canvas.width  = canvasW * dpr;
+            canvas.height = canvasH * dpr;
+            canvas.style.width  = canvasW + 'px';
+            canvas.style.height = canvasH + 'px';
+            // NOTE: ctx.scale is reset each time canvas.width is set,
+            // so we must call it AFTER
+            ctx.scale(dpr, dpr);
+        }
+
+        // ─── CANVAS: DRAW FRAME (cover fit) ──────────────────────
+        function drawFrame(idx) {
+            if (idx === currentFrame && ctx._lastDrawn === idx) return;
+            currentFrame = idx;
+            ctx._lastDrawn = idx;
+
+            const img = frames[idx];
+            if (!img) return;
+
+            ctx.clearRect(0, 0, canvasW, canvasH);
+
+            const imgAR = img.naturalWidth / img.naturalHeight;
+            const canAR = canvasW / canvasH;
+            let dw, dh, dx, dy;
+
+            if (imgAR > canAR) {
+                // image is wider: fit height, crop sides
+                dh = canvasH;
+                dw = canvasH * imgAR;
+            } else {
+                // image is taller: fit width, crop top/bottom
+                dw = canvasW;
+                dh = canvasW / imgAR;
+            }
+            dx = (canvasW - dw) / 2;
+            dy = (canvasH - dh) / 2;
+
+            ctx.drawImage(img, dx, dy, dw, dh);
+        }
+
+        // ─── OVERLAY OPACITY FUNCTION ────────────────────────────
+        function getOpacity(frameIn, framePeak, frameOut, current) {
+            if (current < frameIn || current > frameOut) return 0;
+            if (current <= framePeak)
+                return (current - frameIn) / (framePeak - frameIn);
+            return (frameOut - current) / (frameOut - framePeak);
+        }
+
+        // ─── UPDATE OVERLAYS (called from onUpdate) ──────────────
+        function updateOverlays(frame) {
+            for (const ov of overlays) {
+                const op = getOpacity(ov.frameIn, ov.framePeak, ov.frameOut, frame);
+                ov.el.style.opacity = op;
+                ov.el.style.filter  = `blur(${(1 - op) * 8}px)`;
+
+                // Directional entrance
+                const shift = (1 - op);
+                ov.el.style.transform =
+                    ov.el.id === 'ov1'
+                        ? `translate(-50%, calc(-50% + ${shift * ov.dy}px))`
+                    : ov.el.id === 'ov4'
+                        ? `translateX(-50%) translateY(${shift * ov.dy}px)`
+                    : ov.el.id === 'ov2'
+                        ? `translateY(-50%) translateX(${shift * ov.dx}px)`
+                    : ov.el.id === 'ov3'
+                        ? `translateY(-50%) translateX(${shift * ov.dx}px)`
+                        : '';
+            }
+        }
+
+        // ─── INIT GSAP SEQUENCE ──────────────────────────────────
+        function initSequence() {
+            gsap.registerPlugin(ScrollTrigger, Observer, Draggable, Flip, CustomEase);
+
+            // ── LENIS SMOOTH SCROLL ──
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 1,
+                touchMultiplier: 2,
+            });
+
+            // Connect Lenis to GSAP ScrollTrigger
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
+
+            // Draw frame 0 immediately
+            sizeCanvas();
+            drawFrame(0);
+            updateOverlays(0);
+
+            // ── The master tween: scroll → frame index ──
+            const frameObj = { frame: 0 };
+
+            gsap.to(frameObj, {
+                frame: TOTAL_FRAMES - 1,
+                snap: 'frame',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#sequence-scroll',
+                    start: 'top top',
+                    end: '+=400%',
+                    pin: '#canvas-wrap',
+                    scrub: 0.5,
+                    anticipatePin: 1,
+                    onUpdate(self) {
+                        const f = Math.round(frameObj.frame);
+                        drawFrame(f);
+                        updateOverlays(f);
+                        progressBar.style.width = (self.progress * 100) + '%';
+                        if (self.progress > 0.05)
+                            scrollCue.classList.add('hidden');
+                        else
+                            scrollCue.classList.remove('hidden');
+                    }
+                }
+            });
+
+            // ── Nav scroll effect ──
+            ScrollTrigger.create({
+                start: 80,
+                end: 99999,
+                onUpdate(self) {
+                    if (self.direction === 1 && self.scroll() > 80)
+                        navbar.classList.add('scrolled');
+                    else if (self.scroll() <= 80)
+                        navbar.classList.remove('scrolled');
+                }
+            });
+
+            // ── Institute cards stagger ──
+            gsap.utils.toArray('.inst-card').forEach((card, i) => {
+                gsap.from(card, {
+                    y: 40, opacity: 0, duration: 0.7,
+                    delay: i * 0.06, ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: card, start: 'top 90%',
+                        toggleActions: 'play none none none',
+                    }
+                });
+            });
+
+            // ── BLUR-FADE REVEALS (Magic UI) ──
+            const blurFadeEls = document.querySelectorAll('.blur-fade');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+            blurFadeEls.forEach(el => revealObserver.observe(el));
+
+            // ── NUMBER COUNTERS (Magic UI) ──
+            const counterEls = document.querySelectorAll('.counter-num');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseInt(el.dataset.target, 10);
+                        const obj = { val: 0 };
+                        gsap.to(obj, {
+                            val: target,
+                            duration: 2.2,
+                            ease: 'power2.out',
+                            onUpdate() {
+                                el.textContent = Math.round(obj.val).toLocaleString();
+                            }
+                        });
+                        counterObserver.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counterEls.forEach(el => counterObserver.observe(el));
+
+            // ── FLOATING PARTICLES (Magic UI) ──
+            const particleContainer = document.getElementById('particles-features');
+            if (particleContainer) {
+                for (let i = 0; i < 24; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.top  = Math.random() * 100 + '%';
+                    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+                    particleContainer.appendChild(p);
+
+                    gsap.to(p, {
+                        y: -60 - Math.random() * 80,
+                        x: (Math.random() - 0.5) * 40,
+                        opacity: 0.15 + Math.random() * 0.3,
+                        duration: 3 + Math.random() * 4,
+                        repeat: -1,
+                        yoyo: true,
+                        delay: Math.random() * 3,
+                        ease: 'sine.inOut'
+                    });
+                }
+            }
+
+            // ── FEATURE CARD TILT (Observer / mouse) ──
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    gsap.to(card, {
+                        rotateY: x * 6, rotateX: -y * 6,
+                        transformPerspective: 800,
+                        duration: 0.4, ease: 'power2.out'
+                    });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotateY: 0, rotateX: 0,
+                        duration: 0.6, ease: 'elastic.out(1, 0.5)'
+                    });
+                });
+            });
+
+            // ── Resize handler ──
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    sizeCanvas();
+                    drawFrame(currentFrame);
+                }, 120);
+            });
+        }
+
+        // ─── HAMBURGER MENU ──────────────────────────────────────
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        hamburger.addEventListener('click', () => {
+            mobileNav.classList.toggle('open');
+        });
+        mobileNav.querySelectorAll('a').forEach(a =>
+            a.addEventListener('click', () => mobileNav.classList.remove('open'))
+        );
+
+        // ─── BOOT ────────────────────────────────────────────────
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reducedMotion) {
+            preloader.classList.add('done');
+            const finalImg = new Image();
+            finalImg.src = frameURL(TOTAL_FRAMES - 1);
+            finalImg.onload = () => {
+                frames[TOTAL_FRAMES - 1] = finalImg;
+                sizeCanvas();
+                drawFrame(TOTAL_FRAMES - 1);
+            };
+        } else {
+            preloadFrames().then(() => {
+                preloader.classList.add('done');
+                setTimeout(initSequence, 400);
+            });
+        }
+
+    })();
+    </script>
+</body>
+
+</html>

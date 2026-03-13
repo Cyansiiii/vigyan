@@ -33,7 +33,8 @@ export default defineConfig({
                 instructions: path.resolve(__dirname, 'instructions.html'),
                 exam: path.resolve(__dirname, 'exam.html'),
                 signinpage: path.resolve(__dirname, 'signinpage.html'),
-                testfirstpage: path.resolve(__dirname, 'testfirstpage.html')
+                testfirstpage: path.resolve(__dirname, 'testfirstpage.html'),
+                homepageScroll: path.resolve(__dirname, 'homepage-scroll.html')
             }
         }
     }
