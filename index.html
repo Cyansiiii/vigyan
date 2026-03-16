@@ -50,18 +50,36 @@
         .preloader-label{font-family:var(--font-body);font-weight:300;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--ghost)}
 
         /* FLUID NAV */
-        .fluid-nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(15,15,15,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:60px;padding:6px 8px;display:flex;align-items:center;gap:4px;transition:all .4s cubic-bezier(.22,1,.36,1)}
-        .fluid-nav.scrolled{background:rgba(10,10,10,.92);border-color:rgba(212,165,32,.15);box-shadow:0 8px 32px rgba(0,0,0,.4)}
-        .fluid-nav-indicator{position:absolute;top:6px;height:calc(100% - 12px);background:rgba(212,165,32,.12);border:1px solid rgba(212,165,32,.2);border-radius:50px;transition:all .4s cubic-bezier(.22,1,.36,1);z-index:0;pointer-events:none;opacity:0}
+        .fluid-nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(255,255,255,.03);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.1);border-radius:60px;padding:8px 8px;display:flex;align-items:center;gap:4px;transition:all .5s cubic-bezier(.22,1,.36,1);box-shadow:0 8px 32px rgba(0,0,0,.15), inset 0 1px 1px rgba(255,255,255,.2), inset 0 -1px 1px rgba(0,0,0,.2)}
+        .fluid-nav.scrolled{background:rgba(10,10,10,.6);border-color:rgba(212,165,32,.2);box-shadow:0 12px 40px rgba(0,0,0,.4), inset 0 1px 1px rgba(255,255,255,.1)}
+        .fluid-nav-indicator{position:absolute;top:8px;height:calc(100% - 16px);background:rgba(255,255,255,.1);border-radius:50px;transition:all .4s cubic-bezier(.22,1,.36,1);z-index:0;pointer-events:none;opacity:0;box-shadow:inset 0 1px 1px rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.05)}
         .fluid-nav-indicator.active{opacity:1}
-        .fluid-nav a{position:relative;z-index:1;padding:10px 20px;font-family:var(--font-body);font-weight:400;font-size:.82rem;letter-spacing:.5px;color:var(--mist);border-radius:50px;transition:color .3s;white-space:nowrap}
-        .fluid-nav a:hover{color:var(--ivory)}
-        .fluid-nav a.active{color:var(--gold)}
-        .fluid-nav .nav-logo-pill{padding:8px 18px;font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#fef3c7,#fcd34d,#fff,#fcd34d);background-size:200% 200%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease-in-out infinite}
-        .fluid-nav .btn-login-pill{background:linear-gradient(135deg,var(--gold),var(--saffron));color:var(--bg-deep)!important;font-weight:600;padding:10px 24px}
+        
+        .fluid-nav .nav-item { position: relative; display: flex; align-items: center; }
+        .fluid-nav .nav-item > a { position:relative;z-index:1;padding:10px 22px;font-family:var(--font-body);font-weight:500;font-size:.85rem;letter-spacing:.5px;color:rgba(255,255,255,.7);border-radius:50px;transition:color .3s;white-space:nowrap;display:block; }
+        .fluid-nav .nav-item > a:hover { color:var(--ivory); }
+        .fluid-nav .nav-item > a.active { color:var(--ivory); }
+        
+        .fluid-nav .nav-logo-pill{padding:8px 20px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#fef3c7,#fcd34d,#fff,#fcd34d);background-size:200% 200%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease-in-out infinite}
+        
+        /* DROPDOWN GLASSMENU */
+        .nav-dropdown{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(12px) scale(0.98);background:rgba(12,12,12,.80);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:24px;min-width:240px;opacity:0;visibility:hidden;pointer-events:none;transition:all .4s cubic-bezier(.22,1,.36,1);box-shadow:0 30px 60px rgba(0,0,0,.6), inset 0 1px 1px rgba(255,255,255,.15);display:flex;flex-direction:column;gap:12px;z-index:900}
+        .nav-dropdown::before{content:'';position:absolute;top:-16px;left:0;right:0;height:16px;background:transparent} /* hover bridge */
+        .nav-item:hover .nav-dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0) scale(1)}
+        .dropdown-group-title{font-family:var(--font-body);font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;font-weight:700;padding-left:12px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+        .fluid-nav .nav-dropdown a{padding:10px 14px;border-radius:12px;font-family:var(--font-body);font-size:.9rem;color:#ffffff;text-decoration:none;transition:all .3s;white-space:nowrap;display:flex;align-items:center;gap:12px;font-weight:500;letter-spacing:0;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+        .fluid-nav .nav-dropdown a:hover{background:rgba(255,255,255,.1);color:var(--gold)}
+        .fluid-nav .nav-dropdown a i{font-size:14px;color:var(--saffron);opacity:0.9;width:16px;text-align:center}
+        
+        /* TOP RIGHT LOGIN BUTTON */
+        .top-right-login{position:fixed;top:28px;right:32px;z-index:1000;background:rgba(255,255,255,.03);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.12);border-radius:60px;padding:12px 28px;font-family:var(--font-body);font-weight:600;font-size:.85rem;color:var(--ivory);transition:all .4s cubic-bezier(.22,1,.36,1);box-shadow:0 8px 32px rgba(0,0,0,.15), inset 0 1px 1px rgba(255,255,255,.2), inset 0 -1px 1px rgba(0,0,0,.2);display:inline-flex;align-items:center;gap:8px;text-decoration:none!important}
+        .top-right-login:hover{background:rgba(255,255,255,.1);border-color:rgba(212,165,32,.4);color:var(--gold);transform:translateY(-2px);box-shadow:0 12px 32px rgba(212,165,32,.3), inset 0 1px 1px rgba(255,255,255,.3)}
+        .top-right-login svg{width:16px;height:16px;transition:transform .3s}
+        .top-right-login:hover svg{transform:translateX(4px)}
+
         @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:10px}
-        .hamburger .bar{width:24px;height:2px;background:var(--ivory);transition:all .3s}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:12px;background:rgba(255,255,255,.05);border-radius:50%;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
+        .hamburger .bar{width:20px;height:2px;background:var(--ivory);transition:all .3s}
 
         /* SEQUENCE SCROLL HERO */
         #sequence-scroll{position:relative;height:500vh}
@@ -91,18 +109,18 @@
         #ov3 h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.2;color:var(--ivory)}
         #ov3 .ov-stat{margin-top:16px;display:flex;gap:32px;justify-content:flex-end}
         #ov3 .stat-num{font-family:var(--font-serif);font-weight:700;font-size:2rem;color:var(--gold)}
-        #ov3 .stat-label{font-family:var(--font-body);font-weight:300;font-size:.72rem;letter-spacing:1px;color:var(--ghost);text-transform:uppercase}
+        #ov3 .stat-label{font-family:var(--font-body);font-weight:300;font-size:.72rem;letter-spacing:1px;color:var(--white);text-transform:uppercase}
 
         /* OV4 — CTA */
-        #ov4{bottom:12%;left:50%;transform:translateX(-50%);text-align:center;width:90%;max-width:650px}
-        #ov4 h2{font-family:var(--font-serif);font-weight:600;font-style:italic;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ivory);margin-bottom:10px}
-        #ov4 .ov4-sub{font-family:var(--font-body);font-weight:300;font-size:.88rem;color:var(--mist);margin-bottom:24px}
-        #ov4 .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;pointer-events:auto}
+        #ov4{bottom:12%;left:50%;transform:translateX(-50%);text-align:center;width:90%;max-width:550px;height:90%;max-height:170px;padding:24px;border-radius:24px;background:rgba(0,0,0,0.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+        #ov4 h2{font-family:var(--font-serif);font-weight:600;font-style:italic;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ivory);margin-bottom:10px;text-shadow:0 2px 12px rgba(0,0,0,0.8)}
+        #ov4 .ov4-sub{font-family:var(--font-body);font-weight:400;font-size:.9rem;color:rgba(255,255,255,0.85);margin-bottom:24px;text-shadow:0 2px 8px rgba(0,0,0,0.8)}
+        #ov4 .cta-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;pointer-events:auto}
         #ov4 .cta-row a{pointer-events:auto}
-        .btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--saffron));color:var(--bg-deep);font-family:var(--font-body);font-weight:600;font-size:.9rem;border-radius:8px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s}
+        .btn-gold{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:linear-gradient(135deg,var(--gold),var(--saffron));color:var(--bg-deep);font-family:var(--font-body);font-weight:600;font-size:.9rem;border-radius:8px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s}
         .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,165,32,.35)}
-        .btn-gold svg{width:16px;height:16px}
-        .btn-outline{display:inline-flex;align-items:center;padding:14px 32px;background:0 0;color:var(--ivory);font-family:var(--font-body);font-weight:500;font-size:.9rem;border-radius:8px;border:1px solid var(--ghost);cursor:pointer;transition:border-color .3s,color .3s,background .3s}
+        .btn-gold svg{width:12px;height:12px}
+        .btn-outline{display:inline-flex;align-items:center;padding:8px 18px;background:0 0;color:var(--ivory);font-family:var(--font-body);font-weight:500;font-size:.9rem;border-radius:8px;border:1px solid var(--ghost);cursor:pointer;transition:border-color .3s,color .3s,background .3s}
         .btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,165,32,.06)}
 
         .scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:1;transition:opacity .6s}
@@ -181,6 +199,7 @@
         @media(max-width:900px){
             .fluid-nav .nav-links-group{display:none}
             .hamburger{display:flex}
+            .top-right-login{display:none}
             .fluid-nav{padding:6px 12px;gap:8px}
             #ov2,#ov3{left:50%;right:auto;transform:translate(-50%,-50%);text-align:center;max-width:85%}
             #ov3 .ov-stat{justify-content:center}
@@ -290,15 +309,52 @@
         <a href="index.html" class="nav-logo-pill">V</a>
         <div class="fluid-nav-indicator" id="fluid-indicator"></div>
         <span class="nav-links-group" style="display:flex;align-items:center;gap:4px">
-            <a href="index.html" class="active" data-nav>Home</a>
-            <a href="subtittlepyq.html" data-nav>PYQ</a>
-            <a href="testfirstpage.html" data-nav>Tests</a>
-            <a href="aboutpage.html" data-nav>About</a>
-            <a href="future.html" data-nav>Future</a>
+            <div class="nav-item"><a href="index.html" class="active" data-nav>Home</a></div>
+            
+            <div class="nav-item">
+                <a href="subtittlepyq.html" data-nav>PYQ</a>
+                <div class="nav-dropdown">
+                    <div class="dropdown-group-title">Previous Years</div>
+                    <a href="#"><i class="fas fa-file-alt"></i> IISER IAT</a>
+                    <a href="#"><i class="fas fa-file-alt"></i> NISER NEST</a>
+                    <a href="#"><i class="fas fa-file-alt"></i> IISc</a>
+                    <a href="#"><i class="fas fa-file-alt"></i> CMI & ISI</a>
+                </div>
+            </div>
+            
+            <div class="nav-item">
+                <a href="testfirstpage.html" data-nav>Tests</a>
+                <div class="nav-dropdown">
+                    <div class="dropdown-group-title">Mocks & Series</div>
+                    <a href="#"><i class="fas fa-chart-line"></i> Full Mocks</a>
+                    <a href="#"><i class="fas fa-book-open"></i> Chapter Tests</a>
+                    <a href="#"><i class="fas fa-trophy"></i> All India Series</a>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="aboutpage.html" data-nav>About</a>
+                <div class="nav-dropdown">
+                    <div class="dropdown-group-title">Vigyan.prep</div>
+                    <a href="#"><i class="fas fa-info-circle"></i> Our Mission</a>
+                    <a href="#"><i class="fas fa-users"></i> Team & Mentors</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Contact Us</a>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="future.html" data-nav>Future</a>
+                <div class="nav-dropdown" style="min-width:210px">
+                    <div class="dropdown-group-title">Career Paths</div>
+                    <a href="#"><i class="fas fa-microscope"></i> Research</a>
+                    <a href="#"><i class="fas fa-rocket"></i> Space Science</a>
+                    <a href="#"><i class="fas fa-laptop-code"></i> Computational</a>
+                </div>
+            </div>
         </span>
-        <a href="signinpage.html" class="btn-login-pill">Login</a>
         <div class="hamburger" id="hamburger"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
     </nav>
+    <a href="signinpage.html" class="top-right-login">Login <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     <div class="mobile-nav" id="mobile-nav">
         <a href="index.html">Home</a><a href="aboutpage.html">About</a><a href="subtittlepyq.html">PYQ</a>
         <a href="testfirstpage.html">Tests</a><a href="future.html">Future Career</a><a href="signinpage.html">Login</a>
@@ -599,14 +655,9 @@
     <section class="section-features" id="features">
         <div class="particles-container" id="particles-features"></div>
         <div class="section-header blur-fade"><h2>Why Vigyan.prep?</h2><p>Everything you need to crack IISER, NISER, and top research institute exams</p></div>
-        <div class="features-grid">
-            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-flask"></i></div><h3>Curated Question Banks</h3><p>500+ hand-picked past-year questions with detailed solutions.</p></div>
-            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-chart-line"></i></div><h3>Adaptive Test Series</h3><p>AI-powered mock tests mirroring the exact exam pattern of IAT and NEST.</p></div>
-            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-microscope"></i></div><h3>Research-Level Depth</h3><p>Content designed by researchers and alumni from IISER, IISc, and NISER.</p></div>
-            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-users"></i></div><h3>Peer Community</h3><p>Join 10,000+ aspirants discussing strategies and sharing notes.</p></div>
-            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-calendar-check"></i></div><h3>Structured Study Plans</h3><p>Week-by-week schedules tailored for IAT, NEST, and IISc exams.</p></div>
-            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3>Instant Doubt Resolution</h3><p>Expert panel answers within hours. Never stay stuck.</p></div>
-        </div>
+        <div id="react-features"></div>
+        <!-- React module to inject Features hover cards -->
+        <script type="module" src="/src/mountFeatures.tsx"></script>
     </section>
 
     <!-- STATS -->
@@ -667,7 +718,7 @@
         { el: ov1, frameIn: -10, framePeak: 0,   frameOut: 40,  dx: 0,  dy: -20 },
         { el: ov2, frameIn: 45,  framePeak: 70,  frameOut: 100, dx: 0,  dy: -20 },
         { el: ov3, frameIn: 110, framePeak: 130, frameOut: 155, dx: 30, dy: 0   },
-        { el: ov4, frameIn: 160, framePeak: 175, frameOut: 191, dx: 0,  dy: 20  },
+        { el: ov4, frameIn: 160, framePeak: 180, frameOut: null, dx: 0,  dy: 20  },
     ];
 
     // ─── PRELOAD ALL 192 FRAMES ──────────────────────────
@@ -722,8 +773,10 @@
 
     // ─── OVERLAY OPACITY ─────────────────────────────────
     function getOpacity(frameIn, framePeak, frameOut, current) {
-        if (current < frameIn || current > frameOut) return 0;
+        if (current < frameIn) return 0;
+        if (frameOut !== null && current > frameOut) return 0;
         if (current <= framePeak) return (current - frameIn) / (framePeak - frameIn);
+        if (frameOut === null) return 1; // Stay fully visible if frameOut is null
         return (frameOut - current) / (frameOut - framePeak);
     }
 
@@ -810,6 +863,19 @@
             }
         });
 
+        // ── Hide Nav after first section ──
+        ScrollTrigger.create({
+            trigger: '#sequence-scroll',
+            start: 'top top',
+            end: '+=450%', // Fade out near the end of the scroll sequence
+            onLeave: () => {
+                gsap.to([fluidNav, document.querySelector('.top-right-login')], { opacity: 0, pointerEvents: 'none', y: -20, duration: 0.4, ease: 'power2.out' });
+            },
+            onEnterBack: () => {
+                gsap.to([fluidNav, document.querySelector('.top-right-login')], { opacity: 1, pointerEvents: 'auto', y: 0, duration: 0.4, ease: 'power2.out' });
+            }
+        });
+
         // ── FLUID NAV INDICATOR ──
         const indicator = document.getElementById('fluid-indicator');
         const navLinks = document.querySelectorAll('[data-nav]');
@@ -836,7 +902,12 @@
             { name:'IISER Bhopal', city:'Bhopal', state:'Madhya Pradesh', img:'https://www.vidyavision.com/CollegeUploads/Photos/2022-03-1-13-45-45_IISER2.jpg', logo:'frontend/images/IISERB_logo.png' },
             { name:'IISER TVM', city:'Thiruvananthapuram', state:'Kerala', img:'https://i.ytimg.com/vi/UQn9uB1KSqk/hq720.jpg', logo:'frontend/images/IISER_Thiruvananthapuram_Logo.svg' },
             { name:'IISER Tirupati', city:'Tirupati', state:'Andhra Pradesh', img:'https://education.sakshi.com/sites/default/files/images/2026/01/19/iiser-tirupati-nonfaculty-1768823729.jpg', logo:'frontend/images/IISER_Tirupati_logo.png' },
-            { name:'IISER Berhampur', city:'Berhampur', state:'Odisha', img:'https://www.iiserbpr.ac.in/webcontrol/uploads/gallery/1733375000_2.jpeg', logo:'frontend/images/IISERB_logo.png' }
+            { name:'IISER Berhampur', city:'Berhampur', state:'Odisha', img:'https://www.iiserbpr.ac.in/webcontrol/uploads/gallery/1733375000_2.jpeg', logo:'frontend/images/IISERB_logo.png' },
+            { name:'NISER', city:'Bhubaneswar', state:'Odisha', img:'https://lh3.googleusercontent.com/EA41Gh7fbNLrba1X-GUc6taW3ObTLo1ujdLG1kiDPnT9K2nFdd12JXjH6rOtuZ9KGVEuYV8xkoEZogBToSXq5Rxir6JO5snmczjR6P_F4NvEZJa4G9FTH9z5hycse-LgoCnKQQTA', logo:'' },
+            { name:'IISc', city:'Bengaluru', state:'Karnataka', img:'https://media.licdn.com/dms/image/v2/C4D1BAQH0_UeKoteJyA/company-background_10000/company-background_10000/0/1583221367975?e=2147483647&v=beta&t=KQigaftmL6HB9UnpqDg84muDKht9JV3XEw9vHodQiv8', logo:'' },
+            { name:'CMI', city:'Chennai', state:'Tamil Nadu', img:'https://assets.kollegeapply.com/images/1751562027513-1532929904phpvnB5TO.jpeg', logo:'' },
+            { name:'ISI Chennai', city:'Chennai', state:'Tamil Nadu', img:'https://image-static.collegedunia.com/public/college_data/images/campusimage/14286494434.PNG', logo:'' },
+            { name:'CBS Mumbai', city:'Mumbai', state:'Maharashtra', img:'https://www.cbs.ac.in/assets/site_content/cbs24/home_240824_16323.jpg', logo:'' }
         ];
         const track = document.getElementById('carousel-track');
         const dotsC = document.getElementById('carousel-dots');
@@ -883,6 +954,7 @@
         const revealObs = new IntersectionObserver(entries => {
             entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); revealObs.unobserve(e.target); } });
         }, { threshold:.15, rootMargin:'0px 0px -40px 0px' });
+        window.revealObs = revealObs;
         document.querySelectorAll('.blur-fade').forEach(el => revealObs.observe(el));
 
         // ── Number counters ──

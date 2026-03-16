@@ -34,7 +34,7 @@ const App = () => {
             <SplitText 
                 text="India's premier platform for IISER IAT, NISER NEST, and research institute entrance preparation."
                 className="ov-body"
-                style={{ textAlign: "center", fontWeight: 300, fontSize: "clamp(1rem, 2vw, 1.2rem)", color: "rgba(255, 255, 255, 0.6)", maxWidth: "800px", margin: "26px auto 0", lineHeight: 1.6 }}
+                style={{ textAlign: "center", fontWeight: 300, fontSize: "clamp(1rem, 2vw, 1.2rem)", color: "rgba(255, 255, 255, 1)", maxWidth: "800px", margin: "26px auto 0", lineHeight: 1.6 }}
                 delay={20}
                 duration={1.2}
                 ease="power2.out"
