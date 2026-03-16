@@ -24,6 +24,8 @@ const possiblePaths = [
   path.join(process.cwd(), 'backend/.env'),  // working dir + backend/.env
 ];
 
+let envPath = null;
+
 // In production (Railway/Render), skip local .env file search
 if (IS_PROD) {
   if (IS_DEBUG) console.log('🔒 Production mode: Skipping local .env discovery');

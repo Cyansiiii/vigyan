@@ -1,852 +1,929 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="dSB2IXFoFX9QoMM-cG4EfJ2YNhclk1NxacdI9agw1D4" />
-    <title>Vigyan.prep - Gateway to Future Science | IISER & NISER Preparation</title>
-    <meta name="description"
-        content="India's premier platform for IISER IAT, NISER NEST, and research institute entrance preparation. Join thousands of students on their journey to scientific excellence with Vigyan.prep.">
-    <meta name="keywords"
-        content="IISER preparation, NISER test series, IAT exam prep, IISc admission, NEST exam practice, research institutes India, Vigyan prep, science entrance exams">
-    <link rel="canonical" href="https://vigyanprep.com/index.html">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vigyanprep.com/">
-    <meta property="og:title" content="Vigyan.prep - Gateway to Future Science">
-    <meta property="og:description"
-        content="Premier platform for IISER, NISER, and research institute preparation. Start your journey to scientific excellence today.">
-    <meta property="og:image" content="https://vigyanprep.com/frontend/images/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://vigyanprep.com/">
-    <meta property="twitter:title" content="Vigyan.prep - Gateway to Future Science">
-    <meta property="twitter:description"
-        content="Premier platform for IISER, NISER, and research institute preparation. Join 10K+ students.">
-    <meta property="twitter:image" content="https://vigyanprep.com/frontend/images/og-image.jpg">
-
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "Vigyan.prep",
-      "url": "https://vigyanprep.com",
-      "logo": "https://vigyanprep.com/frontend/images/logo.png",
-      "description": "Gateway to Future Science - Preparation for IISER, NISER and other research institutes.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "India"
-      },
-      "knowsAbout": ["IISER IAT", "NISER NEST", "IISc Admission", "BS-MS research"]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Vigyan.prep",
-      "url": "https://vigyanprep.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://vigyanprep.com/testfirstpage.html?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
-        rel="stylesheet">
-
-    <!-- Dynamic Configuration -->
-    <script src="frontend/js/config.js?v=20260213_v1"></script>
-
-    <!-- Three.js Import Map - Moved to Head for Reliability -->
-
+    <title>Vigyan.prep — Gateway to Future Science | IISER &amp; NISER Preparation</title>
+    <meta name="description" content="India's premier platform for IISER IAT, NISER NEST, and research institute entrance preparation.">
+    <link rel="canonical" href="https://vigyanprep.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.18/dist/lenis.css">
     <style>
-        /* DROPDOWN MENU STYLES */
-        .nav-dropdown {
-            position: relative;
-            display: inline-block;
+        @font-face {
+            font-family: 'Dirtyline36days';
+            src: url('/vp-assets-v2/Dirtyline%2036daysoftype%202022-DUIuNxYA.woff2') format('woff2'),
+                 url('/vp-assets-v2/Dirtyline%2036daysoftype%202022-DApodnLv.woff') format('woff');
+            font-display: swap;
+        }
+        html { scroll-behavior: auto !important; }
+        :root {
+            --bg: #241e12; --bg-deep: #16120b;
+            --gold: #d4a520; --saffron: #e8720a;
+            --ivory: #f2ead8;
+            --mist: rgba(242,234,216,0.60);
+            --ghost: rgba(242,234,216,0.28);
+            --rim: rgba(255,255,255,0.07);
+            --font-display: 'Dirtyline36days', 'Cormorant Garamond', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
+        }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font-body);background:var(--bg);color:var(--ivory);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        a{color:inherit;text-decoration:none}
+        img{display:block;max-width:100%}
+
+        /* PRELOADER */
+        #preloader{position:fixed;inset:0;z-index:10000;background:var(--bg-deep);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity .8s cubic-bezier(.22,1,.36,1),visibility .8s}
+        #preloader.done{opacity:0;visibility:hidden;pointer-events:none}
+        .preloader-logo{font-family:var(--font-serif);font-weight:700;font-style:italic;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:3px;text-transform:uppercase;color:var(--ivory)}
+        .preloader-logo .dot{font-family:var(--font-body);font-weight:300;color:var(--ghost);margin:0 1px}
+        .preloader-logo .prep{font-family:var(--font-body);font-weight:400;font-size:.45em;letter-spacing:2px;text-transform:lowercase;color:var(--ghost)}
+        .preloader-ring{position:relative;width:100px;height:100px}
+        .preloader-ring svg{transform:rotate(-90deg)}
+        .preloader-ring circle{fill:none;stroke-width:3;cx:50;cy:50;r:44}
+        .preloader-ring .ring-bg{stroke:var(--ghost)}
+        .preloader-ring .ring-fill{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:276.46;stroke-dashoffset:276.46;transition:stroke-dashoffset .15s ease-out}
+        .preloader-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-weight:500;font-size:1.1rem;color:var(--ivory)}
+        .preloader-label{font-family:var(--font-body);font-weight:300;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--ghost)}
+
+        /* FLUID NAV */
+        .fluid-nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(15,15,15,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:60px;padding:6px 8px;display:flex;align-items:center;gap:4px;transition:all .4s cubic-bezier(.22,1,.36,1)}
+        .fluid-nav.scrolled{background:rgba(10,10,10,.92);border-color:rgba(212,165,32,.15);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+        .fluid-nav-indicator{position:absolute;top:6px;height:calc(100% - 12px);background:rgba(212,165,32,.12);border:1px solid rgba(212,165,32,.2);border-radius:50px;transition:all .4s cubic-bezier(.22,1,.36,1);z-index:0;pointer-events:none;opacity:0}
+        .fluid-nav-indicator.active{opacity:1}
+        .fluid-nav a{position:relative;z-index:1;padding:10px 20px;font-family:var(--font-body);font-weight:400;font-size:.82rem;letter-spacing:.5px;color:var(--mist);border-radius:50px;transition:color .3s;white-space:nowrap}
+        .fluid-nav a:hover{color:var(--ivory)}
+        .fluid-nav a.active{color:var(--gold)}
+        .fluid-nav .nav-logo-pill{padding:8px 18px;font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#fef3c7,#fcd34d,#fff,#fcd34d);background-size:200% 200%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease-in-out infinite}
+        .fluid-nav .btn-login-pill{background:linear-gradient(135deg,var(--gold),var(--saffron));color:var(--bg-deep)!important;font-weight:600;padding:10px 24px}
+        @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:10px}
+        .hamburger .bar{width:24px;height:2px;background:var(--ivory);transition:all .3s}
+
+        /* SEQUENCE SCROLL HERO */
+        #sequence-scroll{position:relative;height:500vh}
+        #canvas-wrap{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
+        #seq-canvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block}
+        #vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 80% at 50% 50%,transparent 45%,rgba(36,30,18,.4) 70%,rgba(36,30,18,.85) 100%);z-index:2}
+        #progress-bar{position:absolute;bottom:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--saffron),var(--gold));box-shadow:0 0 12px var(--gold);z-index:5}
+
+        /* TEXT OVERLAYS */
+        .overlay{position:absolute;z-index:4;pointer-events:none;opacity:0;will-change:opacity,transform,filter}
+
+        /* OV1 — VIGYAN Dynamic Fill */
+        #ov1{top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:90%;max-width:900px}
+        .dynamic-fill-word{font-family:var(--font-display);font-size:clamp(5rem,18vw,14rem);line-height:.95;letter-spacing:6px;text-transform:uppercase;position:relative;cursor:default;-webkit-text-stroke:2px var(--ivory);color:transparent;user-select:none}
+        .dynamic-fill-word .fill-overlay{position:absolute;inset:0;overflow:hidden;color:var(--ivory);-webkit-text-stroke:0;font-family:inherit;font-size:inherit;line-height:inherit;letter-spacing:inherit;text-transform:inherit;clip-path:inset(100% 0 0 0);transition:clip-path .8s cubic-bezier(.22,1,.36,1)}
+        .dynamic-fill-word.filled .fill-overlay{clip-path:inset(0 0 0 0)}
+
+        /* OV2 — Tagline + description */
+        #ov2{top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:90%;max-width:700px}
+        #ov2 h2{font-family:var(--font-serif);font-weight:300;font-style:italic;font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.3;color:var(--ivory);text-shadow:0 2px 30px rgba(0,0,0,.5)}
+        #ov2 h2 em{font-weight:600;background:linear-gradient(135deg,var(--gold),var(--saffron));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        #ov2 .ov-body{margin-top:16px;font-family:var(--font-body);font-weight:300;font-size:.92rem;color:var(--mist);line-height:1.7}
+
+        /* OV3 — Stats */
+        #ov3{top:50%;right:6%;transform:translateY(-50%);text-align:right;max-width:380px}
+        #ov3 .ov-tag{font-family:var(--font-body);font-weight:500;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--saffron);margin-bottom:12px}
+        #ov3 h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.2;color:var(--ivory)}
+        #ov3 .ov-stat{margin-top:16px;display:flex;gap:32px;justify-content:flex-end}
+        #ov3 .stat-num{font-family:var(--font-serif);font-weight:700;font-size:2rem;color:var(--gold)}
+        #ov3 .stat-label{font-family:var(--font-body);font-weight:300;font-size:.72rem;letter-spacing:1px;color:var(--ghost);text-transform:uppercase}
+
+        /* OV4 — CTA */
+        #ov4{bottom:12%;left:50%;transform:translateX(-50%);text-align:center;width:90%;max-width:650px}
+        #ov4 h2{font-family:var(--font-serif);font-weight:600;font-style:italic;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ivory);margin-bottom:10px}
+        #ov4 .ov4-sub{font-family:var(--font-body);font-weight:300;font-size:.88rem;color:var(--mist);margin-bottom:24px}
+        #ov4 .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;pointer-events:auto}
+        #ov4 .cta-row a{pointer-events:auto}
+        .btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--saffron));color:var(--bg-deep);font-family:var(--font-body);font-weight:600;font-size:.9rem;border-radius:8px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s}
+        .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,165,32,.35)}
+        .btn-gold svg{width:16px;height:16px}
+        .btn-outline{display:inline-flex;align-items:center;padding:14px 32px;background:0 0;color:var(--ivory);font-family:var(--font-body);font-weight:500;font-size:.9rem;border-radius:8px;border:1px solid var(--ghost);cursor:pointer;transition:border-color .3s,color .3s,background .3s}
+        .btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,165,32,.06)}
+
+        .scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:1;transition:opacity .6s}
+        .scroll-cue.hidden{opacity:0;pointer-events:none}
+        .scroll-cue-label{font-family:var(--font-body);font-weight:300;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--ghost)}
+        .scroll-cue-track{width:1px;height:40px;background:var(--ghost);position:relative;overflow:hidden}
+        .scroll-cue-pip{position:absolute;top:-6px;width:1px;height:6px;background:var(--gold);animation:pipFall 1.8s ease-in-out infinite}
+        @keyframes pipFall{0%{top:-6px;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:40px;opacity:0}}
+
+        /* CAROUSEL SECTION */
+        .section-carousel{position:relative;background:var(--bg-deep);padding:100px 20px;overflow:hidden}
+        .section-carousel .section-header{text-align:center;margin-bottom:60px}
+        .section-carousel .section-header h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);color:var(--ivory);margin-bottom:8px;letter-spacing:2px}
+        .section-carousel .section-header p{font-family:var(--font-serif);font-weight:300;font-size:1rem;color:var(--ghost);font-style:italic}
+        .section-carousel .category-label{font-family:var(--font-body);font-weight:500;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:40px}
+        .carousel-3d-viewport{position:relative;width:100%;max-width:1200px;margin:0 auto;height:420px;perspective:1200px;display:flex;align-items:center;justify-content:center}
+        .carousel-3d-track{position:relative;width:320px;height:400px;transform-style:preserve-3d}
+        .carousel-3d-card{position:absolute;width:320px;height:400px;backface-visibility:hidden;border-radius:20px;overflow:hidden;background:rgba(20,20,20,.9);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5);transition:box-shadow .4s;display:flex;flex-direction:column}
+        .carousel-3d-card.center{box-shadow:0 30px 80px rgba(212,165,32,.15),0 20px 60px rgba(0,0,0,.5);border-color:rgba(212,165,32,.2)}
+        .carousel-card-img{width:100%;height:220px;object-fit:cover;filter:brightness(.85);transition:filter .4s}
+        .carousel-3d-card.center .carousel-card-img{filter:brightness(1)}
+        .carousel-card-body{padding:24px;flex:1;display:flex;flex-direction:column}
+        .carousel-card-logo{width:44px;height:44px;object-fit:contain;filter:brightness(0) invert(.85);margin-bottom:12px}
+        .carousel-card-body h3{font-family:var(--font-display);font-size:1.4rem;color:var(--ivory);margin-bottom:4px;letter-spacing:1px}
+        .carousel-card-body .card-location{font-family:var(--font-body);font-weight:300;font-size:.82rem;color:var(--gold);letter-spacing:1px;margin-bottom:4px}
+        .carousel-card-body .card-state{font-family:var(--font-body);font-weight:300;font-size:.75rem;color:var(--ghost)}
+        .carousel-controls{display:flex;gap:16px;justify-content:center;margin-top:40px}
+        .carousel-btn{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--ivory);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+        .carousel-btn:hover{background:rgba(212,165,32,.15);border-color:var(--gold);color:var(--gold)}
+        .carousel-dots{display:flex;gap:8px;align-items:center;margin:0 16px}
+        .carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--ghost);transition:all .3s;cursor:pointer}
+        .carousel-dot.active{background:var(--gold);transform:scale(1.3)}
+
+        /* MARQUEE + FEATURES + STATS + FOOTER */
+        .marquee-section{overflow:hidden;background:var(--bg-deep);border-top:1px solid var(--rim);border-bottom:1px solid var(--rim);padding:18px 0}
+        .marquee-track{display:flex;width:max-content;animation:marqueeScroll 30s linear infinite;gap:48px}
+        .marquee-item{flex-shrink:0;font-family:var(--font-serif);font-weight:300;font-size:1.1rem;color:var(--ghost);letter-spacing:2px;text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:12px}
+        .marquee-item .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.6}
+        @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+        .section-features{position:relative;background:var(--bg);padding:100px 40px 80px;overflow:hidden}
+        .section-features .section-header{text-align:center;margin-bottom:64px}
+        .section-features .section-header h2{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--ivory);margin-bottom:8px;letter-spacing:2px}
+        .section-features .section-header p{font-family:var(--font-body);font-weight:300;font-size:.95rem;color:var(--ghost)}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+        .feature-card{position:relative;background:rgba(242,234,216,.02);border:1px solid var(--rim);border-radius:16px;padding:40px 28px;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .4s}
+        .feature-card:hover{transform:translateY(-4px);border-color:rgba(212,165,32,.15)}
+        .feature-icon{width:48px;height:48px;border-radius:12px;background:rgba(212,165,32,.08);border:1px solid rgba(212,165,32,.15);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.2rem;color:var(--gold)}
+        .feature-card h3{font-family:var(--font-serif);font-weight:600;font-size:1.25rem;color:var(--ivory);margin-bottom:8px}
+        .feature-card p{font-family:var(--font-body);font-weight:300;font-size:.85rem;color:var(--mist);line-height:1.6}
+
+        .stats-strip{display:flex;justify-content:center;gap:60px;padding:60px 40px;background:var(--bg-deep);border-top:1px solid var(--rim);border-bottom:1px solid var(--rim);flex-wrap:wrap}
+        .stat-counter{text-align:center}
+        .stat-counter .counter-num{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);color:var(--gold);line-height:1}
+        .stat-counter .counter-suffix{font-family:var(--font-serif);font-weight:300;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--saffron)}
+        .stat-counter .counter-label{margin-top:4px;font-family:var(--font-body);font-weight:300;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--ghost)}
+
+        .particles-container{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+        .particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0}
+        .blur-fade{opacity:0;filter:blur(12px);transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),filter .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+        .blur-fade.revealed{opacity:1;filter:blur(0);transform:translateY(0)}
+
+        .site-footer{background:#0c0a06;border-top:1px solid var(--rim);padding:40px 40px 28px}
+        .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+        .footer-copy{font-family:var(--font-body);font-weight:300;font-size:.78rem;color:var(--ghost)}
+        .footer-copy .heart{color:#ec4899}
+        .footer-links{display:flex;gap:24px}
+        .footer-links a{font-family:var(--font-body);font-weight:400;font-size:.78rem;color:var(--ghost);transition:color .3s}
+        .footer-links a:hover{color:var(--gold)}
+
+        .mobile-nav{position:fixed;inset:0;z-index:999;background:rgba(22,18,11,.97);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+        .mobile-nav.open{opacity:1;visibility:visible}
+        .mobile-nav a{font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:var(--ivory);transition:color .3s;letter-spacing:2px}
+        .mobile-nav a:hover{color:var(--gold)}
+
+        @media(max-width:900px){
+            .fluid-nav .nav-links-group{display:none}
+            .hamburger{display:flex}
+            .fluid-nav{padding:6px 12px;gap:8px}
+            #ov2,#ov3{left:50%;right:auto;transform:translate(-50%,-50%);text-align:center;max-width:85%}
+            #ov3 .ov-stat{justify-content:center}
+            .carousel-3d-viewport{height:380px}
+            .carousel-3d-track,.carousel-3d-card{width:280px;height:360px}
+            .features-grid{grid-template-columns:1fr}
+            .stats-strip{gap:30px;padding:40px 20px}
+            .footer-inner{flex-direction:column;text-align:center}
+            .footer-links{justify-content:center}
+            .section-features{padding:60px 20px}
+        }
+        @media(max-width:480px){
+            .dynamic-fill-word{font-size:clamp(3.5rem,16vw,6rem)}
+            #ov4 .cta-row{flex-direction:column;align-items:center}
+            .phone-scene, .phone-frame { width: 240px; }
+            .phone-hero h2.phone-title { font-size: 36px; }
         }
 
-        .dropdown-trigger {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
+        /* ─── PHONE MOCKUP HERO ─────────────────────────────── */
+        .phone-hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px 80px; position: relative; overflow: hidden; background: var(--bg); }
+        .phone-hero::before { content: ''; position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(232,114,10,0.18) 0%, transparent 65%); top: 50%; left: 50%; transform: translate(-50%, -40%); pointer-events: none; animation: bgPulse 6s ease-in-out infinite alternate; }
+        .phone-hero::after { content: ''; position: absolute; width: 500px; height: 400px; background: radial-gradient(circle, rgba(212,165,32,0.12) 0%, transparent 70%); bottom: 0; left: 50%; transform: translateX(-50%); pointer-events: none; }
+        @keyframes bgPulse { from { opacity: .6; transform: translate(-50%, -40%) scale(1); } to { opacity: 1; transform: translate(-50%, -42%) scale(1.08); } }
 
-        .dropdown-trigger i {
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-        }
+        .headline-wrap { text-align: center; position: relative; z-index: 2; margin-bottom: 14px; animation: fadeUp .9s cubic-bezier(.22,1,.36,1) both; }
+        .eyebrow { display: inline-block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--saffron); font-weight: 500; margin-bottom: 16px; opacity: 0.85; }
+        .phone-hero h2.phone-title { font-family: var(--font-display); font-size: clamp(38px, 6vw, 80px); line-height: 1.05; letter-spacing: -0.02em; color: var(--ivory); max-width: 700px; margin: 0 auto; clear: both;}
+        .phone-hero h2.phone-title em { font-style: italic; color: var(--saffron); }
 
-        .nav-dropdown:hover .dropdown-trigger i {
-            transform: rotate(180deg);
-        }
+        .phone-hero .subtext { font-size: 15px; color: var(--mist); font-weight: 300; max-width: 480px; line-height: 1.65; text-align: center; margin: 0 auto 22px; animation: fadeUp .9s .15s cubic-bezier(.22,1,.36,1) both; position: relative; z-index: 2; }
+        .cta-group { display: flex; gap: 12px; justify-content: center; animation: fadeUp .9s .25s cubic-bezier(.22,1,.36,1) both; margin-bottom: 52px; position: relative; z-index: 2; }
+        .btn-primary { background: var(--ivory); color: var(--bg-deep); padding: 13px 28px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; }
+        .btn-primary:hover { background: var(--saffron); transform: translateY(-2px); }
+        .btn-ghost { border: 1px solid rgba(255,255,255,0.2); color: var(--ivory); padding: 13px 28px; border-radius: 100px; font-size: 14px; font-weight: 500; text-decoration: none; transition: border-color .2s, transform .2s; }
+        .btn-ghost:hover { border-color: var(--saffron); transform: translateY(-2px); }
 
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-top: 15px;
-            background: rgba(20, 20, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 12px;
-            padding: 8px;
-            min-width: 200px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            z-index: 1000;
-        }
+        .phone-wrap { position: relative; z-index: 2; will-change: transform; transform-style: preserve-3d; margin: 0 auto 90px; width: 300px; }
+        .phone-scene { position: relative; width: 300px; }
+        .phone-frame { position: relative; width: 300px; }
+        .phone-bezel { width: 100%; display: block; position: relative; z-index: 3; pointer-events: none; filter: drop-shadow(0 40px 56px rgba(0,0,0,.6)) drop-shadow(0 8px 20px rgba(0,0,0,.3)); }
+        .phone-screen-area { position: absolute; top: 2.2%; left: 4.5%; right: 4.5%; bottom: 2.2%; border-radius: 36px; overflow: hidden; z-index: 2; cursor: grab; background: #000; }
+        .phone-screen-area:active { cursor: grabbing; }
+        .screen-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .75s cubic-bezier(.4,0,.2,1); }
+        .screen-slide.active { opacity: 1; }
 
-        .nav-dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            margin-top: 10px;
-        }
+        .screen-ui { width: 100%; height: 100%; display: flex; flex-direction: column; background: #0d0d0d; color: #fff; padding: 18px 16px; font-size: 11px; overflow: hidden; }
+        .status-bar { display: flex; justify-content: space-between; font-size: 10px; font-weight: 500; margin-bottom: 14px; opacity: .85; }
+        .app-header { font-size: 18px; font-weight: 600; letter-spacing: -.5px; margin-bottom: 4px; color: var(--gold); }
+        .balance-label { font-size: 10px; opacity: .45; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+        .balance-value { font-family: var(--font-display); font-size: 28px; letter-spacing: 1px; line-height: 1; margin-bottom: 16px; color: #fff; }
+        .balance-change { display: inline-block; background: rgba(50,200,100,.15); color: #32c864; border-radius: 100px; padding: 3px 10px; font-size: 10px; font-weight: 500; }
+        .quick-actions { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 16px 0; }
+        .qa-btn { background: rgba(255,255,255,.06); border-radius: 14px; padding: 10px 0 8px; text-align: center; }
+        .qa-icon { font-size: 14px; display: block; margin-bottom: 4px; color: var(--saffron); }
+        .qa-label { font-size: 9px; opacity: .7; }
+        .tx-list-title { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; opacity: .4; margin-bottom: 10px; }
+        .tx-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .tx-avatar { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; color: var(--gold); }
+        .tx-info { flex: 1; }
+        .tx-name { font-size: 11px; font-weight: 500; }
+        .tx-type { font-size: 9px; opacity: .4; }
+        .tx-amount { font-size: 11px; font-weight: 500; }
+        .tx-amount.neg { color: #fff; opacity: 0.6; }
+        .tx-amount.pos { color: #32c864; }
 
-        .dropdown-menu a {
-            display: block;
-            padding: 12px 16px;
-            color: #cbd5e1;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
+        .swap-ui { width: 100%; height: 100%; background: #0d0d0d; color: #fff; padding: 18px 16px; overflow: hidden; }
+        .swap-title { font-size: 20px; font-weight: 600; letter-spacing: -.5px; margin: 8px 0 16px; color: var(--ivory); }
+        .swap-box { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .swap-box.active { border-color: rgba(232,114,10,.6); background: rgba(232,114,10,.06); }
+        .coin-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--saffron); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0; }
+        .coin-icon.alt { background: #1a1a2e; border: 1px solid rgba(255,255,255,.15); font-size: 10px; color: var(--gold); }
+        .coin-info { flex: 1; }
+        .coin-name { font-size: 12px; font-weight: 600; }
+        .coin-ticker { font-size: 9px; opacity: .4; }
+        .coin-amount { font-size: 13px; font-weight: 600; letter-spacing: -.3px; }
+        .swap-arrow { text-align: center; font-size: 14px; margin: 6px 0; opacity: .5; }
+        .numpad { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-top: 12px; }
+        .num-key { background: rgba(255,255,255,.05); border-radius: 12px; padding: 8px; text-align: center; font-size: 14px; font-weight: 400; }
+        .swap-btn { width: 100%; background: #fff; color: #000; border-radius: 14px; padding: 12px; text-align: center; font-size: 13px; font-weight: 600; margin-top: 10px; transition: transform .2s; cursor: pointer; }
 
-        .dropdown-menu a:hover {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-            transform: translateX(5px);
-        }
+        .abstract-slide { width: 100%; height: 100%; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 16px; color: #fff; }
+        .abstract-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .abstract-slide .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 60%); }
+        .abstract-content { position: relative; z-index: 2; }
+        .abstract-tag { display: inline-block; background: rgba(255,255,255,.15); backdrop-filter: blur(8px); border-radius: 100px; padding: 4px 12px; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; border: 1px solid rgba(255,255,255,.2); }
+        .abstract-heading { font-family: var(--font-display); font-size: 26px; line-height: 1.15; letter-spacing: 1px; color: var(--gold); }
 
-        .dropdown-menu::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background: rgba(20, 20, 30, 0.95);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            transform: translateX(-50%) rotate(45deg);
-        }
-
-        /* Active nav link styling */
-        .nav-links a.active-link {
-            color: #fff !important;
-            text-decoration: underline;
-            text-decoration-color: #3b82f6;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 8px;
-        }
-
-        /* ===============================================
-           MINIMAL ELEGANT FOOTER - CLEAN & COMPACT
-           =============================================== */
-
-        .minimal-footer {
-            position: relative;
-            background: linear-gradient(180deg, #000000 0%, #0a0a15 100%);
-            overflow: hidden;
-            margin-top: 0;
-            /* Fixed glitch: removed gap */
-            z-index: 10;
-        }
-
-        /* Subtle Wave Separator */
-        .wave-divider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-        }
-
-        .wave-divider svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 60px;
-        }
-
-        .wave-divider .wave-shape {
-            fill: #000000;
-            opacity: 0.5;
-        }
-
-        /* Gentle Grid Background */
-        .subtle-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(59, 130, 246, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.5;
-        }
-
-        /* Main Container */
-        .footer-content {
-            position: relative;
-            z-index: 10;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 50px 40px 30px;
-        }
-
-        /* Top Section: Logo + Social + Contact */
-        .footer-main {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 25px;
-        }
-
-        /* Logo Section */
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            display: inline-flex;
-            align-items: baseline;
-            width: fit-content;
-            position: relative;
-            padding-bottom: 4px;
-        }
-
-        .footer-logo .logo-vigyan {
-            font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-            font-weight: 700;
-            font-style: italic;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 25%, #ffffff 50%, #fcd34d 75%, #fef3c7 100%);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
-            animation: footerShimmer 4s ease-in-out infinite;
-        }
-
-        @keyframes footerShimmer {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .footer-logo .logo-dot {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 1.2rem;
-            color: rgba(148, 163, 184, 0.5);
-            margin-left: 2px;
-        }
-
-        .footer-logo .logo-prep {
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            font-size: 0.9rem;
-            letter-spacing: 1.5px;
-            text-transform: lowercase;
-            color: rgba(148, 163, 184, 0.4);
-        }
-
-        .footer-logo::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.6), transparent);
-        }
-
-        .footer-logo:hover {
-            transform: translateY(-2px);
-        }
-
-        .footer-logo:hover .logo-vigyan {
-            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.7));
-        }
-
-        .footer-tagline {
-            color: #64748b;
-            font-size: 0.8rem;
-            max-width: 280px;
-        }
-
-        /* Social Icons */
-        .social-icons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .social-link {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px);
-            border-color: currentColor;
-            box-shadow: 0 8px 20px currentColor;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .social-link.instagram {
-            color: #e1306c;
-        }
-
-        .social-link.twitter {
-            color: #1da1f2;
-        }
-
-        .social-link.facebook {
-            color: #1877f2;
-        }
-
-        .social-link.whatsapp {
-            color: #25d366;
-        }
-
-        .social-link.linkedin {
-            color: #0a66c2;
-        }
-
-        /* Contact Section */
-        .footer-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: flex-end;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            color: #3b82f6;
-            transform: translateX(-5px);
-        }
-
-        .contact-item i {
-            width: 18px;
-            text-align: center;
-            color: #3b82f6;
-        }
-
-        .contact-item a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* Bottom Section: Copyright + Legal Links */
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-
-        .copyright {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .heart-icon {
-            color: #ec4899;
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            10%,
-            30% {
-                transform: scale(1.15);
-            }
-
-            20%,
-            40% {
-                transform: scale(1);
-            }
-        }
-
-        .legal-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .legal-link {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .legal-link::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            transition: width 0.3s ease;
-        }
-
-        .legal-link:hover {
-            color: #3b82f6;
-        }
-
-        .legal-link:hover::after {
-            width: 100%;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .footer-main {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 30px;
-            }
-
-            .footer-brand {
-                align-items: center;
-            }
-
-            .footer-contact {
-                align-items: center;
-            }
-
-            .footer-tagline {
-                max-width: 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                padding: 40px 20px 25px;
-            }
-
-            .footer-logo {
-                font-size: 1.8rem;
-            }
-
-            .wave-divider svg {
-                height: 40px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-
-            .legal-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
+        .phone-dots { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 4; }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.2); transition: background .3s, width .3s; cursor: pointer; }
+        .dot.active { background: var(--saffron); width: 16px; border-radius: 100px; }
     </style>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-            }
-        }
-    </script>
-  <script type="module" crossorigin src="/vp-assets-v2/main-BOUKN3Bu.js"></script>
-  <link rel="modulepreload" crossorigin href="/vp-assets-v2/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/vp-assets-v2/auth-DRml2Tyt.js">
-  <link rel="stylesheet" crossorigin href="/vp-assets-v2/main-DBaU25z3.css">
-  <link rel="stylesheet" crossorigin href="/vp-assets-v2/user-panel-BgNCBU2W.css">
+  <script type="module" crossorigin src="/vp-assets-v2/main-S2vLwl-S.js"></script>
+  <link rel="modulepreload" crossorigin href="/vp-assets-v2/client-D7toR5zk.js">
 </head>
-
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- CRITICAL: Load config.js FIRST to set API_BASE_URL -->
-
-    <div class="bg-animation"></div>
-
-    <!-- IMMERSIVE SCIENCE VISUALIZATION -->
-    <canvas id="homepage-canvas"></canvas>
-    <div class="canvas-overlay"></div>
-
-    <nav class="navbar" id="navbar">
-        <div class="logo"><span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
-                class="logo-prep">prep</span></div>
-        <div class="nav-links">
-            <a href="index.html" class="active-link">Home</a>
-
-            <!-- About Dropdown -->
-            <div class="nav-dropdown">
-                <a href="#" class="dropdown-trigger">About <i class="fas fa-chevron-down"></i></a>
-                <div class="dropdown-menu">
-                    <a href="aboutpage.html">About Us</a>
-                    <a href="shoutouts.html">Shoutouts</a>
-                </div>
-            </div>
-
-            <a href="subtittlepyq.html">PYQ</a>
-            <a href="testfirstpage.html">Tests</a>
-
-            <!-- Future Career Dropdown -->
-            <div class="nav-dropdown">
-                <a href="#" class="dropdown-trigger">Future Career <i class="fas fa-chevron-down"></i></a>
-                <div class="dropdown-menu">
-                    <a href="future.html">Future Career</a>
-                    <a href="sciencenews.html">Science News</a>
-                </div>
-            </div>
-
-            <div id="navLoginPlaceholder">
-                <a href="signinpage.html?v=clean_v4" class="btn-login">Login</a>
-            </div>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-logo">Vigyan<span class="dot">.</span><span class="prep">prep</span></div>
+        <div class="preloader-ring">
+            <svg viewBox="0 0 100 100" width="100" height="100"><circle class="ring-bg"/><circle class="ring-fill" id="ring-fill"/></svg>
+            <div class="preloader-pct" id="preloader-pct">0%</div>
         </div>
+        <div class="preloader-label">Loading sequence</div>
+    </div>
 
-        <!-- Hamburger Menu Icon -->
-        <div class="hamburger">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
+    <!-- FLUID BAR NAVIGATION -->
+    <nav class="fluid-nav" id="fluid-nav">
+        <a href="index.html" class="nav-logo-pill">V</a>
+        <div class="fluid-nav-indicator" id="fluid-indicator"></div>
+        <span class="nav-links-group" style="display:flex;align-items:center;gap:4px">
+            <a href="index.html" class="active" data-nav>Home</a>
+            <a href="subtittlepyq.html" data-nav>PYQ</a>
+            <a href="testfirstpage.html" data-nav>Tests</a>
+            <a href="aboutpage.html" data-nav>About</a>
+            <a href="future.html" data-nav>Future</a>
+        </span>
+        <a href="signinpage.html" class="btn-login-pill">Login</a>
+        <div class="hamburger" id="hamburger"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
     </nav>
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html">Home</a><a href="aboutpage.html">About</a><a href="subtittlepyq.html">PYQ</a>
+        <a href="testfirstpage.html">Tests</a><a href="future.html">Future Career</a><a href="signinpage.html">Login</a>
+    </div>
 
+    <!-- ═══════ SEQUENCE SCROLL HERO ═══════ -->
+    <div id="sequence-scroll">
+        <div id="ov2-trigger" style="position: absolute; top: 94vh; height: 1px; width: 1px;"></div>
+        <div id="canvas-wrap">
+            <canvas id="seq-canvas"></canvas>
+            <div id="vignette"></div>
+            <div id="progress-bar"></div>
 
-    <section class="hero hero-with-canvas" id="hero">
-        <!-- Immersive 3D Science Background -->
-        <div class="hero-content">
-            <h1 class="hero-headline">
-                Gateway to <br><span class="highlight">Future Science</span>
-            </h1>
-            <p class="hero-subheadline">
-                India's premier platform for IISER, NISER, and research institute preparation.
-                Join thousands of students on their journey to scientific excellence.
-            </p>
-            <div class="hero-buttons">
-                <a href="testfirstpage.html" class="btn-primary-hero">
-                    Start Learning
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                </a>
-                <a href="#iiser" class="btn-secondary-hero">
-                    Explore Institutes
-                </a>
+            <!-- OV1: VIGYAN Dynamic Fill -->
+            <div class="overlay" id="ov1">
+                <div class="dynamic-fill-word" id="vigyan-text">
+                    VIGYAN
+                    <span class="fill-overlay" aria-hidden="true">VIGYAN</span>
+                </div>
             </div>
-            <div class="hero-trust">
-                <div class="trust-item">
-                    <div class="trust-number">10K+</div>
-                    <div class="trust-label">Students</div>
+
+            <!-- OV2: Tagline + Description -->
+            <div class="overlay" id="ov2">
+                <div id="react-hero"></div>
+                <!-- React module to inject SplitText -->
+            </div>
+
+            <!-- OV3: Stats -->
+            <div class="overlay" id="ov3">
+                <div class="ov-tag">Community</div>
+                <h2>10,000+ students rising</h2>
+                <div class="ov-stat">
+                    <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Questions</div></div>
+                    <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">IISERs</div></div>
+                    <div class="stat-item"><div class="stat-num">95%</div><div class="stat-label">Satisfaction</div></div>
                 </div>
-                <div class="trust-item">
-                    <div class="trust-number">500+</div>
-                    <div class="trust-label">Questions</div>
+            </div>
+
+            <!-- OV4: CTA -->
+            <div class="overlay" id="ov4">
+                <h2>Your future in science starts here</h2>
+                <p class="ov4-sub">Join thousands of aspirants who chose Vigyan.prep to prepare smarter.</p>
+                <div class="cta-row">
+                    <a href="testfirstpage.html" class="btn-gold">Start Learning <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <a href="#institutes" class="btn-outline">Explore Institutes</a>
                 </div>
-                <div class="trust-item">
-                    <div class="trust-number">7</div>
-                    <div class="trust-label">IISERs</div>
-                </div>
+            </div>
+
+            <div class="scroll-cue" id="scroll-cue">
+                <div class="scroll-cue-label">Scroll</div>
+                <div class="scroll-cue-track"><div class="scroll-cue-pip"></div></div>
             </div>
         </div>
-        <div class="scroll-hint">Scroll</div>
+    </div>
+
+    <!-- ═══════ IISER 3D CAROUSEL ═══════ -->
+    <section class="section-carousel" id="institutes">
+        <div class="section-header blur-fade"><h2>Premier Research Institutes</h2><p>Prepare for India's finest science education destinations</p></div>
+        <div class="category-label blur-fade">IISER — Indian Institutes of Science Education &amp; Research</div>
+        <div class="carousel-3d-viewport" id="carousel-viewport"><div class="carousel-3d-track" id="carousel-track"></div></div>
+        <div class="carousel-controls"><button class="carousel-btn" id="carousel-prev"><i class="fas fa-chevron-left"></i></button><div class="carousel-dots" id="carousel-dots"></div><button class="carousel-btn" id="carousel-next"><i class="fas fa-chevron-right"></i></button></div>
     </section>
 
-    <section class="institute-section" id="iiser">
-        <div class="category-header">
-            <h2>IISER</h2>
-            <p>Indian Institutes of Science Education and Research</p>
+    <!-- MARQUEE -->
+    <div class="marquee-section"><div class="marquee-track">
+        <span class="marquee-item">IISER IAT<span class="dot"></span></span><span class="marquee-item">NISER NEST<span class="dot"></span></span><span class="marquee-item">IISc Entrance<span class="dot"></span></span><span class="marquee-item">ISI Admission<span class="dot"></span></span><span class="marquee-item">Physics &bull; Chemistry &bull; Biology &bull; Maths<span class="dot"></span></span><span class="marquee-item">500+ PYQ Questions<span class="dot"></span></span><span class="marquee-item">Test Series<span class="dot"></span></span><span class="marquee-item">Expert Solutions<span class="dot"></span></span>
+        <span class="marquee-item">IISER IAT<span class="dot"></span></span><span class="marquee-item">NISER NEST<span class="dot"></span></span><span class="marquee-item">IISc Entrance<span class="dot"></span></span><span class="marquee-item">ISI Admission<span class="dot"></span></span><span class="marquee-item">Physics &bull; Chemistry &bull; Biology &bull; Maths<span class="dot"></span></span><span class="marquee-item">500+ PYQ Questions<span class="dot"></span></span><span class="marquee-item">Test Series<span class="dot"></span></span><span class="marquee-item">Expert Solutions<span class="dot"></span></span>
+    </div></div>
+
+    <!-- ═══════ PHONE MOCKUP HERO ═══════ -->
+    <section class="phone-hero">
+
+      <div class="headline-wrap">
+        <span class="eyebrow">Vigyan.prep App</span>
+        <h2 class="phone-title">Reimagine How You<br><em>Prepare</em> For Science</h2>
+      </div>
+
+      <p class="subtext">From mock tests and PYQs to interactive study materials — explore every corner of the science entrance exams universe with ease.</p>
+
+      <div class="cta-group">
+        <a href="testfirstpage.html" class="btn-primary">↓ Start Preparation</a>
+        <a href="#features" class="btn-ghost">See Features</a>
+      </div>
+
+      <div class="phone-wrap" id="phoneWrap">
+        <div class="phone-scene">
+          <div class="phone-frame">
+
+            <div class="phone-screen-area" id="phoneScreen">
+
+              <!-- Slide 1: Dashboard -->
+              <div class="screen-slide active" id="slide-0">
+                <div class="screen-ui">
+                  <div class="status-bar"><span>9:41</span><span>▌▌▌ ⟫ 🔋</span></div>
+                  <div class="app-header">Vigyan</div>
+                  <div class="balance-label">Total Score</div>
+                  <div class="balance-value">180 <span style="font-size:14px; color:#aaa;">/ 240</span></div>
+                  <span class="balance-change">+4.2% today</span>
+                  <div class="quick-actions">
+                    <div class="qa-btn"><span class="qa-icon"><i class="fas fa-file-alt"></i></span><span class="qa-label">Tests</span></div>
+                    <div class="qa-btn"><span class="qa-icon"><i class="fas fa-history"></i></span><span class="qa-label">PYQ</span></div>
+                    <div class="qa-btn"><span class="qa-icon"><i class="fas fa-book"></i></span><span class="qa-label">Notes</span></div>
+                    <div class="qa-btn"><span class="qa-icon"><i class="fas fa-flask"></i></span><span class="qa-label">Syllabus</span></div>
+                  </div>
+                  <div class="tx-list-title">Recent Activity</div>
+                  <div class="tx-item">
+                    <div class="tx-avatar"><i class="fas fa-atom"></i></div>
+                    <div class="tx-info"><div class="tx-name">Physics Mock 3</div><div class="tx-type">Completed</div></div>
+                    <div class="tx-amount pos">+45 Pts</div>
+                  </div>
+                  <div class="tx-item">
+                    <div class="tx-avatar" style="background:rgba(255,255,255,.08); color:var(--ivory);"><i class="fas fa-vial"></i></div>
+                    <div class="tx-info"><div class="tx-name">Chemistry PYQ 2021</div><div class="tx-type">Pending</div></div>
+                    <div class="tx-amount neg">In Progress</div>
+                  </div>
+                  <div class="tx-item">
+                    <div class="tx-avatar" style="background:rgba(255,255,255,.08); color:var(--ivory);"><i class="fas fa-calculator"></i></div>
+                    <div class="tx-info"><div class="tx-name">Maths Chapter Test</div><div class="tx-type">Completed</div></div>
+                    <div class="tx-amount pos">+38 Pts</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Compare -->
+              <div class="screen-slide" id="slide-1">
+                <div class="swap-ui">
+                  <div class="status-bar" style="margin-bottom:6px"><span>9:41</span><span>▌▌▌ ⟫ 🔋</span></div>
+                  <div class="swap-title">Analysis</div>
+                  <div class="swap-box active">
+                    <div class="coin-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="coin-info"><div class="coin-name">Target Score</div><div class="coin-ticker">IISER IAT</div></div>
+                    <div class="coin-amount">185</div>
+                  </div>
+                  <div class="swap-arrow">⇅</div>
+                  <div class="swap-box">
+                    <div class="coin-icon alt"><i class="fas fa-user-graduate"></i></div>
+                    <div class="coin-info"><div class="coin-name">Current Average</div><div class="coin-ticker">Mock Tests</div></div>
+                    <div class="coin-amount">142</div>
+                  </div>
+                  <div class="numpad">
+                    <div class="num-key">1</div><div class="num-key">2</div><div class="num-key">3</div>
+                    <div class="num-key">4</div><div class="num-key">5</div><div class="num-key">6</div>
+                    <div class="num-key">7</div><div class="num-key">8</div><div class="num-key">9</div>
+                    <div class="num-key">.</div><div class="num-key">0</div><div class="num-key">⌫</div>
+                  </div>
+                  <div class="swap-btn">View Detailed Report</div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Abstract -->
+              <div class="screen-slide" id="slide-2">
+                <div class="abstract-slide">
+                  <img src="https://framerusercontent.com/images/rioDBjHp4Ker1doqwtmPpPW9o.jpg" alt="bg" onerror="this.style.display='none'">
+                  <div class="overlay"></div>
+                  <div class="abstract-content">
+                    <span class="abstract-tag">Community</span>
+                    <div class="abstract-heading">Explore the<br>Science Universe</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <img class="phone-bezel"
+              src="https://framerusercontent.com/images/M5BYpFV5ukCc6wJlq4Wqvkzw.png"
+              alt="Phone frame"
+              onerror="this.style.opacity=0">
+
+          </div>
+
+          <div class="phone-dots">
+            <div class="dot active" data-idx="0"></div>
+            <div class="dot" data-idx="1"></div>
+            <div class="dot" data-idx="2"></div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="pendulum-container" data-section="iiser">
-            <div class="anchor-bar"></div>
+    <script>
+    /* ════════════════════════════════════════════════════
+       SLIDE CAROUSEL & ANIGRAVITY + SCROLL REVEAL
+    ════════════════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. SLIDESHOW ---
+        const slides  = document.querySelectorAll('.screen-slide');
+        const dots    = document.querySelectorAll('.dot');
+        let current   = 0;
+        let autoTimer = null;
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/IISER__PUNE_Logo-j0QtgjSi.svg"
-                            alt="IISER Pune Logo - Indian Institute of Science Education and Research">
-                    </div>
-                    <h4>Pune</h4>
-                    <p>Maharashtra</p>
-                </div>
-            </div>
+        function goTo(idx) {
+          if (!slides.length) return;
+          slides[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          current = (idx + slides.length) % slides.length;
+          slides[current].classList.add('active');
+          dots[current].classList.add('active');
+        }
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/IISER-K_Logo-DiQXsFpP.svg"
-                            alt="IISER Kolkata Logo - Indian Institute of Science Education and Research">
-                    </div>
-                    <h4>Kolkata</h4>
-                    <p>West Bengal</p>
-                </div>
-            </div>
+        function startAuto() {
+          clearInterval(autoTimer);
+          autoTimer = setInterval(() => goTo(current + 1), 3400);
+        }
+        if(slides.length > 0) startAuto();
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/IISER-Mohali_Logo-6-Gy2t-I.svg"
-                            alt="IISER Mohali Logo - Indian Institute of Science Education and Research">
-                    </div>
-                    <h4>Mohali</h4>
-                    <p>Punjab</p>
-                </div>
-            </div>
+        dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); startAuto(); }));
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/Indian_Institute_of_Science_Education_and_Research_Berhampur_Logo-B3KNS0tO.svg"
-                            alt="IISER Bhopal Logo - Indian Institute of Science Education and Research">
-                    </div>
-                    <h4>Bhopal</h4>
-                    <p>Madhya Pradesh</p>
-                </div>
-            </div>
+        let dragStartX = 0;
+        const phoneScreen = document.getElementById('phoneScreen');
+        if(phoneScreen) {
+            phoneScreen.addEventListener('pointerdown', e => { dragStartX = e.clientX; });
+            phoneScreen.addEventListener('pointerup',   e => {
+              const dx = e.clientX - dragStartX;
+              if (Math.abs(dx) > 28) { goTo(current + (dx < 0 ? 1 : -1)); startAuto(); }
+            });
+        }
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/IISER_Thiruvananthapuram_Logo-BIWHwTEI.svg"
-                            alt="IISER TVM Logo - Thiruvananthapuram">
-                    </div>
-                    <h4>TVM</h4>
-                    <p>Kerala</p>
-                </div>
-            </div>
+        // --- 2. SCROLL REVEAL (Wallet template style slide-up) ---
+        const phoneWrap = document.getElementById('phoneWrap');
+        if (!phoneWrap) return;
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/IISER_Tirupati_logo-_D3v-JxD.png" alt="IISER Tirupati Logo - Andhra Pradesh">
-                    </div>
-                    <h4>Tirupati</h4>
-                    <p>Andhra Pradesh</p>
-                </div>
-            </div>
+        // Ensure GSAP and ScrollTrigger are available before building the timeline
+        if (window.gsap && window.ScrollTrigger) {
+            // Give initial state (phone is "half down", lower in the section)
+            gsap.set(phoneWrap, {
+               y: 400,
+               opacity: 0.1
+            });
 
-            <div class="pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/IISERB_logo-GQTkw71M.png" alt="IISER Berhampur Logo - Odisha">
-                    </div>
-                    <h4>Berhampur</h4>
-                    <p>Odisha</p>
-                </div>
-            </div>
+            gsap.to(phoneWrap, {
+               scrollTrigger: {
+                 trigger: ".phone-hero",
+                 start: "top 60%", // Triggers when section is 60% up the viewport
+                 end: "top 10%",   // Fully revealed near top of screen
+                 scrub: 1.2,       // Smooth upward scroll scrub
+                 toggleActions: "play none none reverse"
+               },
+               y: 0,
+               opacity: 1,
+               ease: "power2.out"
+            });
+        }
+
+        // --- 3. GSAP MOUSE INTERACTION STATE ---
+        const phoneScene = document.querySelector('.phone-scene');
+        if(!phoneScene || !window.gsap) return;
+
+        let hovering = false;
+
+        // Idle float animation
+        const floatTween = gsap.to(phoneScene, {
+            y: -10,
+            duration: 2.2,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut"
+        });
+
+        // Event listeners for tracking
+        document.addEventListener('mousemove', e => {
+            if(!hovering) return;
+            const r = phoneWrap.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            
+            // Normalize distance to -1 .. 1
+            const nx = (e.clientX - cx) / (window.innerWidth * 0.5);
+            const ny = (e.clientY - cy) / (window.innerHeight * 0.5);
+
+            // Clamp max rotation
+            const clampX = Math.max(-1, Math.min(1, nx));
+            const clampY = Math.max(-1, Math.min(1, ny));
+
+            gsap.to(phoneScene, {
+                rotateY: clampX * 14,
+                rotateX: -clampY * 14,
+                duration: 0.6,
+                ease: "power2.out",
+                overwrite: "auto"
+            });
+        });
+
+        phoneWrap.addEventListener('mouseenter', () => {
+            hovering = true;
+            floatTween.pause();
+            gsap.to(phoneScene, { scale: 1.035, y: 0, duration: 0.4, ease: "back.out(1.5)", overwrite: "auto" });
+        });
+
+        phoneWrap.addEventListener('mouseleave', () => {
+            hovering = false;
+            gsap.to(phoneScene, { rotateX: 0, rotateY: 0, scale: 1, duration: 0.7, ease: "power3.out", overwrite: "auto", onComplete: () => floatTween.play() });
+        });
+    });
+    </script>
+
+    <!-- FEATURES -->
+    <section class="section-features" id="features">
+        <div class="particles-container" id="particles-features"></div>
+        <div class="section-header blur-fade"><h2>Why Vigyan.prep?</h2><p>Everything you need to crack IISER, NISER, and top research institute exams</p></div>
+        <div class="features-grid">
+            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-flask"></i></div><h3>Curated Question Banks</h3><p>500+ hand-picked past-year questions with detailed solutions.</p></div>
+            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-chart-line"></i></div><h3>Adaptive Test Series</h3><p>AI-powered mock tests mirroring the exact exam pattern of IAT and NEST.</p></div>
+            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-microscope"></i></div><h3>Research-Level Depth</h3><p>Content designed by researchers and alumni from IISER, IISc, and NISER.</p></div>
+            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-users"></i></div><h3>Peer Community</h3><p>Join 10,000+ aspirants discussing strategies and sharing notes.</p></div>
+            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-calendar-check"></i></div><h3>Structured Study Plans</h3><p>Week-by-week schedules tailored for IAT, NEST, and IISc exams.</p></div>
+            <div class="feature-card blur-fade"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3>Instant Doubt Resolution</h3><p>Expert panel answers within hours. Never stay stuck.</p></div>
         </div>
     </section>
 
-    <section class="institute-section" id="prestige">
-        <div class="category-header">
-            <h2>Prestige</h2>
-            <p>Institutes of National Importance</p>
-        </div>
+    <!-- STATS -->
+    <div class="stats-strip" id="stats-strip">
+        <div class="stat-counter blur-fade"><div><span class="counter-num" data-target="10000">0</span><span class="counter-suffix">+</span></div><div class="counter-label">Students</div></div>
+        <div class="stat-counter blur-fade"><div><span class="counter-num" data-target="500">0</span><span class="counter-suffix">+</span></div><div class="counter-label">Questions</div></div>
+        <div class="stat-counter blur-fade"><div><span class="counter-num" data-target="7">0</span><span class="counter-suffix"></span></div><div class="counter-label">IISERs Covered</div></div>
+        <div class="stat-counter blur-fade"><div><span class="counter-num" data-target="95">0</span><span class="counter-suffix">%</span></div><div class="counter-label">Satisfaction</div></div>
+    </div>
 
-        <div class="pendulum-container" data-section="prestige">
-            <div class="anchor-bar"></div>
+    <!-- FOOTER -->
+    <footer class="site-footer"><div class="footer-inner">
+        <div class="footer-copy">© 2026 Vigyan.prep — Made with <span class="heart">♥</span> for future scientists</div>
+        <div class="footer-links"><a href="aboutpage.html">About</a><a href="subtittlepyq.html">PYQ</a><a href="testfirstpage.html">Tests</a><a href="signinpage.html">Login</a></div>
+    </div></footer>
 
-            <div class="pendulum prestige-pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/Indian_Institute_of_Science_2019_logo-BMz0_JOC.svg" alt="IISc">
-                    </div>
-                    <h4>IISc</h4>
-                    <p>Karnataka</p>
-                </div>
-            </div>
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/lenis@1.3.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+    (function(){
+    'use strict';
 
-            <div class="pendulum prestige-pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/Indianstatisticalinstitutelogo-BID9kOBA.svg" alt="ISI">
-                    </div>
-                    <h4>ISI</h4>
-                    <p>West Bengal</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    // ─── CONFIG ──────────────────────────────────────────
+    const TOTAL_FRAMES = 192;
+    const BG_COLOR = '#241e12';
+    const SEQ_PATH = 'frontend/images/ezgif-4ec2de67ef3f3698-jpg/';
+    const frameURL = i => `${SEQ_PATH}ezgif-frame-${String(i+1).padStart(3,'0')}.jpg`;
 
-    <section class="institute-section" id="niser">
-        <div class="category-header">
-            <h2>NISER</h2>
-            <p>National Institute of Science Education and Research</p>
-        </div>
+    // ─── DOM ─────────────────────────────────────────────
+    const canvas = document.getElementById('seq-canvas');
+    const ctx = canvas.getContext('2d');
+    const canvasWrap = document.getElementById('canvas-wrap');
+    const progressBar = document.getElementById('progress-bar');
+    const scrollCue = document.getElementById('scroll-cue');
+    const preloader = document.getElementById('preloader');
+    const ringFill = document.getElementById('ring-fill');
+    const pctDisplay = document.getElementById('preloader-pct');
+    const fluidNav = document.getElementById('fluid-nav');
+    const ov1 = document.getElementById('ov1');
+    const ov2 = document.getElementById('ov2');
+    const ov3 = document.getElementById('ov3');
+    const ov4 = document.getElementById('ov4');
+    const vigyanText = document.getElementById('vigyan-text');
 
-        <div class="pendulum-container" data-section="niser">
-            <div class="anchor-bar"></div>
+    // ─── STATE ────────────────────────────────────────────
+    const frames = new Array(TOTAL_FRAMES);
+    let currentFrame = 0, canvasW, canvasH, dpr;
+    const CIRC = 2 * Math.PI * 44;
 
-            <div class="pendulum niser-pendulum">
-                <div class="pendulum-string"></div>
-                <div class="pendulum-card">
-                    <div class="pendulum-logo">
-                        <img src="/vp-assets-v2/National_Institute_of_Science_Education_and_Research-C3P1Jbpv.svg" alt="NISER">
-                    </div>
-                    <h4>NISER</h4>
-                    <p>Bhubaneswar</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    // ─── OVERLAY CONFIG ──────────────────────────────────
+    // OV1: VIGYAN text — appears first, with dynamic fill
+    // OV2: Tagline — appears as student walks
+    // OV3: Stats — community numbers
+    // OV4: CTA — appears when student sits to read
+    const overlays = [
+        { el: ov1, frameIn: -10, framePeak: 0,   frameOut: 40,  dx: 0,  dy: -20 },
+        { el: ov2, frameIn: 45,  framePeak: 70,  frameOut: 100, dx: 0,  dy: -20 },
+        { el: ov3, frameIn: 110, framePeak: 130, frameOut: 155, dx: 30, dy: 0   },
+        { el: ov4, frameIn: 160, framePeak: 175, frameOut: 191, dx: 0,  dy: 20  },
+    ];
 
-    <!-- ================================================
-         MINIMAL ELEGANT FOOTER - CLEAN & ESSENTIAL ONLY
-         ================================================ -->
-    <footer class="minimal-footer">
-        <!-- Subtle Wave Divider -->
-        <div class="wave-divider">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path
-                    d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-                    class="wave-shape"></path>
-            </svg>
-        </div>
+    // ─── PRELOAD ALL 192 FRAMES ──────────────────────────
+    function preloadFrames() {
+        return new Promise(resolve => {
+            let loaded = 0;
+            for (let i = 0; i < TOTAL_FRAMES; i++) {
+                const img = new Image();
+                img.src = frameURL(i);
+                const onDone = () => {
+                    loaded++;
+                    const pct = loaded / TOTAL_FRAMES;
+                    ringFill.style.strokeDashoffset = CIRC - pct * CIRC;
+                    pctDisplay.textContent = Math.round(pct * 100) + '%';
+                    if (loaded === TOTAL_FRAMES) resolve();
+                };
+                img.onload = () => { frames[i] = img; onDone(); };
+                img.onerror = () => { frames[i] = null; onDone(); };
+            }
+        });
+    }
 
-        <!-- Subtle Grid Background -->
-        <div class="subtle-grid"></div>
+    // ─── CANVAS SIZE (DPR-aware) ─────────────────────────
+    function sizeCanvas() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvasW = canvasWrap.clientWidth;
+        canvasH = canvasWrap.clientHeight;
+        canvas.width = canvasW * dpr;
+        canvas.height = canvasH * dpr;
+        canvas.style.width = canvasW + 'px';
+        canvas.style.height = canvasH + 'px';
+        ctx.scale(dpr, dpr);
+    }
 
-        <div class="footer-content">
-            <!-- Main Section: Logo + Social + Contact -->
-            <div class="footer-main">
-                <!-- Logo -->
-                <div class="footer-brand">
-                    <div class="footer-logo"><span class="logo-vigyan">Vigyan</span><span class="logo-dot">.</span><span
-                            class="logo-prep">prep</span></div>
-                    <p class="footer-tagline">Empowering future researchers</p>
-                </div>
+    // ─── DRAW FRAME (cover fit) ──────────────────────────
+    function drawFrame(idx) {
+        if (idx === currentFrame && ctx._lastDrawn === idx) return;
+        currentFrame = idx;
+        ctx._lastDrawn = idx;
+        const img = frames[idx];
+        if (!img) return;
+        ctx.clearRect(0, 0, canvasW, canvasH);
+        const imgAR = img.naturalWidth / img.naturalHeight;
+        const canAR = canvasW / canvasH;
+        let dw, dh, dx, dy;
+        if (imgAR > canAR) { dh = canvasH; dw = canvasH * imgAR; }
+        else { dw = canvasW; dh = canvasW / imgAR; }
+        dx = (canvasW - dw) / 2;
+        dy = (canvasH - dh) / 2;
+        ctx.drawImage(img, dx, dy, dw, dh);
+    }
 
-                <!-- Social Icons -->
-                <div class="social-icons">
-                    <a href="https://instagram.com/vigyan.prep" target="_blank" class="social-link instagram"
-                        title="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://twitter.com/vigyanprep" target="_blank" class="social-link twitter"
-                        title="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://facebook.com/vigyanprep" target="_blank" class="social-link facebook"
-                        title="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://wa.me/919876543210" target="_blank" class="social-link whatsapp" title="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://linkedin.com/company/vigyanprep" target="_blank" class="social-link linkedin"
-                        title="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div>
+    // ─── OVERLAY OPACITY ─────────────────────────────────
+    function getOpacity(frameIn, framePeak, frameOut, current) {
+        if (current < frameIn || current > frameOut) return 0;
+        if (current <= framePeak) return (current - frameIn) / (framePeak - frameIn);
+        return (frameOut - current) / (frameOut - framePeak);
+    }
 
-                <!-- Contact -->
-                <div class="footer-contact">
-                    <div class="contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <a href="tel:+919876543210">+91 98765 43210</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:contact@vigyanprep.com">contact@vigyanprep.com</a>
-                    </div>
-                </div>
-            </div>
+    // ─── UPDATE OVERLAYS ─────────────────────────────────
+    let vigyanFilled = false;
+    function updateOverlays(frame) {
+        for (const ov of overlays) {
+            const op = getOpacity(ov.frameIn, ov.framePeak, ov.frameOut, frame);
+            ov.el.style.opacity = op;
+            ov.el.style.filter = `blur(${(1 - op) * 8}px)`;
+            const shift = 1 - op;
+            if (ov.el.id === 'ov1' || ov.el.id === 'ov2')
+                ov.el.style.transform = `translate(-50%, calc(-50% + ${shift * ov.dy}px))`;
+            else if (ov.el.id === 'ov4')
+                ov.el.style.transform = `translateX(-50%) translateY(${shift * ov.dy}px)`;
+            else if (ov.el.id === 'ov3')
+                ov.el.style.transform = `translateY(-50%) translateX(${shift * ov.dx}px)`;
+        }
 
-            <!-- Bottom Section: Copyright + Legal -->
-            <div class="footer-bottom">
-                <div class="copyright">
-                    © 2025 Vigyan.prep • Made with <span class="heart-icon">♥</span> for future researchers
-                </div>
-                <div class="legal-links">
-                    <a href="frontend/footer/privacy.html" class="legal-link">Privacy</a>
-                    <a href="frontend/footer/terms.html" class="legal-link">Terms</a>
-                    <a href="frontend/footer/refund.html" class="legal-link">Refund</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        // Dynamic fill: fill VIGYAN when it's visible
+        if (!vigyanFilled && frame >= 0) {
+            vigyanFilled = true;
+            setTimeout(() => vigyanText.classList.add('filled'), 300);
+        }
 
+        // Trigger React Hero Text animation perfectly at frame 43
+        if (!window.reactTextPlayed && frame >= 43) {
+            window.reactTextPlayed = true;
+            window.dispatchEvent(new Event('playReactHero'));
+        }
+    }
 
-    <!-- Three.js for immersive science visualization -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    // ─── INIT GSAP SEQUENCE ──────────────────────────────
+    function initSequence() {
+        gsap.registerPlugin(ScrollTrigger);
 
+        // ── LENIS SMOOTH SCROLL ──
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(time => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        sizeCanvas();
+        drawFrame(0);
+        updateOverlays(0);
+
+        // ── MASTER TWEEN: scroll → frame index ──
+        const frameObj = { frame: 0 };
+        gsap.to(frameObj, {
+            frame: TOTAL_FRAMES - 1,
+            snap: 'frame',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#sequence-scroll',
+                start: 'top top',
+                end: '+=400%',
+                pin: '#canvas-wrap',
+                scrub: 0.5,
+                anticipatePin: 1,
+                onUpdate(self) {
+                    const f = Math.round(frameObj.frame);
+                    drawFrame(f);
+                    updateOverlays(f);
+                    progressBar.style.width = (self.progress * 100) + '%';
+                    if (self.progress > 0.05) scrollCue.classList.add('hidden');
+                    else scrollCue.classList.remove('hidden');
+                }
+            }
+        });
+
+        // ── Nav scroll effect ──
+        ScrollTrigger.create({
+            start: 80, end: 99999,
+            onUpdate(self) {
+                if (self.scroll() > 80) fluidNav.classList.add('scrolled');
+                else fluidNav.classList.remove('scrolled');
+            }
+        });
+
+        // ── FLUID NAV INDICATOR ──
+        const indicator = document.getElementById('fluid-indicator');
+        const navLinks = document.querySelectorAll('[data-nav]');
+        function moveIndicator(el) {
+            const navRect = fluidNav.getBoundingClientRect();
+            const elRect = el.getBoundingClientRect();
+            indicator.style.left = (elRect.left - navRect.left) + 'px';
+            indicator.style.width = elRect.width + 'px';
+            indicator.classList.add('active');
+        }
+        navLinks.forEach(link => link.addEventListener('mouseenter', () => moveIndicator(link)));
+        fluidNav.addEventListener('mouseleave', () => {
+            const active = fluidNav.querySelector('[data-nav].active');
+            if (active) moveIndicator(active); else indicator.classList.remove('active');
+        });
+        const initActive = fluidNav.querySelector('[data-nav].active');
+        if (initActive) setTimeout(() => moveIndicator(initActive), 100);
+
+        // ── IISER CAROUSEL ──
+        const iiserData = [
+            { name:'IISER Pune', city:'Pune', state:'Maharashtra', img:'https://scontent.fbho2-1.fna.fbcdn.net/v/t39.30808-6/489811824_1113412754154114_3927684988004866058_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=2a1932&_nc_ohc=IpoXyuXrI3QQ7kNvwHHqbAm&_nc_oc=AdlCd6OfJJcPPbuDG4Y1E3N6qWdaDTgAY2vjvy0s8rK667mmEDM7c4iTolAdAyEt7mIAocCOPKsV1YTlz1hLofrA&_nc_zt=23&_nc_ht=scontent.fbho2-1.fna&_nc_gid=424_Nycgg30TtwN9JwkbYw&_nc_ss=8&oh=00_Afy6E5_hOewB6nDh7eRTvrq0dvJU5EJaNicDGlMv_cgU8g&oe=69BA4D8A', logo:'frontend/images/IISER,_PUNE_Logo.svg' },
+            { name:'IISER Kolkata', city:'Kolkata', state:'West Bengal', img:'https://www.iiserkol.ac.in/~outreach/images/gallery-image1.JPG', logo:'frontend/images/IISER-K_Logo.svg' },
+            { name:'IISER Mohali', city:'Mohali', state:'Punjab', img:'https://web.iisermohali.ac.in/iisermcc/images/iiser/informatics.jpg', logo:'frontend/images/IISER-Mohali_Logo.svg' },
+            { name:'IISER Bhopal', city:'Bhopal', state:'Madhya Pradesh', img:'https://www.vidyavision.com/CollegeUploads/Photos/2022-03-1-13-45-45_IISER2.jpg', logo:'frontend/images/IISERB_logo.png' },
+            { name:'IISER TVM', city:'Thiruvananthapuram', state:'Kerala', img:'https://i.ytimg.com/vi/UQn9uB1KSqk/hq720.jpg', logo:'frontend/images/IISER_Thiruvananthapuram_Logo.svg' },
+            { name:'IISER Tirupati', city:'Tirupati', state:'Andhra Pradesh', img:'https://education.sakshi.com/sites/default/files/images/2026/01/19/iiser-tirupati-nonfaculty-1768823729.jpg', logo:'frontend/images/IISER_Tirupati_logo.png' },
+            { name:'IISER Berhampur', city:'Berhampur', state:'Odisha', img:'https://www.iiserbpr.ac.in/webcontrol/uploads/gallery/1733375000_2.jpeg', logo:'frontend/images/IISERB_logo.png' }
+        ];
+        const track = document.getElementById('carousel-track');
+        const dotsC = document.getElementById('carousel-dots');
+        let currentSlide = 0;
+        const total = iiserData.length;
+
+        iiserData.forEach((inst, i) => {
+            const card = document.createElement('div');
+            card.className = 'carousel-3d-card';
+            card.innerHTML = `<img class="carousel-card-img" src="${inst.img}" alt="${inst.name}" onerror="this.style.background='linear-gradient(135deg,#1a1a1a,#2a2a2a)';this.style.height='220px'"><div class="carousel-card-body"><img class="carousel-card-logo" src="${inst.logo}" alt="" onerror="this.style.display='none'"><h3>${inst.name}</h3><div class="card-location">${inst.city}</div><div class="card-state">${inst.state}</div></div>`;
+            track.appendChild(card);
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot' + (i===0?' active':'');
+            dot.onclick = () => goToSlide(i);
+            dotsC.appendChild(dot);
+        });
+        const cards = track.querySelectorAll('.carousel-3d-card');
+        const dots = dotsC.querySelectorAll('.carousel-dot');
+
+        function updateCarousel() {
+            cards.forEach((card, i) => {
+                const off = i - currentSlide, abs = Math.abs(off);
+                card.style.transform = `translateX(${off*350}px) translateZ(${-abs*200}px) rotateY(${off*-15}deg) scale(${abs>2?.7:1-abs*.1})`;
+                card.style.opacity = abs>2?0:1-abs*.3;
+                card.style.zIndex = total - abs;
+                card.classList.toggle('center', i===currentSlide);
+            });
+            dots.forEach((d,i) => d.classList.toggle('active', i===currentSlide));
+        }
+        function goToSlide(n) { currentSlide = ((n%total)+total)%total; updateCarousel(); }
+        document.getElementById('carousel-prev').onclick = () => goToSlide(currentSlide-1);
+        document.getElementById('carousel-next').onclick = () => goToSlide(currentSlide+1);
+        updateCarousel();
+        let autoR = setInterval(() => goToSlide(currentSlide+1), 4000);
+        document.getElementById('carousel-viewport').onmouseenter = () => clearInterval(autoR);
+        document.getElementById('carousel-viewport').onmouseleave = () => { autoR = setInterval(() => goToSlide(currentSlide+1), 4000); };
+
+        // ── Institute card stagger ──
+        gsap.utils.toArray('.carousel-3d-card').forEach((card, i) => {
+            gsap.from(card, { y:40, opacity:0, duration:.7, delay:i*.06, ease:'power2.out', scrollTrigger:{ trigger:card, start:'top 90%', toggleActions:'play none none none' } });
+        });
+
+        // ── Blur-fade reveals ──
+        const revealObs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); revealObs.unobserve(e.target); } });
+        }, { threshold:.15, rootMargin:'0px 0px -40px 0px' });
+        document.querySelectorAll('.blur-fade').forEach(el => revealObs.observe(el));
+
+        // ── Number counters ──
+        const counterObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if(e.isIntersecting){
+                    const el=e.target, target=parseInt(el.dataset.target), obj={val:0};
+                    gsap.to(obj,{val:target,duration:2.2,ease:'power2.out',onUpdate(){el.textContent=Math.round(obj.val).toLocaleString()}});
+                    counterObs.unobserve(el);
+                }
+            });
+        }, { threshold:.5 });
+        document.querySelectorAll('.counter-num').forEach(el => counterObs.observe(el));
+
+        // ── Floating particles ──
+        const pc = document.getElementById('particles-features');
+        if(pc){ for(let i=0;i<24;i++){ const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*100+'%';p.style.width=p.style.height=(1+Math.random()*2)+'px';pc.appendChild(p);gsap.to(p,{y:-60-Math.random()*80,x:(Math.random()-.5)*40,opacity:.15+Math.random()*.3,duration:3+Math.random()*4,repeat:-1,yoyo:true,delay:Math.random()*3,ease:'sine.inOut'}); } }
+
+        // ── Feature card tilt ──
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', e => { const r=card.getBoundingClientRect(); gsap.to(card,{rotateY:((e.clientX-r.left)/r.width-.5)*6,rotateX:-((e.clientY-r.top)/r.height-.5)*6,transformPerspective:800,duration:.4,ease:'power2.out'}); });
+            card.addEventListener('mouseleave', () => gsap.to(card,{rotateY:0,rotateX:0,duration:.6,ease:'elastic.out(1,.5)'}));
+        });
+
+        // ── Resize ──
+        let resizeT;
+        window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { sizeCanvas(); drawFrame(currentFrame); }, 120); });
+    }
+
+    // ─── HAMBURGER ───
+    document.getElementById('hamburger').onclick = () => document.getElementById('mobile-nav').classList.toggle('open');
+    document.querySelectorAll('#mobile-nav a').forEach(a => a.onclick = () => document.getElementById('mobile-nav').classList.remove('open'));
+
+    // ─── BOOT ────────────────────────────────────────────
+    preloadFrames().then(() => {
+        preloader.classList.add('done');
+        setTimeout(initSequence, 400);
+    });
+
+    })();
+    </script>
 </body>
-
 </html>
