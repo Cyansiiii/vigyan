@@ -13,7 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.18/dist/lenis.css">
     <style>
         @font-face {
@@ -1127,48 +1127,326 @@
             transform: translateY(0)
         }
 
+        /* ═══ EDITORIAL FOOTER ═══ */
         .site-footer {
-            background: #0c0a06;
-            border-top: 1px solid var(--rim);
-            padding: 40px 40px 28px
+            background: #0D0A08;
+            padding: 40px 16px 32px;
         }
 
-        .footer-inner {
+        .footer-card {
             max-width: 1200px;
             margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            background-color: #0D0A08;
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(196, 82, 0, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(255, 245, 238, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(13, 10, 8, 1) 0%, transparent 100%);
+            box-shadow: 0 30px 60px -15px rgba(52, 16, 0, 0.4);
+            padding: 48px 32px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-card {
+                padding: 64px 48px;
+                gap: 64px;
+            }
+        }
+
+        /* CTA Row */
+        .footer-cta-row {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-cta-row {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-cta-row h2 {
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 100;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            line-height: 1.15;
+            max-width: 600px;
+        }
+
+        .footer-cta-btn {
+            display: inline-flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px
+            gap: 10px;
+            background: #fff;
+            color: #0D0A08;
+            padding: 14px 32px;
+            border-radius: 9999px;
+            border: none;
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 700;
+            font-size: .72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s;
+            box-shadow: 0 8px 24px rgba(0,0,0,.3);
+            flex-shrink: 0;
+            text-decoration: none;
         }
 
-        .footer-copy {
-            font-family: var(--font-body);
+        .footer-cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px rgba(196, 82, 0, .25);
+        }
+
+        .footer-cta-btn:active {
+            transform: scale(0.95);
+        }
+
+        .footer-cta-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Content Grid */
+        .footer-content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content-grid {
+                grid-template-columns: 5fr 7fr;
+                gap: 64px;
+            }
+        }
+
+        /* Subscription Column */
+        .footer-subscribe h3 {
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 700;
+            font-size: .72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .footer-subscribe p {
+            font-family: 'Manrope', var(--font-body);
             font-weight: 300;
-            font-size: .78rem;
-            color: var(--ghost)
+            font-size: .92rem;
+            color: #FFE8D6;
+            line-height: 1.7;
+            max-width: 380px;
+            margin-bottom: 24px;
         }
 
-        .footer-copy .heart {
-            color: #ec4899
-        }
-
-        .footer-links {
+        .footer-subscribe-input {
             display: flex;
-            gap: 24px
+            align-items: center;
+            padding: 5px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 420px;
+            transition: border-color .3s;
         }
 
-        .footer-links a {
-            font-family: var(--font-body);
-            font-weight: 400;
-            font-size: .78rem;
-            color: var(--ghost);
-            transition: color .3s
+        .footer-subscribe-input:focus-within {
+            border-color: rgba(196, 82, 0, 0.4);
         }
 
-        .footer-links a:hover {
-            color: var(--gold)
+        .footer-subscribe-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #FFE8D6;
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 300;
+            font-size: .85rem;
+            padding: 8px 20px;
+        }
+
+        .footer-subscribe-input input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-subscribe-btn {
+            background: #C45200;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            border: none;
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 700;
+            font-size: .62rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .4s, box-shadow .4s;
+            white-space: nowrap;
+        }
+
+        .footer-subscribe-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(196, 82, 0, 0.4);
+        }
+
+        .footer-subscribe-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Navigation Links */
+        .footer-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-nav-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-nav-col h4 {
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 700;
+            font-size: .72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-nav-col ul a {
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 300;
+            font-size: .88rem;
+            color: #FFE8D6;
+            text-decoration: none;
+            transition: color .4s, transform .4s;
+            display: inline-block;
+        }
+
+        .footer-nav-col ul a:hover {
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        /* Social Icons */
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .footer-social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color .4s, transform .4s;
+            font-size: 18px;
+        }
+
+        .footer-social-icon:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Bottom Bar */
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-bottom-copy {
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 300;
+            font-size: .68rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            order: 2;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom-copy {
+                order: 1;
+            }
+        }
+
+        .footer-bottom-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            order: 1;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom-brand {
+                order: 2;
+            }
+        }
+
+        .footer-bottom-brand span {
+            font-family: 'Manrope', var(--font-body);
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-bottom-brand .brand-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 9999px;
+            background: #C45200;
+            box-shadow: 0 0 10px #C45200;
         }
 
         .mobile-nav {
@@ -1255,13 +1533,13 @@
                 padding: 40px 20px
             }
 
-            .footer-inner {
-                flex-direction: column;
-                text-align: center
+            .footer-card {
+                padding: 32px 20px;
+                gap: 36px;
             }
 
-            .footer-links {
-                justify-content: center
+            .footer-nav-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
             .section-features {
@@ -1899,7 +2177,7 @@
         <div id="canvas-wrap">
             <!-- Fixed Logo for first section -->
             <a href="index.html" style="position: absolute; top: 24px; left: 32px; z-index: 2000; cursor: pointer;">
-                <img src="frontend/images/vigyan-logo.png" alt="Vigyan Logo" style="height: 56px; width: auto;">
+                <img src="frontend/images/vigyan-logo.png" alt="Vigyan Logo" style="height: 73px; width: auto;">
             </a>
             <canvas id="seq-canvas"></canvas>
             <div id="vignette"></div>
@@ -2293,13 +2571,97 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- ═══════ EDITORIAL FOOTER ═══════ -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-copy">© 2026 Vigyan.prep — Made with <span class="heart">♥</span> for future scientists
+        <div class="footer-card">
+            <!-- Row 1: CTA Section -->
+            <div class="footer-cta-row">
+                <h2>Ready to crack<br>your exam?</h2>
+                <a href="testfirstpage.html" class="footer-cta-btn">
+                    Explore Courses
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
             </div>
-            <div class="footer-links"><a href="aboutpage.html">About</a><a href="subtittlepyq.html">PYQ</a><a
-                    href="testfirstpage.html">Tests</a><a href="signinpage.html">Login</a></div>
+
+            <!-- Row 2: Content Grid -->
+            <div class="footer-content-grid">
+                <!-- Left: Subscription Column -->
+                <div class="footer-subscribe">
+                    <h3>Stay Updated</h3>
+                    <p>Get weekly current affairs, syllabus updates, and study tips delivered to your inbox.</p>
+                    <div class="footer-subscribe-input">
+                        <input type="email" placeholder="Your email address">
+                        <button class="footer-subscribe-btn">Subscribe</button>
+                    </div>
+                </div>
+
+                <!-- Right: Navigation Links -->
+                <div class="footer-nav-grid">
+                    <!-- Exams Group -->
+                    <div class="footer-nav-col">
+                        <h4>Exams</h4>
+                        <ul>
+                            <li><a href="iiserpyqhome.html">IISER IAT</a></li>
+                            <li><a href="niser-pyq.html">NISER NEST</a></li>
+                            <li><a href="subtittlepyq.html">Previous Year Papers</a></li>
+                            <li><a href="testfirstpage.html">Mock Tests</a></li>
+                        </ul>
+                    </div>
+                    <!-- Resources Group -->
+                    <div class="footer-nav-col">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="testfirstpage.html">Daily Quiz</a></li>
+                            <li><a href="subtittlepyq.html">Notes & PYQ</a></li>
+                            <li><a href="testfirstpage.html">Mock Tests</a></li>
+                            <li><a href="student-calendar.html">Exam Calendar</a></li>
+                        </ul>
+                    </div>
+                    <!-- Company Group -->
+                    <div class="footer-nav-col" style="grid-column: span 2;">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="aboutpage.html">About Us</a></li>
+                            <li><a href="shoutouts.html">Success Stories</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                        <!-- Social Icons -->
+                        <div class="footer-socials">
+                            <a href="#" class="footer-social-icon" aria-label="YouTube">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                            <a href="#" class="footer-social-icon" aria-label="Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="footer-social-icon" aria-label="Telegram">
+                                <i class="fa-brands fa-telegram"></i>
+                            </a>
+                            <a href="#" class="footer-social-icon" aria-label="LinkedIn">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="footer-social-icon" aria-label="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="#" class="footer-social-icon" aria-label="X">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-copy">
+                    © 2026 Vigyan Prep. The Enlightened Curator. All rights reserved.
+                </div>
+                <div class="footer-bottom-brand">
+                    <span>Vigyan Prep</span>
+                    <div class="brand-dot"></div>
+                </div>
+            </div>
         </div>
     </footer>
 
